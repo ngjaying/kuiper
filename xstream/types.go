@@ -2,29 +2,34 @@ package xstream
 
 import (
 	"context"
+	"engine/xsql"
+	"engine/xstream/checkpoint"
 )
 
 type Emitter interface {
-	AddOutput(chan<- interface{}, string)
+	AddOutput(chan<- *xsql.BufferOrEvent, string)
 }
 
 type Source interface {
 	Emitter
+	checkpoint.StreamTask
 	Open(context context.Context) error
 }
 
 type Collector interface {
-	GetInput() (chan<- interface{}, string)
+	GetInput() (chan<- *xsql.BufferOrEvent, string)
 }
 
 type Sink interface {
 	Collector
+	checkpoint.StreamTask
 	Open(context.Context, chan<- error)
 }
 
 type Operator interface{
 	Emitter
 	Collector
+	checkpoint.StreamTask
 	Exec(context context.Context) error
 }
 

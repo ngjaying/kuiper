@@ -3,6 +3,8 @@ package collectors
 import (
 	"context"
 	"engine/common"
+	"engine/xsql"
+	"engine/xstream/checkpoint"
 	"errors"
 )
 
@@ -16,25 +18,27 @@ type CollectorFunc func(context.Context, interface{}) error
 // of type:
 //   CollectorFunc
 type FuncCollector struct {
-	input chan interface{}
+	input chan *xsql.BufferOrEvent
 	//logf  api.LogFunc
 	//errf  api.ErrorFunc
 	f     CollectorFunc
 	name  string
+	barrierHandler checkpoint.BarrierHandler
+	inputCount int
 }
 
 // Func creates a new value *FuncCollector that
 // will use the specified function parameter to
 // collect streaming data.
 func Func(name string, f CollectorFunc) *FuncCollector {
-	return &FuncCollector{f: f, name:name, input: make(chan interface{}, 1024)}
+	return &FuncCollector{f: f, name:name, input: make(chan *xsql.BufferOrEvent, 1024)}
 }
 
 func (c *FuncCollector) GetName() string  {
 	return c.name
 }
 
-func (c *FuncCollector) GetInput() (chan<- interface{}, string)  {
+func (c *FuncCollector) GetInput() (chan<- *xsql.BufferOrEvent, string)  {
 	return c.input, c.name
 }
 
@@ -55,7 +59,14 @@ func (c *FuncCollector) Open(ctx context.Context, result chan<- error) {
 		for {
 			select {
 			case item := <-c.input:
-				if err := c.f(ctx, item); err != nil {
+				if c.barrierHandler != nil{
+					//may be blocking
+					isBarrier := c.barrierHandler.Process(item, ctx)
+					if isBarrier{
+						return
+					}
+				}
+				if err := c.f(ctx, item.Data); err != nil {
 					log.Println(err)
 				}
 			case <-ctx.Done():
@@ -64,4 +75,21 @@ func (c *FuncCollector) Open(ctx context.Context, result chan<- error) {
 			}
 		}
 	}()
+}
+
+func (c *FuncCollector) Broadcast(data interface{}) error{
+	//do nothing
+	return nil
+}
+
+func (c *FuncCollector) SetBarrierHandler(handler checkpoint.BarrierHandler) {
+	c.barrierHandler = handler
+}
+
+func (c *FuncCollector) AddInputCount(){
+	c.inputCount++
+}
+
+func (c *FuncCollector) GetInputCount() int{
+	return c.inputCount
 }

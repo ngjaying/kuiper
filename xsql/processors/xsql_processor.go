@@ -314,8 +314,12 @@ func (p *RuleProcessor) createTopo(rule *xstream.Rule) (*xstream.TopologyNew, []
 func (p *RuleProcessor) createTopoWithSources(rule *xstream.Rule, sources []xstream.Source) (*xstream.TopologyNew, []xstream.Emitter, error){
 	name := rule.Id
 	sql := rule.Sql
-	var isEventTime bool
-	var lateTol int64
+	//Read rule options
+	var (
+		isEventTime bool
+		lateTol int64
+		qos int
+	)
 	if iet, ok := rule.Options["isEventTime"]; ok{
 		isEventTime, ok = iet.(bool)
 		if !ok{
@@ -331,6 +335,13 @@ func (p *RuleProcessor) createTopoWithSources(rule *xstream.Rule, sources []xstr
 			}
 		}
 	}
+	if q, ok := rule.Options["qos"]; ok{
+		qos, ok = q.(int)
+		if !ok{
+			return nil, nil, fmt.Errorf("invalid rule option qos %v, int type required", q)
+		}
+	}
+	//End read rule options
 	shouldCreateSource := sources == nil
 	parser := xsql.NewParser(strings.NewReader(sql))
 	if stmt, err := xsql.Language.Parse(parser); err != nil{
@@ -426,6 +437,10 @@ func (p *RuleProcessor) createTopoWithSources(rule *xstream.Rule, sources []xstr
 				projectOp := xstream.Transform(&plans.ProjectPlan{Fields: selectStmt.Fields, IsAggregate: xsql.IsAggStatement(selectStmt)}, "project")
 				tp.AddOperator(inputs, projectOp)
 				inputs = []xstream.Emitter{projectOp}
+			}
+			//initialize chceckpoint
+			if qos >= 1 {
+				tp.EnableCheckpoint(qos)
 			}
 			return tp, inputs, nil
 		}

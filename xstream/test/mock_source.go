@@ -4,11 +4,12 @@ import (
 	"context"
 	"engine/common"
 	"engine/xsql"
+	"engine/xstream/checkpoint"
 	"time"
 )
 
 type MockSource struct {
-	outs map[string]chan<- interface{}
+	outs map[string]chan<- *xsql.BufferOrEvent
 	data []*xsql.Tuple
 	name string
 	done chan<- struct{}
@@ -20,7 +21,7 @@ func NewMockSource(data []*xsql.Tuple, name string, done chan<- struct{}, isEven
 	mock := &MockSource{
 		data: data,
 		name: name,
-		outs: make(map[string]chan<- interface{}),
+		outs: make(map[string]chan<- *xsql.BufferOrEvent),
 		done: done,
 		isEventTime: isEventTime,
 	}
@@ -44,9 +45,13 @@ func (m *MockSource) Open(ctx context.Context) (err error) {
 					timer.DoTick(d.Timestamp)
 				}
 			}
+			boe := &xsql.BufferOrEvent{
+				Data: d,
+				Channel: m.name,
+			}
 			for _, out := range m.outs{
 				select {
-				case out <- d:
+				case out <- boe:
 				case <-ctx.Done():
 					log.Trace("Mocksource stop")
 					return
@@ -70,10 +75,38 @@ func (m *MockSource) Open(ctx context.Context) (err error) {
 	return nil
 }
 
-func (m *MockSource) AddOutput(output chan<- interface{}, name string) {
+func (m *MockSource) AddOutput(output chan<- *xsql.BufferOrEvent, name string) {
 	if _, ok := m.outs[name]; !ok{
 		m.outs[name] = output
 	}else{
 		common.Log.Warnf("fail to add output %s, operator %s already has an output of the same name", name, m.name)
 	}
+}
+
+func (m *MockSource) Broadcast(data interface{}) error{
+	boe := &xsql.BufferOrEvent{
+		Data:      data,
+		Channel:   m.name,
+		Processed: false,
+	}
+	for _, out := range m.outs{
+		out <- boe
+	}
+	return nil
+}
+
+func (m *MockSource) AddInputCount(){
+	//Do nothing
+}
+
+func (m *MockSource) GetInputCount() int{
+	return 0
+}
+
+func (m *MockSource) GetName() string{
+	return m.name
+}
+
+func (m *MockSource) SetBarrierHandler(checkpoint.BarrierHandler) {
+	//DO nothing for sources as it only emits barrier
 }

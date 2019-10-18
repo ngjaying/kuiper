@@ -3,20 +3,23 @@ package test
 import (
 	"context"
 	"engine/common"
+	"engine/xsql"
+	"engine/xstream/checkpoint"
 )
 
 type MockSink struct {
 	ruleId   string
 	name 	 string
 	results  [][]byte
-	input chan interface{}
+	input chan *xsql.BufferOrEvent
+	inputCount int
 }
 
 func NewMockSink(name, ruleId string) *MockSink{
 	m := &MockSink{
 		ruleId:  ruleId,
 		name:    name,
-		input: make(chan interface{}),
+		input: make(chan *xsql.BufferOrEvent),
 	}
 	return m
 }
@@ -29,7 +32,7 @@ func (m *MockSink) Open(ctx context.Context, result chan<- error) {
 		for {
 			select {
 			case item := <-m.input:
-				if v, ok := item.([]byte); ok {
+				if v, ok := item.Data.([]byte); ok {
 					log.Infof("mock sink receive %s", item)
 					m.results = append(m.results, v)
 				}else{
@@ -44,10 +47,30 @@ func (m *MockSink) Open(ctx context.Context, result chan<- error) {
 	}()
 }
 
-func (m *MockSink) GetInput() (chan<- interface{}, string)  {
+func (m *MockSink) GetInput() (chan<- *xsql.BufferOrEvent, string)  {
 	return m.input, m.name
 }
 
 func (m *MockSink) GetResults() [][]byte {
 	return m.results
+}
+
+func (m *MockSink) Broadcast(interface {}) error{
+	return nil
+}
+
+func (m *MockSink) AddInputCount(){
+	m.inputCount++
+}
+
+func (m *MockSink) GetInputCount() int{
+	return m.inputCount
+}
+
+func (m *MockSink) GetName() string{
+	return m.name
+}
+
+func (m *MockSink) SetBarrierHandler(checkpoint.BarrierHandler) {
+	//DO nothing for sources as it only emits barrier
 }

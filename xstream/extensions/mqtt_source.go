@@ -5,11 +5,11 @@ import (
 	"encoding/json"
 	"engine/common"
 	"engine/xsql"
+	"engine/xstream/checkpoint"
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/go-yaml/yaml"
 	"github.com/google/uuid"
-	"os"
 	"time"
 )
 
@@ -19,10 +19,9 @@ type MQTTSource struct {
 	clientid string
 	schema   map[string]interface{}
 
-	outs  map[string]chan<- interface{}
+	outs  map[string]chan<- *xsql.BufferOrEvent
 	conn MQTT.Client
 	name 		string
-	//ctx context.Context
 }
 
 
@@ -44,7 +43,7 @@ func NewWithName(name string, topic string, confKey string) (*MQTTSource, error)
 	}
 
 	ms := &MQTTSource{tpc: topic, name: name}
-	ms.outs = make(map[string]chan<- interface{})
+	ms.outs = make(map[string]chan<- *xsql.BufferOrEvent)
 	if srvs := cfg[confKey].Servers; srvs != nil && len(srvs) > 1 {
 		return nil, fmt.Errorf("It only support one server in %s section.", confKey)
 	} else if srvs == nil {
@@ -66,14 +65,6 @@ func NewWithName(name string, topic string, confKey string) (*MQTTSource, error)
 	return ms, nil
 }
 
-func fileExists(filename string) bool {
-	info, err := os.Stat(filename)
-	if os.IsNotExist(err) {
-		return false
-	}
-	return !info.IsDir()
-}
-
 func (ms *MQTTSource) WithSchema(schema string) *MQTTSource {
 	return ms
 }
@@ -82,7 +73,7 @@ func (ms *MQTTSource) GetName() string {
 	return ms.name
 }
 
-func (ms *MQTTSource) AddOutput(output chan<- interface{}, name string) {
+func (ms *MQTTSource) AddOutput(output chan<- *xsql.BufferOrEvent, name string) {
 	if _, ok := ms.outs[name]; !ok{
 		ms.outs[name] = output
 	}else{
@@ -123,9 +114,7 @@ func (ms *MQTTSource) Open(ctx context.Context) error {
 				//Convert the keys to lowercase
 				result = xsql.LowercaseKeyMap(result)
 				tuple := &xsql.Tuple{Emitter: ms.tpc, Message:result, Timestamp: common.TimeToUnixMilli(time.Now())}
-				for _, out := range ms.outs{
-					out <- tuple
-				}
+				ms.Broadcast(tuple)
 			}
 		}
 
@@ -153,4 +142,28 @@ func (ms *MQTTSource) Open(ctx context.Context) error {
 	}()
 
 	return nil
+}
+
+func (ms *MQTTSource) Broadcast(data interface{}) error{
+	boe := &xsql.BufferOrEvent{
+		Data:      data,
+		Channel:   ms.name,
+		Processed: false,
+	}
+	for _, out := range ms.outs{
+		out <- boe
+	}
+	return nil
+}
+
+func (ms *MQTTSource) SetBarrierHandler(checkpoint.BarrierHandler) {
+	//DO nothing for sources as it only emits barrier
+}
+
+func (ms *MQTTSource) AddInputCount(){
+	//Do nothing
+}
+
+func (ms *MQTTSource) GetInputCount() int{
+	return 0
 }

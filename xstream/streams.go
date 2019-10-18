@@ -3,6 +3,7 @@ package xstream
 import (
 	"context"
 	"engine/common"
+	"engine/xstream/checkpoint"
 	"engine/xstream/operators"
 )
 
@@ -14,10 +15,11 @@ type TopologyNew struct {
 	drain chan error
 	ops []Operator
 	name string
+	qos int
 }
 
 func NewWithName(name string) *TopologyNew {
-	tp := &TopologyNew{name: name}
+	tp := &TopologyNew{name: name, qos: 0}
 	return tp
 }
 
@@ -37,6 +39,7 @@ func (s *TopologyNew) AddSrc(src Source) *TopologyNew {
 func (s *TopologyNew) AddSink(inputs []Emitter, snk Sink) *TopologyNew {
 	for _, input := range inputs{
 		input.AddOutput(snk.GetInput())
+		snk.AddInputCount()
 	}
 	s.sinks = append(s.sinks, snk)
 	return s
@@ -45,6 +48,7 @@ func (s *TopologyNew) AddSink(inputs []Emitter, snk Sink) *TopologyNew {
 func (s *TopologyNew) AddOperator(inputs []Emitter, operator Operator) *TopologyNew {
 	for _, input := range inputs{
 		input.AddOutput(operator.GetInput())
+		operator.AddInputCount()
 	}
 	s.ops = append(s.ops, operator)
 	return s
@@ -142,4 +146,24 @@ func (s *TopologyNew) Open() <-chan error {
 	}()
 
 	return s.drain
+}
+
+func (s *TopologyNew) EnableCheckpoint(qos int) error {
+	if qos >= 1{
+		var sources []checkpoint.StreamTask
+		for _, r := range s.sources{
+			sources = append(sources, r)
+		}
+		var ops []checkpoint.StreamTask
+		for _, r := range s.ops{
+			ops = append(ops, r)
+		}
+		var sinks []checkpoint.StreamTask
+		for _, r := range s.sinks{
+			sinks = append(sinks, r)
+		}
+		c := checkpoint.NewCoordinator(s.name, sources, ops, sinks, qos, s.ctx)
+		c.Activate()
+	}
+	return nil
 }

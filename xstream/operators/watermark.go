@@ -30,10 +30,10 @@ type WatermarkGenerator struct {
 	lateTolerance int64
 	interval	int
 	ticker 		common.Ticker
-	stream 	chan<- interface{}
+	stream 	chan<- *xsql.BufferOrEvent
 }
 
-func NewWatermarkGenerator(window *WindowConfig, l int64, s []string, stream chan<- interface{}) (*WatermarkGenerator, error){
+func NewWatermarkGenerator(window *WindowConfig, l int64, s []string, stream chan<- *xsql.BufferOrEvent) (*WatermarkGenerator, error){
 	w := &WatermarkGenerator{
 		window: window,
 		topicToTs: make(map[string]int64),
@@ -109,7 +109,11 @@ func (w *WatermarkGenerator) trigger(ctx context.Context) {
 	if watermark > w.lastWatermarkTs {
 		t := &WatermarkTuple{Timestamp: watermark}
 		select {
-		case w.stream <- t:
+		case w.stream <- &xsql.BufferOrEvent{
+			Data:      t,
+			Channel:   "watermark",
+			Processed: true,
+		}:
 		default: //TODO need to set buffer
 		}
 		w.lastWatermarkTs = watermark
@@ -202,7 +206,16 @@ func (o *WindowOperator) execEventWindow(ctx context.Context) {
 			if !opened {
 				break
 			}
-			if d, ok := item.(xsql.Event); !ok {
+			//TODO if water mark event blocked?
+			if o.barrierHandler != nil && !item.Processed{
+				//if it is barrier return true and ignore the further processing
+				//if it is blocked(align handler), return true and then write back to the channel later
+				isProcessed := o.barrierHandler.Process(item, ctx)
+				if isProcessed{
+					return
+				}
+			}
+			if d, ok := item.Data.(xsql.Event); !ok {
 				log.Errorf("Expect xsql.Event type")
 				break
 			}else{

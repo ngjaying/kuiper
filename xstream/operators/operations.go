@@ -3,6 +3,8 @@ package operators
 import (
 	"context"
 	"engine/common"
+	"engine/xsql"
+	"engine/xstream/checkpoint"
 	"fmt"
 	"sync"
 )
@@ -20,16 +22,16 @@ func (f UnFunc) Apply(ctx context.Context, data interface{}) interface{} {
 	return f(ctx, data)
 }
 
-
-
 type UnaryOperator struct {
 	op          UnOperation
 	concurrency int
-	input       chan interface{}
-	outputs     map[string]chan<- interface{}
+	input       chan *xsql.BufferOrEvent
+	outputs     map[string]chan<- *xsql.BufferOrEvent
 	mutex       sync.RWMutex
 	cancelled   bool
 	name 		string
+	barrierHandler checkpoint.BarrierHandler
+	inputCount  int
 }
 
 // NewUnary creates *UnaryOperator value
@@ -38,8 +40,8 @@ func New(name string) *UnaryOperator {
 	o := new(UnaryOperator)
 
 	o.concurrency = 1
-	o.input = make(chan interface{}, 1024)
-	o.outputs = make(map[string]chan<- interface{})
+	o.input = make(chan *xsql.BufferOrEvent, 1024)
+	o.outputs = make(map[string]chan<- *xsql.BufferOrEvent)
 	o.name = name
 	return o
 }
@@ -61,7 +63,7 @@ func (o *UnaryOperator) SetConcurrency(concurr int) {
 	}
 }
 
-func (o *UnaryOperator) AddOutput(output chan<- interface{}, name string) {
+func (o *UnaryOperator) AddOutput(output chan<- *xsql.BufferOrEvent, name string) {
 	if _, ok := o.outputs[name]; !ok{
 		o.outputs[name] = output
 	}else{
@@ -69,7 +71,7 @@ func (o *UnaryOperator) AddOutput(output chan<- interface{}, name string) {
 	}
 }
 
-func (o *UnaryOperator) GetInput() (chan<- interface{}, string) {
+func (o *UnaryOperator) GetInput() (chan<- *xsql.BufferOrEvent, string) {
 	return o.input, o.name
 }
 
@@ -138,43 +140,23 @@ func (o *UnaryOperator) doOp(ctx context.Context) {
 		select {
 		// process incoming item
 		case item := <-o.input:
-			result := o.op.Apply(exeCtx, item)
-
+			if o.barrierHandler != nil && !item.Processed{
+				//if it is barrier return true and ignore the further processing
+				//if it is blocked(align handler), return true and then write back to the channel later
+				isProcessed := o.barrierHandler.Process(item, ctx)
+				if isProcessed{
+					return
+				}
+			}
+			result := o.op.Apply(exeCtx, item.Data)
 			switch val := result.(type) {
 			case nil:
-				continue
-			//case api.StreamError:
-			//	fmt.Println( val)
-			//	fmt.Println( val)
-			//	if item := val.Item(); item != nil {
-			//		select {
-			//		case o.output <- *item:
-			//		case <-exeCtx.Done():
-			//			return
-			//		}
-			//	}
-			//	continue
-			//case api.PanicStreamError:
-			//	util.Logfn(o.logf, val)
-			//	autoctx.Err(o.errf, api.StreamError(val))
-			//	panic(val)
-			//case api.CancelStreamError:
-			//	util.Logfn(o.logf, val)
-			//	autoctx.Err(o.errf, api.StreamError(val))
-			//	return
 			case error:
 				log.Println(val)
 				log.Println(val.Error())
-				continue
-
 			default:
-				for _, output := range o.outputs{
-					select {
-					case output <- val:
-					}
-				}
+				o.Broadcast(val)
 			}
-
 		// is cancelling
 		case <-exeCtx.Done():
 			log.Printf("unary operator %s cancelling....", o.name)
@@ -185,4 +167,27 @@ func (o *UnaryOperator) doOp(ctx context.Context) {
 			return
 		}
 	}
+}
+
+func (o *UnaryOperator) Broadcast(data interface{}) error{
+	boe := &xsql.BufferOrEvent{
+		Data: data,
+		Channel: o.name,
+	}
+	for _, out := range o.outputs{
+		out <- boe
+	}
+	return nil
+}
+
+func (o *UnaryOperator) SetBarrierHandler(handler checkpoint.BarrierHandler) {
+	o.barrierHandler = handler
+}
+
+func (o *UnaryOperator) AddInputCount(){
+	o.inputCount++
+}
+
+func (o *UnaryOperator) GetInputCount() int{
+	return o.inputCount
 }

@@ -502,6 +502,11 @@ func (wv *WildcardValuer) Value(key string) (interface{}, bool) {
 /**********************************
 **	Various Data Types for SQL transformation
  */
+type BufferOrEvent struct{
+	Data interface{}
+	Channel   string
+	Processed bool
+}
 
 type AggregateData interface {
 	AggregateEval(expr Expr) []interface{}

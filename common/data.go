@@ -153,7 +153,7 @@ func (t *MockTimer) Trigger(ti int64) {
 
 func (t *MockTimer) DoTick(c int64) {
 	Log.Infof("do tick at %d, created at", c, t.createdAt)
-	if t.createdAt > 0 && c >= (t.createdAt + t.duration){
+	if t.createdAt > 0 && c >= (t.createdAt+t.duration) {
 		Log.Info("trigger timer")
 		t.Trigger(t.createdAt + t.duration)
 	}

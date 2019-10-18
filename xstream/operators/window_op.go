@@ -4,6 +4,7 @@ import (
 	"context"
 	"engine/common"
 	"engine/xsql"
+	"engine/xstream/checkpoint"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"math"
@@ -17,8 +18,8 @@ type WindowConfig struct {
 }
 
 type WindowOperator struct {
-	input       chan interface{}
-	outputs     map[string]chan<- interface{}
+	input       chan *xsql.BufferOrEvent
+	outputs     map[string]chan<- *xsql.BufferOrEvent
 	name 		string
 	ticker 		common.Ticker  //For processing time only
 	window      *WindowConfig
@@ -26,13 +27,15 @@ type WindowOperator struct {
 	triggerTime int64
 	isEventTime bool
 	watermarkGenerator *WatermarkGenerator //For event time only
+	barrierHandler checkpoint.BarrierHandler
+	inputCount  int
 }
 
 func NewWindowOp(name string, w *xsql.Window, isEventTime bool, lateTolerance int64, streams []string) (*WindowOperator, error) {
 	o := new(WindowOperator)
 
-	o.input = make(chan interface{}, 1024)
-	o.outputs = make(map[string]chan<- interface{})
+	o.input = make(chan *xsql.BufferOrEvent, 1024)
+	o.outputs = make(map[string]chan<- *xsql.BufferOrEvent)
 	o.name = name
 	o.isEventTime = isEventTime
 	if w != nil{
@@ -79,7 +82,7 @@ func (o *WindowOperator) GetName() string {
 	return o.name
 }
 
-func (o *WindowOperator) AddOutput(output chan<- interface{}, name string) {
+func (o *WindowOperator) AddOutput(output chan<- *xsql.BufferOrEvent, name string) {
 	if _, ok := o.outputs[name]; !ok{
 		o.outputs[name] = output
 	}else{
@@ -87,7 +90,7 @@ func (o *WindowOperator) AddOutput(output chan<- interface{}, name string) {
 	}
 }
 
-func (o *WindowOperator) GetInput() (chan<- interface{}, string) {
+func (o *WindowOperator) GetInput() (chan<- *xsql.BufferOrEvent, string) {
 	return o.input, o.name
 }
 
@@ -132,7 +135,15 @@ func (o *WindowOperator) execProcessingWindow(ctx context.Context) {
 			if !opened {
 				break
 			}
-			if d, ok := item.(*xsql.Tuple); !ok {
+			if o.barrierHandler != nil && !item.Processed{
+				//if it is barrier return true and ignore the further processing
+				//if it is blocked(align handler), return true and then write back to the channel later
+				isProcessed := o.barrierHandler.Process(item, ctx)
+				if isProcessed{
+					return
+				}
+			}
+			if d, ok := item.Data.(*xsql.Tuple); !ok {
 				log.Errorf("Expect xsql.Tuple type")
 				break
 			}else{
@@ -225,13 +236,7 @@ func (o *WindowOperator) scan(inputs []*xsql.Tuple, triggerTime int64, ctx conte
 		if o.isEventTime{
 			results.Sort()
 		}
-		for _, output := range o.outputs {
-			select {
-			case output <- results:
-				triggered = true
-			default: //TODO need to set buffer
-			}
-		}
+		o.Broadcast(results)
 	}
 
 	return inputs[:i], triggered
@@ -253,4 +258,27 @@ func (o *WindowOperator) calDelta(triggerTime int64, delta int64, log *logrus.En
 		}
 	}
 	return delta
+}
+
+func (o *WindowOperator) Broadcast(data interface{}) error{
+	boe := &xsql.BufferOrEvent{
+		Data: data,
+		Channel: o.name,
+	}
+	for _, out := range o.outputs{
+		out <- boe
+	}
+	return nil
+}
+
+func (o *WindowOperator) SetBarrierHandler(handler checkpoint.BarrierHandler) {
+	o.barrierHandler = handler
+}
+
+func (o *WindowOperator) AddInputCount(){
+	o.inputCount++
+}
+
+func (o *WindowOperator) GetInputCount() int{
+	return o.inputCount
 }

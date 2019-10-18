@@ -3,6 +3,8 @@ package sinks
 import (
 	"context"
 	"engine/common"
+	"engine/xsql"
+	"engine/xstream/checkpoint"
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/google/uuid"
@@ -13,10 +15,12 @@ type MQTTSink struct {
 	tpc      string
 	clientid string
 
-	input chan interface{}
+	input chan *xsql.BufferOrEvent
 	conn MQTT.Client
 	ruleId   string
 	name 	 string
+	barrierHandler checkpoint.BarrierHandler
+	inputCount int
 	//ctx context.Context
 }
 
@@ -41,7 +45,7 @@ func NewMqttSink(name string, ruleId string, properties interface{}) (*MQTTSink,
 			clientid = uuid.String()
 		}
 	}
-	ms := &MQTTSink{name:name, ruleId: ruleId, input: make(chan interface{}), srv: srv.(string), tpc: tpc.(string), clientid: clientid.(string)}
+	ms := &MQTTSink{name:name, ruleId: ruleId, input: make(chan *xsql.BufferOrEvent), srv: srv.(string), tpc: tpc.(string), clientid: clientid.(string)}
 	return ms, nil
 }
 
@@ -49,7 +53,7 @@ func (ms *MQTTSink) GetName() string {
 	return ms.name
 }
 
-func (ms *MQTTSink) GetInput() (chan<- interface{}, string)  {
+func (ms *MQTTSink) GetInput() (chan<- *xsql.BufferOrEvent, string)  {
 	return ms.input, ms.name
 }
 
@@ -72,8 +76,15 @@ func (ms *MQTTSink) Open(ctx context.Context, result chan<- error) {
 		for {
 			select {
 			case item := <-ms.input:
-				log.Infof("publish %s", item)
-				if token := c.Publish(ms.tpc, 0, false, item); token.Wait() && token.Error() != nil {
+				if ms.barrierHandler != nil && !item.Processed{
+					//may be blocking
+					isBarrier := ms.barrierHandler.Process(item, ctx)
+					if isBarrier{
+						return
+					}
+				}
+				log.Infof("publish %s", item.Data)
+				if token := c.Publish(ms.tpc, 0, false, item.Data); token.Wait() && token.Error() != nil {
 					result <- fmt.Errorf("Publish error: %s", token.Error())
 				}
 
@@ -88,4 +99,19 @@ func (ms *MQTTSink) Open(ctx context.Context, result chan<- error) {
 	}()
 }
 
+func (ms *MQTTSink) Broadcast(data interface{}) error{
+	//do nothing
+	return nil
+}
 
+func (ms *MQTTSink) SetBarrierHandler(handler checkpoint.BarrierHandler) {
+	ms.barrierHandler = handler
+}
+
+func (ms *MQTTSink) AddInputCount(){
+	ms.inputCount++
+}
+
+func (ms *MQTTSink) GetInputCount() int{
+	return ms.inputCount
+}

@@ -839,7 +839,7 @@ func getEventMockSource(name string, done chan<- struct{}, size int) *test.MockS
 					"size": 4,
 					"ts": 1541152492342,
 				},
-				Timestamp: 1541152488442,
+				Timestamp: 1541152492342,
 			},
 		}
 	case "demo1E":
@@ -1057,10 +1057,10 @@ func TestEventWindow(t *testing.T) {
 					"color": "red",
 					"size": float64(1),
 					"ts": float64(1541152489252),
-				}},{{
-					"color": "red",
-					"size": float64(1),
-					"ts": float64(1541152489252),
+				//}},{{
+				//	"color": "red",
+				//	"size": float64(1),
+				//	"ts": float64(1541152489252),
 				}},
 			},
 		}, {
