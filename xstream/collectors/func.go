@@ -61,9 +61,9 @@ func (c *FuncCollector) Open(ctx context.Context, result chan<- error) {
 			case item := <-c.input:
 				if c.barrierHandler != nil{
 					//may be blocking
-					isBarrier := c.barrierHandler.Process(item, ctx)
-					if isBarrier{
-						return
+					isProcessed := c.barrierHandler.Process(item, ctx)
+					if isProcessed{
+						break
 					}
 				}
 				if err := c.f(ctx, item.Data); err != nil {

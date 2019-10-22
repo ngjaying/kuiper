@@ -12,6 +12,7 @@ type MockSink struct {
 	name 	 string
 	results  [][]byte
 	input chan *xsql.BufferOrEvent
+	barrierHandler checkpoint.BarrierHandler
 	inputCount int
 }
 
@@ -32,8 +33,15 @@ func (m *MockSink) Open(ctx context.Context, result chan<- error) {
 		for {
 			select {
 			case item := <-m.input:
+				if m.barrierHandler != nil && !item.Processed{
+					//may be blocking
+					isProcessed := m.barrierHandler.Process(item, ctx)
+					if isProcessed{
+						break
+					}
+				}
 				if v, ok := item.Data.([]byte); ok {
-					log.Infof("mock sink receive %s", item)
+					log.Infof("mock sink receive %s", v)
 					m.results = append(m.results, v)
 				}else{
 					log.Info("mock sink receive non byte data")
@@ -71,6 +79,6 @@ func (m *MockSink) GetName() string{
 	return m.name
 }
 
-func (m *MockSink) SetBarrierHandler(checkpoint.BarrierHandler) {
-	//DO nothing for sources as it only emits barrier
+func (m *MockSink) SetBarrierHandler(handler checkpoint.BarrierHandler) {
+	m.barrierHandler = handler
 }

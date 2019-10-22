@@ -78,9 +78,9 @@ func (ms *MQTTSink) Open(ctx context.Context, result chan<- error) {
 			case item := <-ms.input:
 				if ms.barrierHandler != nil && !item.Processed{
 					//may be blocking
-					isBarrier := ms.barrierHandler.Process(item, ctx)
-					if isBarrier{
-						return
+					isProcessed := ms.barrierHandler.Process(item, ctx)
+					if isProcessed{
+						break
 					}
 				}
 				log.Infof("publish %s", item.Data)

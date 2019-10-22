@@ -307,11 +307,11 @@ func (p *RuleProcessor) ExecDrop(name string) (string, error) {
 }
 
 func (p *RuleProcessor) createTopo(rule *xstream.Rule) (*xstream.TopologyNew, []xstream.Emitter, error) {
-	return p.createTopoWithSources(rule, nil)
+	return p.CreateTopoWithSources(rule, nil)
 }
 
 //For test to mock source
-func (p *RuleProcessor) createTopoWithSources(rule *xstream.Rule, sources []xstream.Source) (*xstream.TopologyNew, []xstream.Emitter, error){
+func (p *RuleProcessor) CreateTopoWithSources(rule *xstream.Rule, sources []xstream.Source) (*xstream.TopologyNew, []xstream.Emitter, error){
 	name := rule.Id
 	sql := rule.Sql
 	//Read rule options
@@ -350,7 +350,7 @@ func (p *RuleProcessor) createTopoWithSources(rule *xstream.Rule, sources []xstr
 		if selectStmt, ok := stmt.(*xsql.SelectStatement); !ok {
 			return nil, nil, fmt.Errorf("sql %s is not a select statement", sql)
 		} else {
-			tp := xstream.NewWithName(name)
+			tp := xstream.NewWithName(name, qos)
 			var inputs []xstream.Emitter
 			streamsFromStmt := xsql.GetStreams(selectStmt)
 			if !shouldCreateSource && len(streamsFromStmt) != len(sources){
@@ -437,10 +437,6 @@ func (p *RuleProcessor) createTopoWithSources(rule *xstream.Rule, sources []xstr
 				projectOp := xstream.Transform(&plans.ProjectPlan{Fields: selectStmt.Fields, IsAggregate: xsql.IsAggStatement(selectStmt)}, "project")
 				tp.AddOperator(inputs, projectOp)
 				inputs = []xstream.Emitter{projectOp}
-			}
-			//initialize chceckpoint
-			if qos >= 1 {
-				tp.EnableCheckpoint(qos)
 			}
 			return tp, inputs, nil
 		}

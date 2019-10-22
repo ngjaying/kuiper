@@ -144,9 +144,9 @@ func (c *Coordinator) Activate() error {
 				// TODO Check if all tasks are running
 
 				//Create a pending checkpoint
-				checkpointId := time.Now().UnixNano()
+				checkpointId := common.GetMockNow()
 				checkpoint := newPendingCheckpoint(checkpointId, c.tasksToWaitFor)
-				log.Debug("Create checkpoint %d", checkpointId)
+				log.Debugf("Create checkpoint %d", checkpointId)
 				c.pendingCheckpoints[checkpointId] = checkpoint
 				//Let the sources send out a barrier
 				for _, r := range c.tasksToTrigger{
@@ -169,15 +169,17 @@ func (c *Coordinator) Activate() error {
 					}
 					return
 				case ACK:
+					log.Debugf("Receive ack from %s for checkpoint %d", s.OpId, s.CheckpointId)
 					if checkpoint, ok := c.pendingCheckpoints[s.CheckpointId]; ok{
 						checkpoint.ack(s.OpId)
 						if checkpoint.isFullyAck(){
 							c.complete(s.CheckpointId)
 						}
 					}else{
-						log.Debug("Receive ack from %s for non existing checkpoint %d", s.OpId, s.CheckpointId)
+						log.Debugf("Receive ack from %s for non existing checkpoint %d", s.OpId, s.CheckpointId)
 					}
 				case DEC:
+					log.Debugf("Receive dec from %s for checkpoint %d", s.OpId, s.CheckpointId)
 					c.cancel(s.CheckpointId)
 				}
 			case <-exeCtx.Done():
@@ -207,21 +209,37 @@ func (c *Coordinator) cancel(checkpointId int64){
 		delete(c.pendingCheckpoints, checkpointId)
 		checkpoint.dispose(true)
 	}else{
-		log.Debug("Cancel for non existing checkpoint %d. Just ignored", checkpointId)
+		log.Debugf("Cancel for non existing checkpoint %d. Just ignored", checkpointId)
 	}
 }
 
 func (c *Coordinator) complete(checkpointId int64){
-	//TODO save the checkpoint
+	log := common.GetLogger(c.ctx)
 
-	delete(c.pendingCheckpoints, checkpointId)
-	//Drop the previous pendingCheckpoints
-	for cid, cp := range c.pendingCheckpoints {
-		if cid < checkpointId{
-			//TODO revisit how to abort a checkpoint, discard callback
-			cp.isDiscarded = true
-			c.completedCheckpoints.add(cp.finalize())
-			delete(c.pendingCheckpoints, cid)
+	if ccp, ok := c.pendingCheckpoints[checkpointId];ok{
+		//TODO save the checkpoint
+
+		c.completedCheckpoints.add(ccp.finalize())
+		delete(c.pendingCheckpoints, checkpointId)
+		//Drop the previous pendingCheckpoints
+		for cid, cp := range c.pendingCheckpoints {
+			if cid < checkpointId{
+				//TODO revisit how to abort a checkpoint, discard callback
+				cp.isDiscarded = true
+				delete(c.pendingCheckpoints, cid)
+			}
 		}
+		log.Debugf("Complete checkpoint %d", checkpointId)
+	}else{
+		log.Infof("Cannot find checkpoint %d to complete", checkpointId)
 	}
+}
+
+//For testing
+func (c *Coordinator) GetCompleteCount() int {
+	return len(c.completedCheckpoints.checkpoints)
+}
+
+func (c *Coordinator) GetLatest() int64 {
+	return c.completedCheckpoints.getLatest().checkpointId
 }

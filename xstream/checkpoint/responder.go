@@ -37,7 +37,7 @@ func (re *ResponderExecutor) GetName() string{
 func (re *ResponderExecutor) TriggerCheckpoint(checkpointId int64, ctx context.Context) error{
 	log := common.GetLogger(ctx)
 	name := re.GetName()
-	log.Debug("Starting checkpoint %d on task %s", checkpointId, name)
+	log.Debugf("Starting checkpoint %d on task %s", checkpointId, name)
 	//create
 	barrier := &Barrier{
 		CheckpointId: checkpointId,
@@ -55,6 +55,7 @@ func (re *ResponderExecutor) TriggerCheckpoint(checkpointId int64, ctx context.C
 			Barrier: Barrier{CheckpointId:checkpointId, OpId:name},
 		}
 		re.responder <- signal
+		log.Debugf("Complete checkpoint %d on task %s", checkpointId, name)
 	}()
 	return nil
 }

@@ -16,10 +16,11 @@ type TopologyNew struct {
 	ops []Operator
 	name string
 	qos int
+	coordinator *checkpoint.Coordinator
 }
 
-func NewWithName(name string) *TopologyNew {
-	tp := &TopologyNew{name: name, qos: 0}
+func NewWithName(name string, qos int) *TopologyNew {
+	tp := &TopologyNew{name: name, qos: qos}
 	return tp
 }
 
@@ -144,11 +145,12 @@ func (s *TopologyNew) Open() <-chan error {
 			s.drain <- err
 		}
 	}()
+	s.enableCheckpoint(s.qos)
 
 	return s.drain
 }
 
-func (s *TopologyNew) EnableCheckpoint(qos int) error {
+func (s *TopologyNew) enableCheckpoint(qos int) error {
 	if qos >= 1{
 		var sources []checkpoint.StreamTask
 		for _, r := range s.sources{
@@ -163,7 +165,12 @@ func (s *TopologyNew) EnableCheckpoint(qos int) error {
 			sinks = append(sinks, r)
 		}
 		c := checkpoint.NewCoordinator(s.name, sources, ops, sinks, qos, s.ctx)
+		s.coordinator = c
 		c.Activate()
 	}
 	return nil
+}
+
+func (s *TopologyNew) GetCoordinator() *checkpoint.Coordinator{
+	return s.coordinator
 }

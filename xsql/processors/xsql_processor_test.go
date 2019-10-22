@@ -89,7 +89,7 @@ func TestStreamCreateProcessor(t *testing.T) {
 	streamDB := path.Join(BadgerDir, "streamTest")
 	for i, tt := range tests {
 		results, err := NewStreamProcessor(tt.s, streamDB).Exec()
-		if !reflect.DeepEqual(tt.err, errstring(err)) {
+		if !reflect.DeepEqual(tt.err, errString(err)) {
 			t.Errorf("%d. %q: error mismatch:\n  exp=%s\n  got=%s\n\n", i, tt.s, tt.err, err)
 		} else if tt.err == "" {
 			if !reflect.DeepEqual(tt.r, results) {
@@ -425,7 +425,7 @@ func TestSingleSQL(t *testing.T) {
 				}
 			}
 		}
-		tp, inputs, err := p.createTopoWithSources(&xstream.Rule{Id:tt.name, Sql: tt.sql}, sources)
+		tp, inputs, err := p.CreateTopoWithSources(&xstream.Rule{Id: tt.name, Sql: tt.sql}, sources)
 		if err != nil{
 			t.Error(err)
 		}
@@ -689,7 +689,7 @@ func TestWindow(t *testing.T) {
 				}
 			}
 		}
-		tp, inputs, err := p.createTopoWithSources(&xstream.Rule{Id:tt.name, Sql: tt.sql}, sources)
+		tp, inputs, err := p.CreateTopoWithSources(&xstream.Rule{Id: tt.name, Sql: tt.sql}, sources)
 		if err != nil{
 			t.Error(err)
 		}
@@ -1232,7 +1232,7 @@ func TestEventWindow(t *testing.T) {
 				}
 			}
 		}
-		tp, inputs, err := p.createTopoWithSources(&xstream.Rule{
+		tp, inputs, err := p.CreateTopoWithSources(&xstream.Rule{
 			Id:tt.name, Sql: tt.sql,
 			Options: map[string]interface{}{
 				"isEventTime": true,
@@ -1286,7 +1286,7 @@ func TestEventWindow(t *testing.T) {
 	close(tickerDone)
 }
 
-func errstring(err error) string {
+func errString(err error) string {
 	if err != nil {
 		return err.Error()
 	}

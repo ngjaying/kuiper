@@ -212,7 +212,7 @@ func (o *WindowOperator) execEventWindow(ctx context.Context) {
 				//if it is blocked(align handler), return true and then write back to the channel later
 				isProcessed := o.barrierHandler.Process(item, ctx)
 				if isProcessed{
-					return
+					break
 				}
 			}
 			if d, ok := item.Data.(xsql.Event); !ok {
