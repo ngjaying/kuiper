@@ -1,9 +1,9 @@
 package xstream
 
 import (
-	"context"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 )
 
 type Emitter interface {
@@ -13,7 +13,7 @@ type Emitter interface {
 type Source interface {
 	Emitter
 	checkpoint.StreamTask
-	Open(context context.Context) error
+	Open(context context2.StreamContext) error
 }
 
 type Collector interface {
@@ -23,14 +23,14 @@ type Collector interface {
 type Sink interface {
 	Collector
 	checkpoint.StreamTask
-	Open(context.Context, chan<- error)
+	Open(context2.StreamContext, chan<- error)
 }
 
 type Operator interface{
 	Emitter
 	Collector
 	checkpoint.StreamTask
-	Exec(context context.Context) error
+	Exec(context context2.StreamContext) error
 }
 
 type TopNode interface{

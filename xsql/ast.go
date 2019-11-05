@@ -1491,8 +1491,8 @@ func toFloat64(para interface{}) float64 {
 	return 0
 }
 
-func IsAggStatement(node Node) (bool) {
-	var r bool = false
+func IsAggStatement(node Node) bool {
+	var r = false
 	WalkFunc(node, func(n Node) {
 		if f, ok := n.(*Call); ok {
 			fn := strings.ToLower(f.Name)
@@ -1507,6 +1507,6 @@ func IsAggStatement(node Node) (bool) {
 				return
 			}
 		}
-	});
+	})
 	return r
 }
