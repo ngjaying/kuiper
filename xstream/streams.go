@@ -4,23 +4,26 @@ import (
 	"context"
 	"engine/common"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"engine/xstream/operators"
+	"engine/xstream/state"
 )
 
 type TopologyNew struct {
-	sources []Source
-	sinks []Sink
-	ctx context.Context
-	cancel context.CancelFunc
-	drain chan error
-	ops []Operator
-	name string
-	qos int
+	sources     []Source
+	sinks       []Sink
+	ctx         context.Context
+	cancel      context.CancelFunc
+	drain       chan error
+	ops         []Operator
+	name        string
+	qos         int
+	store       state.Store
 	coordinator *checkpoint.Coordinator
 }
 
 func NewWithName(name string, qos int) *TopologyNew {
-	tp := &TopologyNew{name: name, qos: qos}
+	tp := &TopologyNew{name: name, qos: qos, store: state.GetBadgerStore(name)}
 	return tp
 }
 
@@ -115,7 +118,7 @@ func (s *TopologyNew) Open() <-chan error {
 	go func() {
 		// open source, if err bail
 		for _, src := range s.sources{
-			if err := src.Open(s.ctx); err != nil {
+			if err := src.Open(context2.NewStreamContextImpl(s.name, src.GetName(), s.store, s.ctx)); err != nil {
 				s.drainErr(err)
 				log.Println("Closing stream")
 				return
@@ -124,7 +127,7 @@ func (s *TopologyNew) Open() <-chan error {
 
 		//apply operators, if err bail
 		for _, op := range s.ops {
-			if err := op.Exec(s.ctx); err != nil {
+			if err := op.Exec(context2.NewStreamContextImpl(s.name, op.GetName(), s.store, s.ctx)); err != nil {
 				s.drainErr(err)
 				log.Println("Closing stream")
 				return
@@ -137,7 +140,7 @@ func (s *TopologyNew) Open() <-chan error {
 		}()
 		// open stream sink, after log sink is ready.
 		for _, snk := range s.sinks{
-			snk.Open(s.ctx, sinkErr)
+			snk.Open(context2.NewStreamContextImpl(s.name, snk.GetName(), s.store, s.ctx), sinkErr)
 		}
 		select {
 		case err := <- sinkErr:
@@ -164,7 +167,7 @@ func (s *TopologyNew) enableCheckpoint(qos int) error {
 		for _, r := range s.sinks{
 			sinks = append(sinks, r)
 		}
-		c := checkpoint.NewCoordinator(s.name, sources, ops, sinks, qos, s.ctx)
+		c := checkpoint.NewCoordinator(s.name, sources, ops, sinks, qos, s.store, s.ctx)
 		s.coordinator = c
 		c.Activate()
 	}

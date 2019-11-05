@@ -1,13 +1,12 @@
 package checkpoint
 
 import (
-	"context"
-	"engine/common"
 	"engine/xsql"
+	context2 "engine/xstream/context"
 )
 
 type BarrierHandler interface {
-	Process(data *xsql.BufferOrEvent, ctx context.Context) bool //If data is barrier return true, else return false
+	Process(data *xsql.BufferOrEvent, sctx context2.StreamContext) bool //If data is barrier return true, else return false
 	SetOutput(chan<- *xsql.BufferOrEvent)  //It is using for block a channel
 }
 
@@ -26,10 +25,10 @@ func NewBarrierTracker(responder Responder, inputCount int) *BarrierTracker{
 	}
 }
 
-func (h *BarrierTracker) Process(data *xsql.BufferOrEvent, ctx context.Context) bool {
+func (h *BarrierTracker) Process(data *xsql.BufferOrEvent, sctx context2.StreamContext) bool {
 	d := data.Data
 	if b, ok := d.(*Barrier); ok{
-		h.processBarrier(b, ctx)
+		h.processBarrier(b, sctx)
 		return true
 	}
 	return false
@@ -39,15 +38,15 @@ func (h *BarrierTracker) SetOutput(output chan<- *xsql.BufferOrEvent) {
 	//do nothing, does not need it
 }
 
-func (h *BarrierTracker) processBarrier(b *Barrier, ctx context.Context) {
+func (h *BarrierTracker) processBarrier(b *Barrier, sctx context2.StreamContext) {
 	if h.inputCount == 1{
-		h.responder.TriggerCheckpoint(b.CheckpointId, ctx)
+		h.responder.TriggerCheckpoint(b.CheckpointId)
 		return
 	}
 	if c, ok := h.pendingCheckpoints[b.CheckpointId]; ok{
 		c += 1
 		if c == h.inputCount{
-			h.responder.TriggerCheckpoint(b.CheckpointId, ctx)
+			h.responder.TriggerCheckpoint(b.CheckpointId)
 			delete(h.pendingCheckpoints, b.CheckpointId)
 			for cid := range h.pendingCheckpoints{
 				if cid < b.CheckpointId{
@@ -81,14 +80,14 @@ func NewBarrierAligner(responder Responder, inputCount int) *BarrierAligner{
 	return ba
 }
 
-func (h *BarrierAligner) Process(data *xsql.BufferOrEvent, ctx context.Context) bool {
+func (h *BarrierAligner) Process(data *xsql.BufferOrEvent, sctx context2.StreamContext) bool {
 	if data.Processed{
 		return false
 	}
 
 	switch d := data.Data.(type) {
 	case *Barrier:
-		h.processBarrier(d, ctx)
+		h.processBarrier(d, sctx)
 		return true
 	default:
 		//If blocking, save to buffer
@@ -103,36 +102,36 @@ func (h *BarrierAligner) Process(data *xsql.BufferOrEvent, ctx context.Context) 
 	return false
 }
 
-func (h *BarrierAligner) processBarrier(b *Barrier, ctx context.Context) {
-	log := common.GetLogger(ctx)
+func (h *BarrierAligner) processBarrier(b *Barrier, sctx context2.StreamContext) {
+	log := sctx.GetLogger()
 	if h.inputCount == 1{
 		if b.CheckpointId > h.currentCheckpointId{
 			h.currentCheckpointId = b.CheckpointId
-			h.responder.TriggerCheckpoint(b.CheckpointId, ctx)
+			h.responder.TriggerCheckpoint(b.CheckpointId)
 		}
 		return
 	}
 	if len(h.blockedChannels) > 0{
 		if b.CheckpointId == h.currentCheckpointId{
-			h.onBarrier(b.OpId, ctx)
+			h.onBarrier(b.OpId, sctx)
 		}else if b.CheckpointId > h.currentCheckpointId{
 			log.Infof("Received checkpoint barrier for checkpoint %d before complete current checkpoint %d. Skipping current checkpoint.", b.CheckpointId, h.currentCheckpointId)
 			//TODO Abort checkpoint
 
 			h.releaseBlocksAndResetBarriers()
-			h.beginNewAlignment(b, ctx)
+			h.beginNewAlignment(b, sctx)
 		}else{
 			return
 		}
 	}else if b.CheckpointId > h.currentCheckpointId {
-		h.beginNewAlignment(b, ctx)
+		h.beginNewAlignment(b, sctx)
 	}else{
 		return
 	}
 	if len(h.blockedChannels) == h.inputCount{
 		log.Debugf("Received all barriers, triggering checkpoint %d", b.CheckpointId)
 		h.releaseBlocksAndResetBarriers()
-		h.responder.TriggerCheckpoint(b.CheckpointId, ctx)
+		h.responder.TriggerCheckpoint(b.CheckpointId)
 
 		// clean up all the buffer
 		var temp []*xsql.BufferOrEvent
@@ -148,8 +147,8 @@ func (h *BarrierAligner) processBarrier(b *Barrier, ctx context.Context) {
 	}
 }
 
-func (h *BarrierAligner) onBarrier(name string, ctx context.Context) {
-	log := common.GetLogger(ctx)
+func (h *BarrierAligner) onBarrier(name string, sctx context2.StreamContext) {
+	log := sctx.GetLogger()
 	if _, ok := h.blockedChannels[name]; !ok{
 		h.blockedChannels[name] = true
 		log.Debugf("Received barrier from channel %s", name)
@@ -164,9 +163,9 @@ func (h *BarrierAligner) releaseBlocksAndResetBarriers() {
 	h.blockedChannels = make(map[string]bool)
 }
 
-func (h *BarrierAligner) beginNewAlignment(barrier *Barrier, ctx context.Context) {
-	log := common.GetLogger(ctx)
+func (h *BarrierAligner) beginNewAlignment(barrier *Barrier, sctx context2.StreamContext) {
+	log := sctx.GetLogger()
 	h.currentCheckpointId = barrier.CheckpointId
-	h.onBarrier(barrier.OpId, ctx)
+	h.onBarrier(barrier.OpId, sctx)
 	log.Debugf("Starting stream alignment for checkpoint %d", barrier.CheckpointId)
 }

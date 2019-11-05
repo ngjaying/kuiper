@@ -5,20 +5,21 @@ import (
 	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"fmt"
 	"sync"
 )
 
 // UnOperation interface represents unary operations (i.e. Map, Filter, etc)
 type UnOperation interface {
-	Apply(ctx context.Context, data interface{}) interface{}
+	Apply(ctx context2.StreamContext, data interface{}) interface{}
 }
 
 // UnFunc implements UnOperation as type func (context.Context, interface{})
-type UnFunc func(context.Context, interface{}) interface{}
+type UnFunc func(context2.StreamContext, interface{}) interface{}
 
 // Apply implements UnOperation.Apply method
-func (f UnFunc) Apply(ctx context.Context, data interface{}) interface{} {
+func (f UnFunc) Apply(ctx context2.StreamContext, data interface{}) interface{} {
 	return f(ctx, data)
 }
 
@@ -32,6 +33,7 @@ type UnaryOperator struct {
 	name 		string
 	barrierHandler checkpoint.BarrierHandler
 	inputCount  int
+	sctx        context2.StreamContext
 }
 
 // NewUnary creates *UnaryOperator value
@@ -76,8 +78,10 @@ func (o *UnaryOperator) GetInput() (chan<- *xsql.BufferOrEvent, string) {
 }
 
 // Exec is the entry point for the executor
-func (o *UnaryOperator) Exec(ctx context.Context) (err error) {
-	log := common.GetLogger(ctx)
+func (o *UnaryOperator) Exec(sctx context2.StreamContext) (err error) {
+	o.sctx = sctx
+	log := sctx.GetLogger()
+	ctx := sctx.GetContext()
 	log.Printf("Unary operator %s is started", o.name)
 
 	if len(o.outputs) <= 0 {
@@ -98,7 +102,7 @@ func (o *UnaryOperator) Exec(ctx context.Context) (err error) {
 		for i := 0; i < o.concurrency; i++ { // workers
 			go func(wg *sync.WaitGroup) {
 				defer wg.Done()
-				o.doOp(ctx)
+				o.doOp(sctx)
 			}(&barrier)
 		}
 
@@ -123,13 +127,13 @@ func (o *UnaryOperator) Exec(ctx context.Context) (err error) {
 	return nil
 }
 
-func (o *UnaryOperator) doOp(ctx context.Context) {
-	log := common.GetLogger(ctx)
+func (o *UnaryOperator) doOp(sctx context2.StreamContext) {
+	log := sctx.GetLogger()
 	if o.op == nil {
 		log.Println("Unary operator missing operation")
 		return
 	}
-	exeCtx, cancel := context.WithCancel(ctx)
+	exeCtx, cancel := context.WithCancel(sctx.GetContext())
 
 	defer func() {
 		log.Infof("unary operator %s done, cancelling future items", o.name)
@@ -143,12 +147,12 @@ func (o *UnaryOperator) doOp(ctx context.Context) {
 			if o.barrierHandler != nil && !item.Processed{
 				//if it is barrier return true and ignore the further processing
 				//if it is blocked(align handler), return true and then write back to the channel later
-				isProcessed := o.barrierHandler.Process(item, ctx)
+				isProcessed := o.barrierHandler.Process(item, sctx)
 				if isProcessed{
 					break
 				}
 			}
-			result := o.op.Apply(exeCtx, item.Data)
+			result := o.op.Apply(sctx, item.Data)
 			switch val := result.(type) {
 			case nil:
 			case error:
@@ -190,4 +194,8 @@ func (o *UnaryOperator) AddInputCount(){
 
 func (o *UnaryOperator) GetInputCount() int{
 	return o.inputCount
+}
+
+func (o *UnaryOperator) GetStreamContext() context2.StreamContext{
+	return o.sctx
 }

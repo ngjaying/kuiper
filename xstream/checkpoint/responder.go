@@ -1,20 +1,20 @@
 package checkpoint
 
 import (
-	"context"
-	"engine/common"
+	context2 "engine/xstream/context"
 )
 
 type StreamTask interface {
 	Broadcast(data interface{}) error
 	GetName() string
+	GetStreamContext() context2.StreamContext
 	SetBarrierHandler(BarrierHandler)
 	GetInputCount() int
 	AddInputCount()
 }
 
 type Responder interface {
-	TriggerCheckpoint(checkpointId int64, ctx context.Context) error
+	TriggerCheckpoint(checkpointId int64) error
 	GetName() string
 }
 
@@ -34,8 +34,9 @@ func (re *ResponderExecutor) GetName() string{
 	return re.task.GetName()
 }
 
-func (re *ResponderExecutor) TriggerCheckpoint(checkpointId int64, ctx context.Context) error{
-	log := common.GetLogger(ctx)
+func (re *ResponderExecutor) TriggerCheckpoint(checkpointId int64) error{
+	sctx := re.task.GetStreamContext()
+	log := sctx.GetLogger()
 	name := re.GetName()
 	log.Debugf("Starting checkpoint %d on task %s", checkpointId, name)
 	//create
@@ -45,10 +46,14 @@ func (re *ResponderExecutor) TriggerCheckpoint(checkpointId int64, ctx context.C
 	}
 	//broadcast barrier
 	re.task.Broadcast(barrier)
-
+	//Save key state to the global state
 	go func(){
-		//TODO take the snapshot, record the offset and change the state
 		state := ACK
+		err := sctx.SaveToCheckpoint(checkpointId)
+		if err != nil{
+			log.Infof("save checkpoint error %s", err)
+			state = DEC
+		}
 
 		signal := &Signal{
 			Message: state,

@@ -3,6 +3,7 @@ package checkpoint
 import (
 	"context"
 	"engine/common"
+	"engine/xstream/state"
 	"time"
 )
 
@@ -71,17 +72,18 @@ type Coordinator struct {
 	tasksToTrigger          []Responder
 	tasksToWaitFor          []Responder
 	pendingCheckpoints      map[int64]*pendingCheckpoint
-	completedCheckpoints 	*checkpointStore
+	completedCheckpoints    *checkpointStore
 	ruleId                  string
 	baseInterval            int
 	timeout                 int
 	advanceToEndOfEventTime bool
 	ticker                  common.Ticker  //For processing time only
 	signal                  chan *Signal
+	store                   state.Store
 	ctx                     context.Context
 }
 
-func NewCoordinator(ruleId string, sources []StreamTask, operators []StreamTask, sinks []StreamTask, qos int, ctx context.Context) *Coordinator {
+func NewCoordinator(ruleId string, sources []StreamTask, operators []StreamTask, sinks []StreamTask, qos int, store state.Store, ctx context.Context) *Coordinator {
 	signal := make(chan *Signal, 1024)
 	var allResponders, sourceResponders []Responder
 	for _, r := range sources{
@@ -112,7 +114,8 @@ func NewCoordinator(ruleId string, sources []StreamTask, operators []StreamTask,
 		signal:             signal,
 		baseInterval:       300000, //5 minutes by default
 		timeout:            200000,
-		ctx:				ctx,
+		store:              store,
+		ctx:                ctx,
 	}
 }
 
@@ -151,7 +154,7 @@ func (c *Coordinator) Activate() error {
 				//Let the sources send out a barrier
 				for _, r := range c.tasksToTrigger{
 					go func() {
-						if err := r.TriggerCheckpoint(checkpointId, c.ctx); err != nil{
+						if err := r.TriggerCheckpoint(checkpointId); err != nil{
 							log.Infof("Fail to trigger checkpoint for source %s with error %v", r.GetName(), err)
 							c.cancel(checkpointId)
 						}else{
@@ -217,8 +220,12 @@ func (c *Coordinator) complete(checkpointId int64){
 	log := common.GetLogger(c.ctx)
 
 	if ccp, ok := c.pendingCheckpoints[checkpointId];ok{
-		//TODO save the checkpoint
-
+		err := c.store.SaveCheckpoint(checkpointId)
+		if err != nil{
+			log.Infof("Cannot save checkpoint %d due to storage error: %v", checkpointId, err)
+			//TODO handle checkpoint error
+			return
+		}
 		c.completedCheckpoints.add(ccp.finalize())
 		delete(c.pendingCheckpoints, checkpointId)
 		//Drop the previous pendingCheckpoints
@@ -229,7 +236,7 @@ func (c *Coordinator) complete(checkpointId int64){
 				delete(c.pendingCheckpoints, cid)
 			}
 		}
-		log.Debugf("Complete checkpoint %d", checkpointId)
+		log.Debugf("Totally complete checkpoint %d", checkpointId)
 	}else{
 		log.Infof("Cannot find checkpoint %d to complete", checkpointId)
 	}

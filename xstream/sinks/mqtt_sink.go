@@ -2,9 +2,9 @@ package sinks
 
 import (
 	"context"
-	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/google/uuid"
@@ -21,7 +21,7 @@ type MQTTSink struct {
 	name 	 string
 	barrierHandler checkpoint.BarrierHandler
 	inputCount int
-	//ctx context.Context
+	sctx     context2.StreamContext
 }
 
 func NewMqttSink(name string, ruleId string, properties interface{}) (*MQTTSink, error) {
@@ -57,12 +57,13 @@ func (ms *MQTTSink) GetInput() (chan<- *xsql.BufferOrEvent, string)  {
 	return ms.input, ms.name
 }
 
-func (ms *MQTTSink) Open(ctx context.Context, result chan<- error) {
-	log := common.GetLogger(ctx)
+func (ms *MQTTSink) Open(sctx context2.StreamContext, result chan<- error) {
+	ms.sctx = sctx
+	log := sctx.GetLogger()
 	log.Printf("Opening mqtt sink for rule %s", ms.ruleId)
 
 	go func() {
-		exeCtx, cancel := context.WithCancel(ctx)
+		exeCtx, cancel := context.WithCancel(sctx.GetContext())
 		opts := MQTT.NewClientOptions().AddBroker(ms.srv).SetClientID(ms.clientid)
 
 		c := MQTT.NewClient(opts)
@@ -78,7 +79,7 @@ func (ms *MQTTSink) Open(ctx context.Context, result chan<- error) {
 			case item := <-ms.input:
 				if ms.barrierHandler != nil && !item.Processed{
 					//may be blocking
-					isProcessed := ms.barrierHandler.Process(item, ctx)
+					isProcessed := ms.barrierHandler.Process(item, sctx)
 					if isProcessed{
 						break
 					}
@@ -114,4 +115,7 @@ func (ms *MQTTSink) AddInputCount(){
 
 func (ms *MQTTSink) GetInputCount() int{
 	return ms.inputCount
+}
+func (ms *MQTTSink) GetStreamContext() context2.StreamContext{
+	return ms.sctx
 }

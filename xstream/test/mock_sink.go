@@ -1,10 +1,9 @@
 package test
 
 import (
-	"context"
-	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 )
 
 type MockSink struct {
@@ -14,6 +13,7 @@ type MockSink struct {
 	input chan *xsql.BufferOrEvent
 	barrierHandler checkpoint.BarrierHandler
 	inputCount int
+	sctx     context2.StreamContext
 }
 
 func NewMockSink(name, ruleId string) *MockSink{
@@ -25,8 +25,9 @@ func NewMockSink(name, ruleId string) *MockSink{
 	return m
 }
 
-func (m *MockSink) Open(ctx context.Context, result chan<- error) {
-	log := common.GetLogger(ctx)
+func (m *MockSink) Open(sctx context2.StreamContext, result chan<- error) {
+	m.sctx = sctx
+	log := sctx.GetLogger()
 	log.Trace("Opening mock sink")
 	m.results = make([][]byte, 0)
 	go func() {
@@ -35,7 +36,7 @@ func (m *MockSink) Open(ctx context.Context, result chan<- error) {
 			case item := <-m.input:
 				if m.barrierHandler != nil && !item.Processed{
 					//may be blocking
-					isProcessed := m.barrierHandler.Process(item, ctx)
+					isProcessed := m.barrierHandler.Process(item, sctx)
 					if isProcessed{
 						break
 					}
@@ -47,7 +48,7 @@ func (m *MockSink) Open(ctx context.Context, result chan<- error) {
 					log.Info("mock sink receive non byte data")
 				}
 
-			case <-ctx.Done():
+			case <-sctx.GetContext().Done():
 				log.Infof("mock sink %s done", m.name)
 				return
 			}
@@ -81,4 +82,8 @@ func (m *MockSink) GetName() string{
 
 func (m *MockSink) SetBarrierHandler(handler checkpoint.BarrierHandler) {
 	m.barrierHandler = handler
+}
+
+func (m *MockSink) GetStreamContext() context2.StreamContext{
+	return m.sctx
 }

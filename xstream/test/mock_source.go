@@ -1,10 +1,10 @@
 package test
 
 import (
-	"context"
 	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"time"
 )
 
@@ -14,6 +14,7 @@ type MockSource struct {
 	name string
 	done chan<- struct{}
 	isEventTime bool
+	sctx context2.StreamContext
 }
 
 // New creates a new CsvSource
@@ -28,8 +29,9 @@ func NewMockSource(data []*xsql.Tuple, name string, done chan<- struct{}, isEven
 	return mock
 }
 
-func (m *MockSource) Open(ctx context.Context) (err error) {
-	log := common.GetLogger(ctx)
+func (m *MockSource) Open(sctx context2.StreamContext) (err error) {
+	m.sctx = sctx
+	log := sctx.GetLogger()
 	log.Trace("Mocksource starts")
 	go func(){
 		for _, d := range m.data{
@@ -52,12 +54,12 @@ func (m *MockSource) Open(ctx context.Context) (err error) {
 			for _, out := range m.outs{
 				select {
 				case out <- boe:
-				case <-ctx.Done():
+				case <-sctx.GetContext().Done():
 					log.Trace("Mocksource stop")
 					return
 //				default:  TODO non blocking must have buffer?
 				}
-				time.Sleep(50 * time.Millisecond)
+				time.Sleep(500 * time.Millisecond)
 			}
 			if m.isEventTime{
 				time.Sleep(1000 * time.Millisecond) //Let window run to make sure timers are set
@@ -109,4 +111,8 @@ func (m *MockSource) GetName() string{
 
 func (m *MockSource) SetBarrierHandler(checkpoint.BarrierHandler) {
 	//DO nothing for sources as it only emits barrier
+}
+
+func (m *MockSource) GetStreamContext() context2.StreamContext{
+	return m.sctx
 }

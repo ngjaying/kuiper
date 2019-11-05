@@ -5,6 +5,7 @@ import (
 	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"math"
@@ -29,6 +30,7 @@ type WindowOperator struct {
 	watermarkGenerator *WatermarkGenerator //For event time only
 	barrierHandler checkpoint.BarrierHandler
 	inputCount  int
+	sctx        context2.StreamContext
 }
 
 func NewWindowOp(name string, w *xsql.Window, isEventTime bool, lateTolerance int64, streams []string) (*WindowOperator, error) {
@@ -97,8 +99,9 @@ func (o *WindowOperator) GetInput() (chan<- *xsql.BufferOrEvent, string) {
 // Exec is the entry point for the executor
 // input: *xsql.Tuple from preprocessor
 // output: xsql.WindowTuplesSet
-func (o *WindowOperator) Exec(ctx context.Context) (err error) {
-	log := common.GetLogger(ctx)
+func (o *WindowOperator) Exec(sctx context2.StreamContext) (err error) {
+	o.sctx = sctx
+	log := sctx.GetLogger()
 	log.Printf("Window operator %s is started", o.name)
 
 	if len(o.outputs) <= 0 {
@@ -106,17 +109,17 @@ func (o *WindowOperator) Exec(ctx context.Context) (err error) {
 		return
 	}
 	if o.isEventTime{
-		go o.execEventWindow(ctx)
+		go o.execEventWindow(sctx)
 	}else{
-		go o.execProcessingWindow(ctx)
+		go o.execProcessingWindow(sctx)
 	}
 
 	return nil
 }
 
-func (o *WindowOperator) execProcessingWindow(ctx context.Context) {
-	exeCtx, cancel := context.WithCancel(ctx)
-	log := common.GetLogger(ctx)
+func (o *WindowOperator) execProcessingWindow(sctx context2.StreamContext) {
+	exeCtx, cancel := context.WithCancel(sctx.GetContext())
+	log := sctx.GetLogger()
 	var (
 		inputs []*xsql.Tuple
 		c <-chan time.Time
@@ -138,7 +141,7 @@ func (o *WindowOperator) execProcessingWindow(ctx context.Context) {
 			if o.barrierHandler != nil && !item.Processed{
 				//if it is barrier return true and ignore the further processing
 				//if it is blocked(align handler), return true and then write back to the channel later
-				isProcessed := o.barrierHandler.Process(item, ctx)
+				isProcessed := o.barrierHandler.Process(item, sctx)
 				if isProcessed{
 					break
 				}
@@ -151,9 +154,9 @@ func (o *WindowOperator) execProcessingWindow(ctx context.Context) {
 				inputs = append(inputs, d)
 				switch o.window.Type{
 				case xsql.NOT_WINDOW:
-					inputs, _ = o.scan(inputs, d.Timestamp, ctx)
+					inputs, _ = o.scan(inputs, d.Timestamp, sctx)
 				case xsql.SLIDING_WINDOW:
-					inputs, _ = o.scan(inputs, d.Timestamp, ctx)
+					inputs, _ = o.scan(inputs, d.Timestamp, sctx)
 				case xsql.SESSION_WINDOW:
 					if timeoutTicker != nil {
 						timeoutTicker.Stop()
@@ -178,12 +181,12 @@ func (o *WindowOperator) execProcessingWindow(ctx context.Context) {
 					}
 				}
 				log.Infof("triggered by ticker")
-				inputs, _ = o.scan(inputs, n, ctx)
+				inputs, _ = o.scan(inputs, n, sctx)
 			}
 		case now := <-timeout:
 			if len(inputs) > 0 {
 				log.Infof("triggered by timeout")
-				inputs, _ = o.scan(inputs, common.TimeToUnixMilli(now), ctx)
+				inputs, _ = o.scan(inputs, common.TimeToUnixMilli(now), sctx)
 				//expire all inputs, so that when timer scan there is no item
 				inputs = make([]*xsql.Tuple, 0)
 			}
@@ -199,8 +202,8 @@ func (o *WindowOperator) execProcessingWindow(ctx context.Context) {
 	}
 }
 
-func (o *WindowOperator) scan(inputs []*xsql.Tuple, triggerTime int64, ctx context.Context) ([]*xsql.Tuple, bool){
-	log := common.GetLogger(ctx)
+func (o *WindowOperator) scan(inputs []*xsql.Tuple, triggerTime int64, sctx context2.StreamContext) ([]*xsql.Tuple, bool){
+	log := sctx.GetLogger()
 	log.Printf("window %s triggered at %s", o.name, time.Unix(triggerTime/1000, triggerTime%1000))
 	var delta int64
 	if o.window.Type == xsql.HOPPING_WINDOW || o.window.Type == xsql.SLIDING_WINDOW {
@@ -281,4 +284,8 @@ func (o *WindowOperator) AddInputCount(){
 
 func (o *WindowOperator) GetInputCount() int{
 	return o.inputCount
+}
+
+func (o *WindowOperator) GetStreamContext() context2.StreamContext{
+	return o.sctx
 }

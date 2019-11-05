@@ -9,6 +9,7 @@ import (
 	"github.com/sirupsen/logrus"
 	"io/ioutil"
 	"os"
+	"path"
 	"path/filepath"
 )
 
@@ -127,23 +128,16 @@ func DbClose(db *badger.DB) error {
 	return db.Close()
 }
 
-func DbSet(db *badger.DB, key string, value string) error {
+func DbSet(db *badger.DB, key string, value []byte) error {
 
 	err := db.Update(func(txn *badger.Txn) error {
-		_, err := txn.Get([]byte(key))
-		//key not found
-		if err != nil {
-			err = txn.Set([]byte(key), []byte(value))
-		}else{
-			err = fmt.Errorf("key %s already exist, delete it before creating a new one", key)
-		}
-
+		err := txn.Set([]byte(key), value)
 		return err
 	})
 	return err
 }
 
-func DbGet(db *badger.DB, key string) (value string, err error) {
+func DbGet(db *badger.DB, key string) (value []byte, err error) {
 	err = db.View(func(txn *badger.Txn) error {
 		item, err := txn.Get([]byte(key))
 		if err != nil {
@@ -151,7 +145,7 @@ func DbGet(db *badger.DB, key string) (value string, err error) {
 		}
 
 		err = item.Value(func(val []byte) error {
-			value = string(val)
+			value = val
 			return nil
 		})
 		return err
@@ -209,6 +203,21 @@ func GetConfLoc()(string, error){
 
 func GetDataLoc() (string, error) {
 	return GetLoc(data_dir)
+}
+
+func GetAndCreateDataLoc(dir string) (string, error) {
+	dataDir, err := GetDataLoc()
+	if err != nil {
+		return "", err
+	}
+	d := path.Join(path.Dir(dataDir), dir)
+	if _, err := os.Stat(d); os.IsNotExist(err) {
+		err = os.MkdirAll(d, 0755)
+		if err != nil {
+			return "", err
+		}
+	}
+	return d, nil
 }
 
 func GetLoc(subdir string)(string, error) {

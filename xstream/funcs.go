@@ -35,10 +35,10 @@ func ProcessFunc(f interface{}) (operators.UnFunc, error) {
 
 	fnval := reflect.ValueOf(f)
 
-	return operators.UnFunc(func(ctx context.Context, data interface{}) interface{} {
+	return func(ctx context2.StreamContext, data interface{}) interface{} {
 		result := callOpFunc(fnval, ctx, data, funcForm)
 		return result.Interface()
-	}), nil
+	}, nil
 }
 
 // FilterFunc returns a unary function (api.UnFunc) which applies the user-defined
@@ -64,14 +64,14 @@ func FilterFunc(f interface{}) (operators.UnFunc, error) {
 	}
 
 	fnval := reflect.ValueOf(f)
-	return operators.UnFunc(func(ctx context.Context, data interface{}) interface{} {
+	return func(ctx context2.StreamContext, data interface{}) interface{} {
 		result := callOpFunc(fnval, ctx, data, funcForm)
 		predicate := result.Bool()
 		if !predicate {
 			return nil
 		}
 		return data
-	}), nil
+	}, nil
 }
 
 // MapFunc returns an unary function which applies the user-defined function which
@@ -104,10 +104,10 @@ func FlatMapFunc(f interface{}) (operators.UnFunc, error) {
 	}
 
 	fnval := reflect.ValueOf(f)
-	return operators.UnFunc(func(ctx context.Context, data interface{}) interface{} {
+	return func(ctx context2.StreamContext, data interface{}) interface{} {
 		result := callOpFunc(fnval, ctx, data, funcForm)
 		return result.Interface()
-	}), nil
+	}, nil
 }
 
 // isUnaryFuncForm ensures ftype is of supported function of
@@ -135,7 +135,8 @@ func isUnaryFuncForm(ftype reflect.Type) (unaryFuncForm, error) {
 	return unaryFuncUnsupported, fmt.Errorf("unary func must be of type func(T)R or func(context.Context,T)R")
 }
 
-func callOpFunc(fnval reflect.Value, ctx context.Context, data interface{}, funcForm unaryFuncForm) reflect.Value {
+func callOpFunc(fnval reflect.Value, sctx context2.StreamContext, data interface{}, funcForm unaryFuncForm) reflect.Value {
+	ctx := sctx.GetContext()
 	var result reflect.Value
 	switch funcForm {
 	case unaryFuncForm1:

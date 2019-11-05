@@ -6,6 +6,7 @@ import (
 	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"fmt"
 	MQTT "github.com/eclipse/paho.mqtt.golang"
 	"github.com/go-yaml/yaml"
@@ -18,10 +19,10 @@ type MQTTSource struct {
 	tpc      string
 	clientid string
 	schema   map[string]interface{}
-
 	outs  map[string]chan<- *xsql.BufferOrEvent
 	conn MQTT.Client
 	name 		string
+	sctx      context2.StreamContext
 }
 
 
@@ -81,10 +82,11 @@ func (ms *MQTTSource) AddOutput(output chan<- *xsql.BufferOrEvent, name string) 
 	}
 }
 
-func (ms *MQTTSource) Open(ctx context.Context) error {
-	log := common.GetLogger(ctx)
+func (ms *MQTTSource) Open(sctx context2.StreamContext) error {
+	ms.sctx = sctx
+	log := sctx.GetLogger()
 	go func() {
-		exeCtx, cancel := context.WithCancel(ctx)
+		exeCtx, cancel := context.WithCancel(sctx.GetContext())
 		opts := MQTT.NewClientOptions().AddBroker(ms.srv)
 
 		if ms.clientid == "" {
@@ -166,4 +168,8 @@ func (ms *MQTTSource) AddInputCount(){
 
 func (ms *MQTTSource) GetInputCount() int{
 	return 0
+}
+
+func (ms *MQTTSource) GetStreamContext() context2.StreamContext{
+	return ms.sctx
 }

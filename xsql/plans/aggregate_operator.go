@@ -1,9 +1,8 @@
 package plans
 
 import (
-	"context"
-	"engine/common"
 	"engine/xsql"
+	context2 "engine/xstream/context"
 	"fmt"
 )
 
@@ -16,8 +15,8 @@ type AggregatePlan struct {
  *  input: *xsql.Tuple from preprocessor | xsql.WindowTuplesSet from windowOp | xsql.JoinTupleSets from joinOp
  *  output: xsql.GroupedTuplesSet
  */
-func (p *AggregatePlan) Apply(ctx context.Context, data interface{}) interface{} {
-	log := common.GetLogger(ctx)
+func (p *AggregatePlan) Apply(ctx context2.StreamContext, data interface{}) interface{} {
+	log := ctx.GetLogger()
 	log.Debugf("aggregate plan receive %s", data)
 	var ms []xsql.DataValuer
 	switch input := data.(type) {
@@ -44,7 +43,6 @@ func (p *AggregatePlan) Apply(ctx context.Context, data interface{}) interface{}
 		log.Errorf("Expect xsql.Valuer or its array type.")
 		return nil
 	}
-
 	result := make(map[string]xsql.GroupedTuples)
 	for _, m := range ms {
 		var name string

@@ -1,17 +1,16 @@
 package collectors
 
 import (
-	"context"
-	"engine/common"
 	"engine/xsql"
 	"engine/xstream/checkpoint"
+	context2 "engine/xstream/context"
 	"errors"
 )
 
 // CollectorFunc is a function used to colllect
 // incoming stream data. It can be used as a
 // stream sink.
-type CollectorFunc func(context.Context, interface{}) error
+type CollectorFunc func(context2.StreamContext, interface{}) error
 
 // FuncCollector is a colletor that uses a function
 // to collect data.  The specified function must be
@@ -25,6 +24,7 @@ type FuncCollector struct {
 	name  string
 	barrierHandler checkpoint.BarrierHandler
 	inputCount int
+	sctx  context2.StreamContext
 }
 
 // Func creates a new value *FuncCollector that
@@ -43,10 +43,9 @@ func (c *FuncCollector) GetInput() (chan<- *xsql.BufferOrEvent, string)  {
 }
 
 // Open is the starting point that starts the collector
-func (c *FuncCollector) Open(ctx context.Context, result chan<- error) {
-	//c.logf = autoctx.GetLogFunc(ctx)
-	//c.errf = autoctx.GetErrFunc(ctx)
-	log := common.GetLogger(ctx)
+func (c *FuncCollector) Open(sctx context2.StreamContext, result chan<- error) {
+	c.sctx = sctx
+	log := sctx.GetLogger()
 	log.Println("Opening func collector")
 
 	if c.f == nil {
@@ -61,15 +60,15 @@ func (c *FuncCollector) Open(ctx context.Context, result chan<- error) {
 			case item := <-c.input:
 				if c.barrierHandler != nil{
 					//may be blocking
-					isProcessed := c.barrierHandler.Process(item, ctx)
+					isProcessed := c.barrierHandler.Process(item, sctx)
 					if isProcessed{
 						break
 					}
 				}
-				if err := c.f(ctx, item.Data); err != nil {
+				if err := c.f(sctx, item.Data); err != nil {
 					log.Println(err)
 				}
-			case <-ctx.Done():
+			case <-sctx.GetContext().Done():
 				log.Infof("Func collector %s done", c.name)
 				return
 			}
@@ -92,4 +91,8 @@ func (c *FuncCollector) AddInputCount(){
 
 func (c *FuncCollector) GetInputCount() int{
 	return c.inputCount
+}
+
+func (c *FuncCollector) GetStreamContext() context2.StreamContext{
+	return c.sctx
 }

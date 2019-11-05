@@ -147,17 +147,17 @@ func TestCheckpointCount(t *testing.T) {
 		tp.AddSink(inputs, sink)
 		count := len(sources)
 		errCh := tp.Open()
-		func(){
-			for{
-				select{
-				case err = <- errCh:
+		func() {
+			for {
+				select {
+				case err = <-errCh:
 					t.Log(err)
 					tp.Cancel()
 					return
-				case <- done:
+				case <-done:
 					count--
 					log.Infof("%d sources remaining", count)
-					if count <= 0{
+					if count <= 0 {
 						log.Info("stream stopping")
 						time.Sleep(1 * time.Second)
 						tp.Cancel()

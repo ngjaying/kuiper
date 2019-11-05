@@ -72,7 +72,7 @@ func (p *StreamProcessor) Exec() (result []string, err error) {
 }
 
 func (p *StreamProcessor) execCreateStream(stmt *xsql.StreamStmt, db *badger.DB) (string, error) {
-	err := common.DbSet(db, string(stmt.Name), p.statement)
+	err := common.DbSet(db, string(stmt.Name), []byte(p.statement))
 	if err != nil {
 		return "", err
 	}else{
@@ -89,12 +89,12 @@ func (p *StreamProcessor) execShowStream(stmt *xsql.ShowStreamsStatement, db *ba
 }
 
 func (p *StreamProcessor) execDescribeStream(stmt *xsql.DescribeStreamStatement, db *badger.DB) (string,error) {
-	s, err := common.DbGet(db, string(stmt.Name))
+	s, err := common.DbGet(db, stmt.Name)
 	if err != nil {
 		return "", fmt.Errorf("stream %s not found", stmt.Name)
 	}
 
-	parser := xsql.NewParser(strings.NewReader(s))
+	parser := xsql.NewParser(strings.NewReader(string(s)))
 	stream, err := xsql.Language.Parse(parser)
 	streamStmt, ok := stream.(*xsql.StreamStmt)
 	if !ok{
@@ -135,7 +135,7 @@ func GetStream(db *badger.DB, name string) (stmt *xsql.StreamStmt, err error){
 		return
 	}
 
-	parser := xsql.NewParser(strings.NewReader(s))
+	parser := xsql.NewParser(strings.NewReader(string(s)))
 	stream, err := xsql.Language.Parse(parser)
 	stmt, ok := stream.(*xsql.StreamStmt)
 	if !ok{
@@ -165,7 +165,7 @@ func (p *RuleProcessor) ExecCreate(name, ruleJson string) (*xstream.Rule, error)
 	if err != nil {
 		return nil, err
 	}
-	err = common.DbSet(db, string(name), ruleJson)
+	err = common.DbSet(db, name, []byte(ruleJson))
 	if err != nil {
 		common.DbClose(db)
 		return nil, err
@@ -182,11 +182,11 @@ func (p *RuleProcessor) GetRuleByName(name string) (*xstream.Rule, error) {
 		return nil, err
 	}
 	defer common.DbClose(db)
-	s, err := common.DbGet(db, string(name))
+	s, err := common.DbGet(db, name)
 	if err != nil {
 		return nil, fmt.Errorf("rule %s not found", name)
 	}
-	return p.getRuleByJson(name, s)
+	return p.getRuleByJson(name, string(s))
 }
 
 func (p *RuleProcessor) getRuleByJson(name, ruleJson string) (*xstream.Rule, error) {

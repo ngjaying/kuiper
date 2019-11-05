@@ -4,6 +4,7 @@ import (
 	"context"
 	"engine/common"
 	"engine/xsql"
+	context2 "engine/xstream/context"
 	"fmt"
 	"math"
 	"sort"
@@ -62,8 +63,8 @@ func NewWatermarkGenerator(window *WindowConfig, l int64, s []string, stream cha
 	return w, nil
 }
 
-func (w *WatermarkGenerator) track(s string, ts int64, ctx context.Context) bool {
-	log := common.GetLogger(ctx)
+func (w *WatermarkGenerator) track(s string, ts int64, sctx context2.StreamContext) bool {
+	log := sctx.GetLogger()
 	log.Infof("watermark generator track event from topic %s at %d", s, ts)
 	currentVal, ok := w.topicToTs[s]
 	if !ok || ts > currentVal {
@@ -73,15 +74,15 @@ func (w *WatermarkGenerator) track(s string, ts int64, ctx context.Context) bool
 	if r{
 		switch w.window.Type{
 		case xsql.SLIDING_WINDOW:
-			w.trigger(ctx)
+			w.trigger(sctx)
 		}
 	}
 	return r
 }
 
-func (w *WatermarkGenerator) start(ctx context.Context) {
-	exeCtx, cancel := context.WithCancel(ctx)
-	log := common.GetLogger(ctx)
+func (w *WatermarkGenerator) start(sctx context2.StreamContext) {
+	exeCtx, cancel := context.WithCancel(sctx.GetContext())
+	log := sctx.GetLogger()
 	var c <-chan time.Time
 
 	if w.ticker != nil {
@@ -90,7 +91,7 @@ func (w *WatermarkGenerator) start(ctx context.Context) {
 	for {
 		select {
 		case <-c:
-			w.trigger(ctx)
+			w.trigger(sctx)
 		case <-exeCtx.Done():
 			log.Println("Cancelling watermark generator....")
 			if w.ticker != nil{
@@ -102,9 +103,9 @@ func (w *WatermarkGenerator) start(ctx context.Context) {
 	}
 }
 
-func (w *WatermarkGenerator) trigger(ctx context.Context) {
-	log := common.GetLogger(ctx)
-	watermark := w.computeWatermarkTs(ctx)
+func (w *WatermarkGenerator) trigger(sctx context2.StreamContext) {
+	log := sctx.GetLogger()
+	watermark := w.computeWatermarkTs(sctx)
 	log.Infof("compute watermark event at %d with last %d", watermark, w.lastWatermarkTs)
 	if watermark > w.lastWatermarkTs {
 		t := &WatermarkTuple{Timestamp: watermark}
@@ -121,7 +122,7 @@ func (w *WatermarkGenerator) trigger(ctx context.Context) {
 	}
 }
 
-func (w *WatermarkGenerator) computeWatermarkTs(ctx context.Context) int64{
+func (w *WatermarkGenerator) computeWatermarkTs(sctx context2.StreamContext) int64{
 	var ts int64
 	if len(w.topicToTs) >= len(w.inputTopics) {
 		ts = math.MaxInt64
@@ -188,10 +189,10 @@ func (w *WatermarkGenerator) getNextWindow(inputs []*xsql.Tuple,current int64, w
 	}
 }
 
-func (o *WindowOperator) execEventWindow(ctx context.Context) {
-	exeCtx, cancel := context.WithCancel(ctx)
-	log := common.GetLogger(ctx)
-	go o.watermarkGenerator.start(ctx)
+func (o *WindowOperator) execEventWindow(sctx context2.StreamContext) {
+	exeCtx, cancel := context.WithCancel(sctx.GetContext())
+	log := sctx.GetLogger()
+	go o.watermarkGenerator.start(sctx)
 	var (
 		inputs []*xsql.Tuple
 		triggered bool
@@ -210,7 +211,7 @@ func (o *WindowOperator) execEventWindow(ctx context.Context) {
 			if o.barrierHandler != nil && !item.Processed{
 				//if it is barrier return true and ignore the further processing
 				//if it is blocked(align handler), return true and then write back to the channel later
-				isProcessed := o.barrierHandler.Process(item, ctx)
+				isProcessed := o.barrierHandler.Process(item, sctx)
 				if isProcessed{
 					break
 				}
@@ -230,7 +231,7 @@ func (o *WindowOperator) execEventWindow(ctx context.Context) {
 						log.Debugf("Window end ts %d Watermark ts %d", windowEndTs, watermarkTs)
 						log.Debugf("Current input count %d", len(inputs))
 						//scan all events and find out the event in the current window
-						inputs, triggered = o.scan(inputs, windowEndTs, ctx)
+						inputs, triggered = o.scan(inputs, windowEndTs, sctx)
 						prevWindowEndTs = windowEndTs
 						windowEndTs = o.watermarkGenerator.getNextWindow(inputs, windowEndTs, watermarkTs, triggered)
 					}
@@ -242,7 +243,7 @@ func (o *WindowOperator) execEventWindow(ctx context.Context) {
 						log.Infof("receive non tuple element %v", d)
 					}
 					log.Debugf("event window receive tuple %s", tuple.Message)
-					if o.watermarkGenerator.track(tuple.Emitter, d.GetTimestamp(),ctx){
+					if o.watermarkGenerator.track(tuple.Emitter, d.GetTimestamp(), sctx){
 						inputs = append(inputs, tuple)
 					}
 				}
