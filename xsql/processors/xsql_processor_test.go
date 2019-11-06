@@ -5,6 +5,7 @@ import (
 	"engine/common"
 	"engine/xsql"
 	"engine/xstream"
+	"engine/xstream/connectors"
 	"engine/xstream/test"
 	"fmt"
 	"path"
@@ -147,7 +148,7 @@ func dropStreams(t *testing.T){
 	}
 }
 
-func getMockSource(name string, done chan<- struct{}, size int) *test.MockSource{
+func getMockSource(name string, done chan<- struct{}, size int) *connectors.MemoryInputConnector {
 	var data []*xsql.Tuple
 	switch name{
 	case "demo":
@@ -349,7 +350,7 @@ func getMockSource(name string, done chan<- struct{}, size int) *test.MockSource
 			},
 		}
 	}
-	return test.NewMockSource(data[:size], name, done, false)
+	return connectors.NewMemoryInputConnector(data[:size], name, done, false)
 }
 
 func TestSingleSQL(t *testing.T) {
@@ -782,7 +783,7 @@ func dropEventStreams(t *testing.T){
 	}
 }
 
-func getEventMockSource(name string, done chan<- struct{}, size int) *test.MockSource{
+func getEventMockSource(name string, done chan<- struct{}, size int) *connectors.MemoryInputConnector {
 	var data []*xsql.Tuple
 	switch name{
 	case "demoE":
@@ -1011,7 +1012,7 @@ func getEventMockSource(name string, done chan<- struct{}, size int) *test.MockS
 			},
 		}
 	}
-	return test.NewMockSource(data[:size], name, done, true)
+	return connectors.NewMemoryInputConnector(data[:size], name, done, true)
 }
 
 func TestEventWindow(t *testing.T) {

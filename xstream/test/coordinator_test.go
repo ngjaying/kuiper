@@ -1,10 +1,14 @@
 package test
 
 import (
+	"bytes"
+	"encoding/gob"
 	"engine/common"
 	"engine/xsql"
 	"engine/xsql/processors"
 	"engine/xstream"
+	"engine/xstream/connectors"
+	"engine/xstream/sources"
 	"fmt"
 	"path"
 	"reflect"
@@ -46,7 +50,7 @@ func dropStreams(t *testing.T){
 	}
 }
 
-func getMockSource(name string, done chan<- struct{}, size int) *MockSource {
+func getMockSource(name string, done chan<- struct{}, size int) xstream.Source {
 	var data []*xsql.Tuple
 	switch name{
 	case "demo":
@@ -98,7 +102,38 @@ func getMockSource(name string, done chan<- struct{}, size int) *MockSource {
 			},
 		}
 	}
-	return NewMockSource(data[:size], name, done, false)
+	return sources.NewSourceWrapper(name, connectors.NewMemoryInputConnector(data[:size], done, false, 5000))
+}
+
+func getCheckpoint(checkpointId int64, ruleId string) map[string]interface{}{
+	dir, err := common.GetAndCreateDataLoc("checkpoint/" + ruleId)
+	if err != nil{
+		panic(err)
+	}
+	db, err := common.DbOpen(dir)
+	if err != nil {
+		return nil
+	}
+	defer common.DbClose(db)
+	bytes, err := common.DbGet(db, string(checkpointId))
+	if err != nil {
+		return nil
+	}
+	m, ok := bytesToMap(bytes)
+	if !ok {
+		return nil
+	}
+	return m
+}
+
+func bytesToMap(input []byte) (map[string]interface{}, bool){
+	var result map[string]interface{}
+	buf := bytes.NewBuffer(input)
+	dec := gob.NewDecoder(buf)
+	if err := dec.Decode(&result); err != nil {
+		return nil, false
+	}
+	return result, true
 }
 
 func TestCheckpointCount(t *testing.T) {
@@ -106,12 +141,16 @@ func TestCheckpointCount(t *testing.T) {
 	var tests = []struct {
 		name    string
 		sql 	string
-		r    int
+		r       int
+		cp      map[string]interface{}
 	}{
 		{
 			name: `rule1`,
 			sql: `SELECT * FROM demo`,
 			r: 2,
+			cp: map[string]interface{}{
+				"offset": 3,
+			},
 		},
 	}
 	fmt.Printf("The test bucket size is %d.\n\n", len(tests))
@@ -171,6 +210,11 @@ func TestCheckpointCount(t *testing.T) {
 		actual := tp.GetCoordinator().GetCompleteCount()
 		if !reflect.DeepEqual(tt.r, actual) {
 			t.Errorf("%d. %q\n\nresult mismatch:\n\nexp=%#v\n\ngot=%d\n\n", i, tt.sql, tt.r, actual)
+		}
+		//Get checkpoint content
+		cp := getCheckpoint(tp.GetCoordinator().GetLatest(), tt.name)
+		if !reflect.DeepEqual(tt.cp, cp["demo"]) {
+			t.Errorf("%d. %q\n\nresult mismatch:\n\nexp=%#v\n\ngot=%v\n\n", i, tt.sql, tt.cp, cp)
 		}
 	}
 }
