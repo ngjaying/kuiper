@@ -1,0 +1,13 @@
+basic:
+  # true|false, with debug level, it prints more debug info
+  kuiper: "http://52.78.118.185:8080/"
+  #kuiper: "http://127.0.0.1:8080/"
+  emqx:   "tcp://15.164.210.206:1883"
+  sourceTopic: "source"
+  sinkTopic: "sink"
+  streamSqlTemplate: "create stream %s%d (temperature bigint, humidity bigint) WITH (FORMAT=\"JSON\", DATASOURCE=\"%s%d\")"
+  ruleName: "rule"
+  ruleSqlTemplate: "select temperature from %s%d where temperature > 20"
+  duration: 120
+  interval: 1
+  concurrency: 10
