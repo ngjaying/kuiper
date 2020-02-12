@@ -266,11 +266,14 @@ func createStream(index int) error {
 }
 
 func createRule(index int) error {
+	//var action = []map[string]interface{}{
+	//	{"mqtt": map[string]interface{}{
+	//		"server": conf.Emqx,
+	//		"topic":  mode + conf.SinkTopic + "/" + strconv.Itoa(index),
+	//	}},
+	//}
 	var action = []map[string]interface{}{
-		{"mqtt": map[string]interface{}{
-			"server": conf.Emqx,
-			"topic":  mode + conf.SinkTopic + "/" + strconv.Itoa(index),
-		}},
+		{"log": map[string]interface{}{}},
 	}
 	body := &Rule{
 		Sql:     fmt.Sprintf(conf.RuleSqlTemplate, mode+conf.SourceTopic, index),
@@ -333,16 +336,16 @@ func sendData(count int) error {
 		time.Sleep(time.Duration(conf.Duration) * time.Second)
 		done <- true
 	}()
-	go func() {
-		client, err := connectMqtt("sub")
-		if err != nil {
-			fmt.Println("Cannot connect to mqtt for subscription")
-		}
-		client.Subscribe(mode+conf.SinkTopic+"/+", 0, func(client mqtt.Client, msg mqtt.Message) {
-			debugf("* [%s] %s\n", msg.Topic(), string(msg.Payload()))
-			recvCount++
-		})
-	}()
+	//go func() {
+	//	client, err := connectMqtt("sub")
+	//	if err != nil {
+	//		fmt.Println("Cannot connect to mqtt for subscription")
+	//	}
+	//	client.Subscribe(mode+conf.SinkTopic+"/+", 0, func(client mqtt.Client, msg mqtt.Message) {
+	//		debugf("* [%s] %s\n", msg.Topic(), string(msg.Payload()))
+	//		recvCount++
+	//	})
+	//}()
 loop:
 	for {
 		select {
@@ -360,7 +363,7 @@ loop:
 				if err != nil {
 					return err
 				}
-				//debugf("sending data to topic %s:%s\n", topic, payload)
+				debugf("sending data to topic %s:%s\n", topic, payload)
 				client.Publish(topic, 0, false, payload)
 				sentCount++
 			}
