@@ -67,6 +67,7 @@ func main() {
 	modePtr := flag.String("mode", "t", "The mode to run which will affect the prefix of the rule and stream names")
 	confPtr := flag.String("conf", "basic", "The conf to be used")
 	verbalPtr := flag.Bool("v", false, "print all log or not")
+	startPtr := flag.Int("start", -1, "The index to start add or clean")
 	flag.Parse()
 	mode = *modePtr
 	verbal = *verbalPtr
@@ -77,18 +78,23 @@ func main() {
 	}
 	fmt.Printf("start command with configuration %+v\n", conf)
 	//get current count
-	err = getCurrent()
-	if err != nil {
-		panic(err)
+	if *startPtr >= 0 {
+		current = *startPtr
+	} else {
+		err = getCurrent()
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("currently running %d rules for mode %s\n", current, mode)
 	}
-	fmt.Printf("currently running %d rules for mode %s\n", current, mode)
+
 	switch *commandPtr {
 	case "create":
 		fmt.Printf("Create %d rules and send data\n", *countPtr)
 		err = createTest(*countPtr)
 	case "clean":
 		fmt.Printf("Clean %d rules\n", *countPtr)
-		clean(*countPtr)
+		clean(*countPtr, *startPtr)
 	case "send":
 		fmt.Printf("Send data to %d rules\n", *countPtr)
 		err = sendData(*countPtr)
@@ -158,11 +164,15 @@ func createTest(count int) error {
 	return nil
 }
 
-func clean(count int) {
+func clean(count int, start int) {
 	var wg sync.WaitGroup
 	tokens := make(chan struct{}, conf.Concurrency)
+	last := current - 1
+	if start >= 0 {
+		last = start + count
+	}
 	for i := 0; i < count; i++ {
-		index := current - 1 - i
+		index := last - i
 		if index >= 0 {
 			wg.Add(1)
 			go func() {
@@ -330,6 +340,8 @@ func sendData(count int) error {
 		return err
 	}
 	ticker := time.NewTicker(time.Duration(conf.Interval*1000) * time.Millisecond)
+	wait := (conf.Interval * 8e8) / count
+	debugf("wait %d nanosecond", wait)
 	defer ticker.Stop()
 	done := make(chan bool)
 	go func() {
@@ -353,6 +365,7 @@ loop:
 			fmt.Printf("Totally sent %d, received %d\n", sentCount, recvCount)
 			break loop
 		case <-ticker.C:
+			fmt.Printf("send data intervally %v: %d\n", time.Now(), sentCount)
 			for i := 0; i < count; i++ {
 				topic := mode + conf.SourceTopic + strconv.Itoa(i)
 				message := &message{
@@ -366,6 +379,7 @@ loop:
 				debugf("sending data to topic %s:%s\n", topic, payload)
 				client.Publish(topic, 0, false, payload)
 				sentCount++
+				time.Sleep(time.Duration(wait))
 			}
 		}
 	}
