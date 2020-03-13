@@ -1,8 +1,9 @@
 basic:
   # true|false, with debug level, it prints more debug info
-  kuiper: "http://52.78.118.185:8080/"
-  #kuiper: "http://127.0.0.1:8080/"
-  emqx:   "tcp://15.164.210.206:1883"
+#  kuiper: "http://52.78.118.185:8080/"
+  kuiper: "http://127.0.0.1:9081/"
+#  emqx:   "tcp://15.164.210.206:1883"
+  emqx:   "tcp://47.52.67.87:1883"
   sourceTopic: "source"
   sinkTopic: "sink"
   streamSqlTemplate: "create stream %s%d (temperature bigint, humidity bigint) WITH (FORMAT=\"JSON\", DATASOURCE=\"%s%d\")"
