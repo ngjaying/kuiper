@@ -1,7 +1,8 @@
-package common
+package kv
 
 import (
 	"fmt"
+	"github.com/emqx/kuiper/common"
 	"github.com/patrickmn/go-cache"
 	"os"
 	"sync"
@@ -100,7 +101,7 @@ func (m *SimpleKVStore) run() {
 				opened = false
 				err := m.doClose()
 				if err != nil {
-					Log.Error(err)
+					common.Log.Error(err)
 					m.errCh <- err
 					break
 				}
@@ -113,7 +114,7 @@ func (m *SimpleKVStore) run() {
 				break
 			}
 			if e := m.c.SaveFile(m.path); e != nil {
-				Log.Error(e)
+				common.Log.Error(e)
 				m.errCh <- e
 				break
 			}
@@ -172,7 +173,7 @@ func (m *SimpleKVStore) Delete(key string) error {
 	if _, found := m.c.Get(key); found {
 		m.c.Delete(key)
 	} else {
-		return NewErrorWithCode(NOT_FOUND, fmt.Sprintf("%s is not found", key))
+		return common.NewErrorWithCode(common.NOT_FOUND, fmt.Sprintf("%s is not found", key))
 	}
 	return m.saveToFile()
 }
