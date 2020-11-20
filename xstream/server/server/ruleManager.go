@@ -64,10 +64,14 @@ func doStartRule(rs *RuleState) error {
 	go func() {
 		tp := rs.Topology
 		select {
-		case err := <-tp.Open():
-			tp.GetContext().SetError(err)
-			logger.Printf("closing rule %s for error: %v", rs.Name, err)
-			tp.Cancel()
+		case err, ok := <-tp.Open():
+			if ok {
+				tp.GetContext().SetError(err)
+				logger.Printf("closing rule %s for error: %v", rs.Name, err)
+				tp.Cancel()
+			} else {
+				logger.Printf("closing rule %s", rs.Name)
+			}
 		}
 	}()
 	return nil
@@ -198,6 +202,20 @@ func stopRule(name string) (result string) {
 		rs.Triggered = false
 		ruleProcessor.ExecReplaceRuleState(name, false)
 		result = fmt.Sprintf("Rule %s was stopped.", name)
+	} else {
+		result = fmt.Sprintf("Rule %s was not found.", name)
+	}
+	return
+}
+
+func deleteRule(name string) (result string) {
+	if rs, ok := registry.Load(name); ok {
+		(*rs.Topology).Cancel()
+		registry.Delete(name)
+		rs.Topology.Destroy()
+		rs.Topology = nil
+		rs = nil
+		result = fmt.Sprintf("Rule %s was deleted.", name)
 	} else {
 		result = fmt.Sprintf("Rule %s was not found.", name)
 	}

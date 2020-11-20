@@ -213,3 +213,16 @@ func (s *TopologyNew) GetMetrics() (keys []string, values []interface{}) {
 func (s *TopologyNew) GetTopo() *PrintableTopo {
 	return s.topo
 }
+
+func (s *TopologyNew) Destroy() {
+	s.store = nil
+	s.coordinator = nil
+	s.topo = nil
+	s.cancel = nil
+	s.ctx = nil
+	close(s.drain)
+	s.drain = nil
+	s.ops = nil
+	s.sinks = nil
+	s.sources = nil
+}
