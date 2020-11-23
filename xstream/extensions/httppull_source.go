@@ -131,7 +131,6 @@ func (hps *HTTPPullSource) Open(ctx api.StreamContext, consumer chan<- api.Sourc
 func (hps *HTTPPullSource) Close(ctx api.StreamContext) error {
 	logger := ctx.GetLogger()
 	logger.Infof("Closing HTTP pull source")
-	hps.client = nil
 	return nil
 }
 
@@ -143,9 +142,6 @@ func (hps *HTTPPullSource) initTimerPull(ctx api.StreamContext, consumer chan<- 
 	for {
 		select {
 		case <-ticker.C:
-			if hps.client == nil {
-				return
-			}
 			if resp, e := common.Send(logger, hps.client, hps.bodyType, hps.method, hps.url, hps.headers, true, []byte(hps.body)); e != nil {
 				logger.Warnf("Found error %s when trying to reach %v ", e, hps)
 			} else {
@@ -179,8 +175,6 @@ func (hps *HTTPPullSource) initTimerPull(ctx api.StreamContext, consumer chan<- 
 				select {
 				case consumer <- api.NewDefaultSourceTuple(result, meta):
 					logger.Debugf("send data to device node")
-				case <-ctx.Done():
-					return
 				}
 			}
 		case <-ctx.Done():

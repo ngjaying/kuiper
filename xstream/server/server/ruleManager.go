@@ -212,9 +212,6 @@ func deleteRule(name string) (result string) {
 	if rs, ok := registry.Load(name); ok {
 		(*rs.Topology).Cancel()
 		registry.Delete(name)
-		rs.Topology.Destroy()
-		rs.Topology = nil
-		rs = nil
 		result = fmt.Sprintf("Rule %s was deleted.", name)
 	} else {
 		result = fmt.Sprintf("Rule %s was not found.", name)
