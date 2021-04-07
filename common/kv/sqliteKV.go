@@ -11,12 +11,41 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+	"sync"
 )
 
+var (
+	dbs = &sync.Map{}
+)
+
+func initTable(m *SqliteKVStore) error {
+	db, ok := dbs.Load(m.path)
+	if !ok {
+		kvdb, err := sql.Open("sqlite3", m.path)
+		if nil != err {
+			return err
+		}
+		dbs.Store(m.path, kvdb)
+		m.db = kvdb
+	} else {
+		m.db = db.(*sql.DB)
+	}
+
+	sql := fmt.Sprintf("CREATE TABLE IF NOT EXISTS '%s'('key' VARCHAR(255) PRIMARY KEY, 'val' BLOB);", m.table)
+	_, err := m.db.Exec(sql)
+	if err == nil {
+		m.initiated = true
+	}
+	return err
+}
+
 type SqliteKVStore struct {
-	db    *sql.DB
-	table string
-	path  string
+	db *sql.DB
+
+	lock      sync.Mutex
+	table     string
+	path      string
+	initiated bool
 }
 
 func GetSqliteKVStore(fpath string) (ret *SqliteKVStore) {
@@ -31,20 +60,17 @@ func GetSqliteKVStore(fpath string) (ret *SqliteKVStore) {
 }
 
 func (m *SqliteKVStore) Open() error {
-	db, err := sql.Open("sqlite3", m.path)
-	if nil != err {
-		return err
+	m.lock.Lock()
+	defer m.lock.Unlock()
+	if m.initiated {
+		return nil
+	} else {
+		return initTable(m)
 	}
-	m.db = db
-	sql := fmt.Sprintf("CREATE TABLE IF NOT EXISTS '%s'('key' VARCHAR(255) PRIMARY KEY, 'val' BLOB);", m.table)
-	_, err = m.db.Exec(sql)
-	return err
 }
 
 func (m *SqliteKVStore) Close() error {
-	if nil != m.db {
-		return m.db.Close()
-	}
+	// do nothing
 	return nil
 }
 
