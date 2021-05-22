@@ -36,6 +36,8 @@ install: build
 	mkdir -p debian/kuiper/var/lib/kuiper/plugins
 	mkdir -p debian/kuiper/var/log/kuiper
 	mkdir -p debian/kuiper/etc/kuiper
+	mkdir -p debian/kuiper/etc/kuiper/services
+	mkdir -p debian/kuiper/etc/kuiper/services/schemas
 	mkdir -p debian/kuiper/lib/systemd/system
 	
 	cp deploy/packages/service_helper.sh debian/kuiper/usr/lib/kuiper/bin
