@@ -36,16 +36,18 @@ spec:
       labels:
         {{- include "kuiper.selectorLabels" . | nindent 8 }}
     spec:
+      nodeName: upet
+      hostNetwork: true
       volumes:
-      {{- if not .Values.persistence.enabled }}
+      { { - if not .Values.persistence.enabled } }
       - name: kuiper-data
-        emptyDir: {}
-      {{- else if .Values.persistence.existingClaim }}
+        emptyDir: { }
+      { { - else if .Values.persistence.existingClaim } }
       - name: kuiper-data
         persistentVolumeClaim:
-        {{- with .Values.persistence.existingClaim }}
-          claimName: {{ tpl . $ }}
-        {{- end }}
+        { { - with .Values.persistence.existingClaim } }
+        claimName: { { tpl . $ } }
+        { { - end } }
       {{- end }}
       - name: kuiper-config
         configMap:
