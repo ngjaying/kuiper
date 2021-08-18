@@ -31,7 +31,7 @@ def check_md_content(md_file):
 
         if not os.path.exists(ref_md_path):
             print(f'In {md_file}：', end='')
-            print(f'{url[2]}.md', f'not found or not in {directory_file}')
+            print(f'{url[2]}.md', f'({.ref_md_path}) not found or not in {directory_file}')
             success = False
 
     for image in image_list:
