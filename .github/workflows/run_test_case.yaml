@@ -41,6 +41,8 @@ jobs:
             go build -o ../../../../plugins/portable/mirror/mirror .
             cp mirror.json ../../../../plugins/portable/mirror
             cd ../../../../
+            cp -r sdk/python/example/pysam plugins/portable/pysam
+            cp -r sdk/python/ekuiper plugins/portable/pysam/
             go test --tags="edgex test" ./...
         - uses: actions/upload-artifact@v1
           if: failure()
