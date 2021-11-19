@@ -161,6 +161,8 @@ jobs:
         run: |
           ./test/setup_env.sh
           ln -s _build/kuiper-$(git describe --tags --always)-$(uname -s | tr "[A-Z]" "[a-z]")-amd64/log kuiper_logs
+          ls -l /opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages
+          sudo chmod -R go+rX /opt/hostedtoolcache/Python/3.10.0/x64/lib/python3.10/site-packages"
       - name: run fvt tests
         timeout-minutes: 8
         run: |
