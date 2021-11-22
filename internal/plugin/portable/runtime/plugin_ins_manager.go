@@ -176,7 +176,7 @@ func (p *pluginInsManager) getOrStartProcess(pluginMeta *PluginMeta, pconf *Port
 
 	case "python":
 		conf.Log.Printf("starting python plugin executable %s\n", pluginMeta.Executable)
-		cmd = exec.Command("python", pluginMeta.Executable, string(jsonArg))
+		cmd = exec.Command(conf.Config.Portable.PythonBin, pluginMeta.Executable, string(jsonArg))
 	default:
 		return nil, fmt.Errorf("unsupported language: %s", pluginMeta.Language)
 	}
