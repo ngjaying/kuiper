@@ -77,7 +77,7 @@ jobs:
       env:
         KUIPER__PORTABLE__PYTHONBIN: "/opt/hostedtoolcache/Python/3.10.0/x64/bin/python"
       run: |
-        sudo ./test/setup_env.sh
+        ./test/setup_env.sh
         ln -s _build/kuiper-$(git describe --tags --always)-$(uname -s | tr "[A-Z]" "[a-z]")-amd64/log kuiper_logs
     - name: run fvt tests
       timeout-minutes: 8

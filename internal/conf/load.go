@@ -124,7 +124,7 @@ func process(configMap map[string]interface{}, variables []string, prefix string
 		if strings.Contains(strings.ToLower(printableK), "password") {
 			printableV = "*"
 		}
-		Log.Infof("Set config '%s.%s' to '%s' by environment variable", strings.ToLower(prefix), printableK, printableV)
+		fmt.Printf("Set config '%s.%s' to '%s' by environment variable", strings.ToLower(prefix), printableK, printableV)
 	}
 	return nil
 }
