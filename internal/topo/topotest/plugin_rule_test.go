@@ -1,4 +1,4 @@
-// Copyright 2021 EMQ Technologies Co., Ltd.
+// Copyright 2021-2022 EMQ Technologies Co., Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -19,7 +19,6 @@ package topotest
 
 import (
 	"bufio"
-	"encoding/json"
 	"fmt"
 	"github.com/lf-edge/ekuiper/internal/binder"
 	"github.com/lf-edge/ekuiper/internal/binder/function"
@@ -29,6 +28,7 @@ import (
 	"github.com/lf-edge/ekuiper/internal/topo/planner"
 	"github.com/lf-edge/ekuiper/internal/topo/topotest/mockclock"
 	"github.com/lf-edge/ekuiper/pkg/api"
+	"github.com/lf-edge/ekuiper/pkg/message"
 	"os"
 	"testing"
 	"time"
@@ -111,7 +111,7 @@ func TestExtensions(t *testing.T) {
 		var maps [][]map[string]interface{}
 		for _, v := range results {
 			var mapRes []map[string]interface{}
-			err := json.Unmarshal([]byte(v), &mapRes)
+			err := message.Unmarshal([]byte(v), &mapRes)
 			if err != nil {
 				t.Errorf("Failed to parse the input into map")
 				continue
