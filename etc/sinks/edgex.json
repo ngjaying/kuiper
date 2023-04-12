@@ -236,7 +236,7 @@
       "name": "optional",
       "optional": true,
       "control": "list",
-      "type": "list_object",
+      "type": "object",
       "connection_related": true,
       "hint": {
         "en_US": "If MQTT message bus is used, some other optional configurations can be specified. Please notice that all of values in optional are string type, so values for these configurations should be string - such as KeepAlive: \"5000\".",
