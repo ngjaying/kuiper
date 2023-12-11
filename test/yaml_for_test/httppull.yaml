@@ -1,0 +1,4 @@
+#Override the global configurations
+application_conf: #Conf_key
+  incremental: true
+  url: http://localhost:9090/

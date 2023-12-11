@@ -17,6 +17,13 @@
 
 set -e
 
+# Prepare file
+cp test/lookup.json data/lookup.json
+mkdir -p data/sources
+cp test/yaml_for_test/httppull.yaml data/sources/httppull.yaml
+cp test/yaml_for_test/sql.yaml data/sources/sql.yaml
+
+# build plugins
 go build -o test/plugins/pub/zmq_pub test/plugins/pub/zmq_pub.go
 chmod +x test/plugins/pub/zmq_pub
 

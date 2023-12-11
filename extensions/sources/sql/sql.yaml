@@ -3,10 +3,6 @@ default:
   
 mysql_config:
   url: mysql://username:password@127.0.0.1:3306/testdb?parseTime=true
-  # lookup:
-  #   cache: true
-  #   cacheTtl: 600
-  #   cacheMissingKey: true
 
 postgresql_config:
   url: postgres://username:password@127.0.0.1:5432/testdb
@@ -19,10 +15,6 @@ postgresql_config:
 
 sqlite_config:
   url: sqlite:/tmp/test.db
-  # lookup:
-  #   cache: true
-  #   cacheTtl: 600
-  #   cacheMissingKey: true
 
 sqlserver_config:
   url: sqlserver://username:password@127.0.0.1:1433/testdb
