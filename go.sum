@@ -264,8 +264,8 @@ github.com/elastic/go-sysinfo v1.13.1/go.mod h1:GKqR8bbMK/1ITnez9NIsIfXQr25aLhRJ
 github.com/elastic/go-windows v1.0.0/go.mod h1:TsU0Nrp7/y3+VwE82FoZF8gC/XFg/Elz6CcloAxnPgU=
 github.com/elastic/go-windows v1.0.1 h1:AlYZOldA+UJ0/2nBuqWdo90GFCgG9xuyw9SYzGUtJm0=
 github.com/elastic/go-windows v1.0.1/go.mod h1:FoVvqWSun28vaDQPbj2Elfc0JahhPB7WQEGa3c814Ss=
-github.com/emqx/ekuiper_can v1.0.0 h1:OGVnS2L2iYq0gliIh+QbulHMWzYkBoTZfafjRXtKSYI=
-github.com/emqx/ekuiper_can v1.0.0/go.mod h1:LNr0DG/xC/gED1/AZlxBpHkwLeAKlRN5lo/5revykeo=
+github.com/emqx/ekuiper_can v1.0.0 h1:lSDC3qEWhvzutajmNc3JpiPeyImezzAtinMreAD2LMU=
+github.com/emqx/ekuiper_can v1.0.0/go.mod h1:nT60eeyokVhqgTQToUJCL0zQovroJf9D2MTBht3pPUA=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
@@ -561,8 +561,8 @@ github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible h1:Y6sqxHMyB1D2YSzWkL
 github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible/go.mod h1:ZQnN8lSECaebrkQytbHj4xNgtg8CR7RYXnPok8e0EHA=
 github.com/lestrrat-go/strftime v1.0.6 h1:CFGsDEt1pOpFNU+TJB0nhz9jl+K0hZSLE205AhTIGQQ=
 github.com/lestrrat-go/strftime v1.0.6/go.mod h1:f7jQKgV5nnJpYgdEasS+/y7EsTb8ykN2z68n3TtcTaw=
-github.com/lf-edge/ekuiper v1.14.0-alpha.1 h1:/dYMoBDT5LFhaui3Z+2Hzlv69rocpj/1BfzqjyEqIJM=
-github.com/lf-edge/ekuiper v1.14.0-alpha.1/go.mod h1:io0nlpEySJX7O+2Tv9+4xHxt+UIIF3d2EXn/J3Y+My8=
+github.com/lf-edge/ekuiper v1.14.0-dev.1 h1:YCiBMs9uOf4EJ14raGDi2HfwHItzLZHbjnTHbX7fl98=
+github.com/lf-edge/ekuiper v1.14.0-dev.1/go.mod h1:io0nlpEySJX7O+2Tv9+4xHxt+UIIF3d2EXn/J3Y+My8=
 github.com/lf-edge/ekuiper/extensions v0.0.0-20240325025840-e9166e59d8fe h1:Pc8IypoYXeCCxkWAQKAdTu7wwAeJY0be8+4b9PgOUSg=
 github.com/lf-edge/ekuiper/extensions v0.0.0-20240325025840-e9166e59d8fe/go.mod h1:MzQ+zMDmREGrSYkmlj2efm4NeNF3pszKphtuseNmKnQ=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=

@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	github.com/emqx/ekuiper_can v1.0.0
-	github.com/lf-edge/ekuiper v1.14.0-alpha.1
+	github.com/lf-edge/ekuiper v1.14.0-dev.1
 )
 
 require (

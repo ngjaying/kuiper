@@ -1,0 +1,94 @@
+name: Build packages
+
+concurrency:
+  group: build-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  workflow_dispatch:
+  pull_request:
+  release:
+    types:
+      - published
+
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    outputs:
+      arch: ${{ steps.arch.outputs.arch }}
+
+    steps:
+      - id: arch
+        run: |
+          if ${{ contains(fromJSON('["release", "workflow_dispatch"]'), github.event_name) }}; then
+            echo "arch=[\"linux/amd64\", \"linux/arm64\", \"linux/arm/v7\"]" >> $GITHUB_OUTPUT
+          else
+            echo "arch=[\"linux/amd64\"]" >> $GITHUB_OUTPUT
+          fi
+
+  build:
+    runs-on: ubuntu-latest
+    needs: prepare
+
+    strategy:
+      matrix:
+        golang:
+          - 1.22.1
+        arch:
+          - amd64
+          - arm64
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: docker/setup-qemu-action@v2
+      - uses: docker/setup-buildx-action@v2
+      - name: Set git token
+        run: git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
+      - name: build binary packages
+        run: |
+          docker run -i --rm \
+          -v $(pwd):/ekuiper \
+          --workdir /ekuiper \
+          --env KUIPER_SOURCE='/ekuiper' \
+          --platform linux/${{ matrix.arch }} \
+          ghcr.io/lf-edge/ekuiper/base:${{ matrix.golang }}-debian \
+          bash -euc "git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_full"
+      - name: create sha file
+        run: |
+          cd _packages && for var in $(ls); do sudo bash -c "echo $(sha256sum $var | awk '{print $1}') > $var.sha256"; done && cd -
+      - uses: actions/upload-artifact@v3
+        with:
+          name: packages
+          path: _packages/
+
+  release:
+    runs-on: ubuntu-latest
+
+    needs:
+      - build
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v1
+        with:
+          name: packages
+          path: _packages
+      - name: check packages
+        run: |
+          cd _packages && for var in $( ls |grep -v sha256); do
+            echo "$(cat $var.sha256) $var" | sha256sum -c || exit 1
+          done
+      - uses: Rory-Z/upload-release-asset@v1
+        if: github.event_name == 'release'
+        with:
+          repo: ekuiper
+          path: "_packages/kuiper*"
+          token: ${{ secrets.CI_GIT_TOKEN }}
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: packages
+      - uses: geekyeggo/delete-artifact@v2
+        with:
+          name: plugins
