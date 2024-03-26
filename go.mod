@@ -3,7 +3,7 @@ module github.com/emqx/ekuiper_build
 go 1.22.1
 
 require (
-	github.com/emqx/ekuiper_can v1.0.0
+	github.com/emqx/ekuiper_can v1.0.1
 	github.com/lf-edge/ekuiper v1.14.0-dev.1
 )
 
@@ -189,7 +189,7 @@ require (
 	github.com/nats-io/nkeys v0.4.7 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
-	github.com/ngjaying/can v1.0.3 // indirect
+	github.com/ngjaying/can v1.0.4 // indirect
 	github.com/oapi-codegen/runtime v1.1.1 // indirect
 	github.com/paulmach/orb v0.11.1 // indirect
 	github.com/pierrec/lz4/v4 v4.1.21 // indirect
