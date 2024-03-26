@@ -34,9 +34,7 @@ jobs:
       matrix:
         golang:
           - 1.22.1
-        arch:
-          - amd64
-          - arm64
+        arch: ${{fromJson(needs.prepare.outputs.arch)}}
 
     steps:
       - uses: actions/checkout@v3
@@ -44,15 +42,13 @@ jobs:
           fetch-depth: 0
       - uses: docker/setup-qemu-action@v2
       - uses: docker/setup-buildx-action@v2
-      - name: Set git token
-        run: git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
       - name: build binary packages
         run: |
           docker run -i --rm \
           -v $(pwd):/ekuiper \
           --workdir /ekuiper \
           --env KUIPER_SOURCE='/ekuiper' \
-          --platform linux/${{ matrix.arch }} \
+          --platform ${{ matrix.arch }} \
           ghcr.io/lf-edge/ekuiper/base:${{ matrix.golang }}-debian \
           bash -euc "git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_full"
       - name: create sha file

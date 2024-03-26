@@ -1,0 +1,19 @@
+name: Check markdown
+
+on:
+  pull_request:
+    paths:
+      - 'docs/**'
+
+jobs:
+  markdown_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: check out code
+        uses: actions/checkout@main
+
+      - name: install markdownlint
+        run: sudo npm install -g markdownlint-cli
+
+      - name: check markdown
+        run: markdownlint -c .github/workflows/markdown_config.json ./docs/
