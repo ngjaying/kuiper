@@ -25,18 +25,18 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/timex"
 )
 
-type conf struct {
+type c struct {
 	Topic        string `json:"datasource"`
 	BufferLength int    `json:"bufferLength"`
 }
 
 type source struct {
 	topicRegex *regexp.Regexp
-	c          *conf
+	c          *c
 }
 
 func (s *source) Provision(ctx api.StreamContext, props map[string]any) error {
-	cfg := &conf{
+	cfg := &c{
 		BufferLength: 1024,
 	}
 	err := cast.MapToStruct(props, cfg)

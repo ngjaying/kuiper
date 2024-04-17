@@ -17,8 +17,9 @@ package mock
 import (
 	"strings"
 
-	"github.com/lf-edge/ekuiper/contract/v2/api"
 	"github.com/lf-edge/ekuiper/v2/internal/plugin"
+
+	"github.com/lf-edge/ekuiper/contract/v2/api"
 	"github.com/lf-edge/ekuiper/v2/pkg/errorx"
 )
 
@@ -96,11 +97,11 @@ func (m *mockFunc) IsAggregate() bool {
 
 type mockSource struct{}
 
-func (m *mockSource) Open(_ api.StreamContext, _ chan<- api.Tuple, _ chan<- error) {
-	return
+func (m *mockSource) Provision(ctx api.StreamContext, configs map[string]any) error {
+	return nil
 }
 
-func (m *mockSource) Configure(_ string, _ map[string]interface{}) error {
+func (m *mockSource) Connect(ctx api.StreamContext) error {
 	return nil
 }
 
