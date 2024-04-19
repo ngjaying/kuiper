@@ -15,7 +15,7 @@
 package main
 
 import (
-	"github.com/lf-edge/ekuiper/cmd"
+	"github.com/lf-edge/ekuiper/v2/cmd"
 
 	_ "github.com/emqx/ekuiper_can"
 )
