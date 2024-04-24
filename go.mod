@@ -1,10 +1,10 @@
 module github.com/emqx/ekuiper_build
 
-go 1.22.1
+go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.0
-	github.com/lf-edge/ekuiper/v2 v2.0.0-pre.1
+	github.com/emqx/ekuiper_can v1.2.0-dev.1
+	github.com/lf-edge/ekuiper/v2 v2.0.0-dev.4
 )
 
 require (
@@ -44,7 +44,7 @@ require (
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
-	github.com/lf-edge/ekuiper/contract/v2 v2.0.0 // indirect
+	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-dev.2 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -97,8 +97,4 @@ require (
 	modernc.org/token v1.1.0 // indirect
 )
 
-replace github.com/lf-edge/ekuiper/v2 => ../github.com/lfedge/ekuiper
-
-replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/mod/contract
-
-replace github.com/emqx/ekuiper_can => ../ekuiper_can
+//replace github.com/emqx/ekuiper_can => ../ekuiper_can
