@@ -252,10 +252,16 @@
    &quot;frames&quot;: [
       {
          &quot;id&quot;: 1006,
+         &quot;bus&quot;: 4,
+		&quot;d&quot;:  0,
+		&quot;t&quot;: 1617179000000,
          &quot;data&quot;: &quot;54657374000000005465737400000000&quot;
       },
       {
          &quot;id&quot;: 1414,
+         &quot;bus&quot;: 4,
+		&quot;d&quot;:  0,
+		&quot;t&quot;: 1617179000001,
          &quot;data&quot;: &quot;5465737400000000&quot;
       }
    ]
@@ -457,7 +463,7 @@
         </net.xmeter.samplers.SubSampler>
         <hashTree>
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="sig1 Assertion" enabled="true">
-            <stringProp name="JSON_PATH">$[0].ChrgngSttnCapctOfDsttnNav</stringProp>
+            <stringProp name="JSON_PATH">$[0].ICM_100ms_PDU38.ChrgngSttnCapctOfDsttnNav</stringProp>
             <stringProp name="EXPECTED_VALUE">464</stringProp>
             <boolProp name="JSONVALIDATION">true</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
@@ -466,7 +472,7 @@
           </JSONPathAssertion>
           <hashTree/>
           <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion" testname="sig2 Assertion" enabled="true">
-            <stringProp name="JSON_PATH">$[0].VBTOSLonPstn</stringProp>
+            <stringProp name="JSON_PATH">$[0].RVB_TVR_Debug2_FO.VBTOSLonPstn</stringProp>
             <stringProp name="EXPECTED_VALUE">168.75</stringProp>
             <boolProp name="JSONVALIDATION">true</boolProp>
             <boolProp name="EXPECT_NULL">false</boolProp>
