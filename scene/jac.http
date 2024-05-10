@@ -1,0 +1,73 @@
+############# Sim canjson
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM dbc() WITH (TYPE=\"mqtt\",FORMAT=\"canjson\",DATASOURCE=\"sim\",SHARED=\"true\",SCHEMAID=\"scene\/dbc\", TIMESTAMP=\"ts\");"
+}
+
+############# Sim canjson
+PUT http://{{host}}/streams/candata
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM candata () WITH (TYPE=\"mqtt\", FORMAT=\"canjson\", SHARED=\"TRUE\", SCHEMAID=\"scene\/dbc\",DATASOURCE=\"sim\")"
+}
+
+
+### Get all
+PUT http://{{host}}/rules/ruleAll
+Content-Type: application/json
+
+{
+  "id": "ruleAll",
+  "name": "测试所有数据",
+  "sql": "SELECT DRIVE FROM dbc",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/all",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+### 场景4
+PUT http://{{host}}/rules/rule4
+Content-Type: application/json
+
+{
+  "id": "rule4",
+  "name": "跳变取前后数据，Mess94.Mess94_Sig2 替换为 BMS_SOC_JUMP 的信号",
+  "sql": "SELECT object_pick(DRIVE,\"id\",\"t\",\"d\",\"bus\",\"Speed\",\"Acceleration\") as drive FROM dbc GROUP BY SlidingWindow(ss, 1, 1) OVER (WHEN had_changed(true, DRIVE.Speed) AND DRIVE.Speed > 0)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/rule4",
+        "omitIfEmpty": true
+      }
+    }
+  ]
+}
+
+### 1. uploads import
+POST http://{{host}}/data/import
+Content-Type: application/json
+
+{
+  "file": "file:///C:/repos/go/src/ek_build/data/uploads/JMCPoC.json"
+}
+
+### 1. uploads import
+POST http://{{host}}/data/import
+Content-Type: application/json
+
+{
+  "file": "file:///C:/repos/go/src/github.com/lfedge/ekuiper/data/ruleset.json"
+}
+
+###
+GET http://{{host}}/streams/candata
