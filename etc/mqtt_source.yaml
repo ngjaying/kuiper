@@ -2,17 +2,22 @@
 default:
   qos: 1
   server: "tcp://127.0.0.1:1883"
-  #decompression: zlib
-  #username: user1
-  #password: password
-  #certificationPath: /var/kuiper/xyz-certificate.pem
-  #privateKeyPath: /var/kuiper/xyz-private.pem.key
-  #rootCaPath: /var/kuiper/xyz-rootca.pem
-  #insecureSkipVerify: false
-  #connectionSelector: mqtt.mqtt_conf1
-  #kubeedgeVersion: 
-  #kubeedgeModelFile: ""
 
-demo_conf: #Conf_key
-  qos: 0
-  server: "tcp://10.211.55.6:1883"
+canjson:
+  payloadBatchField: frames
+  payloadField: data
+  payloadFormat: can
+  payloadSchemaId: scene/dbc
+
+ten_sec:
+  interval: 10s
+  payloadFormat: can
+  payloadSchemaId: scene/dbc
+  merger: jsoncan
+
+batch:
+  interval: 10s
+
+batchMerge:
+  interval: 10s
+  mergeField: id
