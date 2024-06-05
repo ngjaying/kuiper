@@ -3,21 +3,22 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.0-dev.1.0.20240511062240-d5f292d7d2a2
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.4
+	github.com/emqx/ekuiper_can v1.2.2-0.20240605090109-b13831032bae
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.4.0.20240605080240-20d4fe49e30f
 )
 
 require (
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.3 // indirect
-	github.com/Microsoft/go-winio v0.6.0 // indirect
+	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/PaesslerAG/gval v1.2.2 // indirect
 	github.com/PaesslerAG/jsonpath v0.1.1 // indirect
 	github.com/apple/foundationdb/bindings/go v0.0.0-20240315202255-8943393e84fc // indirect
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bufbuild/protocompile v0.9.0 // indirect
+	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dlclark/regexp2 v1.11.0 // indirect
@@ -45,7 +46,7 @@ require (
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
-	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.2 // indirect
+	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.2.0.20240605080240-20d4fe49e30f // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -101,5 +102,7 @@ require (
 )
 
 //replace github.com/emqx/ekuiper_can => ../ekuiper_can
+//
+//replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/contract
 //
 //replace github.com/lf-edge/ekuiper/v2 => ../github.com/lfedge/ekuiper
