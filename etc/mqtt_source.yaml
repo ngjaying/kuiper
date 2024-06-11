@@ -3,6 +3,17 @@ default:
   qos: 1
   server: "tcp://127.0.0.1:1883"
 
+canmsg:
+  payloadField: packet
+  payloadFormat: canpacket
+  payloadSchemaId: scene/dbc
+
+canmsg_batch_merge:
+  interval: 10s
+  payloadFormat: canpacket
+  payloadSchemaId: scene/dbc
+  merger: canmsg
+
 canjson:
   payloadBatchField: frames
   payloadField: data

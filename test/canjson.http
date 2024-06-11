@@ -127,3 +127,61 @@ Content-Type: application/json
     "debug": true
   }
 }
+
+### canmsg format
+PUT http://{{host}}/streams/canmsgStream
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM canmsgStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"sim5\",SCHEMAID=\"scene\/dbc\", SHARED=\"true\", CONF_KEY=\"canmsg\");"
+}
+
+### Get all
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleCanMsgAll",
+  "name": "测试所有数据",
+  "sql": "SELECT * FROM canmsgStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/canmsg",
+        "sendSingle": true
+      }
+    }
+  ],
+  "options": {
+  }
+}
+
+### canmsg batch format
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM canmsgBatchStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"sim5\",SCHEMAID=\"scene\/dbc\", SHARED=\"true\", CONF_KEY=\"canmsg_batch_merge\");"
+}
+
+### Get all
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleCanMsgBatchAll",
+  "name": "测试所有数据",
+  "sql": "SELECT * FROM canmsgBatchStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/canmsgbatch",
+        "sendSingle": true
+      }
+    }
+  ],
+  "options": {
+  }
+}
