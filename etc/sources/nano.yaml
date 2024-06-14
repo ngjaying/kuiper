@@ -1,0 +1,5 @@
+lookup:
+  url: tcp://127.0.0.1:10000
+  payloadField: packet
+  payloadFormat: canpacket
+  payloadSchemaId: scene/dbc

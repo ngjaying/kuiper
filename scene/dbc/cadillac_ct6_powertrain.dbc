@@ -67,7 +67,7 @@ BO_ 190 ECMAcceleratorPos: 6 K20_ECM
  SG_ BrakePedalPos : 15|8@0+ (1,0) [0|0] "sticky"  NEO
  SG_ GasPedalAndAcc : 23|8@0+ (1,0) [0|0] ""  NEO
 
-BO_ 201 ECMEngineStatus: 8 K20_ECM
+BO_ 238 ECMEngineStatus: 8 K20_ECM
  SG_ EngineTPS : 39|8@0+ (0.392156863,0) [0|100.000000065] "%"  NEO
  SG_ EngineRPM : 15|16@0+ (0.25,0) [0|0] "RPM"  NEO
 
@@ -82,7 +82,7 @@ BO_ 209 EBCMBrakePedalSensors: 7 K17_EBCM
 BO_ 241 EBCMBrakePedalPosition: 6 K17_EBCM
  SG_ BrakePedalPosition : 15|8@0+ (1,0) [0|255] ""  NEO
 
-BO_ 298 BCMDoorBeltStatus: 8 K9_BCM
+BO_ 293 BCMDoorBeltStatus: 8 K9_BCM
  SG_ RearLeftDoor : 8|1@0+ (1,0) [0|0] ""  NEO
  SG_ FrontLeftDoor : 9|1@0+ (1,0) [0|0] ""  NEO
  SG_ FrontRightDoor : 10|1@0+ (1,0) [0|0] ""  NEO
@@ -90,7 +90,7 @@ BO_ 298 BCMDoorBeltStatus: 8 K9_BCM
  SG_ LeftSeatBelt : 12|1@0+ (1,0) [0|0] ""  NEO
  SG_ RightSeatBelt : 53|1@0+ (1,0) [0|0] ""  NEO
 
-BO_ 309 ECMPRDNL: 8 K20_ECM
+BO_ 245 ECMPRDNL: 8 K20_ECM
  SG_ PRNDL : 2|3@0+ (1,0) [0|0] ""  NEO
 
 BO_ 320 BCMTurnSignals: 3 K9_BCM

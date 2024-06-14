@@ -3,8 +3,9 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.2-0.20240605090109-b13831032bae
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.4.0.20240605080240-20d4fe49e30f
+	github.com/emqx/ekuiper_can v1.2.2-0.20240617023422-10c60b04b9ad
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.5
+	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
 require (
@@ -46,7 +47,7 @@ require (
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
-	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.2.0.20240605080240-20d4fe49e30f // indirect
+	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.3 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -76,12 +77,11 @@ require (
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/valyala/fastjson v1.6.4 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
-	go.nanomsg.org/mangos/v3 v3.4.2 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
 	golang.org/x/exp v0.0.0-20240325151524-a685a6edb6d8 // indirect
 	golang.org/x/mod v0.16.0 // indirect
-	golang.org/x/net v0.22.0 // indirect
+	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/sync v0.6.0 // indirect
 	golang.org/x/sys v0.18.0 // indirect
 	golang.org/x/text v0.14.0 // indirect

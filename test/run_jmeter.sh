@@ -66,3 +66,7 @@ echo -e "---------------------------------------------\n"
 #echo -e "-------------------- can test ------------------------\n"
 #/opt/jmeter/bin/jmeter.sh -Jjmeter.save.saveservice.output_format=xml -n -t test/can_socketcan.jmx -Dfvt="$fvt_dir" -l jmeter_logs/can_socketcan.jtl -j jmeter_logs/can_socketcan.log
 #echo -e "---------------------------------------------\n"
+
+echo -e "-------------------- nng lookup test ------------------------\n"
+/opt/jmeter/bin/jmeter.sh -Jjmeter.save.saveservice.output_format=xml -n -t test/nng_lookup.jmx -Dfvt="$fvt_dir" -l jmeter_logs/nng_lookup.jtl -j jmeter_logs/nng_lookup.log
+echo -e "---------------------------------------------\n"

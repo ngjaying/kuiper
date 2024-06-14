@@ -17,4 +17,45 @@
 
 set -e
 
-bash test/start_kuiper.sh
+# Build nano lookup server
+go build -o test/mock/nano_lookup/server test/mock/nano_lookup/server.go
+chmod +x test/mock/nano_lookup/server
+
+# Run eKuiper
+pids=`ps aux|grep "kuiperd" | grep "bin"|awk '{printf $2 " "}'`
+if [ "$pids" = "" ] ; then
+   echo "No kuiper server was started"
+else
+  for pid in $pids ; do
+    echo "kill kuiper " $pid
+    kill -9 $pid
+  done
+fi
+
+ver=`git describe --tags --always`
+os=`uname -s | tr "[A-Z]" "[a-z]"`
+base_dir=_build/kuiper-"$ver"-"$os"-amd64
+
+# Copy dbc
+mkdir $base_dir/scene
+cp -r scene/dbc $base_dir/scene/dbc
+
+rm -rf $base_dir/data/*
+ls -l $base_dir/bin/kuiperd
+
+cd $base_dir/
+touch log/kuiper.out
+export BUILD_ID=dontKillMe
+export KUIPER__BASIC__PROMETHEUS="true"
+export KUIPER__BASIC__PROMETHEUSPORT=9081
+export KUIPER__BASIC__RESTPORT=9081
+export KUIPER__PORTABLE__INITTIMEOUT=50000
+nohup bin/kuiperd > log/kuiper.out 2>&1 &
+echo "starting kuiper at " $base_dir
+
+# Run mock nano lookup server
+touch log/lookup_server.out
+cd ../../test/mock/nano_lookup
+export BUILD_ID=dontKillMe
+echo "starting mock nano lookup..."
+nohup ./server > ../../../$base_dir/log/lookup_server.out 2>&1 &
