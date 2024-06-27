@@ -15,10 +15,10 @@ TARGET ?= lfedge/ekuiper
 export KUIPER_SOURCE := $(shell pwd)
 
 .PHONY: build
-build: build_full
+build: build_ex
 
 .PHONY:pkg
-pkg: pkg_full
+pkg: pkg_ex
 	@if [ "$$(uname -s)" = "Linux" ]; then make -C deploy/packages; fi
 
 .PHONY: build_prepare
@@ -40,28 +40,40 @@ build_prepare:
 
 	@cp -r etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
 
-.PHONY: build_full
-build_full: SHELL:=/bin/bash -euo pipefail
-build_full: build_prepare
-	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/cmd.LoadFileType=relative" -tags "full include_nats_messaging" -o kuiperd main.go
+.PHONY: build_ex
+build_ex: SHELL:=/bin/bash -euo pipefail
+build_ex: build_prepare
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd main.go
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Build successfully"
 
-.PHONY: pkg_full
-pkg_full: build_full
+.PHONY: pkg_ex
+pkg_ex: build_ex
 	@mkdir -p $(PACKAGES_PATH)
-	@cd $(BUILD_PATH) && zip -rq $(PACKAGE_NAME)-full.zip $(PACKAGE_NAME)
-	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-full.tar.gz $(PACKAGE_NAME)
-	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-full.zip $(BUILD_PATH)/$(PACKAGE_NAME)-full.tar.gz $(PACKAGES_PATH)
-	@echo "Package full success"
+	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-ex.tar.gz $(PACKAGE_NAME)
+	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-ex.tar.gz $(PACKAGES_PATH)
+	@echo "Package for Neuron EX success"
+
+.PHONY: build_sdv
+build_sdv: SHELL:=/bin/bash -euo pipefail
+build_sdv: build_prepare
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus template" -o kuiperd main.go
+	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
+	@echo "Build successfully"
+
+.PHONY: pkg_sdv
+pkg_sdv: build_sdv
+	@mkdir -p $(PACKAGES_PATH)
+	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-sdv.tar.gz $(PACKAGE_NAME)
+	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-sdv.tar.gz $(PACKAGES_PATH)
+	@echo "Package for SDV flow success"
 
 .PHONY: real_pkg
 real_pkg:
 	@mkdir -p $(PACKAGES_PATH)
-	@cd $(BUILD_PATH) && zip -rq $(PACKAGE_NAME).zip $(PACKAGE_NAME)
 	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME).tar.gz $(PACKAGE_NAME)
-	@mv $(BUILD_PATH)/$(PACKAGE_NAME).zip $(BUILD_PATH)/$(PACKAGE_NAME).tar.gz $(PACKAGES_PATH)
+	@mv $(BUILD_PATH)/$(PACKAGE_NAME).tar.gz $(PACKAGES_PATH)
 	@echo "Package build success"
 
 PLUGINS := sinks/influx \
