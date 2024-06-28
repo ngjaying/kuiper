@@ -3,12 +3,13 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.2-0.20240617023422-10c60b04b9ad
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.5
+	github.com/emqx/ekuiper_can v1.2.2-0.20240628060940-3bbb8ccffa0e
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.6.0.20240628075657-6c74ec872b61
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
 require (
+	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Masterminds/goutils v1.1.1 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/Masterminds/sprig/v3 v3.2.3 // indirect
@@ -16,6 +17,7 @@ require (
 	github.com/PaesslerAG/gval v1.2.2 // indirect
 	github.com/PaesslerAG/jsonpath v0.1.1 // indirect
 	github.com/apple/foundationdb/bindings/go v0.0.0-20240315202255-8943393e84fc // indirect
+	github.com/aws/aws-sdk-go v1.38.20 // indirect
 	github.com/benbjohnson/clock v1.3.5 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bufbuild/protocompile v0.9.0 // indirect
@@ -29,6 +31,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
+	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang/mock v1.6.0 // indirect
@@ -43,6 +46,7 @@ require (
 	github.com/imdario/mergo v0.3.16 // indirect
 	github.com/jhump/protoreflect v1.15.6 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
+	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/keepeye/logrus-filename v0.0.0-20190711075016-ce01a4391dd1 // indirect
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
@@ -74,8 +78,11 @@ require (
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/tklauser/go-sysconf v0.3.13 // indirect
 	github.com/tklauser/numcpus v0.7.0 // indirect
+	github.com/u2takey/ffmpeg-go v0.5.0 // indirect
+	github.com/u2takey/go-utils v0.3.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/valyala/fastjson v1.6.4 // indirect
+	github.com/xo/dburl v0.23.2 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
