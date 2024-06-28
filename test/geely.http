@@ -1,0 +1,89 @@
+############# Sim canjson
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM mock() WITH (TYPE=\"mqtt\",FORMAT=\"json\",DATASOURCE=\"sim\",SHARED=\"true\");"
+}
+
+### Create source by file
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "create stream mockStream () WITH (FORMAT=\"JSON\", DATASOURCE=\"mock.jsonl\", TYPE=\"file\", CONF_KEY=\"lines\")"
+}
+
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleGetFirst",
+  "name": "测试压缩率",
+  "sql": "SELECT * FROM mock",
+  "actions": [
+    {
+      "file": {
+        "path": "data/mock.zstd",
+        "format": "json",
+        "fileType": "lines",
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix",
+        "compression": "zstd"
+      }
+    },
+    {
+      "file": {
+        "path": "data/mock.jsonl",
+        "format": "json",
+        "fileType": "lines",
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix"
+      }
+    }
+  ]
+}
+
+###
+PUT http://{{host}}/rules/ruleMockFile
+Content-Type: application/json
+
+{
+  "id": "ruleMockFile",
+  "name": "测试压缩率",
+  "sql": "SELECT * FROM mock",
+  "actions": [
+    {
+      "file": {
+        "path": "data/mockc.zstd",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix",
+        "compression": "zstd"
+      }
+    },
+    {
+      "file": {
+        "path": "data/mockc.csv",
+        "format": "delimited",
+        "hasHeader": true,
+        "fileType": "csv",
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix"
+      }
+    }
+  ]
+}
+
+###
+GET http://{{host}}/rules/ruleMockFile/status
+
+###
+POST http://{{host}}/rules/ruleMockFile/start
