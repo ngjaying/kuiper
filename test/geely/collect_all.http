@@ -1,0 +1,115 @@
+```### 更改 canmsg_batch_merge 配置，改成 1s 聚合
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM canmsgBatchStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\", SHARED=\"true\", CONF_KEY=\"canmsg_batch_merge\");"
+}
+
+### 1s 实时采集
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleAll",
+  "name": "1s实时采集",
+  "sql": "SELECT * FROM canmsgBatchStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/all",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+### 10s 周期性采集
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rule10second",
+  "name": "10s周期采集",
+  "sql": "SELECT window_start() as startTime, rule_id() as identifier, \"1.0.0\" as signals_version, collect(*) as results FROM canmsgBatchStream GROUP BY TumblingWindow(ss, 10)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/c10",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+### 10s 周期性采集并压缩
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rule10secondCompress",
+  "name": "10s周期采集并压缩",
+  "sql": "SELECT window_start() as startTime, rule_id() as identifier, \"1.0.0\" as signals_version, collect(*) as results FROM canmsgBatchStream GROUP BY TumblingWindow(ss, 10)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/c10",
+        "compression": "zstd",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+### 10s 文件采集
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rule10secondCSV",
+  "name": "10s周期文件",
+  "sql": "SELECT * FROM canmsgBatchStream",
+  "actions": [
+    {
+      "file": {
+        "path": "data/mock.csv",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix"
+      }
+    }
+  ]
+}
+
+### 10s 文件采集
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rule10secondCSV_ZSTD",
+  "name": "10s周期文件压缩",
+  "sql": "SELECT * FROM canmsgBatchStream",
+  "actions": [
+    {
+      "file": {
+        "path": "data/mock.zstd",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "rollingCount": 10,
+        "compression": "zstd",
+        "rollingNamePattern": "suffix"
+      }
+    }
+  ]
+}
+
+###
+GET http://{{host}}/rules/rule10second/status

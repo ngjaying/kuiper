@@ -9,7 +9,7 @@ canmsg:
   payloadSchemaId: scene/dbc
 
 canmsg_batch_merge:
-  interval: 10s
+  interval: 1s
   payloadFormat: canpacket
   payloadSchemaId: scene/dbc
   merger: canmsg
