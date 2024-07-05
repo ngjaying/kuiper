@@ -3,8 +3,8 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.2-0.20240628060940-3bbb8ccffa0e
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.6.0.20240628075657-6c74ec872b61
+	github.com/emqx/ekuiper_can v1.2.2-0.20240704083400-ec4d1117448c
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.7
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -28,6 +28,7 @@ require (
 	github.com/dop251/goja v0.0.0-20240220182346-e401ed450204 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.3 // indirect
+	github.com/emqx/can v1.0.6 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
@@ -51,7 +52,7 @@ require (
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
-	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.3 // indirect
+	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mitchellh/copystructure v1.2.0 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
@@ -59,7 +60,6 @@ require (
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
-	github.com/ngjaying/can v1.0.4 // indirect
 	github.com/pingcap/errors v0.11.4 // indirect
 	github.com/pingcap/failpoint v0.0.0-20220801062533-2eaa32854a6c // indirect
 	github.com/pkg/errors v0.9.1 // indirect

@@ -71,8 +71,10 @@ github.com/dustin/go-humanize v1.0.1 h1:GzkhY7T5VNhEkwH0PVJgjz+fX1rhBrR7pRT3mDkp
 github.com/dustin/go-humanize v1.0.1/go.mod h1:Mu1zIs6XwVuF/gI1OepvI0qD18qycQx+mFykh5fBlto=
 github.com/eclipse/paho.mqtt.golang v1.4.3 h1:2kwcUGn8seMUfWndX0hGbvH8r7crgcJguQNCyp70xik=
 github.com/eclipse/paho.mqtt.golang v1.4.3/go.mod h1:CSYvoAlsMkhYOXh/oKyxa8EcBci6dVkLCbo5tTC1RIE=
-github.com/emqx/ekuiper_can v1.2.2-0.20240628060940-3bbb8ccffa0e h1:DnK9qiLlDKOZxioFNjVESokSOAASGMjQDgOy6OeKa/g=
-github.com/emqx/ekuiper_can v1.2.2-0.20240628060940-3bbb8ccffa0e/go.mod h1:Y30gu2HJgCvAZpHgeTkFq7SW4+jh2+h7x5D6qQjJN+Y=
+github.com/emqx/can v1.0.6 h1:H/lsyJ6uiCL8MpxBUPvBKUenLgUB3EZUb19X9yEcb5k=
+github.com/emqx/can v1.0.6/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
+github.com/emqx/ekuiper_can v1.2.2-0.20240704083400-ec4d1117448c h1:u9Ot2o1MVqIMw4idSVBS8K/Ii5kWgTlS/qehRDSY818=
+github.com/emqx/ekuiper_can v1.2.2-0.20240704083400-ec4d1117448c/go.mod h1:dWUN+a/ga8c6pqxReKbrCIV94Iy3lqerVXwwNsr3W8w=
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
 github.com/frankban/quicktest v1.14.6 h1:7Xjx+VpznH+oBnejlPUj8oUpdxnVs4f8XU8WnHkI4W8=
@@ -160,11 +162,10 @@ github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible h1:Y6sqxHMyB1D2YSzWkL
 github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible/go.mod h1:ZQnN8lSECaebrkQytbHj4xNgtg8CR7RYXnPok8e0EHA=
 github.com/lestrrat-go/strftime v1.0.6 h1:CFGsDEt1pOpFNU+TJB0nhz9jl+K0hZSLE205AhTIGQQ=
 github.com/lestrrat-go/strftime v1.0.6/go.mod h1:f7jQKgV5nnJpYgdEasS+/y7EsTb8ykN2z68n3TtcTaw=
-github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.3 h1:nT7Lt8hUWAqpvt2p+Vc96xLI8ILvpMc8H2igUGX7XaY=
-github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.3/go.mod h1:AgzJVledX5rWyTsguk9JOIhVFua3nKYxCSQvWpQw7Vo=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.6/go.mod h1:um+1gXT/tG5lPHKSw/L74L8jj5AOVYGXrImmgAoWkNo=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.6.0.20240628075657-6c74ec872b61 h1:GiYekhjDPqtSGSshftw6E/M4VD/pPuRsHAx5ins9j/k=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.6.0.20240628075657-6c74ec872b61/go.mod h1:eXBvS/meVV2zNvtRi4XAC2BD2tOv5oXVkBzM/Z/IZ5o=
+github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4 h1:UDLmjavcG+wTqls7vjMufh1WtHky+J4LBtNsBDNF9bI=
+github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4/go.mod h1:AgzJVledX5rWyTsguk9JOIhVFua3nKYxCSQvWpQw7Vo=
+github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.7 h1:d6rYnnhdDE3e0fYdxf2tiNWzTDuqYVMR+1ZAPeUJkFc=
+github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.7/go.mod h1:eXBvS/meVV2zNvtRi4XAC2BD2tOv5oXVkBzM/Z/IZ5o=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/mattn/go-sqlite3 v1.14.22 h1:2gZY6PC6kBnID23Tichd1K+Z0oS6nE/XwU+Vz/5o4kU=
@@ -193,8 +194,6 @@ github.com/msgpack/msgpack-go v0.0.0-20130625150338-8224460e6fa3 h1:6pY2f1fJC+u2
 github.com/msgpack/msgpack-go v0.0.0-20130625150338-8224460e6fa3/go.mod h1:jDCQZQaHCHpBYqM4WoGyujFc55bazGAEwK27iK4PQTI=
 github.com/ncruces/go-strftime v0.1.9 h1:bY0MQC28UADQmHmaF5dgpLmImcShSi2kHU9XLdhx/f4=
 github.com/ncruces/go-strftime v0.1.9/go.mod h1:Fwc5htZGVVkseilnfgOVb9mKy6w1naJmn9CehxcKcls=
-github.com/ngjaying/can v1.0.4 h1:AOGI8RhHFhlsyxDdGwqpbXeAS8rfcKLadHpGehfxxLQ=
-github.com/ngjaying/can v1.0.4/go.mod h1:ZLY5VK9HdxkKBABGlXLTqAnZJyporXOL+wVEMfeJR8I=
 github.com/panjf2000/ants/v2 v2.4.2/go.mod h1:f6F0NZVFsGCp5A7QW/Zj/m92atWwOkY0OIhFxRNFr4A=
 github.com/pingcap/errors v0.11.4 h1:lFuQV/oaUMGcD2tqt+01ROSmJs75VG1ToEOkZIZ4nE4=
 github.com/pingcap/errors v0.11.4/go.mod h1:Oi8TUi2kEtXXLMJk9l1cGmz20kV3TaQ0usTwv5KuLY8=
