@@ -173,7 +173,7 @@
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-                                        &quot;sql&quot;: &quot;CREATE TABLE nanoTable() WITH (TYPE=\&quot;nano\&quot;,FORMAT=\&quot;canmsg\&quot;,SCHEMAID=\&quot;scene\/dbc\&quot;,KIND=\&quot;lookup\&quot;,CONF_KEY=\&quot;lookup\&quot;);&quot;&#xd;
+                                        &quot;sql&quot;: &quot;CREATE TABLE nanoTable() WITH (TYPE=\&quot;nano\&quot;,FORMAT=\&quot;canmsg\&quot;,SCHEMAID=\&quot;dbc\/test\&quot;,KIND=\&quot;lookup\&quot;,CONF_KEY=\&quot;lookup\&quot;);&quot;&#xd;
                                         }&#xd;
                                     </stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>

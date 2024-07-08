@@ -1,6 +1,6 @@
 {
   "streams": {
-    "candata": "CREATE STREAM candata () WITH (TYPE=\"mqtt\", CONF_KEY=\"default\", FORMAT=\"canjson\", SHARED=\"TRUE\", SCHEMAID=\"scene/dbc\",DATASOURCE=\"sim\")",
+    "candata": "CREATE STREAM candata () WITH (TYPE=\"mqtt\", CONF_KEY=\"default\", FORMAT=\"canjson\", SHARED=\"TRUE\", SCHEMAID=\"dbc/test\",DATASOURCE=\"sim\")",
     "triggerStream": "CREATE STREAM triggerStream() WITH (TYPE=\"memory\", FORMAT=\"json\", DATASOURCE=\"trigger\")"
   },
   "tables": {},

@@ -69,7 +69,7 @@ PUT http://{{host}}/streams/batchCan
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM batchCan() WITH (TYPE=\"mqtt\",FORMAT=\"can\",DATASOURCE=\"sim3\",SHARED=\"true\", SCHEMAID=\"scene\/dbc\",CONF_KEY=\"batch\");"
+  "sql": "CREATE STREAM batchCan() WITH (TYPE=\"mqtt\",FORMAT=\"can\",DATASOURCE=\"sim3\",SHARED=\"true\", SCHEMAID=\"dbc\/test\",CONF_KEY=\"batch\");"
 }
 
 ### Get all
@@ -103,7 +103,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM batchCanMerge() WITH (TYPE=\"mqtt\",FORMAT=\"can\",DATASOURCE=\"sim4\",SHARED=\"true\", SCHEMAID=\"scene\/dbc\",CONF_KEY=\"batchMerge\");"
+  "sql": "CREATE STREAM batchCanMerge() WITH (TYPE=\"mqtt\",FORMAT=\"can\",DATASOURCE=\"sim4\",SHARED=\"true\", SCHEMAID=\"dbc\/test\",CONF_KEY=\"batchMerge\");"
 }
 
 ### Get all
@@ -133,7 +133,7 @@ PUT http://{{host}}/streams/canmsgStream
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM canmsgStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"sim5\",SCHEMAID=\"scene\/dbc\", SHARED=\"true\", CONF_KEY=\"canmsg\");"
+  "sql": "CREATE STREAM canmsgStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"sim5\",SCHEMAID=\"dbc\/test\", SHARED=\"true\", CONF_KEY=\"canmsg\");"
 }
 
 ### Get all
@@ -162,7 +162,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM canmsgBatchStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"sim5\",SCHEMAID=\"scene\/dbc\", SHARED=\"true\", CONF_KEY=\"canmsg_batch_merge\");"
+  "sql": "CREATE STREAM canmsgBatchStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"sim5\",SCHEMAID=\"dbc\/test\", SHARED=\"true\", CONF_KEY=\"canmsg_batch_merge\");"
 }
 
 ### Get all

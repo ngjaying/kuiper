@@ -60,7 +60,7 @@ jobs:
       - name: build kuiper
         run: |
           sudo apt-get update && sudo apt-get install pkg-config libczmq-dev -y
-          make
+          make build_sdv
           echo "KUIPER_LOG_PATH=_build/kuiper-$(git describe --tags --always)-$(uname -s | tr "[A-Z]" "[a-z]")-amd64/log" >> $GITHUB_ENV
       - name: run kuiper
         run: |

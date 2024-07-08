@@ -14,6 +14,12 @@ TARGET ?= lfedge/ekuiper
 
 export KUIPER_SOURCE := $(shell pwd)
 
+# Get cached eKuiper dir
+MODULE_PATH := github.com/lf-edge/ekuiper/v2
+GO_MOD_CACHE := $(shell go env GOMODCACHE)
+EK_VERSION := $(shell go list -m $(MODULE_PATH) | awk -F' ' '{print $$2}')
+EK_DIR := $(GO_MOD_CACHE)/$(MODULE_PATH)@$(EK_VERSION)
+
 .PHONY: build
 build: build_ex
 
@@ -35,17 +41,18 @@ build_prepare:
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/plugins/sinks
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/plugins/functions
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/plugins/portable
-	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/plugins/wasm
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/log
-
-	@cp -r etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
 
 .PHONY: build_ex
 build_ex: SHELL:=/bin/bash -euo pipefail
 build_ex: build_prepare
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd main.go
+	@echo "Compiling"
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd main.go
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
+	@echo "Overwrite etc"
+	@cp -r $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@cp -rf etc_ex/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
 	@echo "Build successfully"
 
 .PHONY: pkg_ex
@@ -58,8 +65,12 @@ pkg_ex: build_ex
 .PHONY: build_sdv
 build_sdv: SHELL:=/bin/bash -euo pipefail
 build_sdv: build_prepare
+	@echo "Compiling"
 	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus template" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
+	@echo "Overwrite etc"
+	@cp -r $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@cp -rf etc_sdv/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
 	@echo "Build successfully"
 
 .PHONY: pkg_sdv

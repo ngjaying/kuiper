@@ -3,7 +3,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM dbc() WITH (TYPE=\"mqtt\",FORMAT=\"canjson\",DATASOURCE=\"sim\",SHARED=\"true\",SCHEMAID=\"scene\/dbc\", TIMESTAMP=\"ts\");"
+  "sql": "CREATE STREAM dbc() WITH (TYPE=\"mqtt\",FORMAT=\"canjson\",DATASOURCE=\"sim\",SHARED=\"true\",SCHEMAID=\"dbc\/test\", TIMESTAMP=\"ts\");"
 }
 
 ############# Sim canjson
@@ -11,7 +11,7 @@ PUT http://{{host}}/streams/candata
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM candata () WITH (TYPE=\"mqtt\", FORMAT=\"canjson\", SHARED=\"TRUE\", SCHEMAID=\"scene\/dbc\",DATASOURCE=\"sim\")"
+  "sql": "CREATE STREAM candata () WITH (TYPE=\"mqtt\", FORMAT=\"canjson\", SHARED=\"TRUE\", SCHEMAID=\"dbc\/test\",DATASOURCE=\"sim\")"
 }
 
 

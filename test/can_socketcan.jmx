@@ -132,7 +132,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;sql&quot; : &quot;create stream demo (temperature float, light string) WITH (TYPE=\&quot;can\&quot;,FORMAT=\&quot;can\&quot;,SCHEMAID=\&quot;etc/dbc\&quot; )&quot;}               </stringProp>
+                  <stringProp name="Argument.value">{&quot;sql&quot; : &quot;create stream demo (temperature float, light string) WITH (TYPE=\&quot;can\&quot;,FORMAT=\&quot;can\&quot;,SCHEMAID=\&quot;dbc/test\&quot; )&quot;}               </stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>

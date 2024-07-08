@@ -132,7 +132,7 @@
               <collectionProp name="Arguments.arguments">
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
-                  <stringProp name="Argument.value">{&quot;sql&quot; : &quot;create stream demo () WITH (TYPE=\&quot;mqtt\&quot;,FORMAT=\&quot;canjson\&quot;,DATASOURCE=\&quot;canDemo\&quot;,SCHEMAID=\&quot;etc/dbc\&quot; )&quot;}               </stringProp>
+                  <stringProp name="Argument.value">{&quot;sql&quot; : &quot;create stream demo () WITH (TYPE=\&quot;mqtt\&quot;,FORMAT=\&quot;canjson\&quot;,DATASOURCE=\&quot;canDemo\&quot;,SCHEMAID=\&quot;dbc/test\&quot; )&quot;}               </stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>
                 </elementProp>
               </collectionProp>
