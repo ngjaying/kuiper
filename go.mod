@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/emqx/ekuiper_can v1.2.2-0.20240704083400-ec4d1117448c
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.7
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.7.0.20240708134401-f2fdc02215f9
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -16,6 +16,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/PaesslerAG/gval v1.2.2 // indirect
 	github.com/PaesslerAG/jsonpath v0.1.1 // indirect
+	github.com/Rookiecom/cpuprofile v1.0.2 // indirect
 	github.com/apple/foundationdb/bindings/go v0.0.0-20240315202255-8943393e84fc // indirect
 	github.com/aws/aws-sdk-go v1.38.20 // indirect
 	github.com/benbjohnson/clock v1.3.5 // indirect
@@ -37,7 +38,7 @@ require (
 	github.com/golang-jwt/jwt/v5 v5.2.1 // indirect
 	github.com/golang/mock v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/google/pprof v0.0.0-20240319011627-a57c5dfe54fd // indirect
+	github.com/google/pprof v0.0.0-20240528025155-186aa0362fba // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/handlers v1.5.2 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect

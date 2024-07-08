@@ -43,16 +43,30 @@ build_prepare:
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/plugins/portable
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/log
 
+PLUGINS_IN_EX := \
+	extensions/sinks/sql   \
+	extensions/sources/random \
+	extensions/sources/sql \
+	extensions/sources/video
+
 .PHONY: build_ex
 build_ex: SHELL:=/bin/bash -euo pipefail
 build_ex: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd main.go
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
-	@cp -r $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
-	@cp -rf etc_ex/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@echo $(PLUGINS_IN_EX) | tr ' ' '\n' | while read plugin; do \
+		full_plugin_dir=$(EK_DIR)/$${plugin}; \
+		find $${full_plugin_dir} -type f \( -name "*.json" -o -name "*.yaml" \) | while read line; do \
+			relative_path=$${line#$(EK_DIR)/}; \
+			type=$$(echo $${relative_path} | cut -d'/' -f2); \
+			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
+		done; \
+	done
+	@cp -rf etc_sdv/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
 	@echo "Build successfully"
 
 .PHONY: pkg_ex
@@ -62,14 +76,25 @@ pkg_ex: build_ex
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-ex.tar.gz $(PACKAGES_PATH)
 	@echo "Package for Neuron EX success"
 
+PLUGINS_IN_SDV := \
+	extensions/sources/video
+
 .PHONY: build_sdv
 build_sdv: SHELL:=/bin/bash -euo pipefail
 build_sdv: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus template" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
-	@cp -r $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@echo $(PLUGINS_IN_SDV) | tr ' ' '\n' | while read plugin; do \
+		full_plugin_dir=$(EK_DIR)/$${plugin}; \
+		find $${full_plugin_dir} -type f \( -name "*.json" -o -name "*.yaml" \) | while read line; do \
+			relative_path=$${line#$(EK_DIR)/}; \
+			type=$$(echo $${relative_path} | cut -d'/' -f2); \
+			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
+		done; \
+	done
 	@cp -rf etc_sdv/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
 	@echo "Build successfully"
 
@@ -86,34 +111,6 @@ real_pkg:
 	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME).tar.gz $(PACKAGE_NAME)
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME).tar.gz $(PACKAGES_PATH)
 	@echo "Package build success"
-
-PLUGINS := sinks/influx \
-	sinks/influx2 \
-	sinks/zmq \
-	sinks/kafka \
-	sinks/image \
-	sinks/sql   \
-	sources/random \
-	sources/zmq \
-	sources/sql \
-	sources/video \
-	sources/kafka \
-	sinks/tdengine \
-	functions/accumulateWordCount \
-	functions/countPlusOne \
-	functions/image \
-	functions/geohash \
-	functions/echo \
-	functions/labelImage \
-	functions/tfLite
-
-.PHONY: plugins $(PLUGINS)
-plugins: $(PLUGINS)
-
-$(PLUGINS): PLUGIN_TYPE = $(word 1, $(subst /, , $@))
-$(PLUGINS): PLUGIN_NAME = $(word 2, $(subst /, , $@))
-$(PLUGINS):
-	@$(CURDIR)/build-plugins.sh $(PLUGIN_TYPE) $(PLUGIN_NAME)
 
 .PHONY: clean
 clean:
