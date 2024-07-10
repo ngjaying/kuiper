@@ -1,0 +1,10 @@
+#Global MQTT configurations
+default:
+  qos: 1
+  server: "tcp://127.0.0.1:1883"
+
+spi_1sec:
+  interval: 1s
+  payloadFormat: spi
+  payloadSchemaId: dbc/geely
+  merger: spi

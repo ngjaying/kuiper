@@ -3,8 +3,8 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.2-0.20240704083400-ec4d1117448c
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.7.0.20240708134401-f2fdc02215f9
+	github.com/emqx/ekuiper_can v1.2.2
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.8
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -29,7 +29,7 @@ require (
 	github.com/dop251/goja v0.0.0-20240220182346-e401ed450204 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.3 // indirect
-	github.com/emqx/can v1.0.6 // indirect
+	github.com/emqx/can v1.0.7 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect

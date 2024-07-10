@@ -32,3 +32,9 @@ batch:
 batchMerge:
   interval: 10s
   mergeField: id
+
+spi_1sec:
+  interval: 1s
+  payloadFormat: spi
+  payloadSchemaId: dbc/geely
+  merger: spi
