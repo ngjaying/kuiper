@@ -271,6 +271,13 @@ func checkFeatures(ss api.Source, sp *SourcePropsForSplit, props map[string]any)
 		r.needDecode = false
 		props["payloadBatchField"] = "frames"
 		props["payloadField"] = "data"
+		if sp.PayloadFormat == "" {
+			props["payloadFormat"] = props["format"]
+		}
+		if _, ok := props["payloadSchemaId"]; !ok {
+			props["payloadSchemaId"] = props["schemaId"]
+			props["payloadDelimiter"] = props["delimiter"]
+		}
 	}
 	return r, nil
 }
