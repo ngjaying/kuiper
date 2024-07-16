@@ -105,6 +105,35 @@ pkg_sdv: build_sdv
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-sdv.tar.gz $(PACKAGES_PATH)
 	@echo "Package for SDV flow success"
 
+
+.PHONY: build_geely
+build_geely: SHELL:=/bin/bash -euo pipefail
+build_geely: build_prepare
+	@echo "Compiling"
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_geely -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template geely" -o kuiperd main.go
+	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
+	@echo "Overwrite etc"
+	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@echo $(PLUGINS_IN_SDV) | tr ' ' '\n' | while read plugin; do \
+		full_plugin_dir=$(EK_DIR)/$${plugin}; \
+		find $${full_plugin_dir} -type f \( -name "*.json" -o -name "*.yaml" \) | while read line; do \
+			relative_path=$${line#$(EK_DIR)/}; \
+			type=$$(echo $${relative_path} | cut -d'/' -f2); \
+			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
+		done; \
+	done
+	@cp -rf etc_geely/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/geely
+	@cp dbc/geely/geely.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/geely/
+	@echo "Build successfully"
+
+.PHONY: pkg_geely
+pkg_geely: build_geely
+	@mkdir -p $(PACKAGES_PATH)
+	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-geely.tar.gz $(PACKAGE_NAME)
+	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-geely.tar.gz $(PACKAGES_PATH)
+	@echo "Package for Geely successful"
+
 .PHONY: real_pkg
 real_pkg:
 	@mkdir -p $(PACKAGES_PATH)

@@ -1,23 +1,114 @@
-```### 更改 canmsg_batch_merge 配置，改成 1s 聚合
-POST http://{{host}}/streams
+### 实时流
+PUT http://{{host}}/streams/spiStream
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM canmsgBatchStream() WITH (TYPE=\"mqtt\",FORMAT=\"canmsg\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\", SHARED=\"true\", CONF_KEY=\"canmsg_batch_merge\");"
+  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\");"
 }
 
-### 1s 实时采集
+### 实时采集
 POST http://{{host}}/rules
 Content-Type: application/json
 
 {
   "id": "ruleAll",
-  "name": "1s实时采集",
-  "sql": "SELECT * FROM canmsgBatchStream",
+  "name": "实时采集",
+  "sql": "SELECT * FROM spiStream",
   "actions": [
     {
       "mqtt": {
-        "server": "tcp://127.0.0.1:1883",
+        "server": "tcp://syno.home:1883",
+        "topic": "result/all",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+###
+GET http://{{host}}/rules/ruleAll/status
+
+#{
+#  "status": "running",
+#  "lastStartTimestamp": "1720670185585",
+#  "lastStopTimestamp": "0",
+#  "nextStopTimestamp": "0",
+#  "source_spiStream_0_records_in_total": 6,
+#  "source_spiStream_0_records_out_total": 6,
+#  "source_spiStream_0_messages_processed_total": 6,
+#  "source_spiStream_0_process_latency_us": 0,
+#  "source_spiStream_0_buffer_length": 0,
+#  "source_spiStream_0_last_invocation": "2024-07-11T12:02:04.236103",
+#  "source_spiStream_0_exceptions_total": 1,
+#  "source_spiStream_0_last_exception": "The connection to mqtt broker is lost due to EOF",
+#  "source_spiStream_0_last_exception_time": "2024-07-11T12:00:54.586445",
+#  "op_spiStream_2_decoder_0_records_in_total": 6,
+#  "op_spiStream_2_decoder_0_records_out_total": 6,
+#  "op_spiStream_2_decoder_0_messages_processed_total": 6,
+#  "op_spiStream_2_decoder_0_process_latency_us": 3157660,
+#  "op_spiStream_2_decoder_0_buffer_length": 0,
+#  "op_spiStream_2_decoder_0_last_invocation": "2024-07-11T12:02:04.236103",
+#  "op_spiStream_2_decoder_0_exceptions_total": 0,
+#  "op_spiStream_2_decoder_0_last_exception": "",
+#  "op_spiStream_2_decoder_0_last_exception_time": 0,
+#  "op_3_project_0_records_in_total": 6,
+#  "op_3_project_0_records_out_total": 6,
+#  "op_3_project_0_messages_processed_total": 6,
+#  "op_3_project_0_process_latency_us": 0,
+#  "op_3_project_0_buffer_length": 0,
+#  "op_3_project_0_last_invocation": "2024-07-11T12:02:07.394289",
+#  "op_3_project_0_exceptions_total": 0,
+#  "op_3_project_0_last_exception": "",
+#  "op_3_project_0_last_exception_time": 0,
+#  "op_mqtt_0_0_transform_0_records_in_total": 6,
+#  "op_mqtt_0_0_transform_0_records_out_total": 6,
+#  "op_mqtt_0_0_transform_0_messages_processed_total": 6,
+#  "op_mqtt_0_0_transform_0_process_latency_us": 0,
+#  "op_mqtt_0_0_transform_0_buffer_length": 0,
+#  "op_mqtt_0_0_transform_0_last_invocation": "2024-07-11T12:02:07.394289",
+#  "op_mqtt_0_0_transform_0_exceptions_total": 0,
+#  "op_mqtt_0_0_transform_0_last_exception": "",
+#  "op_mqtt_0_0_transform_0_last_exception_time": 0,
+#  "op_mqtt_0_1_encode_0_records_in_total": 6,
+#  "op_mqtt_0_1_encode_0_records_out_total": 6,
+#  "op_mqtt_0_1_encode_0_messages_processed_total": 6,
+#  "op_mqtt_0_1_encode_0_process_latency_us": 0,
+#  "op_mqtt_0_1_encode_0_buffer_length": 0,
+#  "op_mqtt_0_1_encode_0_last_invocation": "2024-07-11T12:02:07.394289",
+#  "op_mqtt_0_1_encode_0_exceptions_total": 0,
+#  "op_mqtt_0_1_encode_0_last_exception": "",
+#  "op_mqtt_0_1_encode_0_last_exception_time": 0,
+#  "sink_mqtt_0_0_records_in_total": 7,
+#  "sink_mqtt_0_0_records_out_total": 5,
+#  "sink_mqtt_0_0_messages_processed_total": 7,
+#  "sink_mqtt_0_0_process_latency_us": 0,
+#  "sink_mqtt_0_0_buffer_length": 0,
+#  "sink_mqtt_0_0_last_invocation": "2024-07-11T12:02:07.394289",
+#  "sink_mqtt_0_0_exceptions_total": 2,
+#  "sink_mqtt_0_0_last_exception": "mqtt client is not connected",
+#  "sink_mqtt_0_0_last_exception_time": "2024-07-11T12:00:54.588073"
+#}
+
+### 1s降采样流
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"
+}
+
+### ### 测试规则 1s 实时采集
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleAll2",
+  "name": "1s实时采集",
+  "sql": "SELECT * FROM spiOneSec",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
         "topic": "result/all",
         "sendSingle": true
       }
@@ -65,13 +156,13 @@ Content-Type: application/json
 }
 
 ### 10s 文件采集
-POST http://{{host}}/rules
+PUT http://{{host}}/rules/rule10secondCSV
 Content-Type: application/json
 
 {
   "id": "rule10secondCSV",
   "name": "10s周期文件",
-  "sql": "SELECT * FROM canmsgBatchStream",
+  "sql": "SELECT * FROM spiOneSec",
   "actions": [
     {
       "file": {
@@ -81,13 +172,19 @@ Content-Type: application/json
         "hasHeader": true,
         "sendSingle": true,
         "rollingCount": 10,
-        "rollingNamePattern": "suffix"
+        "rollingNamePattern": "suffix",
+        "rollingHook":        "nano",
+        "sendError": false,
+        "rollingHookProps": {
+          "server": "tcp://syno.home:1883",
+          "topic": "result/filetran"
+        }
       }
     }
   ]
 }
 
-### 10s 文件采集
+### 场景一周期采集 10s 文件采集
 POST http://{{host}}/rules
 Content-Type: application/json
 
@@ -109,6 +206,32 @@ Content-Type: application/json
       }
     }
   ]
+}
+
+### 场景二 历史采集  30min 50信号
+
+### 场景三 事件采集
+PUT http://{{host}}/rules/ruleTriggerSample
+Content-Type: application/json
+
+{
+  "id": "ruleTriggerSample",
+  "name": "事件采集例子",
+  "sql": "SELECT `PrivateInfoCAN.0x380.AcoustModSts`, `PrivateInfoCAN.0x380.AcoustModSts_UB`,`PrivateInfoCAN.0x380.AudioMuteSts` FROM spiStream GROUP BY TumblingWindow(ss, 30)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/trigger",
+        "format": "delimited",
+        "hasHeader": true,
+        "sendSingle": false
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
 }
 
 ###

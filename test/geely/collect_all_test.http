@@ -1,0 +1,69 @@
+##### 场景1 周期采集
+### 1s降采样流
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"
+}
+
+### 场景一周期采集 10s 文件采集 For Local (去除rollingNamePattern，若是在盒子测试，防止硬盘满)
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rule10secondCSV_ZSTD",
+  "name": "10s周期文件压缩",
+  "sql": "SELECT * FROM spiOneSec",
+  "actions": [
+    {
+      "file": {
+        "path": "data/mock.zstd",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix",
+        "compression": "zstd"
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}
+
+### 场景一周期采集 10s 文件采集 For SDV
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rule10secondCSV_ZSTD",
+  "name": "10s周期文件压缩",
+  "sql": "SELECT * FROM spiOneSec",
+  "actions": [
+    {
+      "file": {
+        "path": "data/mock.zstd",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "rollingCount": 10,
+        "rollingNamePattern": "suffix",
+        "compression": "zstd",
+        "rollingHook":        "nano",
+        "sendError": false,
+        "rollingHookProps": {
+          "server": "tcp://127.0.0.1:1883",
+          "topic": "result/filetran",
+          "delete": 10
+        }
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}

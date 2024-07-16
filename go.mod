@@ -3,8 +3,8 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.2
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.8
+	github.com/emqx/ekuiper_can v1.2.3
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -29,9 +29,17 @@ require (
 	github.com/dop251/goja v0.0.0-20240220182346-e401ed450204 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/eclipse/paho.mqtt.golang v1.4.3 // indirect
-	github.com/emqx/can v1.0.7 // indirect
+	github.com/edgexfoundry/go-mod-core-contracts/v3 v3.1.0 // indirect
+	github.com/edgexfoundry/go-mod-messaging/v3 v3.1.0 // indirect
+	github.com/emqx/can v1.0.9 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
+	github.com/fxamacker/cbor/v2 v2.6.0 // indirect
+	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
 	github.com/go-ole/go-ole v1.3.0 // indirect
+	github.com/go-playground/locales v0.14.1 // indirect
+	github.com/go-playground/universal-translator v0.18.1 // indirect
+	github.com/go-playground/validator/v10 v10.19.0 // indirect
+	github.com/go-redis/redis/v7 v7.4.1 // indirect
 	github.com/go-sourcemap/sourcemap v2.1.4+incompatible // indirect
 	github.com/go-sql-driver/mysql v1.8.1 // indirect
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3 // indirect
@@ -43,6 +51,8 @@ require (
 	github.com/gorilla/handlers v1.5.2 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
 	github.com/gorilla/websocket v1.5.1 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/huandu/xstrings v1.4.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
@@ -51,6 +61,7 @@ require (
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/keepeye/logrus-filename v0.0.0-20190711075016-ce01a4391dd1 // indirect
 	github.com/klauspost/compress v1.17.7 // indirect
+	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4 // indirect
@@ -60,6 +71,9 @@ require (
 	github.com/mitchellh/reflectwalk v1.0.2 // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
+	github.com/nats-io/nats.go v1.33.1 // indirect
+	github.com/nats-io/nkeys v0.4.7 // indirect
+	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/pingcap/errors v0.11.4 // indirect
 	github.com/pingcap/failpoint v0.0.0-20220801062533-2eaa32854a6c // indirect
@@ -83,6 +97,7 @@ require (
 	github.com/u2takey/go-utils v0.3.1 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
 	github.com/valyala/fastjson v1.6.4 // indirect
+	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
@@ -110,7 +125,10 @@ require (
 )
 
 //replace github.com/emqx/ekuiper_can => ../ekuiper_can
+
 //
 //replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/contract
 //
 //replace github.com/lf-edge/ekuiper/v2 => ../github.com/lfedge/ekuiper
+
+//replace github.com/emqx/can => ../can-go
