@@ -3,8 +3,8 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.3
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9
+	github.com/emqx/ekuiper_can v1.2.4-0.20240717080700-06e117499f29
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240717025119-595c412c842c
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 

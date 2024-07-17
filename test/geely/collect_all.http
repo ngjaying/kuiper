@@ -177,7 +177,8 @@ Content-Type: application/json
         "sendError": false,
         "rollingHookProps": {
           "server": "tcp://syno.home:1883",
-          "topic": "result/filetran"
+          "topic": "result/filetran",
+          "delete": 10
         }
       }
     }
@@ -231,6 +232,78 @@ Content-Type: application/json
   ],
   "options": {
     "sendError": false
+  }
+}
+
+###util
+PUT http://{{host}}/rules/rulePick
+Content-Type: application/json
+
+{
+  "id": "rulePickTest",
+  "name": "事件采集例子",
+  "sql": "SELECT `PropulsionCAN.0x178.HvSysLimnIndcn`, ts FROM spiStream GROUP BY SlidingWindow(ss, 1) OVER (WHEN ts - last_hit_time() > 2000)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/pick",
+        "format": "json",
+        "sendSingle": false
+      }
+    }
+  ],
+  "options": {
+    "sendError": false,
+    "bufferLength": 100
+  }
+}
+
+### rule pick 1
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rulePickTest",
+  "name": "事件采集例子",
+  "sql": "SELECT `PropulsionCAN.0x331.HvBattCooltT`,`ZCU_CANFD2.0x491.BattIRaw`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x315.HvBattTAvg`,`PropulsionCAN.0x315.HvBattTMax`,`PropulsionCAN.0x145.CellUMinId`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x145.CellUMaxId`,`PropulsionCAN.0x145.CellUMin`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`PropulsionCAN.0x315.HvBattTMin`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x142.HvBattCellUInfoU3` FROM spiStream GROUP BY SlidingWindow(ss, 1) OVER (WHEN `PropulsionCAN.0x142.HvBattLimnIndcn` = 1 AND lag(`PropulsionCAN.0x142.HvBattLimnIndcn`) != 1)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/pick",
+        "format": "json",
+        "sendSingle": false
+      }
+    }
+  ],
+  "options": {
+    "sendError": false,
+    "bufferLength": 100
+  }
+}
+
+###util
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rulePickAll",
+  "name": "事件采集例子",
+  "sql": "SELECT `PropulsionCAN.0x178.HvSysLimnIndcn` FROM spiStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/pickall",
+        "format": "json",
+        "sendSingle": true
+      }
+    }
+  ],
+  "options": {
+    "sendError": false,
+    "bufferLength": 100
   }
 }
 

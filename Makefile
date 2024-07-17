@@ -110,7 +110,7 @@ pkg_sdv: build_sdv
 build_geely: SHELL:=/bin/bash -euo pipefail
 build_geely: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_geely -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template geely" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_geely -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus geely" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
 	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
