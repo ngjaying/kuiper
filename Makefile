@@ -53,7 +53,7 @@ PLUGINS_IN_EX := \
 build_ex: SHELL:=/bin/bash -euo pipefail
 build_ex: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd *.go
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
@@ -83,7 +83,7 @@ PLUGINS_IN_SDV := \
 build_sdv: SHELL:=/bin/bash -euo pipefail
 build_sdv: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template" -o kuiperd *.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
 	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
@@ -110,7 +110,7 @@ pkg_sdv: build_sdv
 build_geely: SHELL:=/bin/bash -euo pipefail
 build_geely: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_geely -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus geely" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_geely -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus geely" -o kuiperd *.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
 	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
