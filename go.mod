@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/emqx/ekuiper_can v1.2.4-0.20240717113837-aca927ef94ff
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240717092234-f6c7645be5aa
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240730023847-f5967aa8b18f
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -62,7 +62,6 @@ require (
 	github.com/keepeye/logrus-filename v0.0.0-20190711075016-ce01a4391dd1 // indirect
 	github.com/klauspost/compress v1.17.7 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
-	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible // indirect
 	github.com/lestrrat-go/strftime v1.0.6 // indirect
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
@@ -99,6 +98,7 @@ require (
 	github.com/valyala/fastjson v1.6.4 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
 	github.com/xo/dburl v0.23.2 // indirect
+	github.com/yisaer/file-rotatelogs v0.0.0-20240606072000-fe792f3c4e04 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	golang.org/x/crypto v0.21.0 // indirect
