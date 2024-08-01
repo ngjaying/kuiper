@@ -168,6 +168,37 @@ Content-Type: application/json
   }
 }
 
+##### 故障灯规则
+### 故障灯信号流
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM sigStream() WITH (TYPE=\"mqtt\",FORMAT=\"sigl\",DATASOURCE=\"signal\", SHARED=\"true\");"
+}
+
+### 信号灯诊断规则
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleSig",
+  "name": "测试信号灯诊断",
+  "sql": "SELECT ts, notifyLed(PA_VehNotifAndLedFlt) as n FROM sigStream WHERE cardinality(n) > 0",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/sig",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+###
+GET http://{{host}}/rules/ruleSig/status
+
 ##### 场景3 历史采集
 ### send with start and end
 POST http://{{host}}/tables
