@@ -79,8 +79,8 @@ github.com/edgexfoundry/go-mod-messaging/v3 v3.1.0 h1:S9eBWeRu13dv5BfkJg4NAr4X62
 github.com/edgexfoundry/go-mod-messaging/v3 v3.1.0/go.mod h1:azNOoZhkBc5rDODJZDntX/OQ3fus7TpRQ6ROVVZwklc=
 github.com/emqx/can v1.0.9 h1:FWjrM56pGbVivg65p6gNMDCdq6cCpNLfwIn2CVO7EMk=
 github.com/emqx/can v1.0.9/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.2.4-0.20240717113837-aca927ef94ff h1:0tQOmFXiUE5ZeOVUC+q7FGFqfCzYJP0/b7+2yW9UEqM=
-github.com/emqx/ekuiper_can v1.2.4-0.20240717113837-aca927ef94ff/go.mod h1:rikcwPqrY+O8sP//uiZmpku9TP21EnPCcbWL79rUsGo=
+github.com/emqx/ekuiper_can v1.2.4-0.20240802075520-584438bebfe8 h1:8TrC5H2l6m2YDIT+fPm6FIl5KDlmMlhgZGwdFZ8CB4c=
+github.com/emqx/ekuiper_can v1.2.4-0.20240802075520-584438bebfe8/go.mod h1:rikcwPqrY+O8sP//uiZmpku9TP21EnPCcbWL79rUsGo=
 github.com/fastly/go-utils v0.0.0-20180712184237-d95a45783239/go.mod h1:Gdwt2ce0yfBxPvZrHkprdPPTTS3N5rwmLE8T22KBXlw=
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
@@ -199,8 +199,8 @@ github.com/lestrrat-go/strftime v1.0.6 h1:CFGsDEt1pOpFNU+TJB0nhz9jl+K0hZSLE205Ah
 github.com/lestrrat-go/strftime v1.0.6/go.mod h1:f7jQKgV5nnJpYgdEasS+/y7EsTb8ykN2z68n3TtcTaw=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4 h1:UDLmjavcG+wTqls7vjMufh1WtHky+J4LBtNsBDNF9bI=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.4/go.mod h1:AgzJVledX5rWyTsguk9JOIhVFua3nKYxCSQvWpQw7Vo=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240730023847-f5967aa8b18f h1:/MR/AmiVxnQ7QItiNjxKBJ/4qAREzSxFZyEpx6lnZfE=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240730023847-f5967aa8b18f/go.mod h1:6tz9HKP0plZLb//BcOy+bm1NNWxvab5pVcBXzO3jSus=
+github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240802014511-316580e14465 h1:GgIIG/zdCiRzNKHQU/FVuFLxwy/SS/yk9lyxZqiC844=
+github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240802014511-316580e14465/go.mod h1:6tz9HKP0plZLb//BcOy+bm1NNWxvab5pVcBXzO3jSus=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/mattn/go-sqlite3 v1.14.22 h1:2gZY6PC6kBnID23Tichd1K+Z0oS6nE/XwU+Vz/5o4kU=

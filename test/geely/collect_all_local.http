@@ -199,13 +199,81 @@ Content-Type: application/json
 ###
 GET http://{{host}}/rules/ruleSig/status
 
-##### 场景3 历史采集
+##### 场景3 历史采集-Aysnc
+### 1. 创建长期运行的唯一触发流，用于接收云端的查询请求
+### send with start and end
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM triggerStream() WITH (TYPE=\"mqtt\",FORMAT=\"json\",DATASOURCE=\"trigger\",SHARED=\"true\");"
+}
+
+### trigger rule
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleTrigger",
+  "name": "发送查询请求",
+  "sql": "SELECT \"async\" as kind, ts1, ts2 FROM triggerStream",
+  "actions": [
+    {
+      "nanoquery": {
+        "url": "tcp://127.0.0.1:10000",
+        "format": "delimited",
+        "delimiter": "-",
+        "fields": [
+          "kind",
+          "ts1",
+          "ts2"
+        ],
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+### 2. 创建长期运行采集流定义，接入nano query 异步结果
+PUT http://{{host}}/streams/queryStream
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",SHARED=\"true\");"
+}
+
+### 3. 创建单次运行采集规则
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleHistoryQuery2",
+  "name": "测试历史数据",
+  "sql": "SELECT ts, `PropulsionCAN.0x342.HvCellUOverFlt`,`PropulsionCAN.0x346.HvBattCooltLvl`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x342.HvPackUUnderFlt`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`ZCU_CANFD1.0x353.DCChrgnHndlSts`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x342.HvSocLoFlt`,`ZCU_CANFD2.0x482.IsgActvDampgModReq`,`PropulsionCAN.0x145.CellUMin`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd`,`PropulsionCAN.0x342.HvCellTOverFlt`,`PropulsionCAN.0x342.HvCellUDifFlt`,`PropulsionCAN.0x342.HvilFlt`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x35.IsgIDc`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x315.HvBattTAvg`,`ZCU_CANFD2.0x491.BattIRaw`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x342.HvSocHiFlt`,`PropulsionCAN.0x342.HvSocHopFlt`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`PropulsionCAN.0x295.HvBattCoolgSts`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`,`PropulsionCAN.0x288.FastChrgnLEDIndctn`,`PropulsionCAN.0x178.HvBattCoolgReq`,`PropulsionCAN.0x13A.IsgCooltT`,`PropulsionCAN.0x315.HvBattTMax`,`ZCU_CANFD2.0x138.IsgInvrT`,`PropulsionCAN.0x342.HvPackUOverFlt`,`PropulsionCAN.0x342.HvCellTDifFlt`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x342.HvPackOverChrgFlt`,`PropulsionCAN.0x342.HvBattMismatchFlt` FROM queryStream",
+  "actions": [
+    {
+      "file": {
+        "path": "data/ruleHistoryQuery1.zstd",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "compression": "zstd"
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}
+
+##### 场景3 历史采集-Sync
 ### send with start and end
 POST http://{{host}}/tables
 Content-Type: application/json
 
 {
-  "sql": "CREATE TABLE nanoTable() WITH (TYPE=\"nano\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",,KIND=\"lookup\",CONF_KEY=\"lookup\");"
+  "sql": "CREATE TABLE nanoTable() WITH (TYPE=\"nano\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",KIND=\"lookup\",CONF_KEY=\"lookup\");"
 }
 
 ### send with start and end
