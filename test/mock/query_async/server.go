@@ -32,7 +32,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	mockNanoQuery("tcp://127.0.0.1:10000", raw)
+	mockNanoQuery("tcp://0.0.0.0:10000", raw)
 }
 
 // mockNeuron start the nng pair server
@@ -62,7 +62,7 @@ func mockNanoQuery(url string, raw []byte) {
 			end, _ := strconv.ParseInt(cols[2], 10, 32)
 			// at least search 200 seconds
 			alllen := int((end - start) / 1000 / 200)
-			for i := 0; i < alllen; i++ {
+			for i := 0; i < 9; i++ {
 				fmt.Printf("sends %d piece\n", i)
 				err = sock.Send(raw)
 				if err != nil {
