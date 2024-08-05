@@ -3,8 +3,8 @@ module github.com/emqx/ekuiper_build
 go 1.22.2
 
 require (
-	github.com/emqx/ekuiper_can v1.2.4-0.20240802091424-5372fedac7eb
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240802102224-64c92ec4422a
+	github.com/emqx/ekuiper_can v1.2.4-0.20240805080518-e2f46feca530
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.9.0.20240805080120-b3b99059b240
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -31,7 +31,7 @@ require (
 	github.com/eclipse/paho.mqtt.golang v1.4.3 // indirect
 	github.com/edgexfoundry/go-mod-core-contracts/v3 v3.1.0 // indirect
 	github.com/edgexfoundry/go-mod-messaging/v3 v3.1.0 // indirect
-	github.com/emqx/can v1.0.9 // indirect
+	github.com/emqx/can v1.0.10-0.20240805074312-04d09f4703a3 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fxamacker/cbor/v2 v2.6.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.3 // indirect
