@@ -81,6 +81,8 @@ github.com/emqx/can v1.0.10-0.20240805074312-04d09f4703a3 h1:WBMB3qgnCU8vSpYPNS3
 github.com/emqx/can v1.0.10-0.20240805074312-04d09f4703a3/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
 github.com/emqx/ekuiper_can v1.2.4-0.20240805080518-e2f46feca530 h1:KoNqDnNNbfBAOHZw4cAtxXdX7nG4Mpe5a9hSDX+8Fko=
 github.com/emqx/ekuiper_can v1.2.4-0.20240805080518-e2f46feca530/go.mod h1:6+JHlMXDlp+5KEwy/qrtn8DEHPeEbBsnB0wxpupYdow=
+github.com/emqx/ekuiper_can v1.2.4-0.20240806081022-da4c8c838257 h1:zdhCS6U4KgbXZ3wwxJcbc6epU6Wq/8jtv0xHyLYX0Kk=
+github.com/emqx/ekuiper_can v1.2.4-0.20240806081022-da4c8c838257/go.mod h1:2+iNJk1OCt05OyERWnnJyk7x3/cNabnOvix5pHP7cOo=
 github.com/fastly/go-utils v0.0.0-20180712184237-d95a45783239/go.mod h1:Gdwt2ce0yfBxPvZrHkprdPPTTS3N5rwmLE8T22KBXlw=
 github.com/felixge/httpsnoop v1.0.4 h1:NFTV2Zj1bL4mc9sqWACXbQFVBBg2W3GPvqp8/ESS2Wg=
 github.com/felixge/httpsnoop v1.0.4/go.mod h1:m8KPJKqk1gH5J9DgRY2ASl2lWCfGKXixSwevea8zH2U=
