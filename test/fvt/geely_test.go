@@ -18,8 +18,10 @@ import (
 	"bufio"
 	"encoding/hex"
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
+	"strings"
 	"testing"
 	"time"
 
@@ -27,6 +29,9 @@ import (
 	"github.com/klauspost/compress/zstd"
 	"github.com/stretchr/testify/suite"
 	"github.com/udhos/equalfile"
+	"go.nanomsg.org/mangos/v3"
+	"go.nanomsg.org/mangos/v3/protocol/pair"
+	_ "go.nanomsg.org/mangos/v3/transport/tcp"
 )
 
 type GeelyTestSuite struct {
@@ -349,6 +354,192 @@ func pubLed(client mqtt.Client, s string) {
 		}
 	}
 	_ = file.Close()
+}
+
+func (s *GeelyTestSuite) TestHistoryQuery() {
+	// Start mock server
+	var pairServer mangos.Socket
+	s.Run("start mock server", func() {
+		raw, err := os.ReadFile(filepath.Join(PWD, DataPath, "spi100.bin"))
+		s.Require().NoError(err)
+		pairServer, err = mockPair("tcp://0.0.0.0:10000", raw)
+		s.Require().NoError(err)
+	})
+	s.Run("creating triggerStream", func() {
+		streamJson := `{"sql": "CREATE STREAM triggerStream() WITH (TYPE=\"mqtt\",FORMAT=\"json\",DATASOURCE=\"trigger\",SHARED=\"true\");"}`
+		resp, err := client.CreateStream(streamJson)
+		s.Require().NoError(err)
+		ok := s.Equal(201, resp.StatusCode)
+		if !ok {
+			s.T().Log(resp.Body)
+		}
+	})
+	s.Run("creating ruleTrigger", func() {
+		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "ruleTrigger.json"))
+		s.Require().NoError(err)
+		resp, err := client.CreateRule(string(ruleStr))
+		s.Require().NoError(err)
+		ok := s.Equal(201, resp.StatusCode)
+		if !ok {
+			s.T().Log(resp.Body)
+		}
+	})
+	s.Run("creating queryStream", func() {
+		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",SHARED=\"true\");"}`
+		resp, err := client.CreateStream(streamJson)
+		s.Require().NoError(err)
+		ok := s.Equal(201, resp.StatusCode)
+		if !ok {
+			s.T().Log(resp.Body)
+		}
+	})
+	// Create rule before mock server started to test auto connect
+	s.Run("creating queryRule", func() {
+		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "ruleHistoryQuery.json"))
+		s.Require().NoError(err)
+		resp, err := client.CreateRule(string(ruleStr))
+		s.Require().NoError(err)
+		ok := s.Equal(201, resp.StatusCode)
+		if !ok {
+			s.T().Log(resp.Body)
+		}
+	})
+	time.Sleep(ContantInterval)
+	// Check rule status
+	s.Run("check queryRule status before feeding data", func() {
+		metrics, err := client.GetRulStatus("ruleHistoryQuery1")
+		s.Require().NoError(err)
+		s.Require().Equal("running", metrics["status"])
+		ok := s.Equal(0.0, metrics["op_queryStream_3_decoder_0_messages_processed_total"])
+		if !ok {
+			s.T().Log(metrics)
+		}
+	})
+	// Send query request
+	s.Run("send query request", func() {
+		s.mqttClient.Publish("trigger", 2, false, "{\"ts1\":1723529200011, \"ts2\": 1723529300011}")
+	})
+	// wait until query is received
+	s.Run("check trigger status after feeding data", func() {
+		ticker := time.NewTicker(ContantInterval)
+		defer ticker.Stop()
+		count := 100
+		for count > 0 {
+			<-ticker.C
+			count--
+			metrics, err := client.GetRulStatus("ruleTrigger")
+			s.Require().NoError(err)
+			if metrics["sink_nanoquery_0_0_records_out_total"] == 1.0 {
+				break
+			}
+		}
+		metrics, err := client.GetRulStatus("ruleTrigger")
+		s.Require().NoError(err)
+		s.Require().Equal("running", metrics["status"])
+		ok := s.Equal(1.0, metrics["sink_nanoquery_0_0_records_out_total"])
+		if !ok {
+			s.T().Log(metrics)
+		}
+		s.Require().True(ok)
+	})
+	// Check result until match
+	s.Run("check result status after feeding data", func() {
+		ticker := time.NewTicker(ContantInterval)
+		defer ticker.Stop()
+		count := 100
+		for count > 0 {
+			<-ticker.C
+			count--
+			metrics, err := client.GetRulStatus("ruleHistoryQuery1")
+			s.Require().NoError(err)
+			if metrics["status"] == "stopped" {
+				break
+			}
+		}
+		metrics, err := client.GetRulStatus("ruleHistoryQuery1")
+		s.Require().NoError(err)
+		s.Require().Equal("stopped", metrics["status"])
+		//ok := s.Equal(2.0, metrics["sink_file_0_0_records_out_total"])
+		//if !ok {
+		//	s.T().Log(metrics)
+		//}
+	})
+	// compare result file
+	s.Run("check generate file", func() {
+		cmp := equalfile.New(nil, equalfile.Options{Debug: true})
+		equal, err := cmp.CompareFile(filepath.Join(PWD, ResultPath, "ruleHistoryQuery1.zstd"), filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zstd"))
+		s.NoError(err)
+		passed := s.True(equal, "files differ")
+		if passed {
+			_ = os.Remove(filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zstd"))
+		}
+	})
+	// Cleanup
+	s.Run("delete ruleTrigger", func() {
+		resp, err := client.DeleteRule("ruleTrigger")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+	})
+	s.Run("delete ruleHistoryQuery1", func() {
+		resp, err := client.DeleteRule("ruleHistoryQuery1")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+	})
+	s.Run("delete stream queryStream", func() {
+		resp, err := client.DeleteStream("queryStream")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+	})
+	s.Run("delete stream triggerStream", func() {
+		resp, err := client.DeleteStream("triggerStream")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+	})
+	s.Run("close mock server", func() {
+		if pairServer != nil {
+			pairServer.Close()
+		}
+	})
+}
+
+func mockPair(url string, raw []byte) (mangos.Socket, error) {
+	var (
+		sock mangos.Socket
+		err  error
+	)
+	if sock, err = pair.NewSocket(); err != nil {
+		log.Fatalf("can't get new pair socket: %s", err)
+	}
+	if err = sock.Listen(url); err != nil {
+		log.Fatalf("can't listen on pair socket: %s", err.Error())
+	}
+	log.Printf("listen on pair socket")
+	go func() {
+		eof, _ := hex.DecodeString("0bad")
+		for {
+			// Could also use sock.RecvMsg to get header
+			msg, err := sock.Recv()
+			if err != nil {
+				log.Printf("cannot receive on pair socket: %s", err.Error())
+				return
+			}
+			fmt.Printf("NODE0: RECEIVED DATE REQUEST %s\n", msg)
+			cols := strings.Split(string(msg), "-")
+			if len(cols) == 3 { // no need to terminate
+				for i := 0; i < 5; i++ {
+					fmt.Printf("sends %d piece\n", i)
+					err = sock.Send(raw)
+					if err != nil {
+						log.Fatalf("can't send reply: %s", err.Error())
+					}
+					time.Sleep(100 * time.Millisecond)
+				}
+				_ = sock.Send(eof)
+				fmt.Printf("NODE0: SEND DATE REPLY %d\n", 5)
+			}
+		}
+	}()
+	return sock, nil
 }
 
 func TestGeelyTestSuite(t *testing.T) {

@@ -1,0 +1,21 @@
+{
+  "id": "ruleTrigger",
+  "name": "发送查询请求",
+  "sql": "SELECT \"async\" as kind, ts1, ts2 FROM triggerStream",
+  "actions": [
+    {
+      "nanoquery": {
+        "url": "tcp://127.0.0.1:10000",
+        "format": "delimited",
+        "delimiter": "-",
+        "fields": [
+          "kind",
+          "ts1",
+          "ts2"
+        ],
+        "enableCache": true,
+        "sendSingle": true
+      }
+    }
+  ]
+}

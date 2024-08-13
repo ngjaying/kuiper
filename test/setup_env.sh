@@ -52,10 +52,3 @@ export KUIPER__BASIC__RESTPORT=9081
 export KUIPER__PORTABLE__INITTIMEOUT=50000
 nohup bin/kuiperd > log/kuiper.out 2>&1 &
 echo "starting kuiper at " $base_dir
-
-# Run mock nano lookup server
-touch log/lookup_server.out
-cd ../../test/mock/nano_lookup
-export BUILD_ID=dontKillMe
-echo "starting mock nano lookup..."
-nohup ./server > ../../../$base_dir/log/lookup_server.out 2>&1 &

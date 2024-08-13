@@ -59,6 +59,13 @@ fvt_dir=`pwd`
 
 rm -rf jmeter_logs
 
+# Run mock nano lookup server
+touch log/lookup_server.out
+cd ../../test/mock/nano_lookup
+export BUILD_ID=dontKillMe
+echo "starting mock nano lookup..."
+nohup ./server > ../../../$base_dir/log/lookup_server.out 2>&1 &
+
 echo -e "-------------------- canjson test ------------------------\n"
 /opt/jmeter/bin/jmeter.sh -Jjmeter.save.saveservice.output_format=xml -n -t test/can_mqttcan.jmx -Dfvt="$fvt_dir" -l jmeter_logs/can_mqttcan.jtl -j jmeter_logs/can_mqttcan.log
 echo -e "---------------------------------------------\n"
