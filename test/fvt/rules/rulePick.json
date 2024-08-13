@@ -1,0 +1,20 @@
+{
+  "id": "rulePick1",
+  "name": "事件采集例子",
+  "sql": "SELECT ts, `ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`PropulsionCAN.0x315.HvBattTMin`,`ZCU_CANFD2.0x491.BattIRaw`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x145.CellUMaxId`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x315.HvBattTAvg`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x145.CellUMin`,`PropulsionCAN.0x315.HvBattTMax`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd` FROM spiStream GROUP BY SlidingWindow(ss, 1) OVER (WHEN `PropulsionCAN.0x142.HvBattLimnIndcn` = 57694 AND lag(`PropulsionCAN.0x142.HvBattLimnIndcn`) != 57694)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/pick1",
+        "compression": "zstd",
+        "format": "delimited",
+        "hasHeader": true,
+        "sendSingle": false
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}

@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 
 ### 实时采集
-POST http://{{host}}/rules
+PUT http://{{host}}/rules/ruleAll
 Content-Type: application/json
 
 {
@@ -16,9 +16,8 @@ Content-Type: application/json
   "sql": "SELECT * FROM spiStream",
   "actions": [
     {
-      "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "topic": "result/all",
+      "file": {
+        "path": "data/all.json",
         "sendSingle": true
       }
     }
@@ -26,7 +25,7 @@ Content-Type: application/json
 }
 
 ###
-GET http://{{host}}/rules/ruleAll/status
+POST http://{{host}}/rules/ruleAll/stop
 
 #{
 #  "status": "running",

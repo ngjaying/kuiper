@@ -37,7 +37,7 @@ os=`uname -s | tr "[A-Z]" "[a-z]"`
 base_dir=_build/kuiper-"$ver"-"$os"-amd64
 
 # Copy dbc
-mkdir $base_dir/dbc
+# mkdir $base_dir/dbc
 cp -r dbc/test $base_dir/dbc/test
 
 rm -rf $base_dir/data/*

@@ -166,6 +166,51 @@
             </ResponseAssertion>
             <hashTree/>
           </hashTree>
+          <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                            testname="API_CreateLookupConfigKey" enabled="true">
+            <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+            <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+              <collectionProp name="Arguments.arguments">
+                <elementProp name="" elementType="HTTPArgument">
+                  <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                  <stringProp name="Argument.value">{&#xd;
+                    &quot;url&quot;: &quot;tcp://127.0.0.1:10000&quot;,&#xd;
+                    &quot;payloadField&quot;: &quot;packet&quot;,&#xd;
+                    &quot;payloadFormat&quot;: &quot;canpacket&quot;,&#xd;
+                    &quot;payloadSchemaId&quot;: &quot;dbc/test&quot;&#xd;
+                    }&#xd;
+                  </stringProp>
+                  <stringProp name="Argument.metadata">=</stringProp>
+                </elementProp>
+              </collectionProp>
+            </elementProp>
+            <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+            <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+            <stringProp name="HTTPSampler.protocol"></stringProp>
+            <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+            <stringProp name="HTTPSampler.path">/metadata/sources/nano/confKeys/lookupcanmsg</stringProp>
+            <stringProp name="HTTPSampler.method">PUT</stringProp>
+            <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+            <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+            <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+            <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+            <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+            <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+            <stringProp name="HTTPSampler.response_timeout"></stringProp>
+          </HTTPSamplerProxy>
+          <hashTree>
+            <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion"
+                               enabled="true">
+              <collectionProp name="Asserion.test_strings">
+                <stringProp name="49586">200</stringProp>
+              </collectionProp>
+              <stringProp name="Assertion.custom_message"></stringProp>
+              <stringProp name="Assertion.test_field">Assertion.response_code</stringProp>
+              <boolProp name="Assertion.assume_success">true</boolProp>
+              <intProp name="Assertion.test_type">8</intProp>
+            </ResponseAssertion>
+            <hashTree/>
+          </hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_CreateLookupTable" enabled="true">
             <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
@@ -173,7 +218,7 @@
                 <elementProp name="" elementType="HTTPArgument">
                   <boolProp name="HTTPArgument.always_encode">false</boolProp>
                   <stringProp name="Argument.value">{&#xd;
-                                        &quot;sql&quot;: &quot;CREATE TABLE nanoTable() WITH (TYPE=\&quot;nano\&quot;,FORMAT=\&quot;canmsg\&quot;,SCHEMAID=\&quot;dbc\/test\&quot;,KIND=\&quot;lookup\&quot;,CONF_KEY=\&quot;lookup\&quot;);&quot;&#xd;
+                    &quot;sql&quot;: &quot;CREATE TABLE nanoTable() WITH (TYPE=\&quot;nano\&quot;,FORMAT=\&quot;canmsg\&quot;,SCHEMAID=\&quot;dbc\/test\&quot;,KIND=\&quot;lookup\&quot;,CONF_KEY=\&quot;lookupcanmsg\&quot;);&quot;&#xd;
                                         }&#xd;
                                     </stringProp>
                   <stringProp name="Argument.metadata">=</stringProp>

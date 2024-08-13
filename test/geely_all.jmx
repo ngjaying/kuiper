@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright 2024 EMQ Technologies Co., Ltd.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.3">
+    <hashTree>
+        <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+            <stringProp name="TestPlan.comments"></stringProp>
+            <boolProp name="TestPlan.functional_mode">false</boolProp>
+            <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+            <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+            <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel"
+                         testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments"/>
+            </elementProp>
+            <stringProp name="TestPlan.user_define_classpath"></stringProp>
+        </TestPlan>
+        <hashTree>
+            <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+                <collectionProp name="Arguments.arguments">
+                    <elementProp name="srv" elementType="Argument">
+                        <stringProp name="Argument.name">srv</stringProp>
+                        <stringProp name="Argument.value">127.0.0.1</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="rest_port" elementType="Argument">
+                        <stringProp name="Argument.name">rest_port</stringProp>
+                        <stringProp name="Argument.value">9081</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                    <elementProp name="mqtt_srv" elementType="Argument">
+                        <stringProp name="Argument.name">mqtt_srv</stringProp>
+                        <stringProp name="Argument.value">127.0.0.1</stringProp>
+                        <stringProp name="Argument.metadata">=</stringProp>
+                    </elementProp>
+                </collectionProp>
+            </Arguments>
+            <hashTree/>
+            <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Rules" enabled="true">
+                <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+                <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel"
+                             testclass="LoopController" testname="Loop Controller" enabled="true">
+                    <boolProp name="LoopController.continue_forever">false</boolProp>
+                    <stringProp name="LoopController.loops">1</stringProp>
+                </elementProp>
+                <stringProp name="ThreadGroup.num_threads">1</stringProp>
+                <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+                <boolProp name="ThreadGroup.scheduler">false</boolProp>
+                <stringProp name="ThreadGroup.duration"></stringProp>
+                <stringProp name="ThreadGroup.delay"></stringProp>
+                <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+            </ThreadGroup>
+            <hashTree>
+                <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector"
+                                 testname="View Results Tree" enabled="true">
+                    <boolProp name="ResultCollector.error_logging">false</boolProp>
+                    <objProp>
+                        <name>saveConfig</name>
+                        <value class="SampleSaveConfiguration">
+                            <time>true</time>
+                            <latency>true</latency>
+                            <timestamp>true</timestamp>
+                            <success>true</success>
+                            <label>true</label>
+                            <code>true</code>
+                            <message>true</message>
+                            <threadName>true</threadName>
+                            <dataType>true</dataType>
+                            <encoding>false</encoding>
+                            <assertions>true</assertions>
+                            <subresults>true</subresults>
+                            <responseData>false</responseData>
+                            <samplerData>false</samplerData>
+                            <xml>false</xml>
+                            <fieldNames>true</fieldNames>
+                            <responseHeaders>false</responseHeaders>
+                            <requestHeaders>false</requestHeaders>
+                            <responseDataOnError>false</responseDataOnError>
+                            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                            <assertionsResultsToSave>0</assertionsResultsToSave>
+                            <bytes>true</bytes>
+                            <sentBytes>true</sentBytes>
+                            <threadCounts>true</threadCounts>
+                            <idleTime>true</idleTime>
+                            <connectTime>true</connectTime>
+                        </value>
+                    </objProp>
+                    <stringProp name="filename"></stringProp>
+                </ResultCollector>
+                <hashTree/>
+                <TransactionController guiclass="TransactionControllerGui" testclass="TransactionController"
+                                       testname="API" enabled="true">
+                    <boolProp name="TransactionController.includeTimers">false</boolProp>
+                    <boolProp name="TransactionController.parent">false</boolProp>
+                </TransactionController>
+                <hashTree>
+                    <net.xmeter.samplers.ConnectSampler guiclass="net.xmeter.gui.ConnectSamplerUI"
+                                                        testclass="net.xmeter.samplers.ConnectSampler"
+                                                        testname="MQTT Connect" enabled="true">
+                        <stringProp name="mqtt.server">${mqtt_srv}</stringProp>
+                        <stringProp name="mqtt.port">1883</stringProp>
+                        <stringProp name="mqtt.version">3.1</stringProp>
+                        <stringProp name="mqtt.conn_timeout">10</stringProp>
+                        <boolProp name="mqtt.private_protocol">false</boolProp>
+                        <stringProp name="mqtt.listener_timeout">10</stringProp>
+                        <stringProp name="mqtt.protocol">TCP</stringProp>
+                        <boolProp name="mqtt.dual_ssl_authentication">false</boolProp>
+                        <stringProp name="mqtt.keystore_file_path"></stringProp>
+                        <stringProp name="mqtt.keystore_password"></stringProp>
+                        <stringProp name="mqtt.clientcert_file_path"></stringProp>
+                        <stringProp name="mqtt.clientcert_password"></stringProp>
+                        <stringProp name="mqtt.user_name"></stringProp>
+                        <stringProp name="mqtt.password"></stringProp>
+                        <stringProp name="mqtt.client_id_prefix">conn_</stringProp>
+                        <boolProp name="mqtt.client_id_suffix">true</boolProp>
+                        <stringProp name="mqtt.conn_keep_alive">300</stringProp>
+                        <stringProp name="mqtt.conn_attampt_max">0</stringProp>
+                        <stringProp name="mqtt.reconn_attampt_max">0</stringProp>
+                        <boolProp name="mqtt.conn_clean_session">true</boolProp>
+                    </net.xmeter.samplers.ConnectSampler>
+                    <hashTree/>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                                      testname="API_CreateStream" enabled="true">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                            <collectionProp name="Arguments.arguments">
+                                <elementProp name="" elementType="HTTPArgument">
+                                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                    <stringProp name="Argument.value">{&#xd;
+                                        &quot;sql&quot;: &quot;CREATE STREAM spiOneSec() WITH (TYPE=\&quot;mqtt\&quot;,FORMAT=\&quot;spi\&quot;,DATASOURCE=\&quot;canudp\&quot;,SCHEMAID=\&quot;dbc\/geely\/geely.json\&quot;,
+                                        SHARED=\&quot;true\&quot;, CONF_KEY=\&quot;spi_1sec\&quot;);&quot;&#xd;
+                                        }
+                                    </stringProp>
+                                    <stringProp name="Argument.metadata">=</stringProp>
+                                </elementProp>
+                            </collectionProp>
+                        </elementProp>
+                        <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+                        <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+                        <stringProp name="HTTPSampler.protocol"></stringProp>
+                        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                        <stringProp name="HTTPSampler.path">/streams</stringProp>
+                        <stringProp name="HTTPSampler.method">POST</stringProp>
+                        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion"
+                                           testname="Response Assertion" enabled="true">
+                            <collectionProp name="Asserion.test_strings">
+                                <stringProp name="-887716301">Stream spiOneSec is created.</stringProp>
+                            </collectionProp>
+                            <stringProp name="Assertion.custom_message"></stringProp>
+                            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                            <boolProp name="Assertion.assume_success">true</boolProp>
+                            <intProp name="Assertion.test_type">16</intProp>
+                        </ResponseAssertion>
+                        <hashTree/>
+                    </hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                                      testname="API_CreateRule" enabled="true">
+                        <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
+                            <collectionProp name="Arguments.arguments">
+                                <elementProp name="" elementType="HTTPArgument">
+                                    <boolProp name="HTTPArgument.always_encode">false</boolProp>
+                                    <stringProp name="Argument.value">{&#xd;
+                                        &quot;id&quot;: &quot;rule10secondCSV_ZSTD&quot;,&#xd;
+                                        &quot;name&quot;: &quot;10s周期文件压缩&quot;,&#xd;
+                                        &quot;sql&quot;: &quot;SELECT * FROM spiOneSec&quot;,&#xd;
+                                        &quot;actions&quot;: [&#xd;
+                                        {&#xd;
+                                        &quot;file&quot;: {&#xd;
+                                        &quot;path&quot;: &quot;data/mock.zstd&quot;,&#xd;
+                                        &quot;format&quot;: &quot;delimited&quot;,&#xd;
+                                        &quot;fileType&quot;: &quot;csv&quot;,&#xd;
+                                        &quot;hasHeader&quot;: true,&#xd;
+                                        &quot;sendSingle&quot;: true,&#xd;
+                                        &quot;rollingCount&quot;: 10,&#xd;
+                                        &quot;compression&quot;: &quot;zstd&quot;&#xd;
+                                        }&#xd;
+                                        }&#xd;
+                                        ],&#xd;
+                                        &quot;options&quot;: {&#xd;
+                                        &quot;sendError&quot;: false&#xd;
+                                        }&#xd;
+                                        }
+                                    </stringProp>
+                                    <stringProp name="Argument.metadata">=</stringProp>
+                                </elementProp>
+                            </collectionProp>
+                        </elementProp>
+                        <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+                        <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+                        <stringProp name="HTTPSampler.protocol"></stringProp>
+                        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                        <stringProp name="HTTPSampler.path">/rules</stringProp>
+                        <stringProp name="HTTPSampler.method">POST</stringProp>
+                        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion"
+                                           testname="Response Assertion" enabled="true">
+                            <collectionProp name="Asserion.test_strings">
+                                <stringProp name="738565581">Rule rule10secondCSV_ZSTD was created successfully.
+                                </stringProp>
+                            </collectionProp>
+                            <stringProp name="Assertion.custom_message"></stringProp>
+                            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                            <boolProp name="Assertion.assume_success">true</boolProp>
+                            <intProp name="Assertion.test_type">16</intProp>
+                        </ResponseAssertion>
+                        <hashTree/>
+                    </hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                                      testname="API_GetRuleStatus" enabled="true">
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel"
+                                     testclass="Arguments" testname="User Defined Variables" enabled="true">
+                            <collectionProp name="Arguments.arguments"/>
+                        </elementProp>
+                        <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+                        <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+                        <stringProp name="HTTPSampler.protocol"></stringProp>
+                        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                        <stringProp name="HTTPSampler.path">/rules/rule10secondCSV_ZSTD/status</stringProp>
+                        <stringProp name="HTTPSampler.method">GET</stringProp>
+                        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion"
+                                           testname="JSON Assertion" enabled="true">
+                            <stringProp name="JSON_PATH">$.source_spiOneSec_0_records_in_total</stringProp>
+                            <stringProp name="EXPECTED_VALUE">0</stringProp>
+                            <boolProp name="JSONVALIDATION">true</boolProp>
+                            <boolProp name="EXPECT_NULL">false</boolProp>
+                            <boolProp name="INVERT">false</boolProp>
+                            <boolProp name="ISREGEX">false</boolProp>
+                        </JSONPathAssertion>
+                        <hashTree/>
+                    </hashTree>
+                    <LoopController guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller"
+                                    enabled="true">
+                        <boolProp name="LoopController.continue_forever">true</boolProp>
+                        <stringProp name="LoopController.loops">20</stringProp>
+                    </LoopController>
+                    <hashTree>
+                        <net.xmeter.samplers.PubSampler guiclass="net.xmeter.gui.PubSamplerUI"
+                                                        testclass="net.xmeter.samplers.PubSampler"
+                                                        testname="MQTT Pub Sampler" enabled="true">
+                            <stringProp name="mqtt.topic_name">canudp</stringProp>
+                            <stringProp name="mqtt.qos_level">0</stringProp>
+                            <boolProp name="mqtt.add_timestamp">false</boolProp>
+                            <stringProp name="mqtt.message_type">Hex string</stringProp>
+                            <stringProp name="mqtt.message_type_fixed_length">1024</stringProp>
+                            <stringProp name="mqtt.message_to_sent">
+                                0000019145baa41834e655005340780944ca0a9d61b45c5f53348621cc466ea0e7bf769ae2ffc3d42d68a49e39452741f43a755824523d420a584bd399e8520d05326b32e0f8c046f3683485eb9a550056402bb14d8b323cf72fa2685638cf394074fd7e37e6e3a144f3c64a68d4c8c5f40ae5994b29957e9fee6d81cfe8a012105c40f246da4fd787f68cc8699adf711f0d55005740967960acb45eb7d73f0d2133858ac6fcb0372ebb4930b380278f80de4941652676ec58eac32eab4fa0557d2e818b343338939536211a0ddea9c004d74eee6d72550060401b27eb53204e773a6c246cd775e1de80e485ec366c97159bb663d32b5ca7a0d3008762504a8648913a4de51dca6ebdb9d8ad65b6dd54860511bc8e70a44234df55006140b5207861611edaf8d4ebebeaf23a0b18e2450192f6b099295c93437c775764d2e3cd5856adbdae998130a940939ab2024dfef82bd7e0ed1f12bc41df0169e4eb550062404620e14525851878d5a5f441d4c58384070c94b8539659a8c46fcdd47c0874503f5c8a5ebb0dbbfad945482ad6d0e0d140ce0f01fbfc4588030199a89756e37a55010140ff13f28039b8a3bf3a73c53b4ec1fda4c1b3a86b16f1fd271131b46a2fe7c68abcb95ea6d89c40812f631b5f9da41c8ae8b63299f936993bf13c1100e1e5493255010540ba4d2d6490b64e56bed2763f60cc1e8d3bafd6c523486565481a99c0d8490be1cc05773df547f3025d865e18a0466e3fceac293d34f3972acedfab4eb23bd37255010f409e18048377d2a84476c7e11f13b40d13b6e2703c106c4461c2afa57ee2c2b35f918981772f13c438e64a6b77e7f519d0d0e99695c4263e6c7e4c5d7013a6c02e55011240786192cebf14180eec980e44ebfab5e323ee325e718379a03d0f81007aec6ba5da691572464756bdf8d2c09c5d4670904260fdf023fc6617730b578d59fd4425550120403eba48c518f5a1bfdd156cd50bfc8eb00d24fc6b89912eb22cdb0770a7be25355c91f3be72c0395a2b3c3128d7cbd9b999781e540678cf119d47f5a1cf5b7a6b55013240228cbbf623e1db00b2639da8c831424a7b52486b69c0a92f92ef59826ace33aa47148466dd73c88b216e4425c7751d40e265f30fb5bc10cf465095cfb681194655015140e8d0df678cce8d5c7f59125c1099df8cb0c688bcc87cdce2b9073aa8afc8397a20ace7c7e45031f3eead754e10d9c30c061fb5285857dfb086f0eb0c6e581bd95501550130550160407d5db068ad48e4defb46f9b4c6c1f29203527587b1d860a71de449cd23bf358d35491facd6ff02466fe57545ae18bccd10f86ade5e2e27f32631b76a53714370550175409bcc906e2da161418dae6906c50492c59ca0bc69726821fe3c3e1aa08661ef8693e03231eba2e79d6fb0914af477d92cb7fe5ab800e462706a392078e4ba725555018040607397d38b53e0b1895e49d07262efdb93b022c060bc4ccfc2a76a60be5962d2d9a0649a218aeff68d3a8422d4d785e399a2387425b66918f98bc2e7a94950cb550190407fe5e5ca6e21ffab76e6fd25c0c2041cf20e7912bbf55e1a74492338c766e4bf8c9d9e9b154a89d006db3063733582bb52ebcdd915b1f4eaa4cabcae6069d787550192407ee6a46f973589fa7fe688734e1748f19031e254f624fd0a780d9e7b93dc1a6df0d7efe8a6e8b5ba5844f22ee71885b7fbf3531476e936290a89659664ee5cb05501a040cb52d5930f03f9578813e3e9523029ca3b47ec538cf2a5bbea5852a91b680acd4cdf3c5d3137d8675a0377570242be7ae605864b25ed71e8c39b1a76d124bdf35501b5406dc2d5f156f013b86dc8ac5e7979e7466d46bdacdc31c61f87ca145f1c0fcc3e6351d6e729b51082bf357357c5d9dde0b83729bf839d8c02252b717c2e13bd4b5501c040f3752043f1499bc53370475a340901fa09117a36a0fae90b254ad818a6ce15e9e2ae4dbebb272488e39a78af16eff731c8c2137a20edf39c87ef9d9621c6d1fd5501c34045272adc827e7cd0376055e818696dbf29f33ba9cbe76ab581b30a3f29b3dfbe49cf62272de3bdf62ce8cc80a0181775736f2ecc5cf8342eba5a31988845b9c15501e040900d5d7d959fa634cab9a4caf1423f066a16e725fdd3b9158dd377cafc7a4b59e5db56dc7c3e2279e00493b42bee538b4d92fd545ebe529967f1fb85182429bc5501e3404d28edd88e3983439805ea4e3e20b7a3c4506b4fbb223aade24ab2f4e521a145503b4d30413a52b163725a7af9a1aa5f3e982bf628a6d445c01ac52ab232b1325501e840049d4d3903a4c76d0e7416b6605090abb5ab815c028397da131b6fd21b99e1c6afc2619c8d0ece7c775b942f14d24d5c93321fc0a8f1d03a23d1a98d4fad14955501f040d596a58a4bc4218e264f668d68c078dc079d4965cf2f764110a048531b80b9b48327cfd08ab56afb228a249436b1e5b6174c63dedd5cf1c6ba25b5d0674b571d5501f5401f47ed65e9794b54967b5d95d2a2690d52eb7cb755fee010be726f10c05f5e2f2514ea5364bb1fae64d921e718480ac5806e0b305192a46f16f91059641fbdc75501f840e3e5522462a30321ffd747afa80919586ef285eb345fb81aeb0d8d2db202ab6256bfe9d83da6ea3c18a01fb46468f57a7754b78eacd286cf1f62f476ed3565a95501ff40d7762aba118d521e4a08cfece7abee0a47ed2addb94db21ca22c4da1990e984a40b9384c23c32be14c5bbf8f031414005e5636ba8daa03c6537664af7e28aae855021040d7e91c8aae883924efc98b1a94828b6bf6d05c4f837dfbc4904f7de0b0f9bb726a885a1f585bbce3ba80a8dca26bc334bafdd16905e0e5b1f965c982fbdaf3c355021240ab3cc26cf83c9f1474153329c776871e2fccde09843e91f78192662052acc1917d7a2d9cf1fba2454eafaa903d9d2abe014aff32a24c36d9c44066d154bcd912550220401d55798c0a725c7ad5e76960ec15429a3bf19059cefcb0a971fd4b82515af2450cfbef198b702aae1d78fa693f90776ccafc2e4cf5279b6066d6b3bf755b240d550221403f40b82710daf13a70068835d18e84301d436a7498370ec3aa990bdfbd4a3a8072403672b2a17a00af2c0d3b37ada3d6dd786df16728b65144ff290ff7ae3576550240407c25c758d8535e40bedcbd31204e4451239c680af665f2be8bc6475732f57cb7db8b2a393c9e6448c75834328f8cf01edb20a2c2602a1d44404b8ad4425c7fee55024340b661ba5cad24254696f369f53e5b24bb914d1f7df7d3ee53f0479a667940e60afd47422a252b6b034a5ca6cbc12d58ac9ab1d8a6b704a15e1667aa82ca71b70455024b40c4c58f976b97b7cc64330421e9b3aa999efd00a2b2085c55a0788cd6ac747193dd6fe15a62aeca8cae2db934e325f5e1b3c2e0157082114f14ab305e8f2cec23550260406382b533a3b60a9f9b0de24bb4239584dd561be17622b73e7ed7b81fa37b9c886c352ec598987893b5d40d70e242f1c02d65ca314e2ecdc75e978855bbf1f2d255028040f1f88c3c1feeddbdcbe5d7d03d59c2ed6aa8409c58fdbfc51343ea02647790bbe3ec95b5947740b2f5a7ac83cd95facebf4883e1241a78b93ba3427afd3f729d5502c040b41ca285d19df8f93e8c5bccaed345524b348ec8d757f6439d986aa77afeb741980af5fbea5f92b4eb3611166b44202f11b9edcaee542c8976431466de59b5965502ef4079a0b9c94b06c91b359f9482f22af362e8e7bafc54faa7756aee7311f6285c380ddda95d283ae628f06df628bb01d44fdb30f2a26b29b80085e69bc3e3733f5e5502f0409cae671b329cda3246e44580c40426c7a2955641e211221a4e08b777bfd64e7d09c31cd4bffb28d424f18c520a4bbe6035621526fc426d3d7c73f3647fdb5f5655030740b717a0d17fc52524714510c4f51da29537840b16cfd61fb415ad498cdaf01e8ce9c8d57f374f68d5d7731eb9334d9160586cefadbe2cafaf4a39c6443524806a55031040d696d323de1d46767a590aa9c28e2037373ab54c012af2693ba532fd1c1064f5fc55201cf6cc17518e23e5aa283004ae50aaab5257d8cd78c9157c524b167c70550320402c574bf07d8d744b221a4db72b5dbc92ded9f8b73d6952681e0b37f20ad60cab2c9e90ddccacbb87fd92c816df5ac8fab535d87a6165d9837142702b2a8bb6f4550325400e52670ff26d8d7045d185581233ff1ce322ceb739fcec4fa632b33141ee46a08b7421a5f9a492100cbc32ccb61afc76d42e84db23484a977d1629ca92e81f5655033040fc321f13b8b04020058b98c2ee5b8f668c3a3380047d27685fdf5003cdc8e51457d5a42b4ee8a0f6a9f4b2dc738cf9172e2ca693c165f7f54dfbd3383ff2daca5503354020be132e401d7390669624ba5b8e1a970b3fc1891405ae852bb3caf2b94f98e90ee1a8e37a8824defa398543c2b1b4e25399485b2062c54dd3043c80ce74c46e55033840a47f2400097edd2f4061970c1849a399ff105c01bc12fc9bd400efb5aa54379edb275b3139d71d0d4f4851ad908b6f55af93cd9d75469266695b316236b3129b55034040bd3e47e7cf5bec7af03f249890aea506aa224bddc5b7e340f80873ab4df34e9d471dbc83c17a40a1b2fd4dbde8d6fb357faff2549d392f6c5bdda163228bf7225503454065a9c71820b5c549a3b77d089d0cb14f7766bee2ad04bf51e1fb838e438dc9e00a1e5650eb306d1f13d47ab75a35629154ee2abcea4a5cdc19aa1e6e7e056fb1550353408530395635c2af54aab392a481c9728f63730dfeaeb6e947b64f4b7e71e45a5b9b47eb19058bdd2bf791709b65e5efeaa02857867d1a6d576ff631ec1f43d72d550360408a7a01ad7c6319540e71559a5d72606ef1e595c774e267a4aa79758a89ac73389393338ea0252dfba0ac93a691ade137cbaf5a650fa55e5282e048f20475f24b55036340c98d9f080a73885da280c424de6f15725f1dc4e5a16186c8849501482c84d93bb1b1b9d1ee14e050de7dc6ee4390b697250c4bc9d76a5ba7d0ae94dbcd8e2e0655037940337f38000b6a51574355ab4753e4269babc5f5456e641081705538c8ea314f7363500a10908b72e2aba5a16c59497af8790fd588f92a896f9b19a666908e5e545503a34083473d894ded79425294149ed52bbaceb75dd82d86a57ebcb3b12726450045a28bd1a468505aa87100bf44cf4422ca6a2b7b03351da0dd24070f031358ce110d5503b540246014b4e8121118d4e9e51ca501f12847d7c4f1ebd5a4140b0cd3bb8c4135c5067dce652f57d4fc8a62eacd6ac49b44017fe66a6e0998adbc339cac8f78c87e5503e540740d25ac37656db4d96297d9dddcd6b0e53b460978ce2bad09708ac834fc4c04939a80ff9acf0e8b6a41dc618a790ca48e1c6f15eee4c8290cb98961c9d1becc55040140bfbd621ddd14756d65136fb277d4d227db203b9b03d38b4d040ada25e4b2f5d0635f0076c69d19e5411a9911eb90a896e94edae07448506660c959b8710dcfd755041040c5e49bfb8d54b63bbfe49a457df75160b58df507cc08a376e628fb6ac800e03b1b637e144a6692b85601ce38c8b4be0164498356a35096bae449463c2aafc53e550431401c4d85d3ba0401e4bb39970c1e6d6b9458742435bd83300cadd3cb5a3bd59adb9d823f1b4c7a5e2de5e0682a98874de38bac862058d074b99af72d26be9bd4955504694049ec9288384ef6d5d06773f2828a49b6dd3081cf6a86b1667b8508fce90e554a53dc571dcb85db69cda4657d981936a136b5d5be356dc8375233686648f7044a5504804025d194696ff3d93f05feacfd2027a08e7c80f05ee2c29d247373271299c75a3c2e65de90f98f1d10ffdfb353584d952d1bea6904de1c0dcde9dff113ec1db104550501089ce082804e461f4b5505030867ff20d39c7eb108550505087413164c4151515855050908c14efdeab80990685505280890873886842930d3550541088afcc5f08f902e3155054308954e092f8ee1d64655054508cdd5a0fe7663e93f55056808780dcd854e80c73955103340bdc1635c041f526bce3bb85c75aa442c5c5ead822fa767b6ab79cd424c7e5aa3e0a1bbc30f14834a2e88d77729a9c1451c32dd538d2239d302a143f399ccb5d5551034400911bbc208050c6a78664b91e8615627faa84f71ed5d5ddc27fea30ff3322f2d093e54abde1ce1d878f2366ca83aace3f822467e8dcaf68088674415aa236b7855103540a954165c295f9b917baf2d1ab840ea0a7e063a50acfb41a443606a86ee218484d9ca096c31ff08e8c058afa4e83f4959fe975823c075a5d846954e54fcd728ea55103a40fd71b702c9cb2037f5a8313ccdc876b4a105a3eef9c99386294d59f0f6779c02bc753a0256000737384e5a786ba90c794a22bf0b6dfd474f78e6d1b6cc01ce3d55104240392482ac49af07f0f39edc7036bd190446da2ea9a69e46710069a2a6dc059ba2fa910c0cc8a88b8006ae5565df419fccf32b31945409e09587d74f055f67402355104340d73ef04a2210f2c51141f2c78712f17dcccf6c28179379528483e8038a8d5e76913c77111596bdc5cedf58318e09018bccc4742ff2795335966296e7ef54be7d55104a408545c4ab4951abe73ee4e5e034b9922abdbca0ce3268d8abb6518df813f4b8bcac62432a414fbacef0b7ce9c4cb9ac712ba7858b9bd2f65659ac4110715d49cf551050408892435d0a4288e9e63ffaf7660e90c4349dfc90cfb7c1c6648be103a612ddfe3e7eea2ae218250329399280344a94075332b6a704857cae6bd943ef7128e42555105140f8e816d72a898a880e8e45052c41feab0a8437cdc90a019a1cba5fd757a93da619c9f40e531bd1b0cf8dd6a103c7eb2f26cfd85e57da2950d877c095e51a9147551052402b10e89cd8bdd0cf376490ec4c90fe7fe5f40c976373ec993a3983ce467caae839b6aeafd4ae129165b3432d4226be3135f86cfa48352650e042ef0403b40fca55105540c5567e80ed0bfbbd504ad50031781c0496306e944451a6b7759f92373922c7e9662d5f88cc2832fa533ac305b15520a1c18690f6bbb30729f743cd5536f16c12551059407b7cbbab2527e3154fb80c95321d83abc47be1b9a0af30989aca993ccc3b1bfafed104f5a56260a5e626e1f95b069301cdf45382bcbe6c54dfc6f8367c623b4055106340baff724997050c6f68f321090822438a22e0fd1fa99470b3835426c136f8ecd9a5fe63b3e1e557d2bb2f00111e29990e37685329946df4479ad25628a2ead69255106740ae97dfa5b6e70dd6a9f1c416362ad9913db91548a568cdd1cb33631c24480740224040d9eb6770ada86932e1b1f07bfe4fb925a0f535a37fc1c38e514172905455110240c5aec60dfedb17cebf6b8c244a2d27df47cf4d4a8fc4895b1a7e00558b2fa871706420108b979a34225ddb8ab6cf84a47b9c463fbde03b427d621eff464a363455110340ebb60bd5596da4f6cbfcfea59043e5ed599f3365e9f6cdf7f5894b49a0ff499998528628381f72b2452c3d3ea8f751cfb49dd6e3486da45264a579f567834de055110840b01a327b04f64b73987660532ea3f363ff524b746e76d0baf7c5e4c6969b9f9bc75e1bbc6c47137a9af613786725413edfdd917eea676f2fd59c4f2305fab9bd55111040a0de516a5af5dc92d8b073be4eb1e0ec2bb5a3bc4553b7e4cd51ca7d683feae606d83ced3d453c1df8bea271a566954de61a362da8665dcd8f1df5390599905d55111740dd51649bec5efe5bfe3f1dc0747ccae582adeac36bae12be80e77b3af74b743e4c09223c87d44731f999f10ba15be176035ec4ffd1ca66885cae20126892518355112040022726b7911d02f71542bfa82f948f9aeb0f448210fa2d752b0f09bc382bf2b5d78090f68cdbc4550ad23bbaecdc86203dc1844cdc25fd37fb5ecc680b82ae8d5511254054894946242ce49115e46284942faeb3239c0c24b7d5365cedf8cead0178264a78f4042c5e6897caa18e9fe64ab227882d28603172a82b7d393cbbf679369df555113040413f74d37f56900c176ad1c31bc2e852b5bafeef647d15b2cfa05d666cb5e6051a9324322b159e3a846d07453f92ba47ff0f90506f329145f0b8adfaf432b99d55113240e8f2850c5a0eb4a38f734c7db394730c8293ef8e9f80301fb0d473f2cc1d6dc0dd09e60663c654ee7ae6b8e03e465530992cc6fd788c9294b860007544dfc9ac5511364052be1582aae5d3e58bfb83eaff2ede2517e5281e1030083c778d7c4a53c5f56bca9d9b4199127d61d8b2f26f408119f4cb3c76a610c71a57b9204881c136d64455113740fd5f10178bde33ef50c0caffa70879ce727246761de1e110238871a5ca3b9666cd798f8d81d108d07cfe74717a04efceb7e7784b0839740d81e71951b46853dc551138403e6c7b76b5e6ed2643bb52a7534c81fe834067238aa6ec7fb40973d0ed74482c0f3cbb2efb9226c5e75811364c818b08db786577207845179ae3bfdaf1a53e5655115040b5d6a6b45af436959408f5ea86a785f2ab8ab0a8324a9f82cd470eb502a62cac7ec33a9612ee88d7b77b47611bfac406d3b777e0344ed5c35639cf4e3d3e7131551170400443e556891605f095007c97946b8c5f679ca9d9f8c1a60a08bd88b5e38c4039609b1e09da6cfe6dbc3e590c025e0f1a66d6e2b274514fc47fdbfdffd847b55d551171400bb025b59fde27913e3e0f48a9f1f12a849b1bf94fd0f64057a7b5854e5d319bd3a4b4d40d109df0dff94cec1c010871a5944d2e6195c3ef27233f954e69ce385511a04078e281d02a3479cb4897ee020b368e3e56e43ef11658544631945a30ff50c394b9d8e7510c94b8aceea1a8f894f0cc9439006558dbd19b4c3617c0c7d9ea6bb95511a64063898842ee3f54c98190bd3dc995433fa95e0057c8d2180b52eb907b9b1e392ae92d482d2900cae37a8a0945b4bc126ba578deef00f33c6d32d999dc7fb3fed35511ab4021b2ecdbab234a23803b15eb2bf13e36dca2d863a8af286c6297c299d9d083db25a49fd81e8327491696195c0f144cfecbca52939bdaab9b4f8eef8dc99dd7fd5511af40b21fc1f093f6a4e1e0020c06ce852614beb76cc41097432f72934befafc662d65a3e4b6d224ba6d5589c20fc194a7594597f021c62b1ff923843faedc031ff745511b0406a2f368a6241a202e5dbe97abe7a46fea734e46115eeb80bf9215e8fbbbaf7f038362410e7fe61b69fd6c6c8bec0e5cc4f736634504f49f26a785dbe32b3bb1c5511b240ae1601abd97875ab4cc0af20ea4bcd1a4d8b128ec8396ac8f5382609e71b06d2714fd2a626f1e66fe4def45523380f63082b450fe5a962a3838363a2b301ec9b5511b340e4953af8d76e7369dbfad7ff97c8cc00a2d969f2e6bed429aa2c8640880c667e148462bdef994553bd823d0b5003caa575bd89b9e795026c1ed88c04ccdb861d5511b940c826899536016f048c9ffea5b6bea014d51409d1c21aa1157a71480462e6e9965626ad5029581e4d14c47dc0eff64a0a9dc9b19aa79bf530dec13ef65624ec115511c0409c2bc0a29b76667265cc2a627ebd01e0846aebb9f4482b0846832f7e63f4ed2f999320b8bb90b30f54e58c341e28f59e81de5cd45947ff6ea1c616fae7b6ac315511c34057790872a5cb675bdf148c360e327384c0da19731bd4a3d216e3eccc37b90a7b687d216d972186fe85af9058c7b3f47c29a6586e8f4b0e0126aa535c2b9503e45511c7408e5909b79a2f58b31436899a86ad72a02119339538a0aad3bdc64bb7aa180b33bd8197b4c7e52a0691789d713508157a07db76b99bfac12bc14c154c3a3380895511d040127c4aaff1232cfa577da96fd665bbe8d2e1773b625549dbb6167cedd32186dc2a58930546e92450102f8e0f56431aa6fd744c91825395dba658f954adfcf88b55120840f057570ec5fc3db6357297a56b7750b153ceb5eb18ff63dc8e27eaec396c34437c2c95441b3b0c4eda385e81b1d2e473314567a318dab1fa971954807882376b55121040642be43c2b7b88a0c8c9139d9a5357621ff1fbba2dc01ad3ca49cce5221d89293d95cf46b1b7d7106b02f90d3a96065229bae73dafb9815954de51838869881f55122040d3e894e943e9447a157465b834548bcf7677089402dda8af71a610044680e9e0634b6e2d41e0bbb9c43348ecfa744204bb00547f06ffb85545c5f9ff1086ad40551230403b5421a9ac07f1ce6708cf47d4459568c2b3bed4f739b135f9a77d75098eb6f4bc9f12cf82599acb38529c472d344f26ac78f59ade8f15b079662e09a59324ed551235407d55a7466d9a599bfc5771404bdb57e58fc98c25457c06ccd2adf8537dce5da0003b8b8a336ad58567100326bccb2be2a58a27c80120613c32cdf1aeb64db87c55123940f6df0dc08e57e4c28d8ed73eb633829cfbfd68300a6d7ca2e006ad393036178a7683abd1866a12d5b50c2aec5ba1c7daf636c5c5a1b261e9977d8eacb1b1f633551258403da13882e6d7ddaffadbaae70cc433bd05f30f7208f5060fa89a81f0a326c6afd6585db3dfac2def1a6a0d843606191cf2f374a90fc06be696034b2c8f50788c55127040e78856a25c1f4338aeaeb959b3f492c8814a015d8d60efc68bd4f12ee532d5ce611a878279cefed91e0eaaaada6bbdf3d9f28bed12d9efb896b680f4218120ac551283405acf290ee31a704b15d5083ff302b9c1f7a7e7a090abc9ccb0cee5034d742c9c770dfac1abad9d66c09343144e23dec799b6c39b8e30cab50c52b4b95afdec445512934044655d7390a974525a64a0b6bc1cf86563864108274e024bac7ad6249d51ff38474c0db6fe844eab7e38bae510a2eaab4074f379ea148456344463af6cbb3ca655129a4051b9583fa33796dd22858e476b769bbcc1a93e470ef9a992f2b5a9bd58e0650ad817347c2944dd8ee9cc10ae07a12abb07b3e83cacb9a1d619d32e44d1f9cdbc551320409f6957aa03769481383a5ea5e01ba311bedfbc905662a0bfdca2443b564a59888509916c02b574e2a71281f58665f28078eee4bf7c81c2a80b124b595a6b82ae55132140b46df1f2c0e4c9fac6186d9f5a89bc21ee73291a623e498118550a65bd66b6a7bcb63a8cc467f112c50d4b1adc84572f05b40489da9578551fcef862fe091b8d551323408af89583570c43869f5d98c531eac1d43e4e421a21c3d402aa791ae44dd717e58e09380a71c6dd9403cea4367ec46d1391bddae5b5c9c22a026def75d289734055137040c24b1b3e3a28e42b819fac486bd42dcd543d6f0e63a0005ea0d65967ff4fa86ddbb101698a5f2e93a094e3694f506e8435258665adc584fa041adadd9aa4267355137240c3ab4ac134085858f5bcf2dec86d09eb3885cc9d316ea2e1c0962ee2f2aab1f6dae5d8d24f88722200e0dfc0c1ab32a6141b84f6cc5d5894fa44b313b92e25c85513984002fb9d074b1a76f6f5e9babb74d44091b697966fbc7f36eb65bb7a75849f81c23dd1caf75f8e616b9bc9198978e402aae2e35d07347491d9a6deef143eb3564055139a40fe519f4cce42cbbd1f555ca3dbf7fdec1e7f8e79481345a1d4a15cb10c89b5b0a52b07383d463221d4a2bafa7579d2f591eb20db3bad66de35a80201c6f4ae5055148240780f7db21ed27762093ec2869fe48b93a4e715af9c5554385d40ee24c2a32a15e82d8cf56af2bfe8fa42ef6e971f9e0d43266e03ebfb8bd70cb9848751d936c155148940ff4ab659cc3fa170ec38b78bf55ca27ab84c214aabad4d4726263419f9739cb566a36ac1ee2dff75371d3a59042914ffa349c545caa0029bdc1c11496530302c551490405e0671b71729372616409f6ad061267a0658d9cbf938de1e3853ed842099adc18ec15db35122090eeea433dc90249db49a0967e7768c43d4a00d5cd0cbaa1280551491400c74095396570ad640954835757ac4d33fe767df58f9fdd86f1f9d3a05f120dd4b0a3f000d234a14ec21a24333e5dd53823bc1a544a620c93a9979fcbe66839355149540dfa7196bbd2aa649ad088d13ab350e7e4906764eedb562055eb35b949560387cca9533d9d8a647534ef8f64d5e9407a4cf492aa12a9a98baaf0f6fb9069d4b915514a040b11945c853a905839fef042c5800672d745d321e554c1107083a73f8d7b9b228888c92fe27c563bb6a26f4db20595dbcb151af90de208ded2464d71f45f5e18e5514a54050be42a028bea8a8b126badca0b5c57db3d2cad49949790807b0bf132a0f10e67f2651191c1b2552f257b58668ed3d982f344ccd9ee6994dc9639c4fb59869a45514f040aa457ad59ea9c4babed20997101af1a4a51cba248c54ad8a57ef5e259f813ef81812ffaccc5ecddf51bac8346b38f012fcb6ee6bdef5107185c9feaca2039bb855150408629a19ada829bf3855150608a70800971f0f888155150808ab6c383645099caf55154408820e8c7c17f9515055154608b14b84ee9d467eac5515614027769982fc58e0d4248a32b6c135496bf044173d4d9282b5fd7a36a7b036a92d07659b01269a1f8eaeda278eb400949c85dd01d0eb1d9ddd2817e7cd04a4d37e551562409225db56721f195594f5a33b6fd772096db61756aac69cbc3ed5d89e3b8f9e2c9ceab9afefea7124696823b0ef988038149404ba0478065d72468620caf0aec4551563404e0fda2503a1621143edf771b585d2ca2b72aa83131f05746e0141238e9f40066853da1464e691a1824681c73dfe35da094a5cc7afe307b7279971aca3e06e0455203108166dccee3491ab6c552035089a271596f698fd2e55203908530924eec8fda6b555204108bb274c89313d3dea55204a08ae2dc73389dda3ef55204b08c24e66459df5e47255205308af88af5038b6c08855205608425ecbf698ce49cd552076085cd6ee7c3d052f0a55208108941f014e051e38775520840886903af4b9bdfee0552095080fb861ff7184cea255210308ff780351a084f096552113087a97b8dbd875469a5521160852acd4799e561b33552117089beac5ac118b7ce055211a08817c49b8cf48624755212a0877109a1b8d45b19055212b0812878e9dba1a9a0f55212e08b588892f985dfa7355213008064a17e62be3d0cd55213108ab1a104f09c635de55213508cac88301a9f3b56c55213608dc7cfbbbe3812bb85521390868f5ea833c4fd6ee55213a08058c95a1ee58faa8552141081ed5c55fa219a8cf552142083c73762fb6ae1f0d55214308ba45e7f9d2b4f2b95521450873e742770277030555214908c98254deeaf08fa755214b08b359cf33498c14d2552151084fdb41b7e548fa87552152089992f2ad0fbc452755215308abd578ccf54bb77855215508785b08bc3af23cbe552156083f6b6f0ce561ae3a552157085ce16eff3c38d70355215a08ec74aa226bc112df55215c08f99a28e42f9139df55215e081b447b8aa9c960585521610891dcb14fef76c7955521620882739f17aff67ce555216808fb239c767efc37a95521710830c1446de0cc50ab55217508db33ee1c784880d455217708d38f18239477bee955217808e64347097d3a5c5655217908386214cf72ddc7235521860881f4bbe4335dc8df5521870826cc6d1628684e175521880849711365947009c755219108b0a4a8acf6bfd49955219408b6b127a878b8862d55219608168d16317937b60c5521970830309f46fb23b99c55219a08837b58047eafe796552216083ab0cc47d19d69875522180826c0f426f1a572bb552233084e67d94a8b45ecdd552235084d23dd33a12c700b55223608dc3c3072ce48b1e655223808138b0d11b83712b6552239080bf141f2a8f0659f552251082405a1eea8e53568552255080c4f94c5b525c936552261082a9b92ca16528e55552279089a7e0b9d9d898b8855227a08d01bfb915870377b55228508cc6dbde4ce5f433155228608746ff33414824127552287083e3e189f4456e16d55228808daab1f3091a13b9e55228908948334602956a05355229008c46d08d176c37b1955229308929a71ccb5be4c665522950813e6a27e5204377e55229608d2d16058551eb42855229808ab24504ecb094f2e55229b085bd2f2a055422be15522a008a2a105779b3f8ea75522a3089411193445e3a4d15522a608bfd7a46b83b2952a5522a9088e98e6824e9662df5522ac087c7fc437c08386a0552301089e860ac7113cadbc55231108d850608af5407ce8552312080a1f9a3f4d807bbd5523150855f02d8ad5f5ace1552331086f52512cb67a2d5155233308510faed71eb8dab9552341087bb563a9ae296ed95523420876f4d57332a7ae6a55234508260add2bfced0c7f55234608a8513b8b99b81eab5523470869b19dcf0706ff0a55236508225b577e7645fee555237008fabffc8416c8d5a355237508e5ec49723d9e5a3955238008ca1b56959bc9e2925524110885d63c477be3a1da55241b0852ba4b24a42c7923552421088890a62f850d77f755245508a07fc37aa78e4cab55247708c5a5418f2ba2e8c255247808fffcf10b51e15bb655248008af48a0f36aaa73b3552483086244d52306a215dd552484086d8ef7387ef3be7755249308d8733290047ca42255249508d8357fd31ddf608d552498081606cc521cc52c815524990838720d77d9826fac55249c08b9696636b035f0d255249e0885bcce2d04800d1f5524a008aa91c267e3969d675524a30871e6cdded339655e5524a608822c8f2eac3221905524a908319451367a5b2e635524ab08e3dc4cd7ce2042635524ae08a9026f4dae4200165524b1087147ac6a0c90e4d25524b308195bda86c03bfdcc5525010873b931bd678a3d1555250508d62be8cbcc55b1e455251608de227fd529a4af785525190862637beec0244ac255252008906f5d22586b717155252f080135350c592ea31a55253808c31259ad093129bf552545089485d2a116f532ff552556080cfd66a0df85b65655255908f99fac9b450e47bb55256008dd509da8a6221cfb55256f080ba574b1eb05725555303040db6edd2d774098a757bfcc2e280abf04906cff160f261deaa8a6e05f036b11c73dcf426610fd00254e6c4ce5a7e9d5d011376687bbfa4af138bf059bf7268706553050407e2207b391f9962db670bb89cdecab37b97f76dc295ed60f22ae5986b166575a6bc1e963d4454956e1dab5dfbdfd2bd7183d2c735bd8edbbc7073b0b3c5b02635530a0407f33accdbb64ad2636849e256b22af109d7a2dda561981a6ecc9dd7f32195d874b6d1d27b02d7c84b498d1636fc7f999acc7328572cbd56beef08748f8ef78c85530b04009f3e787c7d29ab91b6b059320960ee123908bcd55b667dd64aee91adc7e2706420df905f4ffc73fdd81bd2e4766ac0aaed1b6a2d43bca962ea411dbb36d232b5530c040ec286c96071bacbb91d6663631d8dd6707aa9538b3abcef7472bf7d4c530ae8ad620e823c8b0086506b1e4c068c186ad5cc2c1fe73e6128606f1f9d7ca7d07ef553110409a3336c7cf22e817f1aeab0674dc109b1f4c5f33c05861d6a9be897814e9fe4484c6a96bfc1f510442477ef23717ae947a523a91bfef14666c85a9bb17bde92455314040569da1cf7991cadfa069d77f466ca947d7be8e4f00327a36ada1e01d31ca04891c8c8f53c27e80723bd3b21451a366c1f31726d7eff6f9e20919d9520e48256b553150403b34149d481226329e388d826a8dcddf78c49be880bc56e70264888e7269e68478732ffd59edbcac3a22530bdad25799eab6071345eb67fc16337d2697aa4cab55315101b8553152400463ab372e99750d9d5294a1f5eea8536bc9df8c43abc54447377dfcbf88eac791d9112cc59a936cd6c9080f4c9e7eaf3aa2de68cd58ed27c1e3b9538d590cbb55315540389a4dbe5ed655be3b4885f47bc2bdc4f43ca6db118a089a52ba8b7510cbea8aa5a60f19fac7f0eca193fda86042238ba68c429f4b32967b3d6aaa0368a7fa8555318040f165a7259feb06e18756df303143448f37716db80e7f05c94883c423d019e51d28fad425aae0f747c031f1de78aa58834923dcba4b361401a63af4a55223a51f5531a040b621777c74d900801413e20bf97f59f09620d8ccb71c4470387849fa3af7cc29fb3e9073a7bc4b566024fafea5913d2bcf99f4323b0a4e2728d9f538c6f6a3a4553210408eb3599f54f7dac767ba9856303a5fe66b93e33430e2609b9aa1a44357c8431b1fbca6e6cdf846148ae23b3887db49c141043c09e081db36e83b14e0e1ec80c355322040ccd4c50259554626e29eae6327008114bb839441d05ab458fb63d55d0a6a396f4c54ef4ae55744a5a8c5e5b097b9e5b1ebb9e9ecbc19ee569f06a9ede1d7c51f5532a0403c60cf7646518dff289cb6853d2f5f847dbaf7743b350859572b989e09ee81010bd47f65575c78407583700c1b4b537e47d81163d93f790da7c0aaa8bc0720ca5532d04072cd551f516f0ef364842c3606a3f1f98152952f547bce1287eb20086a2b0abcf2ae0f03c736c65174be9a9ea46b1e21fa1c1e3393a62c64d7b92a1aa56d4dae5532e040d51355898263c36c73ad29180a0c9248b6e531a977ff7e99db7aba82acb3fd5e0d81f74a93890e5f9e33ab188ed1fb19295f6af570926b6afa4286caa995131c55332040d0662e01098f1f7ca3e2539a750a30b864ff6d6c5b3a87ecdb66555bde070752f3787b706e0e35a57ab282568ddedec13ed7bc0d75773bf4e23d006f64a78de555334040f7039da2aed6143d9d9a46437226f48a92f292dcc965e113d0994b4ad7df4311d9caf1f63cbad8767d654eb0d1b29e57d17d50a5a460ae138f75ac83037bd90b55335040ba12a6b31ca2f9c2823a73c72e545212466856cef4b472c20d4e8adb3db660d33190d8e142356bd61bfb17e4498d1e55ac6dba3a601134bfe471944bcbf0e6e2553370407892fe7680f83c6ea5f95a8f8b92efce5c8cdc20153df93ba0b9945b62304b32eaa5419bbdcfe2a85fa86bc369a4ed58f608465a603e013a669d20fc0168b46655338040a42c81511fc196c8e74a5b83d02655916d277ccec9e866a8dd7c9b1d7a9fe997990b21e194c2f3912fc6ac6bb9f341cf26ae22ad4a4097aa8b885599012f02cb5533a040105e4426c8a568fa8789e1feccd8c4f4ff9e1496c7a9b574e6d1f15108ec4da92178742dc051286af133fe1afc79f00b30e3d66564f95668c0224a41ee3e85545533b0401bf0cfe7ecf9f94ace89de7de32c20168803f80a174ae5d6387af31ba42ae31ebb1512a2265caac5f6279617979cce3268928a90c91cafd1181a6d44e74a7cd55533c0407a87891161016d1b3f0b3a9eeedc38a2106adb3f61b83cd2ee40b7f3c499bfaf1d8df640fa8c17f77e8a1ec9f38881a89fae6dbb34b593748812bd25ade0185e5533c8408fc4203701cb967550cd87c5af214bf29695d3dc237d00bdc59a8327fa012735e50a9ef67d97177046b83c69810f4b7f7dfa661459b701189a525c335262e80c5533d040f39a78dddd70254e5c83a414ea537de8318c62b8b21cb360e73bbad12065afdafe8160ae2174bf84b15c097c7a0cae5d45c41a31ef36d7aa1d14e0e580d5640b5533f0403c2664dd38ee5d216319c1f1a4f9acab7aec03e97cec8610fc549d2ef68f2de4765474e5af07f4ae109cd4d44acfac06169c96f6ec7bec5ea3ac42cbdf088e2d553501086b80e6d434bc59cb553509088b5c97cf318c767e5535490884ad4f646f44352855400708adfbf67291022f7455400b08c5494837d1a24ebe55402008561642860243f7c755402108eb381d374b64397c55402508d5374e32f4ab86e455402908839f16ca75c7e50d554050085fcdc92671ea4d395540550838905f2cf3ed34cc55410108031c7bab9e6e7edc55411008e8d3d9eea4f2629a5541250812903feec7600135554130088c875919f23a072a55413a08441fcd4f686bb77655413c08cb8be27ef4aae02055414008ef4dcda5f82a912255414508708a3fc26cdbfa335541460876b7487f03289a2555415008773984a0ec7bb75f5541550849312ee230b25ea5554158083088c665de954d7955415a08d236d1035e30025455416008488862db971299305541610837bdb7bac5a04d63554165080066cc064a43f4ab55416a08ee2c279674367362554170083c1f16be7d4c279d55417a08d142f8565fa1bf9355417b08d3e6fcbf64e3bb8755418008bc930fb013d6ff0455418e0858211e0fd2d8b7d755418f086d8917c2d3c20b4255419608472035e34efab7a855420508e4ebaaccd491086755420708295f9f0123dce77255421008e7e1ec805c2b236d554211083daec8765b18afbd554230086ddf818c9927a6d455425008230e96030efddbd955425108f72ecc63202eddff5542520830749e6fc9dd7d56554253084662057391eddf535542540837a203030da7212955425508b747a929f97f87045542560823d384d9669d9f8e55425708a88e26616991a6485542650842f5f6c335101bbe554280084bd2849b26d97e415542a00888852f07bb9778355543340823bacfa90eb9a3ed55435008d66a42d9d97f3875554351086635bb2907bde6d855437a08165a5f57be6a66dd554380080eb0c9260abf48e155438108567399afc87af8fa554390080c481e85afe4cabb55439108148fa9564fc61b585543920841abb8e3cbc45d855543950888b95ed7d24d453f5543b008402f661fbc7323555543b508a20732d59063470c554410085e45d69e71d6aef05544110893abec34f7c92f2555445008402e7485f3e39b005544a308f4a2db9fb9a885265544a408fc136ea281623a135544a50822b0995c3d4dae7c55450108d5b068c19b8a491955453a080adb67cfae3607ef55453d084c69c477d8cc8be8
+                            </stringProp>
+                            <boolProp name="mqtt.retained_message">false</boolProp>
+                        </net.xmeter.samplers.PubSampler>
+                        <hashTree/>
+                        <net.xmeter.samplers.PubSampler guiclass="net.xmeter.gui.PubSamplerUI"
+                                                        testclass="net.xmeter.samplers.PubSampler"
+                                                        testname="MQTT Pub Sampler" enabled="true">
+                            <stringProp name="mqtt.topic_name">canudp</stringProp>
+                            <stringProp name="mqtt.qos_level">0</stringProp>
+                            <boolProp name="mqtt.add_timestamp">false</boolProp>
+                            <stringProp name="mqtt.message_type">Hex string</stringProp>
+                            <stringProp name="mqtt.message_type_fixed_length">1024</stringProp>
+                            <stringProp name="mqtt.message_to_sent">
+                                0000019145baa41a34e655005340b9dfba602b9d492cfb1804a38823ffb9fe9705ce1f63ba0dff4082d0c4696e4eeccff3dfb91cadd09d4dc1b88172983147dc3682e72b7a4a5c3666913549ca0f55005640ef8409ffb287de4c9ec8fb6b5c4f995c4bd7f6358ebca730507f8bb1ce450b1e6d787d1f5e73c458fceb542029e49bae7a256150e556516495266412d1475b9a55005740a974c44c1756fb8e212196e8b7e1ffd0c8646299a0e9a998abaa50836c69b6470cb05aaf32eb03408767c6db5e8836473469937cf82f16d05aa000918b4bbf6f550060404ac87ed1d4796b3b8e181389c93a7e82584fac507db8cae0ccac375f44dadcfd1d4ad0e46dc6271bb81757dfe3f70600b5e8f61403759ec3cea3b7d7d4df568e55006140f780834d4d7ded05a453fa2f48cd9c8985ca52b228a9a574fe739740437ea8e0d1f2d0c7d5f93e2e7b2f8123607d613083281ae2ae0da257610839fb96b90b9755006240d939fdceca1f3b35480fe982f5a02bfc0e3b5422925b7fadb90c147711233fad7d27914b972b4453ac69d396eb6dc1265ec46565812646ebe51ab5b40c6cf9fd550101401707c722897879194128f8f345107ba4d08836b80869a54e006653577fc429da435ff0c39447696f8fa123204710331511f364631c65b32c8c486fc93fad074955010540ccda3adc08f034a1d5570aa8643862a0012e680b287e63668f14d23ef93bc297780e39ea7412e9612f6926da3edd1526c8fc468dc61008c1d1bba6d66660df2655010f40a1704a0748c11e1f03deeaf1e501862145b563d2b143e9abb58050b156e019d17f745ef184d4ba310e43fd564370a5303279305b1b056f0da9b37c81ce638ab155011240d6c42c694f9da90db4e55d9ae03643ba024a86c46b16454c9e5c9900171ca80532ce58aefc9a73a8c287e77af9d5c1587bd88470139f0a8e71bdcfba11856ae65501204059b68d32a2043866f0e20ce7e3e88428db6d8dbc47c2bd4d628a9e80e80436fac4b25ac811bf5e3312d06d2c85edbd510fd43b09f4aacdc73b7454800a0e98e355013240de56eae48a42c1181d90282e2a45be6f58cb760652fc2a6916a5b23855d6d2082aa438c19cbef0425ef84e8cdf581338dc11289861cbcbe44bb27d17ac6171b25501514024df0e4e90fb7e1e4feb1055e6c207a4db0416166268fc2b9efa1bb9a08f1a7c1e5920a43161e8ec036d9d7b661b95a34487519f3631af1ac09fbed327c480bd5501550187550160402d95065235ac3ddb120dea69b2cdf24e2cdf2b3ff1ab9f485c4aac2c2f312a6ba8d6d1a71d49d6e861bcf5e67b95a69709c25aa4708691b36c94cdc3356b091755017540fa3c2f2fde428fd17ecb4a30ddbf5d76c9316faccc52b9c7dfbc3a9369bb446a774b25a24a626b63c6a68db6f7fe30cecff7f8293fb3a51c67acd1d63e1715915501804084181a45fb8731cb6f2a6f7b91111ade846cde2985f9147a35d7c1dfa4e3fbd56a8bcf7b7018f16dd260c7e8f33ed5f95ed5dc72c22386dc7477196d4ed352b35501904055b06e477fd45b3c5de74ed593a2abfe917dec8940c33bcc52608025c8309ae37528c242639f855ae4c1e1ae604c9ba4962a9b01818b0e758247feece885d5025501924043874c2309aee811684f13f752807bbee1d41b14a62f8472646ae093218555008b7d955478e0e9b4af66f394e7cfe43e43c9d587d455cd9937f2accc9d463c8d5501a040bd1c5f884d1177a825d011be59bcade0f83e58360c1d155dd983836d0b723099c919bd3805fcd9c54971b57741bfea696efac4b6b774887a3fe664e6f89cc0a95501b5406ddd4ec5d76d504eac1909e264884b224f8f3ac70fb2ec14f135414c70a19dd0c70f176207862cdc458c21ce5bd1b0047c826b333c520458a9cee2a00b2667465501c040eaa88fa99f313ba567691a742620297c35941ebdf2edf48563d5d75a95e67a34339f358cf59ba65c184bacce8f91e251037af4d1b047ec5273a4b6a7dfdca2eb5501c34000d64c34b08a557ae2c494335f82a9e86f5b3a9e5efc62321f9cd4e4e70aa66ee2be221b31b75a2abb1374532332f6466b27fd18b0b24f369fe57ee1b482e4e35501e040240d77b7ce0a4ba00522ffba7521c49476d2856cc17707acc1df3dadff3ba01940e2bdc579fc6dd0ab96396c190ddec0fe12ce6944d045075562de6c17d837855501e3404245d10fce2282fb1dd3c49f98b59937d6a9b8bfaff2c2048d2416589fc84e5662e8a3bce4f4425e8ec048a5352c6bf462da5bd015a92d515bcb4c7df80437485501e84016aabd0ad36f8b02b64e584841640c9b163068fc9b2c88b4492796d2c6b2119c3ab4e501b0ad4f23c66870e536bcbe22e333813b2715ea535057581b239943985501f040dbc0df36be38d99d936f3fa976ffbe8665cc22bde862dea5f2298e7c5366468d6d3756b3ed8d47759a6ff6c5f339e040632959b15cc11963785e7f1114d478025501f540faa46ecdac3cd61e1523ff7d8ef01f3cf899e2fb210c38ce79427e4d44b2a9dba63c9c37981a4af1276b9bb45b4dd0c813540062f3ae7b8cb8d8bd89b31e6c185501f840928f9faf85ce6a08ba772b1a0a06a3051a7563f0773f4ca608a64ebff11dc3b6406cb1ba30371102afe79e2efa330912d546704ac37dafec74d3a0ca0cf0f9c75501ff409c42e013cd23f63873ee9bae54b69dba7bc911a6c9cfe0ea9e92ad53b420e1ed75d45721fe90ea143d24826388950d5208102e71152eeef8da62af9343996147550210405358645a050b5422b3ee7d4bfcec3afdc519fc404921529c30b057cd28322aa6fb6d722471b11c517f5347e5404fc0acd5696a0e45b1a060e32188e84c56f82355021240d32d16333e4d8382dd576101f56e3126e2f5419e4b08b8daa1fc534b5e2a690c7de2426b970554bc72a36b111e2f76276c0b5367669351dd3899d614f9efcba7550220409f37cf9ed886a17e67838db015cebb69dbbed9261c1823d6afadcda1bf411f56854fce2d2087777aaacc730da637be09abd1213a3b77f20ce2d009b95eae1ce8550221400caf0320d0d02a6666b5ec74a977dd4f35d245ccc4a045ac0dbf448926dc68a5c433f340d0b78d9161688555d72ec01d11b807bd16562c3ef635f56cf58a248a55024040d92d6377f57c975a2f70b9bfd15ee53dad54f8cf61b64f4e38aa290e398c166a89118819af3f719ab4332308d6f4090575ef4f1351b6785dcff9bdf70599bacf5502434099c984252325872cd84935c91e2d1ddfcd709e16cc96fd1c3f1bce77a72695742da83882ae45547efaff24f530635fe8a2fb3b8692e7f7d17b8c51999914f08655024b40688463dcfc7998e336fb36a8ba61dec40eebbc0a0fc6b207a5f84834d9d880f6ebded166022751f63e621b3b3cdea5cfb946507320bf63194d725ff43143d551550260409cdad5f6b23794f2436190cff5d39c7a1a54f81bf9b7f9665633419bbb1ebb98e2aeb090ec97a44a96375ab750f0f163a6d0879df888687ae7013faaca02e4a7550280401d79711ad5ed946f9329ffaefd068a46ac390d2f510e567c44abf5f828cc445b0805a16dcc003170532de28ac4ee0d69f1e0a600b5e9d7ab77e8332b33a500b65502c040486c376344bd26af89fb675fd64e58703d0af26bd2c73d275b5697d867a67c3956b1e946fa7c6bb49cf48647569766763d4f269d0c88d8d04d695542a0b471245502ef405983957d2efb94782ccbaa2a8f07bcad516a7397e188db581aafb146589f70e2d2acba93382dc430aaa314d3aa50c59532248a4a0a0d5493feb74bc8ee25b7b15502f040c6d4752c2e4403dd4b96a3bafc8c68227254a043c8ce61bb6da28c08d9bc758c640d8de299c819a940c70226839d91c630ca61cd21e136e4592924999b627a505503074000f38c5db44b52e1dfb5c44b4e299df5823bb34baf27166fe51c7b5131ff3c7e8b8cfe9b329800864757a26b0bb0423e4ee3eaab331e33d94e6da3f9f2b5e60655031040f6e4717c71c0ba9a050c7c006236defe49ff8b1ca9376a0f6814fc7f1e5a4825150ef8d1c60d193c2da027b246864a2354fb84758572078375ac419db0b8e1745503204008214bb9af69bb0174e358ec3e11d34efeefc73acd538e91ec9933a83d626629e613b1ceaa5b49569ffc730f0e563e78c500a864f7844044f9e8a47359f91dcb55032540b5315115e78335f94c6ff01ae1d97881bfe7832720aa785ac7553380f0a7459a584daf41de24a638a558fab6649eec4967ce65c5850453385da0f275a36def4655033040a50407b390cc8f895b734f60953b00972755b89d8523c83b49c19bfc8dc5f5982ba4a6e7f1c9511a74958feb7dab8420c039778628e598365db405af727d396c55033540870a78765ffb5d2028e4b8488af791625a1a1cba9ca9da8487424ebee7f80100637ecc8a1350c79df61d5c9292f6f178d66896f92712d7468184260256d319bf5503384048cf84852ba1b2958add34f362faafb0dd5f9de7870f62d094da1fbb8bad5d99d700492e17992a5210b47e980a4d9af4ebb5e549ce2c891067ad39bf3398577b5503404065934600e195d870c68ddd959486ef68e576260423030a4812ca36310c83851d2fdbf02a221431b760c793ea2e504ace9a4762887f725f6ee6739d498c92dcb65503454065b5728283c718eefbc9aac7771e8f236a8d4031d4d025b02a4f8e5d3e2fe7525490c7cde5261c1c5d07923d8bfd30fabd7d92db914de04b2eaded3f48b1acb5550353408c949bf265fca63a9ddb85f0527bd4efe0216359ca6e7d90ef681d37ea36929dcfea2746d311f405ad9ef908cbf1b5b3e8f58f3fd603a7f912dbb262f05a7e89550360402155f6533f7a2ee4e308a6ccc6989b7b1ca23c90b154835ee6b01bdbdc0e9e4991e2b9225cbdda24073c9520b25759812c6fc9c1f8e49238ffc35c01842af314550363409e54206b11077498e919c3e151b5bc6b08d012a17eca65d007b3f3386bb0413ebde92c977d06accfc70e6a6247f610d557005011b767e4c9f30fbeae064c8c7055037940fd4529493b92b8a6e23d3ccdccd70109afe028ff688cb558233577ebaae85632642ce7c1e7f2eb370705b4a1432a63fb077bae64f3de018e346be8f9a4286ee75503a3407c9fa301c2cf2ee804d797b1e612809a966207a1e0bafce423140e1535391d61227c81f0c78b79ef2f1dcba4a290cc5889f2ac3aed9bb8a541d8d6fa694671755503b540e25559bf1020733fea138bd6a1470a1457334b13423df85f6bc1b526b0d41ad53c6513459c9a0ce4f0383c097bba67336f2d63c373792d847efe516c0c0825d65503e540b0200add1a35fa7c351c6893bf77abcb81fcf7843911bbdb12bd9d78b06cddf5b77207108a9da90326191f373a6f71ae75fc40391dd2a4d2f4692ccde5b856a2550401400511e3dac69540b6422348985fe95bd0a46f439721aeabbb55402e87b863fde05d7ffd4f2c2cbe72282151637b541873ec22777cc712741f71ba14aaaf19114655041040d96112ae634263c094a80835c433d346cde25bc0f493c0d50ad6e2e62ada9b28fe56ae0dc90043e4c9692638ccf6767c60eb9f4114f7338a4452ebf1dd218e90550431402c504a8e3dcefdd2e3b6ced6a1d92981dee1ed24a65e586d04b7c31124721ef0313aaa3b6a6e881bb313d2b69afb9a1bb36eb0ddb699a47204fc2f87a68b325b5504694098aab5020427e68292ad9958fa60dd6bff05b09cbfdc244bb49ebb3433b9cf30a0c583f3eb7513bdb471a405135d951184290afc02497463e23d1ff309efa1f955048040af5baf259e662ad1bbbf2b5026200f6fefde9089c7c99dec8c7113891a2c11b3998b2757c44bdedb74c680add7fd40932878d99205a124805c2220462f077d5c550501081969f9e7c727d72655050308a871934acb0d997d55050508bcd1ccaacc04011955050908a50214e344cde95a5505280817976da747dc094b550541086be0f250d2aab0d65505430872f14b3bdeb5190355054508a63d0eaf51fafdec5505680841d6813cbf7062025510334064b010b558cfa4df743250a1939b804a699a730e9e4d47dfe9a3977e62ac49f4d0686698c7addcc8cdf6cb316a90d88d4e347c3de78a8d7019b036f5a4930f4b55103440892dbc67bd530789b70d025c9e6c4d4c5cb8541ca0a2122c12f1926954bb85c3eb1e15375e6af9e6a60ea8408c66231430e4920a68f12615c1b92f096eaaed4455103540fad1a8b433d6f75f6be450ecea273793fa91766ed52abc12a615af82c74c87998b8e124857f75076c00f962326238b4a323faeadb21ceba0433cb050d2b67a9255103a4060fdefbb62186e9277e8b91913f8f47efaa26c2d6402ec7e4b7b646ac85e3aaab3a4872ec84c5de5bb3275afdc430111955a04dce1bc85b31311c62cc084ec4c551042407700faa2436485feb7f5ee5e918055ae970000dc3009438d0dca6643aa221be9c7090bbfe4b4a86cfd5fa32517fa2191191e07f5ce536873e93682f66c804acc55104340a9ff7be41fdaa71bf8af6cbdd24e573d39ab38ae8c851d255ea6e2482eb5824f119fdcce798a90f2b4dcf591998ab9f8d8498bb65c1876ef90b476cb7124053855104a405d5139d679209e66602b64ae58e52eecb50358322dcfdf28476c5ef92ff3245bb068dffd33c7fb0c324677309acf3ee0a09ea36c01cd436c6c478e0c03b3b206551050408b228d97c24ef444b083a6f4adc4822e0c18ca8b4c39c5c93e82089b9439661ea7940d363bd32c07419cf1da6399974983a9aaacf6878feaebf79ba8c627b0c155105140d889153981dcba8b09a570a005b17b5c9e2ed6ed81e9f66445795ba62e88136f1bf80b51f5ebc6ec285f519282f8ece316202059eb712ce46d1d50930df99401551052400c7eed47b0943354f519bbe5bc3237add2d3d82fbb8c8e63abf721a6bf12910c13b4e338fe4e09371ca46b11694443e3a80575a52d6c76cdef5b779efbe4d08355105540ae65aafabef71fac42e7900f424c1874c7bfdfcf128a9e77b862492ba594a24f04fae5aae81d34cf40aaca2e2acd98bcbe4267eeca2b26b8c63f357589e96c3e551059403a304656f91c5a19de0f9f610fd403bbdb5417895d109ce8f2cbc340a0267bdb44058886f7f7b847e8ca6ebd9cdbb2b0f760931e2ce8666585cbe7dbefe6260b55106340d4d740ed7e760655409879fbdcea8c251cbedb0609b01873b7d9b8231fd799023bf3ea1aaa6850fa6e8b050f67ad4063a155ab9f666853abe12cd0f1d2ff818055106740f4fe34be1ed68900ee2389ececb458436cce414d6cc90db5b0e93efc6b705c26d0f51aa688f6a5eeafc1af3474fe36f1457bf453b6bdb1faf13a2893115b3ed155110240e3f3508f128d1e441117ff54fc64243763d41e79c30cc9b2a107ad87f49b7c191e3b4cbed591778ad2dfdb3d8e84d3d7c89867fa958c2bc2736f406684cae5e1551103403934c3406ddd0352b09d05b0a8b221b7dd328dcbfe0bb73a8c37bfea5793808afaf9e0ee2c187bf917f44265f74fe0c2943f2c0d3f5ddd373c438907c4127650551108400a59fa3a37590d9f5b1d24c202e716698e4bb828454bf67bda69bcfd49093bc25af2350064c98a0866ad976083ea13b3ece4fd7bc1a3acc2735dd4dab5832603551110400d8b5161be23cd4e23e58b7bf7f0eaa8ee84e0228ee5878d503a918d10ab41f611cd09341c1fa63d903b78bfc2ab5b01a5e1faf63fff8e71b3a4615457f5743f55111740db9a9df000ee85f2bc873a8f296e927343fecdda3db180c93ca000551cdd106cf227d83928aacea64641a796fba845dcd1e245a28b631666725dfcf1f599058f5511204024f5ccca6b83c3e70667b35a22b7762c8325cb66ebb4cb26997bc2ecc7ee821ae4393bf3369382d702259711a5b242afd9dd28a7f9cdb9b053209001e0541f5c5511254090fc05c3712a3a63cc0a976c7c3873da8330f7f872b6b8294345ee758c6fb3e38bfa187e7fc6c14506a3958f3af09fbd741cedd2ee9b1fd3b3044299c40449d55511304041970a535f578a4c9674fa982055bea8907255c1f56bcfd68bd3955bab190e65284d8df1f775838705dc8b051b56a565cf00057fbd25301585f2826ca05e4b95551132407ab37cb787c1e96894d6d3e7ce59b735aaa4a336d77613ec6965e0c5ede28b73335e94f7dba18adf3be855a2620fe8eb03162d09b5cacaaa791dae9719362e155511364023598c765bebefaaaa28793822d3649a285693d84ba9db116c0e573eb9e41ec8a8c641a2b3d8d3fbfd43ca04889d0935e33f0b72e037266879327cd5626324755511374024e098d4bbb4094d4d0fa8692462c327791999f95c4eb5581e289786ed1af87c8e14cad9aa0be051e0589455721fcd86818f8165061e8d35f82a6170adf397ac551138406faf1ab47bf4e7dcf33fa33d1382b9f0b04e13f4095450ce6484dd61eb0aa82adeba4a953205e09ef8b560c1092aabcac97137b882f7dac7d0d65d43b67c887e5511504012eaa6a310809d139b4c7adc6f5a685a3b98e7b4f21c6767fbd7f5b4c6f3dca9824892377b9f98f73698637a07aa4af0d87b915799266188148ef2bc8d2ddfef55117040b6a3641f3e2aba89ca61ef846a155592e9e560a08e041bb01d0a718949a7befd5287f6c98d42b709af670c4d46f3a1ebc9393cf4e3ef34c3dd2960100e33522955117140de8210a06a9de1f8dfdb643345432b48e36198d019adf173fe1447f5b0465902a0ceeb76b2ae09cee0ea4575484e153f3e89d4983ff649a6901d58852a327d175511a0403cab6bc7f09b686a863af76b569a991f2647fe976039a9bac4ad9b866a8457ccd45c80dad71b393792d7746257a33cd6ad2ca6b1e5916e49f9ea1670eb05bcc45511a64009e26baa27461f1db0a5e084b172b4ac8e60ff39e6cbc21937eb92ddff89d215423ba7b313b94a2d97724509ec8145f2254bd9a087e75750fa0a6f45e7c13fe95511ab4054a4dc588203fdc3fcf431b72e405ddb877be5fb2d4b992e7f3bcbbd344cdd9a62826ec4c3d260d617f22b370b2e65fd077c4c8aa6a868fb56df8033290009265511af4049ede6810a8719b7d188d8e77b49b5cbe6e9aaa22b8da5b4ee8c7ab696c4e7d78cc901f7cb573696e64dba4eb4bbd709ecf7f89376b0a38f97d299850c7d63aa5511b04056d1e00162cee82455dd7d32c4744091a4d2f420f7bad2eb145a7a54c40af7ba59631fca232ecdd64c22aebbc7331ab7de566d2decd0b8f0cd3d9c1386f496fb5511b240ddad55ce96e875f6f73c979c26ed2fab7ec1d0ff9a459dcb1fa54e0abaa7ef44d1972f06b0399428947c88edc33379fe2df632f2d1e4a5070c612c4ecf6de1cb5511b34092909d2a62cf4d5de389c992b5e7ef864ff2b2028ace8bd6ef5e0648f75a272d0ff01ce340c90d6d3d9ea1c405006008369af0a6ae8abf1c36383e5e21d87d925511b940516bfeedfa1e0c65c731805a6730c65a24e9e21659966b1c6f6e39450616c8ac989fc55b2354a1e0116c72e7a7ce4435eb0bba4274cb1eddafcbff34bed69da25511c0404e8dd35ba7c11b09b8c42d3cc219ebeca48bcef39f34b36174758fa72faf29a610bb966bdeb8fc5073eca145df8dbbb4a2895029e6cc24fabfba0d2e458d56415511c3408d93c1f83185b1786db5841462c58fe7df3d04f30f84822efc333b1863e8e76c4569ca4f697e217df256d4a9d5e2dca52561634cb8bbf5c362773fa36b10ba9a5511c7402a9773c27eb870b97b387ade61fe47d5a069354b50877469a00b2dd0b9a988eda93bcc689ade89b9a5a6bd8cd8d842887cef9812dcfab849a4adf5e2dc2f43b95511d0401f2a31072aad1c8bbc97713f1e12ac1be91784dbd1f1d5ab8bdb9a704e80ab414f12668e0795b594e5bbf37eba1ee94f995484808e7e7ca7174e7b866aa231c8551208408b50aa045dfab516eca4a78b41aa5b450cf19893d00c7f200dbc80305a599bc9bcaf0aacda4c48036c5affea957fd214a73b14c8d88c158a96181e9f33e9807255121040cae70d2ef3d129797c26166090c78e79f13f206e6b7013522a37e87badb60dbf269d86cd3a0686748d33027280dd1748a5cb01fa2a1559cbc6fae7588c8f82e955122040eee91a50d8b4ce93c93a71500243eefcdf4f4d9d6c76da3d4459d1ccc6311838aa1cb7af5ac7b4c8a4db40a1cc8555dd3f9a21ad907c158428a155aa33769ed6551230408eb3619b5b2212229808b2aa7808fc1bcae4228050a9c2959202e1cf9624b6c64249ff9bb0fbe554b8db2b5bd019d35f7582139a9f9588c51845e56402621192551235402703bd9f02d20e4d3a9e98437054c231c1e75f4fd9e4bbe4e0a99732fd9837225f260c64f4cd31d5fbe478b742a6e8b6dfd4769484d036ad718b17d25de83e7455123940e075442deb91f641bb92d7418a608ec2d5e94d6ae809c6d3b7c44376710a953448488a6c37b6e73da7e5c71caf7a58ac5562d77016698ac99395a1b1dca40d76551258409fc0129ff062cf5f5513c957f9b262d3863bef3187fa0911525ed5d1c2ff2074f5e3418bf2758168c5488ce547983fd25e01da65eacd1addb4082cb2b9cb9efd551270408eb3e1b99714e99d84fc87aafdb9c71d5fd6d312f5c0b6dc2e2866051ce9f382be92cde2dcf7e1ff4ece8d52397b2212c2d5b4693b8642b523e9d780bd7fd9ec5512834023d93581c8f330c13ad68147de7d5e3999ef28c56e38f6a1e42368ca1a71e4f853b4049cee282d14e8eb39a4d78e7e0a2caddc6fd46b21ccc997fc2559a146095512934012d5b9752de66925088d4e42ef93a1e77dab040e4c79bd9b4cf3b96bef3b39d9f06551d104f594238e0e35e4c5f9eca6c5a11804b0161076c6b7fbc3a606c73f55129a40216470d17f4e311674b2956069af9212d354934c65807c58fdb775a962f8c6ea2b6e3e786c658421ab96ced0060966f647100d220cbd49a4dcb5aad6138b2ba855132040e021f7015e9d8a10edefe9cce8dc9352121f38aaadfb6e55b83bb9d80bb670e8311793675b13bc63b8e2f1415981027e461e1cbb0ae0e671f1ec2e5036254e0e551321405414669ea44904ec1aa7cdc214327a4da7d6c801f7c46c622e6633184abf88230d0c02182dc2c714cb84e7df83bf77e5d3eabb4ff2ac1579c14c9d20abf4e435551323406c9458040253906d959f9f8569ed036715648085cc7c1e918faf369f734b7a4641ac8e01bb372d197ba98b69ba7705cd8c914d1f5641100f0653cf98dfae9d0a55137040da2fba70a7d79f71ada4d83add5783ad4a4b11da2ab08ef4b8e49a5d27d31c3066259ae5aa87273cd8a93152d08437936ee2310aa57e3524bc546b4bbd81309f5513724014976a43f015d9f47ef1893982ed4e6da2c808f4f08a05ace3979cb3fe23197a7ed041ef47ebf2d16bc522ebb555797ed777006d7b28576648dba01988bf3ab7551398404335c9f6649714a712f12b05aec96203daa2a78fb40aa8ec29e329116868abd087cc97b5f28265db90b47caa480e7ec941a5a916cfe310d480a6e24fedcd8efd55139a40b778037cab720f47226dca3ca57c120098e961734f5e299ff1a0a629ec01b4bfa2396bbfacaf04e3a8609f2f574434a957cf2e033229b665f7daafa5f817be8155148240284a03ee40818c1e40bc7145ae58fdc825b8b27ede84d766c5b8ed562ff48acb987f7a3f36e6692efca6ca96c8e1a11ceeeea6814b6d236b2634e7f6f15ea926551489406d38ae71432623293de99d7bcaecf118c8a1308d385363821b48999fe05d8414afba4e90571973c5c3db752706602980e75c3572c49d612c973d833cce9534e155149040c6651d6df4a5b253ba714200131d5820c1b703b58395fea98b714ce53561b817aaa3bbeaa463d55692333c87592ca667429484a49d95a6298f0a9b604276b6db55149140664ed482d484876e5c361693674d71ccc397c4b69c064444d92ac6e0050849193691942cfd41b3010f59bac3c24c48a7af8b317fd34e51b78300c45f0d59a9e955149540e64dc5c2d16d74318f3b75c710d96d4ff011ab767f76afdc3105d5410df8c9398b7387165855b511c9af6a4181e1d52e5ef4d480edd3c579d4d62cd6b7fee8905514a0403637d06bf9c1467c0261a5687f09460010df10d4dcaa8fb403c7569bd4db4926decca257c819669f4435b2ece40df09e10ea81b62268f0c54fc63c9ad66aeb475514a540ffd33e2069f590eaf5c09e6ad714edc318e331321ef58c1d2b4d4580d8a1dac09451d952c013a8d750d63df0bc832ace2e0a05e83dbc03fe1c9226b42121691f5514f040e26978a58de015f6956f373f66d5a6a6eb1ffb91135345b3c9de76d329202766f8d12df455bf12975e70ae3637eec2c79f40422c59d59c7796c36c5bdc244c845515040831ee21dbd8e6c1b95515060863af879c864ab6e655150808da81e56b0b3fbceb551544081430eb99b6d97496551546089b243a2fd68a2c865515614057a75623d3fdca017be1ea8955e465b42d1a84f411cb72bb945472402aa415ae466c2b90b27685517e439b6706e77fda1e4fd6f6271fbb7c9322a016d5d6ab4d5515624009de4ce8101cebfdb6f6404de59950e8497cfc4f3b014b1f240e7b6909fe7fba2f95f6ff6f24e458e249c881737aa62160ff617664df09cd2db591db52e7731c55156340b12579b5abab70a14fd7a2e2e0da7a6eb23acf49c55e8ea75d5315a5cd5cdee3e1e2ffa3bc0326679c97f86179ee3c7b0d00f02aaefa9d7e1326838bb4cdaae7552031088d955829aaa5b19255203508d99876904d545bab552039081a1a7cce9a2fb0de55204108b96c1228fa0bb93355204a085d13c29919cfdb3755204b089f032aa49ea6335a552053083b88b541fdf84d2a55205608f2c320a4cc9da47e5520760844654224391bbffe552081081a966bd9fb32b0d5552084089e5ca8a8343e629d5520950817731a8eb4e1b3245521030858bd937c4f79b2fc5521130833390e7dc186cfb655211608b9bd03156209b808552117081e5cc2bdf177690455211a08a95ca84e66f85fba55212a0899ab7ca480a30ecf55212b082fac7051e3cdae6c55212e088c3a03a01b7890cf55213008b1c6a9c67c38e5385521310886f77e636a04be2a55213508f6878b7285b0a83c552136083c237fc62a4fde5155213908297c70fbf246dec255213a0809847ba93278cd2b55214108c3e283d2b717d90c552142086ab285c13f6f763f55214308d8d6cfe84815a81a5521450800b4404c23bdcdc35521490859ea865c8aded16c55214b08b0ee782b1577d7545521510892f7589d8b9f392055215208d63a12832d5bda7c552153088ef0fde7a90a9b8255215508edc5fc43b34f8b7955215608898fca2a89b5478255215708e7c149c0a6373aa855215a082d1104a7c977fc5c55215c08366be65b5c49693155215e088f612dcde219343b55216108361a3e16159078b255216208eb75471a9cde3fa4552168081adcaec137ee4ddc552171088bc6d4a96adc580355217508b42469303fda2f785521770862513536a60eb25a55217808a4e99a8e175db87155217908ded628e0ba2d6bb155218608aa7aa1df7d5b41005521870899d21164b8db53b055218808378c459eb229969355219108ba81a18f6700217855219408fd928297dfec8c3055219608dc4485f3640e084855219708d8cc4de1e6f1f70f55219a080b5243c0a15532e055221608717d4469a9aeb0b15522180879d7e1e523be3be85522330871a5fd6fad168dc955223508d62857532c80b3ce552236085d456adcc440a08d55223808af3f3e61e23e6ee255223908d8608857238b2f3455225108cb33f8aea27a9c6655225508628cef0a5b8c179d55226108ce946ad700b29ce8552279086089108441abbf7755227a080946ee87ba56de305522850841a0544e7fb7ca4a55228608626d1ed4961ce93755228708c49f366d0703905c552288080fcda15728dab81b55228908f0c556420c0054ef552290083da8be5e927a8c6b55229308b1d024f9d953246655229508907b1d637296d1b5552296088c191542556abf7955229808c0c140aa6d9104bb55229b08720c3777e2a8ba0b5522a0083d9ff753b941c4bc5522a308d8e515aa7befc7f95522a60895f967182d49ec115522a908ee3fa060f5faa57e5522ac0884b1209fe4afdbbc5523010876e2344be5ec6e6b55231108477d5c43400ccf1055231208bfeccb1518cfdbb2552315081a9514af1403535f552331080505d4ea3f61f5b9552333087d52d156a89fedb6552341082a71098a62690a6e552342082b15e45b3408ad4b55234508b76e344f0f5be778552346083700508e21a9ac49552347089f45512f87ecb14d55236508d5e36c653a5d53bd552370087890c3140cc0007d552375083099d248792630cb552380084e27e79808b90295552411087c59465478bd3dbd55241b08a61598012749e9db55242108942445e594560fdb55245508a82e2d36b520fb9455247708781debe8613a6b3c552478085658ad992d611c5955248008dc7832b003f07e4855248308aa35718fe49d08fa5524840897a924b7fb4f09d755249308dc0d7f45e5eae16b552495085c6cf8d173476538552498084d71d9e45c2db03f55249908afc71e45a2dfc43655249c0835787d2bd1115ce055249e08202953509bcf91775524a0083291ff3a2a30e37e5524a308e64e2de8d53a91975524a6082ad9ee907c8a363e5524a9089327416febdda3255524ab08c66f6d5bf8e6e5c95524ae08209326293251b2e15524b1084c0c2d41ea91ee335524b308da7a3546626acada552501080fdfffa34a3d38fb552505087dcc714d6ffe893d55251608d18e331393fa10c755251908f339484e83ac086f55252008df7118ad26b410a355252f08df008c5cff14fe4c552538081f836898808bf6e855254508e157816117159a085525560837f99974bdb209d5552559080cc3127aa48471ef55256008f0d07a0780e4bcfc55256f085ed4629b92f8dfe755303040a636d96f5c9630bd9fabb19338ac489bfa8a86071a591ea91e4ef61c956f45f5c332aee34e478d856963b8a52a96b6702f645be614e805d5c7f302edad9a5c655530504015ea93a18c2e73210e68cc093a79946a97324d8650e5ffb2d2c5c2a4981ff9979e645cf459606f35dfea7f08ed95c6ab8f5f2646248ae6efd7309498029226345530a040656328157f3812054c1d725b78701cca3e5b1b454d2ac6bcd6a25099a27fbcef4e9e4e5954241a354144909332007cde2d4b7d248464d42a06541d586ec8a8c95530b040d38724bb7ed15c55df31533f95d0af9f9dbef24d8f4fc25e18162e5f11b3fe288d309f1788ac99c7bf9d1d9730fa003059a03e14420d2219e4bb932a2d2bf5325530c040fd0426eaac37368b1e483e05d915681d58a32cebfa7bfd93298a3a924e818a69629044d5839353ec15b1b4d397001405a006e618882763d962ab20c4000be8a455311040e1715eeca4b93fe2c5913e881567049aa50f6b893fd358f613df453f80fcf338ae0ee35639396dfd28191c4f13849886f3c16cbe7836e96f204c52c07891c99955314040e50a9bb723578b6950c420cb6c6a0c383171dd3b03045f6fd2677b822462c2ee084495ed0793e480f048fac129483e5efda2d6d22fe654afd7fff80f620a898055315040637b460e00da556ee398dc84ae0d789ea7b8df0d461f84ba206aeff16a544299f1a5234a4f34cfe5e0e83f99cc44e3a3882d9230c7e94a829833dd5a99f0c63f55315101485531524094ce2ab9a3b9e1d190af9cc53186e2a05eb1c57cc1d89102af3d1ee9d764ac999db04b4f715010e86334056bf289bf9aad46a574df1c18de67a283ec12498762553155402955dba57fb0a2afd1d49224a0c12671209bcb5e3926e2630a7ec843267898c21d20068cec479746b5383e94f111c0b866d32b52f6af20ee4d76264c1fba5392553180404ec4b3682cf6b050b6d44fe91bbce05937a5e2caae688abd0dd00d0245e18222330aa1788e8d3c570adf5e242d7c747ac3f33379ba2e2ee13658e561e41ddd2f5531a040b024183cc9e8071c6605b408bb07039514a92040e2c0dc393c5ae7dec34a5c64f78ccadc105bdbb580d363b48e73b62bd11942570a89c18b065ac524ccef7548553210408dabacb8c545ac29037ad05b6424f06c661d9d3a9ae3f05b04c33ec3b4c183d40a41cee1baed0e5f7042a4a57719f2e7d20b00450bad842180964e7bbe690ea9553220406bde14d8fe1332f47696532cbb4e4d3a8d1cb316712df8d7d26700a5d4edb850c52bb57e6b480705c54146d86121b6231eb2e9cc45138f1cebb9869006b270d85532a040524b1b40e64e5323d879e28e74f7c5b975661e784a1bf1df60e4bf6b5c0e5f0e9a544cc6a5144a519bd46a8836181d7bcd24fbbeb47e4967479c054b29a8e9c45532d040b1a83ee921bbb4278ee32975634ab67903fcf2f3a0d1818c7e9ddf84c7d776e2c561306a1f2240317e822690f98e27a354968ef8fc3197b772634d1e74c4f0385532e04087c0b7f391d26fed3b08ff45b68b631f0fc6c50b666a48bdc47cdefdb42e9fb99ccf2deb1cb56b1095c84cf7ea4ff949226ca6618221757e188761dee7ef337f55332040a5c506060925871ce6a3245b652331874c8dd409d794d4fb9fb862ea3e955faca9a5c4cc60a75fc84d2a7fa0fef3ef841f71d5160916b902ff6c1edd526b3bd15533404070f4b42fb9e5700f54e98fc64c2f8186e12c13a9d577bd80e3a562c25d8cfbea40da45925c4f10ffb554ec26d8deb0fd8e469ab77f706bb44a1d3a45f7492cc955335040062e48e22e29c2e2d5eb01e21ff1d7c0d6312049ea1486f16927922130de1cef02ea39bea952fcc893f4c045d59774e0e4572d9bf89dab0dc9a7ff6781bd3fd8553370400f862270e8571a45d0a1af689bf2a964782621b8a735f7018aca949d1148e56ddb1dbdba45b6cf5705198c00df23d9ebae30795792b32498ec950604685cb2b9553380402a905ead58fe936739bb777ef6a23e88171ac73d1e7597825c167cd77d7046113ce2d8be5e93dac08d68d70fbb1923a4a92a0fb1aaddb0677164e43367572d9b5533a040ea906e042fb3ad150db12407c1396d0e4da8e8f2119367b5dc7a74ed5f38be289c39d917ff36bdf0b41ae63d4ee8bba27503df79fc2df74d5466396656e27dd55533b04047d189b953baa1fcd7fbd391f0e968b3b0009299347620d590eca275387baf50c454bc7857a1b911f20c6adac83bea53bb6247a876f7c3a7bce98b11b05fb1a85533c040449a778e8dffba4837430e00e0000125395fff3f4ada10a5e8551edeae7c3aea5c1890875a8308d3d3e6d200c8e70c823a6efeb8e2b59888daee0e1b54ea0ba95533c8405987930934ec98c83e2d2f64f79453b7c53b48d33b38fdf14a24206cf84a5bcb2d64e23c205aae638dc2203eaf0d54bffa040188e240275033cfc44bb87b68545533d0401dcc0e6d1d7df7f3611fb61b422d8f9a02919071eba6db74a114b70e9313779a17b5b527240e41f518d623462fe11e9f3ece52ed7a72fc28544f14eab1cd964b5533f040a83fde37dde0285032f4886a80aa60596e3f1ae849393dca1be0b380171ebd32046c38ebd65c29db28cda0a7229a5d83aa51f4049816906d6a20f6167419b1fc553501087c8e635403c4c08455350908724a940fb493961c5535490890940e4d23fc9c895540070801f3996f38fee77755400b08998ed3965a402f4d554020089d198b1c004852bc55402108b29eaea95af1a2bd55402508e268075d28fefe97554029082829efbe5bbda764554050085bd6f581c839e6c055405508b06d7c1fce2eb6f95541010836fe5356af410b9355411008294a274d18c7c95655412508ae7030dc40b61e7b55413008be135f6dcc874b1c55413a08994ee90577acc8ab55413c08cfda2f22d1e10955554140081ed1b3d47fb7706b55414508255c0866ac439dd75541460848ecd57e4f85a54355415008ddc6deb4e442f23b554155089f9c1538032087d055415808517131e7ea81dcd155415a08acf4323a39e2483d55416008ba5fe1d5737f046e554161080cf199890fb1a45b5541650820fed9bc1d3e5c5655416a0817a380bb524859e355417008472de650c02a4d1455417a080e7d986835a4100d55417b0837e194ff9b18321c55418008ae125a00e1f2bf1055418e08706da712f9f4c2e455418f08ddd7b0fae469248055419608ea67f1d2b827cac755420508e679466df24750c6554207082f5a49281d3dd8fb554210085bd7fea265fa05ca55421108e4f979aa529adba355423008967bb315af0da31055425008104ff306a8d0ad53554251084277dd13e3dd35f55542520896d3d043bf7b6da05542530876f6d44a60f6cee355425408656ff6e9023366f2554255085212e28a56a500eb55425608814b2e5b4e602d4b55425708cfc05730d656cf6055426508ed66253fffe2ebba5542800866316d0b821d66ef5542a008ded8763545d1453055433408612d9d6688412ddf5543500829c92ab4821fdd435543510876e816093a85927455437a08d365d62b1c9dd00b55438008709bd19c6438f74a554381084757e76203c7197955439008a3fa16271df2552b55439108b6a5a0b512e0033f554392080193d12f9eede72155439508db915114ba441b4e5543b0084f4bb5656bede0635543b508f7f5450d282727a8554410082fab984f9e96eccf55441108d19b328ed2af8ec8554450089010912db15677c05544a308de74215f2445ff605544a4087f948f9e56a6d3445544a508d6a97dc18c691b3e5545010824b2b973f3d2ac7955453a08546debb494a7d53d55453d0801f53cb166410bf5
+                            </stringProp>
+                            <boolProp name="mqtt.retained_message">false</boolProp>
+                        </net.xmeter.samplers.PubSampler>
+                        <hashTree/>
+                    </hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                                      testname="API_GetRuleStatus" enabled="true">
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel"
+                                     testclass="Arguments" testname="User Defined Variables" enabled="true">
+                            <collectionProp name="Arguments.arguments"/>
+                        </elementProp>
+                        <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+                        <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+                        <stringProp name="HTTPSampler.protocol"></stringProp>
+                        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                        <stringProp name="HTTPSampler.path">/rules/rule10secondCSV_ZSTD/status</stringProp>
+                        <stringProp name="HTTPSampler.method">GET</stringProp>
+                        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion"
+                                           testname="JSON Assertion" enabled="true">
+                            <stringProp name="JSON_PATH">$.source_spiOneSec_0_records_in_total</stringProp>
+                            <stringProp name="EXPECTED_VALUE">40</stringProp>
+                            <boolProp name="JSONVALIDATION">true</boolProp>
+                            <boolProp name="EXPECT_NULL">false</boolProp>
+                            <boolProp name="INVERT">false</boolProp>
+                            <boolProp name="ISREGEX">false</boolProp>
+                        </JSONPathAssertion>
+                        <hashTree/>
+                        <JSONPathAssertion guiclass="JSONPathAssertionGui" testclass="JSONPathAssertion"
+                                           testname="JSON Assertion" enabled="true">
+                            <stringProp name="JSON_PATH">$.sink_file_0_0_records_out_tota</stringProp>
+                            <stringProp name="EXPECTED_VALUE">20</stringProp>
+                            <boolProp name="JSONVALIDATION">true</boolProp>
+                            <boolProp name="EXPECT_NULL">false</boolProp>
+                            <boolProp name="INVERT">false</boolProp>
+                            <boolProp name="ISREGEX">false</boolProp>
+                        </JSONPathAssertion>
+                        <hashTree/>
+                    </hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="API_DropRule"
+                                      enabled="true">
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel"
+                                     testclass="Arguments" testname="User Defined Variables" enabled="true">
+                            <collectionProp name="Arguments.arguments"/>
+                        </elementProp>
+                        <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+                        <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+                        <stringProp name="HTTPSampler.protocol"></stringProp>
+                        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                        <stringProp name="HTTPSampler.path">/rules/rule10secondCSV_ZSTD</stringProp>
+                        <stringProp name="HTTPSampler.method">DELETE</stringProp>
+                        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion"
+                                           testname="Response Assertion" enabled="true">
+                            <collectionProp name="Asserion.test_strings">
+                                <stringProp name="717250485">Rule rule1 is dropped.</stringProp>
+                            </collectionProp>
+                            <stringProp name="Assertion.custom_message"></stringProp>
+                            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                            <boolProp name="Assertion.assume_success">false</boolProp>
+                            <intProp name="Assertion.test_type">16</intProp>
+                        </ResponseAssertion>
+                        <hashTree/>
+                    </hashTree>
+                    <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy"
+                                      testname="API_Drop_Stream" enabled="true">
+                        <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel"
+                                     testclass="Arguments" testname="User Defined Variables" enabled="true">
+                            <collectionProp name="Arguments.arguments"/>
+                        </elementProp>
+                        <stringProp name="HTTPSampler.domain">${srv}</stringProp>
+                        <stringProp name="HTTPSampler.port">${rest_port}</stringProp>
+                        <stringProp name="HTTPSampler.protocol"></stringProp>
+                        <stringProp name="HTTPSampler.contentEncoding"></stringProp>
+                        <stringProp name="HTTPSampler.path">/streams/spiOneSec</stringProp>
+                        <stringProp name="HTTPSampler.method">DELETE</stringProp>
+                        <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+                        <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
+                        <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
+                        <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
+                        <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
+                        <stringProp name="HTTPSampler.connect_timeout"></stringProp>
+                        <stringProp name="HTTPSampler.response_timeout"></stringProp>
+                    </HTTPSamplerProxy>
+                    <hashTree>
+                        <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion"
+                                           testname="Response Assertion" enabled="true">
+                            <collectionProp name="Asserion.test_strings">
+                                <stringProp name="287881319">Stream demo is dropped.</stringProp>
+                            </collectionProp>
+                            <stringProp name="Assertion.custom_message"></stringProp>
+                            <stringProp name="Assertion.test_field">Assertion.response_data</stringProp>
+                            <boolProp name="Assertion.assume_success">false</boolProp>
+                            <intProp name="Assertion.test_type">16</intProp>
+                        </ResponseAssertion>
+                        <hashTree/>
+                    </hashTree>
+                    <ConstantTimer guiclass="ConstantTimerGui" testclass="ConstantTimer" testname="Constant Timer"
+                                   enabled="true">
+                        <stringProp name="ConstantTimer.delay">500</stringProp>
+                    </ConstantTimer>
+                    <hashTree/>
+                </hashTree>
+            </hashTree>
+            <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Result" enabled="true">
+                <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+                <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel"
+                             testclass="LoopController" testname="Loop Controller" enabled="true">
+                    <boolProp name="LoopController.continue_forever">false</boolProp>
+                    <stringProp name="LoopController.loops">1</stringProp>
+                </elementProp>
+                <stringProp name="ThreadGroup.num_threads">1</stringProp>
+                <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+                <boolProp name="ThreadGroup.scheduler">false</boolProp>
+                <stringProp name="ThreadGroup.duration"></stringProp>
+                <stringProp name="ThreadGroup.delay"></stringProp>
+                <boolProp name="ThreadGroup.same_user_on_next_iteration">true</boolProp>
+            </ThreadGroup>
+            <hashTree>
+                <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector"
+                                 testname="View Results Tree" enabled="true">
+                    <boolProp name="ResultCollector.error_logging">false</boolProp>
+                    <objProp>
+                        <name>saveConfig</name>
+                        <value class="SampleSaveConfiguration">
+                            <time>true</time>
+                            <latency>true</latency>
+                            <timestamp>true</timestamp>
+                            <success>true</success>
+                            <label>true</label>
+                            <code>true</code>
+                            <message>true</message>
+                            <threadName>true</threadName>
+                            <dataType>true</dataType>
+                            <encoding>false</encoding>
+                            <assertions>true</assertions>
+                            <subresults>true</subresults>
+                            <responseData>false</responseData>
+                            <samplerData>false</samplerData>
+                            <xml>false</xml>
+                            <fieldNames>true</fieldNames>
+                            <responseHeaders>false</responseHeaders>
+                            <requestHeaders>false</requestHeaders>
+                            <responseDataOnError>false</responseDataOnError>
+                            <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+                            <assertionsResultsToSave>0</assertionsResultsToSave>
+                            <bytes>true</bytes>
+                            <sentBytes>true</sentBytes>
+                            <threadCounts>true</threadCounts>
+                            <idleTime>true</idleTime>
+                            <connectTime>true</connectTime>
+                        </value>
+                    </objProp>
+                    <stringProp name="filename"></stringProp>
+                </ResultCollector>
+                <hashTree/>
+                <JSR223Sampler guiclass="TestBeanGUI" testclass="JSR223Sampler" testname="JSR223 Sampler"
+                               enabled="true">
+                    <stringProp name="cacheKey">true</stringProp>
+                    <stringProp name="filename"></stringProp>
+                    <stringProp name="parameters"></stringProp>
+                    <stringProp name="script"></stringProp>
+                    <stringProp name="scriptLanguage">groovy</stringProp>
+                </JSR223Sampler>
+                <hashTree>
+                    <JSR223Assertion guiclass="TestBeanGUI" testclass="JSR223Assertion" testname="JSR223 Assertion"
+                                     enabled="true">
+                        <stringProp name="cacheKey">true</stringProp>
+                        <stringProp name="filename"></stringProp>
+                        <stringProp name="parameters"></stringProp>
+                        <stringProp name="script">import java.io.File
+
+                            // 设置文件路径
+                            String filePath = &quot;data/mock.zstd&quot;
+
+                            // 创建 File 对象
+                            File file = new File(filePath)
+
+                            // 检查文件是否存在
+                            boolean fileExists = file.exists()
+
+                            // 根据文件是否存在来设置断言结果
+                            if (&quot;true&quot;.equals(fileExists)) {
+                            assert true
+                            } else {
+                            assert false
+                            }
+                        </stringProp>
+                        <stringProp name="scriptLanguage">groovy</stringProp>
+                    </JSR223Assertion>
+                    <hashTree/>
+                </hashTree>
+            </hashTree>
+        </hashTree>
+    </hashTree>
+</jmeterTestPlan>

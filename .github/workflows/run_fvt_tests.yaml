@@ -39,6 +39,18 @@ jobs:
           go-version: '1.22'
       - name: set git token
         run: git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
+      - uses: actions/checkout@v3
+      - name: build kuiper
+        run: |
+          sudo apt-get update && sudo apt-get install pkg-config libczmq-dev -y
+          make build_geely
+          echo "KUIPER_LOG_PATH=_build/kuiper-$(git describe --tags --always)-$(uname -s | tr "[A-Z]" "[a-z]")-amd64/log" >> $GITHUB_ENV
+      - name: run kuiper
+        run: |
+          bash ./test/setup_env.sh
+      - name: run geely integration tests
+        run: |
+          go test ./test/fvt/...
       - uses: actions/setup-java@v3
         with:
           distribution: zulu
@@ -56,15 +68,6 @@ jobs:
           echo "jmeter.save.saveservice.response_data.on_error=true" >> /tmp/apache-jmeter-$JMETER_VERSION/user.properties
           wget -O /tmp/apache-jmeter-$JMETER_VERSION/lib/ext/mqtt-xmeter-1.13-jar-with-dependencies.jar https://github.com/emqx/mqtt-jmeter/raw/master/Download/v1.13.0/mqtt-xmeter-1.13-jar-with-dependencies.jar
           ln -s /tmp/apache-jmeter-$JMETER_VERSION /opt/jmeter
-      - uses: actions/checkout@v3
-      - name: build kuiper
-        run: |
-          sudo apt-get update && sudo apt-get install pkg-config libczmq-dev -y
-          make build_sdv
-          echo "KUIPER_LOG_PATH=_build/kuiper-$(git describe --tags --always)-$(uname -s | tr "[A-Z]" "[a-z]")-amd64/log" >> $GITHUB_ENV
-      - name: run kuiper
-        run: |
-          bash ./test/setup_env.sh
       - name: run fvt tests
         timeout-minutes: 5
         run: bash ./test/run_jmeter.sh with_edgex=true

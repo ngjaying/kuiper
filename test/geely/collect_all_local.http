@@ -235,7 +235,7 @@ Content-Type: application/json
 }
 
 ### 2. 创建长期运行采集流定义，接入nano query 异步结果
-PUT http://{{host}}/streams/queryStream
+POST http://{{host}}/streams
 Content-Type: application/json
 
 {
@@ -257,8 +257,7 @@ Content-Type: application/json
         "format": "delimited",
         "fileType": "csv",
         "hasHeader": true,
-        "sendSingle": true,
-        "compression": "zstd"
+        "sendSingle": true
       }
     }
   ],
@@ -307,4 +306,3 @@ Content-Type: application/json
 
 ### Send multiple batch data
 #{"ts1":10000, "ts2": 20000}
-

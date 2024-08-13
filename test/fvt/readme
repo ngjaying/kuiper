@@ -1,0 +1,1 @@
+FVT tests will send REST API to do integration test. So eKuiper and all related services must start before running these tests.

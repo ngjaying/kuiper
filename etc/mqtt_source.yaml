@@ -36,5 +36,4 @@ batchMerge:
 spi_1sec:
   interval: 1s
   payloadFormat: spi
-  payloadSchemaId: dbc/geely/geely.json
   merger: spi
