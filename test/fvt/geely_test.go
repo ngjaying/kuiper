@@ -249,7 +249,14 @@ func pubSpi(client mqtt.Client, s string) {
 			now := <-ticker.C
 			fmt.Printf("publish at %v with data %x \n", now, b)
 		} else {
-			time.Sleep(time.Duration(interval/10) * time.Millisecond)
+			var wait int
+			// Make sure no tuple lies in the boundary
+			if count/5%2 == 0 {
+				wait = interval/10 - 10
+			} else {
+				wait = interval/10 + 10
+			}
+			time.Sleep(time.Duration(wait) * time.Millisecond)
 		}
 		count++
 	}
@@ -464,6 +471,7 @@ func (s *GeelyTestSuite) TestHistoryQuery() {
 		//	s.T().Log(metrics)
 		//}
 	})
+	time.Sleep(ContantInterval)
 	// compare result file
 	s.Run("check generate file", func() {
 		cmp := equalfile.New(nil, equalfile.Options{Debug: true})
