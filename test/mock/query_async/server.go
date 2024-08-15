@@ -15,6 +15,7 @@
 package main
 
 import (
+	"encoding/hex"
 	"fmt"
 	"log"
 	"os"
@@ -48,7 +49,7 @@ func mockNanoQuery(url string, raw []byte) {
 		log.Fatalf("can't listen on pair socket: %s", err.Error())
 	}
 	log.Printf("listen on pair socket")
-	//eof, _ := hex.DecodeString("0bad")
+	eof, _ := hex.DecodeString("0bad")
 	for {
 		// Could also use sock.RecvMsg to get header
 		msg, err := sock.Recv()
@@ -70,7 +71,7 @@ func mockNanoQuery(url string, raw []byte) {
 				}
 				time.Sleep(100 * time.Millisecond)
 			}
-			//_ = sock.Send(eof)
+			_ = sock.Send(eof)
 			fmt.Printf("NODE0: SEND DATE REPLY %d\n", alllen)
 		}
 	}

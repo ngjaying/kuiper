@@ -117,7 +117,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 			}
 		})
 	})
-	time.Sleep(ContantInterval)
+	time.Sleep(ConstantInterval)
 	// Check rule status
 	s.Run("check rule10secondCSV_ZSTD status before feeding data", func() {
 		metrics, err := client.GetRulStatus("rule10secondCSV_ZSTD")
@@ -143,7 +143,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	s.Run("publish data", func() {
 		pubSpi(s.mqttClient, filepath.Join(PWD, DataPath, "spi100.lines"))
 	})
-	time.Sleep(ContantInterval)
+	time.Sleep(ConstantInterval)
 	/// Assert periodic rule
 	// Check rule status after feeding data
 	s.Run("check periodic rule status after feeding data", func() {
@@ -155,12 +155,15 @@ func (s *GeeTestSuite) TestSPIRules() {
 	})
 	// Check file
 	s.Run("check generate file", func() {
+		left := filepath.Join(PWD, ResultPath, "mock.zstd")
+		right := filepath.Join(EKPWD, "data", "mock.zstd")
+		s.T().Logf("compare %s vs %s", left, right)
 		cmp := equalfile.New(nil, equalfile.Options{Debug: true})
-		equal, err := cmp.CompareFile(filepath.Join(PWD, ResultPath, "mock.zstd"), filepath.Join(EKPWD, "data", "mock.zstd"))
+		equal, err := cmp.CompareFile(left, right)
 		s.NoError(err)
 		passed := s.True(equal, "files differ")
 		if passed {
-			_ = os.Remove(filepath.Join(EKPWD, "data", "mock.zstd"))
+			_ = os.Remove(right)
 		}
 	})
 	/// assert fetch rule
@@ -290,7 +293,7 @@ func (s *GeeTestSuite) TestLEDRules() {
 			}
 		})
 	})
-	time.Sleep(ContantInterval)
+	time.Sleep(ConstantInterval)
 	// Check rule status
 	s.Run("check ruleSig status before feeding data", func() {
 		metrics, err := client.GetRulStatus("ruleSig")
@@ -305,7 +308,7 @@ func (s *GeeTestSuite) TestLEDRules() {
 	s.Run("publish led data", func() {
 		pubLed(s.mqttClient, filepath.Join(PWD, DataPath, "led100.lines"))
 	})
-	time.Sleep(ContantInterval)
+	time.Sleep(ConstantInterval)
 	// Check rule status
 	s.Run("check ruleSig status after feeding data", func() {
 		metrics, err := client.GetRulStatus("ruleSig")
@@ -411,7 +414,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 			s.T().Log(resp.Body)
 		}
 	})
-	time.Sleep(ContantInterval)
+	time.Sleep(ConstantInterval)
 	// Check rule status
 	s.Run("check queryRule status before feeding data", func() {
 		metrics, err := client.GetRulStatus("ruleHistoryQuery1")
@@ -428,7 +431,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 	})
 	// wait until query is received
 	s.Run("check trigger status after feeding data", func() {
-		ticker := time.NewTicker(ContantInterval)
+		ticker := time.NewTicker(ConstantInterval)
 		defer ticker.Stop()
 		count := 100
 		for count > 0 {
@@ -451,7 +454,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 	})
 	// Check result until match
 	s.Run("check result status after feeding data", func() {
-		ticker := time.NewTicker(ContantInterval)
+		ticker := time.NewTicker(ConstantInterval)
 		defer ticker.Stop()
 		count := 100
 		for count > 0 {
@@ -466,20 +469,38 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 		metrics, err := client.GetRulStatus("ruleHistoryQuery1")
 		s.Require().NoError(err)
 		s.Require().Equal("stopped", metrics["status"])
-		//ok := s.Equal(2.0, metrics["sink_file_0_0_records_out_total"])
-		//if !ok {
-		//	s.T().Log(metrics)
-		//}
+		ok := s.Equal(500.0, metrics["sink_file_0_0_records_out_total"])
+		if !ok {
+			s.T().Log(metrics)
+		}
 	})
-	time.Sleep(ContantInterval)
+	time.Sleep(ConstantInterval)
 	// compare result file
 	s.Run("check generate file", func() {
+		left := filepath.Join(PWD, ResultPath, "ruleHistoryQuery1.zstd")
+		right := filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zstd")
+		s.T().Logf("compare %s vs %s", left, right)
+		var (
+			count = 5
+		)
+		for count > 0 {
+			info, err := os.Stat(right)
+			if err == nil && info.Size() > 0 {
+				break
+			}
+			count--
+			time.Sleep(ConstantInterval)
+		}
+		if count == 0 {
+			s.Require().Fail("file not found", right)
+		}
+		time.Sleep(ConstantInterval)
 		cmp := equalfile.New(nil, equalfile.Options{Debug: true})
-		equal, err := cmp.CompareFile(filepath.Join(PWD, ResultPath, "ruleHistoryQuery1.zstd"), filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zstd"))
+		equal, err := cmp.CompareFile(left, right)
 		s.NoError(err)
 		passed := s.True(equal, "files differ")
 		if passed {
-			_ = os.Remove(filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zstd"))
+			_ = os.Remove(right)
 		}
 	})
 	// Cleanup

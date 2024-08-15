@@ -25,13 +25,13 @@ import (
 )
 
 const (
-	URL             = "http://127.0.0.1:9081"
-	ContentTypeJson = "application/json"
-	DataPath        = "test/fvt/data"
-	ResultPath      = "test/fvt/result"
-	RulesPath       = "test/fvt/rules"
-	MQTTBroker      = "tcp://127.0.0.1:1883"
-	ContantInterval = 100 * time.Millisecond
+	URL              = "http://127.0.0.1:9081"
+	ContentTypeJson  = "application/json"
+	DataPath         = "test/fvt/data"
+	ResultPath       = "test/fvt/result"
+	RulesPath        = "test/fvt/rules"
+	MQTTBroker       = "tcp://127.0.0.1:1883"
+	ConstantInterval = 100 * time.Millisecond
 )
 
 var (
