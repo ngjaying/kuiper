@@ -34,12 +34,12 @@ import (
 	_ "go.nanomsg.org/mangos/v3/transport/tcp"
 )
 
-type GeelyTestSuite struct {
+type GeeTestSuite struct {
 	suite.Suite
 	mqttClient mqtt.Client
 }
 
-func (s *GeelyTestSuite) SetupTest() {
+func (s *GeeTestSuite) SetupTest() {
 	opts := mqtt.NewClientOptions().AddBroker(MQTTBroker)
 	mqttClient := mqtt.NewClient(opts)
 	if token := mqttClient.Connect(); token.Wait() && token.Error() != nil {
@@ -48,17 +48,17 @@ func (s *GeelyTestSuite) SetupTest() {
 	s.mqttClient = mqttClient
 }
 
-func (s *GeelyTestSuite) TearDownTest() {
+func (s *GeeTestSuite) TearDownTest() {
 	if s.mqttClient != nil {
 		s.mqttClient.Disconnect(0)
 	}
 }
 
-func (s *GeelyTestSuite) TestSPIRules() {
+func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare periodic rule
 	// Create stream
 	s.Run("creating stream spiOneSec", func() {
-		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -74,7 +74,7 @@ func (s *GeelyTestSuite) TestSPIRules() {
 	/// Prepare fetch rule
 	// Create stream
 	s.Run("creating stream spi", func() {
-		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -264,7 +264,7 @@ func pubSpi(client mqtt.Client, s string) {
 
 }
 
-func (s *GeelyTestSuite) TestLEDRules() {
+func (s *GeeTestSuite) TestLEDRules() {
 	s.Run("creating stream sigStream", func() {
 		streamJson := `{"sql": "CREATE STREAM sigStream() WITH (TYPE=\"mqtt\",FORMAT=\"sigl\",DATASOURCE=\"signal\", SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
@@ -363,7 +363,7 @@ func pubLed(client mqtt.Client, s string) {
 	_ = file.Close()
 }
 
-func (s *GeelyTestSuite) TestHistoryQuery() {
+func (s *GeeTestSuite) TestHistoryQuery() {
 	// Start mock server
 	var pairServer mangos.Socket
 	s.Run("start mock server", func() {
@@ -392,7 +392,7 @@ func (s *GeelyTestSuite) TestHistoryQuery() {
 		}
 	})
 	s.Run("creating queryStream", func() {
-		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json\",SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
@@ -550,6 +550,6 @@ func mockPair(url string, raw []byte) (mangos.Socket, error) {
 	return sock, nil
 }
 
-func TestGeelyTestSuite(t *testing.T) {
-	suite.Run(t, new(GeelyTestSuite))
+func TestGeeTestSuite(t *testing.T) {
+	suite.Run(t, new(GeeTestSuite))
 }

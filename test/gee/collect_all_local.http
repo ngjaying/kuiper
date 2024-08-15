@@ -4,7 +4,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"
+  "sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"
 }
 
 ### 场景一周期采集 10s 文件采集 For Local (去除rollingNamePattern，若是在盒子测试，防止硬盘满)
@@ -40,7 +40,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/geely\/geely.json\", SHARED=\"true\");"
+  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"
 }
 
 ### 为保证触发率，添加间隔200s触发的语句
@@ -239,7 +239,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",SHARED=\"true\",CONF_KEY=\"smooth\");"
+  "sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json\",SHARED=\"true\",CONF_KEY=\"smooth\");"
 }
 
 ### 3. 创建单次运行采集规则
@@ -272,7 +272,7 @@ POST http://{{host}}/tables
 Content-Type: application/json
 
 {
-  "sql": "CREATE TABLE nanoTable() WITH (TYPE=\"nano\",FORMAT=\"spi\",SCHEMAID=\"dbc\/geely\/geely.json\",KIND=\"lookup\",CONF_KEY=\"lookup\");"
+  "sql": "CREATE TABLE nanoTable() WITH (TYPE=\"nano\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json\",KIND=\"lookup\",CONF_KEY=\"lookup\");"
 }
 
 ### send with start and end

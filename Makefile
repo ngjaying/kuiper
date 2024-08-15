@@ -106,11 +106,11 @@ pkg_sdv: build_sdv
 	@echo "Package for SDV flow success"
 
 
-.PHONY: build_geely
-build_geely: SHELL:=/bin/bash -euo pipefail
-build_geely: build_prepare
+.PHONY: build_gee
+build_gee: SHELL:=/bin/bash -euo pipefail
+build_gee: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_geely -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus geely" -o kuiperd *.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee" -o kuiperd *.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
 	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
@@ -122,17 +122,17 @@ build_geely: build_prepare
 			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
 		done; \
 	done
-	@cp -rf etc_geely/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
-	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/geely
-	@cp dbc/geely/geely.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/geely/
+	@cp -rf etc_gee/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee
+	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee/
 	@echo "Build successfully"
 
-.PHONY: pkg_geely
-pkg_geely: build_geely
+.PHONY: pkg_gee
+pkg_gee: build_gee
 	@mkdir -p $(PACKAGES_PATH)
-	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-geely.tar.gz $(PACKAGE_NAME)
-	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-geely.tar.gz $(PACKAGES_PATH)
-	@echo "Package for Geely successful"
+	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-gee.tar.gz $(PACKAGE_NAME)
+	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-gee.tar.gz $(PACKAGES_PATH)
+	@echo "Package for Gee successful"
 
 .PHONY: real_pkg
 real_pkg:

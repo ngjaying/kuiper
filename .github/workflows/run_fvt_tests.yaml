@@ -43,12 +43,12 @@ jobs:
       - name: build kuiper
         run: |
           sudo apt-get update && sudo apt-get install pkg-config libczmq-dev -y
-          make build_geely
+          make build_gee
           echo "KUIPER_LOG_PATH=_build/kuiper-$(git describe --tags --always)-$(uname -s | tr "[A-Z]" "[a-z]")-amd64/log" >> $GITHUB_ENV
       - name: run kuiper
         run: |
           bash ./test/setup_env.sh
-      - name: run geely integration tests
+      - name: run gee integration tests
         run: |
           go test ./test/fvt/...
       - uses: actions/setup-java@v3

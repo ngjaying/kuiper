@@ -1,9 +1,9 @@
 {
-    "sourceFile": "../dbc_compact/geely",
+    "sourceFile": "../dbc_compact/gee",
     "version": "1.0",
     "buses": [
         {
-            "sourceFile": "..\\dbc_compact\\geely\\0#ZCU_CANFD1#SDB2243202_E245_DHU2_ZCU_CANFD1Cfg_240119_PNC.dbc",
+            "sourceFile": "..\\dbc_compact\\gee\\0#ZCU_CANFD1#SDB2243202_E245_DHU2_ZCU_CANFD1Cfg_240119_PNC.dbc",
             "version": "ZCU_CANFD1",
             "name": "ZCU_CANFD1",
             "id": 0,
@@ -40757,7 +40757,7 @@
             ]
         },
         {
-            "sourceFile": "..\\dbc_compact\\geely\\1#ZCU_CANFD2#SDB2243202_E245_DHU2_ZCU_CANFD2Cfg_240119_PNC.dbc",
+            "sourceFile": "..\\dbc_compact\\gee\\1#ZCU_CANFD2#SDB2243202_E245_DHU2_ZCU_CANFD2Cfg_240119_PNC.dbc",
             "version": "ZCU_CANFD2",
             "name": "ZCU_CANFD2",
             "id": 1,
@@ -132365,7 +132365,7 @@
             ]
         },
         {
-            "sourceFile": "..\\dbc_compact\\geely\\2#PropulsionCAN#SDB2243202_E245_DHU2_PropulsionCANCfg_240119_PNC.dbc",
+            "sourceFile": "..\\dbc_compact\\gee\\2#PropulsionCAN#SDB2243202_E245_DHU2_PropulsionCANCfg_240119_PNC.dbc",
             "version": "PropulsionCAN",
             "name": "PropulsionCAN",
             "id": 2,
@@ -156327,7 +156327,7 @@
             ]
         },
         {
-            "sourceFile": "..\\dbc_compact\\geely\\3#ConnectivityCANFD#SDB2243202_E245_DHU2_ConnectivityCANFDCfg_240119_PNC.dbc",
+            "sourceFile": "..\\dbc_compact\\gee\\3#ConnectivityCANFD#SDB2243202_E245_DHU2_ConnectivityCANFDCfg_240119_PNC.dbc",
             "version": "ConnectivityCANFD",
             "name": "ConnectivityCANFD",
             "id": 3,
@@ -181270,7 +181270,7 @@
             ]
         },
         {
-            "sourceFile": "..\\dbc_compact\\geely\\4#PrivateInfoCAN#SDB2243202_E245_DHU2_PrivateInfoCANCfg_240119_PNC.dbc",
+            "sourceFile": "..\\dbc_compact\\gee\\4#PrivateInfoCAN#SDB2243202_E245_DHU2_PrivateInfoCANCfg_240119_PNC.dbc",
             "version": "PrivateInfoCAN",
             "name": "PrivateInfoCAN",
             "id": 4,
