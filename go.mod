@@ -6,7 +6,7 @@ require (
 	github.com/eclipse/paho.mqtt.golang v1.4.3
 	github.com/emqx/ekuiper_can v1.2.5
 	github.com/klauspost/compress v1.17.7
-	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.10.0.20240816011234-6814ffca2c62
+	github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.11
 	github.com/stretchr/testify v1.9.0
 	github.com/udhos/equalfile v0.3.0
 	go.nanomsg.org/mangos/v3 v3.4.2
