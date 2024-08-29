@@ -216,7 +216,7 @@ Content-Type: application/json
 {
   "id": "ruleTrigger",
   "name": "发送查询请求",
-  "sql": "SELECT \"async\" as kind, ts1, ts2 FROM triggerStream",
+  "sql": "SELECT \"async\" as kind, ts1, ts2, xids FROM triggerStream",
   "actions": [
     {
       "nanoquery": {
@@ -226,7 +226,8 @@ Content-Type: application/json
         "fields": [
           "kind",
           "ts1",
-          "ts2"
+          "ts2",
+          "xids"
         ],
         "sendSingle": true
       }
@@ -305,4 +306,4 @@ Content-Type: application/json
 }
 
 ### Send multiple batch data
-#{"ts1":10000, "ts2": 20000}
+#{"ts1":10000, "ts2": 20000, "xids":"31102586"}
