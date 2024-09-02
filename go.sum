@@ -222,8 +222,8 @@ github.com/lestrrat-go/strftime v1.0.6 h1:CFGsDEt1pOpFNU+TJB0nhz9jl+K0hZSLE205Ah
 github.com/lestrrat-go/strftime v1.0.6/go.mod h1:f7jQKgV5nnJpYgdEasS+/y7EsTb8ykN2z68n3TtcTaw=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.5 h1:bPRe632FqoY8oxP8el+pdgk9Ir/VQivY91TBl46cPa8=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-alpha.5/go.mod h1:AgzJVledX5rWyTsguk9JOIhVFua3nKYxCSQvWpQw7Vo=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.11 h1:fS62ucRmPEqU53hLvBenwHbBHZhL46KUsdeFJajX/RQ=
-github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.11/go.mod h1:QY3GWX/WmqObeasE02gu35E9Jmbup/7AcHjte0nSPx0=
+github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.11.0.20240902073759-23d4c6f0a86c h1:hC8BY2AMaexWAz7RKPyKuiY4Vz95bMTbzIO+PsKYYHY=
+github.com/lf-edge/ekuiper/v2 v2.0.0-alpha.11.0.20240902073759-23d4c6f0a86c/go.mod h1:QY3GWX/WmqObeasE02gu35E9Jmbup/7AcHjte0nSPx0=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/mattn/go-runewidth v0.0.9 h1:Lm995f3rfxdpd6TSmuVCHVb/QhupuXlYr8sCI/QdE+0=
