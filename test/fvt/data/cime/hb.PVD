@@ -1,0 +1,14 @@
+// 2023-12-16_00:15:00
+<! Entity=XGLRFD  type=CDQ  time='2023-12-16_00:15' !>
+
+<RunningCapacity::XGLRFD>
+@id   实时开机容量
+#1    200.00
+</RunningCapacity::XGLRFD>
+
+<UltraShortTermForcast::XGLRFD>
+@id   超短期预测功率
+#1	162.24
+#2	150.86
+#3	140.30
+</UltraShortTermForcast::XGLRFD>

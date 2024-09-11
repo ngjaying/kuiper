@@ -1,0 +1,8 @@
+<!System=OMS	Version=1.0	Code=UTF-8	Data=1.0!>
+//超短期功率预测信息监测
+<CDQYC::GD.GDQYRYGF	Date='2023-10-12'	Time='00-00-00'>
+@	时间顺序列	功率预测	当前正在运行的机组总容量	
+#	1	0.00	30.00
+#	2	0.00	30.00
+#	3	0.00	30.00
+</CDQYC::GD.GDQYRYGF>

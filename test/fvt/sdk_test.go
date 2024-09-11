@@ -81,3 +81,17 @@ func (sdk *SDK) GetRulStatus(name string) (metrics map[string]any, err error) {
 	}
 	return
 }
+
+func (sdk *SDK) CreateConf(confpath string, conf map[string]any) (resp *http.Response, err error) {
+	cc, err := json.Marshal(conf)
+	if err != nil {
+		fmt.Println(err)
+		return nil, err
+	}
+	req, err := http.NewRequest(http.MethodPut, sdk.baseUrl.JoinPath("metadata", confpath).String(), bytes.NewBuffer(cc))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	return sdk.httpClient.Do(req)
+}
