@@ -37,11 +37,11 @@ jobs:
         arch: ${{fromJson(needs.prepare.outputs.arch)}}
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: docker/setup-qemu-action@v2
-      - uses: docker/setup-buildx-action@v2
+      - uses: docker/setup-qemu-action@v3
+      - uses: docker/setup-buildx-action@v3
       - name: build binary packages
         run: |
           docker run -i --rm \
@@ -54,7 +54,7 @@ jobs:
       - name: create sha file
         run: |
           cd _packages && for var in $(ls); do sudo bash -c "echo $(sha256sum $var | awk '{print $1}') > $var.sha256"; done && cd -
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: packages
           path: _packages/
@@ -66,8 +66,8 @@ jobs:
       - build
 
     steps:
-      - uses: actions/checkout@v3
-      - uses: actions/download-artifact@v1
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
         with:
           name: packages
           path: _packages
