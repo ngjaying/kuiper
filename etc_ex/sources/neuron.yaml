@@ -1,0 +1,3 @@
+default:
+  # The nng connection url to connect to the neuron
+  url: tcp://127.0.0.1:7081

@@ -1,0 +1,6 @@
+# default:
+#   interval: 1000
+#   seed: 1
+#   pattern:
+#     count: 50
+#   deduplicate: 0
