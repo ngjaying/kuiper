@@ -12,15 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//go:build sdv
+//go:build full
 
 package main
 
 import (
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
-	file "github.com/emqx/ekuiper_build/ex/cime"
 	"github.com/lf-edge/ekuiper/v2/pkg/modules"
+
+	file "github.com/emqx/ekuiper_build/ex/cime"
 )
 
 func init() {
