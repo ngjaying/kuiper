@@ -17,7 +17,7 @@ package main
 import (
 	"github.com/lf-edge/ekuiper/v2/cmd"
 
-	_ "github.com/emqx/ekuiper_can"
+	_ "github.com/emqx/ekuiper_build/modules"
 )
 
 func main() {

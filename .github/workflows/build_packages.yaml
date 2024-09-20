@@ -50,7 +50,7 @@ jobs:
           --env KUIPER_SOURCE='/ekuiper' \
           --platform ${{ matrix.arch }} \
           ghcr.io/lf-edge/ekuiper/base:${{ matrix.golang }}-debian \
-          bash -euc "git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_ex && make pkg_sdv && make pkg_gee"
+          bash -euc "apt-get update && apt-get install -y rsync && git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_ex && make pkg_sdv && make pkg_gee"
       - name: create sha file
         run: |
           cd _packages && for var in $(ls); do sudo bash -c "echo $(sha256sum $var | awk '{print $1}') > $var.sha256"; done && cd -

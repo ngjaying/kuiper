@@ -4,10 +4,10 @@ go 1.23.1
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.2.6-0.20240912025938-a7bab242a937
+	github.com/emqx/ekuiper_can v1.2.6-0.20240920090009-f43d8b146114
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-beta.1
-	github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1
+	github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240920093835-fcb1c2dcd9d0
 	github.com/stretchr/testify v1.9.0
 	github.com/udhos/equalfile v0.3.0
 	go.nanomsg.org/mangos/v3 v3.4.2
@@ -128,6 +128,7 @@ require (
 	github.com/orcaman/concurrent-map/v2 v2.0.1 // indirect
 	github.com/parallaxsecond/parsec-client-go v0.0.0-20221025095442-f0a77d263cf9 // indirect
 	github.com/parquet-go/parquet-go v0.23.0 // indirect
+	github.com/pebbe/zmq4 v1.2.11 // indirect
 	github.com/pierrec/lz4/v4 v4.1.21 // indirect
 	github.com/pingcap/errors v0.11.4 // indirect
 	github.com/pingcap/failpoint v0.0.0-20240528011301-b51a646c7c86 // indirect

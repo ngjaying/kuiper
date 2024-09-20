@@ -43,30 +43,76 @@ build_prepare:
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/plugins/portable
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/log
 
-PLUGINS_IN_EX := \
-	extensions/sinks/sql   \
-	extensions/sources/random \
-	extensions/sources/sql \
-	extensions/sources/video
+META_IN_EX := \
+	etc/sinks/file.json \
+	etc/sinks/log.json \
+	etc/sinks/memory.json \
+	etc/sinks/mqtt.json \
+	etc/sinks/neuron.json \
+	etc/sinks/nop.json \
+	etc/sinks/redis.json \
+	etc/sinks/redisPub.json \
+	etc/sinks/rest.json \
+	etc/sinks/websocket.json \
+	extensions/sinks/sql/sql.json \
+	extensions/sinks/kafka/kafka.json \
+	extensions/sinks/image/image.json \
+	extensions/sinks/influx/influx.json \
+	extensions/sinks/influx2/influx2.json \
+	etc/sources/file.json \
+	etc/sources/file.yaml \
+	etc/sources/httppull.json \
+	etc/sources/httppull.yaml \
+	etc/sources/httppush.json \
+	etc/sources/httppush.yaml \
+	etc/sources/memory.json \
+	etc/sources/memory.yaml \
+	etc/sources/neuron.json \
+	etc/sources/neuron.yaml \
+	etc/sources/redis.json \
+	etc/sources/redis.yaml \
+	etc/sources/redisSub.json \
+	etc/sources/redisSub.yaml \
+	etc/sources/simulator.json \
+	etc/sources/simulator.yaml \
+	etc/sources/websocket.yaml \
+	extensions/sources/sql/sql.yaml \
+	extensions/sources/sql/sql.json \
+	extensions/sources/kafka/kafka.yaml \
+	extensions/sources/kafka/kafka.json \
+	extensions/sources/video/video.yaml \
+	extensions/sources/video/video.json
+
+EXT_IN_EX := \
+	sources/can.yaml \
+	sources/can.json
 
 .PHONY: build_ex
 build_ex: SHELL:=/bin/bash -euo pipefail
 build_ex: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "full" -o kuiperd *.go
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "ex script" -o kuiperd main.go
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
-	@echo "Overwrite etc"
-	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
-	@echo $(PLUGINS_IN_EX) | tr ' ' '\n' | while read plugin; do \
-		full_plugin_dir=$(EK_DIR)/$${plugin}; \
-		find $${full_plugin_dir} -type f \( -name "*.json" -o -name "*.yaml" \) | while read line; do \
-			relative_path=$${line#$(EK_DIR)/}; \
-			type=$$(echo $${relative_path} | cut -d'/' -f2); \
-			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
-		done; \
+	@echo "Overwrite etc from LF"
+	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@echo $(META_IN_EX) | tr ' ' '\n' | while read meta; do \
+		echo "Meta: $${meta}"; \
+		file_path=$(EK_DIR)/$${meta}; \
+		if [[ $${meta} == extensions/* ]]; then \
+			new_path=$$(echo $${meta} | sed 's/^extensions/etc/' | awk -F'/' '{print $$1 "/" $$2 "/" $$4}'); \
+		else \
+			new_path=$${meta}; \
+		fi; \
+		echo "New path: $${new_path}"; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
 	done
-	@cp -rf etc_sdv/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@echo "Overwrite etc from ext"
+	@echo $(EXT_IN_EX) | tr ' ' '\n' | while read plugin; do \
+		file_path=etc/$${plugin}; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+	done
+	@rsync -av --checksum etc_ex/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo "Build successfully"
 
 .PHONY: pkg_ex
@@ -76,26 +122,62 @@ pkg_ex: build_ex
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-ex.tar.gz $(PACKAGES_PATH)
 	@echo "Package for Neuron EX success"
 
-PLUGINS_IN_SDV := \
-	extensions/sources/video
+META_IN_SDV := \
+	etc/sinks/file.json \
+	etc/sinks/log.json \
+	etc/sinks/memory.json \
+	etc/sinks/mqtt.json \
+	etc/sinks/neuron.json \
+	etc/sinks/nop.json \
+	etc/sinks/rest.json \
+	etc/sinks/websocket.json \
+	etc/sources/file.json \
+	etc/sources/file.yaml \
+	etc/sources/httppull.json \
+	etc/sources/httppull.yaml \
+	etc/sources/httppush.json \
+	etc/sources/httppush.yaml \
+	etc/sources/memory.json \
+	etc/sources/memory.yaml \
+	etc/sources/neuron.json \
+	etc/sources/neuron.yaml \
+	etc/sources/simulator.json \
+	etc/sources/simulator.yaml \
+	etc/sources/websocket.yaml \
+	extensions/sources/video/video.yaml \
+	extensions/sources/video/video.json
+
+EXT_IN_SDV := \
+	sources/can.yaml \
+	sources/can.json \
+	sources/nano.yaml \
+	sources/nanoquery.yaml
 
 .PHONY: build_sdv
 build_sdv: SHELL:=/bin/bash -euo pipefail
 build_sdv: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template" -o kuiperd *.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
-	@echo "Overwrite etc"
-	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
-	@echo $(PLUGINS_IN_SDV) | tr ' ' '\n' | while read plugin; do \
-		full_plugin_dir=$(EK_DIR)/$${plugin}; \
-		find $${full_plugin_dir} -type f \( -name "*.json" -o -name "*.yaml" \) | while read line; do \
-			relative_path=$${line#$(EK_DIR)/}; \
-			type=$$(echo $${relative_path} | cut -d'/' -f2); \
-			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
-		done; \
+	@echo "Overwrite etc from LF"
+	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@echo $(META_IN_SDV) | tr ' ' '\n' | while read meta; do \
+        echo "Meta: $${meta}"; \
+        file_path=$(EK_DIR)/$${meta}; \
+        if [[ $${meta} == extensions/* ]]; then \
+            new_path=$$(echo $${meta} | sed 's/^extensions/etc/' | awk -F'/' '{print $$1 "/" $$2 "/" $$4}'); \
+        else \
+            new_path=$${meta}; \
+        fi; \
+        echo "New path: $${new_path}"; \
+        cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+    done
+	@echo "Overwrite etc from ext"
+	@echo $(EXT_IN_SDV) | tr ' ' '\n' | while read plugin; do \
+		file_path=etc/$${plugin}; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
 	done
-	@cp -rf etc_sdv/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@rsync -av --checksum etc_sdv/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo "Build successfully"
 
 .PHONY: pkg_sdv
@@ -105,24 +187,58 @@ pkg_sdv: build_sdv
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-sdv.tar.gz $(PACKAGES_PATH)
 	@echo "Package for SDV flow success"
 
+META_IN_GEE := \
+	etc/sinks/file.json \
+	etc/sinks/log.json \
+	etc/sinks/memory.json \
+	etc/sinks/mqtt.json \
+	etc/sinks/neuron.json \
+	etc/sinks/nop.json \
+	etc/sinks/rest.json \
+	etc/sinks/websocket.json \
+	etc/sources/file.json \
+	etc/sources/file.yaml \
+	etc/sources/httppull.json \
+	etc/sources/httppull.yaml \
+	etc/sources/httppush.json \
+	etc/sources/httppush.yaml \
+	etc/sources/memory.json \
+	etc/sources/memory.yaml \
+	etc/sources/neuron.json \
+	etc/sources/neuron.yaml \
+	etc/sources/simulator.json \
+	etc/sources/simulator.yaml \
+	etc/sources/websocket.yaml
+
+EXT_IN_GEE := \
+	sources/nano.yaml \
+	sources/nanoquery.yaml
 
 .PHONY: build_gee
 build_gee: SHELL:=/bin/bash -euo pipefail
 build_gee: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee" -o kuiperd *.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
-	@cp -rf $(EK_DIR)/etc/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
-	@echo $(PLUGINS_IN_SDV) | tr ' ' '\n' | while read plugin; do \
-		full_plugin_dir=$(EK_DIR)/$${plugin}; \
-		find $${full_plugin_dir} -type f \( -name "*.json" -o -name "*.yaml" \) | while read line; do \
-			relative_path=$${line#$(EK_DIR)/}; \
-			type=$$(echo $${relative_path} | cut -d'/' -f2); \
-			cp -f $${line} $(BUILD_PATH)/$(PACKAGE_NAME)/etc/$${type}/$$(basename $${line}); \
-		done; \
+	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@echo $(META_IN_GEE) | tr ' ' '\n' | while read meta; do \
+		echo "Meta: $${meta}"; \
+		file_path=$(EK_DIR)/$${meta}; \
+		if [[ $${meta} == extensions/* ]]; then \
+			new_path=$$(echo $${meta} | sed 's/^extensions/etc/' | awk -F'/' '{print $$1 "/" $$2 "/" $$4}'); \
+		else \
+			new_path=$${meta}; \
+		fi; \
+		echo "New path: $${new_path}"; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
 	done
-	@cp -rf etc_gee/* $(BUILD_PATH)/$(PACKAGE_NAME)/etc
+	@echo "Overwrite etc from ext"
+	@echo $(EXT_IN_GEE) | tr ' ' '\n' | while read plugin; do \
+		file_path=etc/$${plugin}; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+	done
+	@rsync -av --checksum etc_gee/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee
 	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee/
 	@echo "Build successfully"
@@ -133,6 +249,35 @@ pkg_gee: build_gee
 	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-gee.tar.gz $(PACKAGE_NAME)
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-gee.tar.gz $(PACKAGES_PATH)
 	@echo "Package for Gee successful"
+
+.PHONY: build_fvt
+build_fvt: SHELL:=/bin/bash -euo pipefail
+build_fvt: build_prepare
+	@echo "Compiling"
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee sdv ex" -o kuiperd main.go
+	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
+	@echo "Overwrite etc"
+	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@echo $(META_IN_GEE) | tr ' ' '\n' | while read meta; do \
+		echo "Meta: $${meta}"; \
+		file_path=$(EK_DIR)/$${meta}; \
+		if [[ $${meta} == extensions/* ]]; then \
+			new_path=$$(echo $${meta} | sed 's/^extensions/etc/' | awk -F'/' '{print $$1 "/" $$2 "/" $$4}'); \
+		else \
+			new_path=$${meta}; \
+		fi; \
+		echo "New path: $${new_path}"; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+	done
+	@echo "Overwrite etc from ext"
+	@echo $(EXT_IN_GEE) | tr ' ' '\n' | while read plugin; do \
+		file_path=etc/$${plugin}; \
+		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+	done
+	@rsync -av --checksum etc_gee/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee
+	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee/
+	@echo "Build successfully"
 
 .PHONY: real_pkg
 real_pkg:
@@ -149,22 +294,3 @@ clean:
 tidy:
 	@echo "go mod tidy"
 	go mod tidy && git diff go.mod go.sum
-
-lint:tools/lint/bin/golangci-lint
-	@echo "linting"
-	tools/lint/bin/golangci-lint run ./... ./extensions/... ./tools/kubernetes/...
-	cd sdk/go && ../../tools/lint/bin/golangci-lint run
-
-tools/lint/bin/golangci-lint:
-	GOBIN=tools/lint/bin go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-
-tools/failpoint/bin/failpoint-ctl:
-	GOBIN=$(shell pwd)/tools/failpoint/bin $(GO) install github.com/pingcap/failpoint/failpoint-ctl@2eaa328
-
-failpoint-enable: tools/failpoint/bin/failpoint-ctl
-# Converting gofail failpoints...
-	@$(FAILPOINT_ENABLE)
-
-failpoint-disable: tools/failpoint/bin/failpoint-ctl
-# Restoring gofail failpoints...
-	@$(FAILPOINT_DISABLE)

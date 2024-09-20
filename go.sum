@@ -140,8 +140,8 @@ github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
 github.com/emqx/can v1.1.0 h1:1XXsA1qfdEgoQQdR8AMcqV61wjJ6lhy8PwBM0yHs0mA=
 github.com/emqx/can v1.1.0/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.2.6-0.20240912025938-a7bab242a937 h1:lY0Q+Bp+GSC6pyY6+uIutc50IKd8kzQPxmwveKwNDtE=
-github.com/emqx/ekuiper_can v1.2.6-0.20240912025938-a7bab242a937/go.mod h1:lbUxaEnqn/qwpOvB56MovFfx83hUXiG8lzoHDosvIww=
+github.com/emqx/ekuiper_can v1.2.6-0.20240920090009-f43d8b146114 h1:UDCxCx4mjuBqZfUOT3w9cFOjR67hCwrRumqogHJj8zY=
+github.com/emqx/ekuiper_can v1.2.6-0.20240920090009-f43d8b146114/go.mod h1:lbUxaEnqn/qwpOvB56MovFfx83hUXiG8lzoHDosvIww=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
@@ -411,8 +411,8 @@ github.com/lestrrat-go/strftime v1.1.0 h1:gMESpZy44/4pXLO/m+sL0yBd1W6LjgjrrD4a68
 github.com/lestrrat-go/strftime v1.1.0/go.mod h1:uzeIB52CeUJenCo1syghlugshMysrqUT51HlxphXVeI=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-beta.1 h1:4g5oeyEnPdlBFD8mbMHxAMd16B5nuYwJqefq6czD1I8=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-beta.1/go.mod h1:AgzJVledX5rWyTsguk9JOIhVFua3nKYxCSQvWpQw7Vo=
-github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1 h1:6CeSnw32O0B7tPw4UcXz7ohmfrTCgnpLmb7ww9kKcwI=
-github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1/go.mod h1:rqpqf5mL0w7je/qQZBgRDWfWH74glYMCyuTzBwTvs20=
+github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240920093835-fcb1c2dcd9d0 h1:DS1PiwDAW8bMrrQRIznsyhX/y+ukvu94dwsshGAqVNY=
+github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240920093835-fcb1c2dcd9d0/go.mod h1:rqpqf5mL0w7je/qQZBgRDWfWH74glYMCyuTzBwTvs20=
 github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 h1:6E+4a0GO5zZEnZ81pIr0yLvtUWk2if982qA3F3QD6H4=
 github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0/go.mod h1:zJYVVT2jmtg6P3p1VtQj7WsuWi/y4VnjVBn7F8KPB3I=
 github.com/magiconair/properties v1.8.5/go.mod h1:y3VJvCyxH9uVvJTWEGAELF3aiYNyPKd5NZ3oSwXrF60=
@@ -531,6 +531,8 @@ github.com/parallaxsecond/parsec-client-go v0.0.0-20221025095442-f0a77d263cf9/go
 github.com/parquet-go/parquet-go v0.23.0 h1:dyEU5oiHCtbASyItMCD2tXtT2nPmoPbKpqf0+nnGrmk=
 github.com/parquet-go/parquet-go v0.23.0/go.mod h1:MnwbUcFHU6uBYMymKAlPPAw9yh3kE1wWl6Gl1uLdkNk=
 github.com/pascaldekloe/goe v0.0.0-20180627143212-57f6aae5913c/go.mod h1:lzWF7FIEvWOWxwDKqyGYQf6ZUaNfKdP144TG7ZOy1lc=
+github.com/pebbe/zmq4 v1.2.11 h1:Ua5mgIaZeabUGnH7tqswkUcjkL7JYGai5e8v4hpEU9Q=
+github.com/pebbe/zmq4 v1.2.11/go.mod h1:nqnPueOapVhE2wItZ0uOErngczsJdLOGkebMxaO8r48=
 github.com/pelletier/go-toml v1.9.3/go.mod h1:u1nR/EPcESfeI/szUZKdtJ0xRNbUoANCkoOuaOx1Y+c=
 github.com/pierrec/lz4/v4 v4.1.15/go.mod h1:gZWDp/Ze/IJXGXf23ltt2EXimqmTUXEy0GFuRQyBid4=
 github.com/pierrec/lz4/v4 v4.1.21 h1:yOVMLb6qSIDP67pl/5F7RepeKYu/VmTyEXvuMI5d9mQ=
