@@ -7,3 +7,13 @@ spi_1sec:
   interval: 1s
   payloadFormat: spi
   merger: spi
+
+spi_1000ms:
+  interval: 1s
+  payloadFormat: spi
+  merger: spi
+
+spi_200ms:
+  interval: 200ms
+  payloadFormat: spi
+  merger: spi

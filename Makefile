@@ -239,8 +239,9 @@ build_gee: build_prepare
 		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
 	done
 	@rsync -av --checksum etc_gee/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
-	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee
-	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee/
+	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc
+	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc/
+	@cp init/gee/init.json $(BUILD_PATH)/$(PACKAGE_NAME)/data/
 	@echo "Build successfully"
 
 .PHONY: pkg_gee
