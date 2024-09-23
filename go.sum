@@ -415,6 +415,8 @@ github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240920093835-fcb1c2dcd9d0 h1:DS1
 github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240920093835-fcb1c2dcd9d0/go.mod h1:rqpqf5mL0w7je/qQZBgRDWfWH74glYMCyuTzBwTvs20=
 github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240923011944-74acb06cf2cc h1:16dPm2IgW7uQlLUqYf25uoY5lYYPNj2S3FQZKCaRObU=
 github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240923011944-74acb06cf2cc/go.mod h1:rqpqf5mL0w7je/qQZBgRDWfWH74glYMCyuTzBwTvs20=
+github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240923055104-546dcf3b5618 h1:DKoCAhnA1aZyu1UYKnQZSeoZ0RVi531HbwnK34Xwkn0=
+github.com/lf-edge/ekuiper/v2 v2.0.0-beta.1.0.20240923055104-546dcf3b5618/go.mod h1:rqpqf5mL0w7je/qQZBgRDWfWH74glYMCyuTzBwTvs20=
 github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0 h1:6E+4a0GO5zZEnZ81pIr0yLvtUWk2if982qA3F3QD6H4=
 github.com/lufia/plan9stats v0.0.0-20211012122336-39d0f177ccd0/go.mod h1:zJYVVT2jmtg6P3p1VtQj7WsuWi/y4VnjVBn7F8KPB3I=
 github.com/magiconair/properties v1.8.5/go.mod h1:y3VJvCyxH9uVvJTWEGAELF3aiYNyPKd5NZ3oSwXrF60=
