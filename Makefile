@@ -95,7 +95,7 @@ build_ex: build_prepare
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc from LF"
-	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo $(META_IN_EX) | tr ' ' '\n' | while read meta; do \
 		echo "Meta: $${meta}"; \
 		file_path=$(EK_DIR)/$${meta}; \
@@ -160,7 +160,7 @@ build_sdv: build_prepare
 	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc from LF"
-	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo $(META_IN_SDV) | tr ' ' '\n' | while read meta; do \
         echo "Meta: $${meta}"; \
         file_path=$(EK_DIR)/$${meta}; \
@@ -221,7 +221,7 @@ build_gee: build_prepare
 	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee" -pgo=gee.pgo -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
-	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo $(META_IN_GEE) | tr ' ' '\n' | while read meta; do \
 		echo "Meta: $${meta}"; \
 		file_path=$(EK_DIR)/$${meta}; \
@@ -258,7 +258,7 @@ build_fvt: build_prepare
 	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee sdv ex" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
-	@rsync -a --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
+	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo $(META_IN_GEE) | tr ' ' '\n' | while read meta; do \
 		echo "Meta: $${meta}"; \
 		file_path=$(EK_DIR)/$${meta}; \
