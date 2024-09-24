@@ -29,7 +29,7 @@ import (
 )
 
 func main() {
-	raw, err := os.ReadFile("spifilter1000")
+	raw, err := os.ReadFile("spi1000")
 	if err != nil {
 		panic(err)
 	}
@@ -69,7 +69,7 @@ func mockNanoQuery(url string, raw []byte) {
 				if err != nil {
 					log.Fatalf("can't send reply: %s", err.Error())
 				}
-				time.Sleep(100 * time.Millisecond)
+				time.Sleep(time.Second)
 			}
 			_ = sock.Send(eof)
 			fmt.Printf("NODE0: SEND DATE REPLY %d\n", alllen)

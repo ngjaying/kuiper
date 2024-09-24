@@ -1,10 +1,10 @@
 {
   "streams": {
     "triggerStream": "CREATE STREAM triggerStream () WITH (TYPE=\"mqtt\", FORMAT=\"json\", DATASOURCE=\"trigger\", SHARED=\"TRUE\")",
-    "queryStream": "CREATE STREAM queryStream () WITH (TYPE=\"nanoquery\", FORMAT=\"spi\", SCHEMAID=\"uploads\/dbc\", SHARED=\"TRUE\")",
-    "spiStream": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"uploads\/dbc\", SHARED=\"true\")",
-    "spi_1000ms_stream": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")",
-    "spi_200ms_stream": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")"
+    "queryStream": "CREATE STREAM queryStream () WITH (TYPE=\"nanoquery\", FORMAT=\"spi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\")",
+    "spiStream": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"true\")",
+    "spi_1000ms_stream": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")",
+    "spi_200ms_stream": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")"
   },
   "rules": {
     "ruleTrigger": "{\"id\": \"ruleTrigger\",\"sql\": \"SELECT \\\"async\\\" as kind, ts1, ts2 FROM triggerStream\",\"actions\":[{\"nanoquery\":{\"url\":\"tcp://127.0.0.1:10000\",\"format\": \"delimited\",\"delimiter\":\"-\",\"fields\": [\"kind\",\"ts1\",\"ts2\"],\"sendSingle\":true}}]}"

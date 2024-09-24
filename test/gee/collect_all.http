@@ -1,228 +1,120 @@
+#### 已通过 init.json 生成初始流和规则
+#### 需要提前创建 /bigdata
+
+### init 创建的流和规则
 ### 实时流
 PUT http://{{host}}/streams/spiStream
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"
+  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"true\")"
 }
-
-### 实时采集
-PUT http://{{host}}/rules/ruleAll
-Content-Type: application/json
-
-{
-  "id": "ruleAll",
-  "name": "实时采集",
-  "sql": "SELECT * FROM spiStream",
-  "actions": [
-    {
-      "file": {
-        "path": "data/all.json",
-        "sendSingle": true
-      }
-    }
-  ]
-}
-
-###
-POST http://{{host}}/rules/ruleAll/stop
-
-#{
-#  "status": "running",
-#  "lastStartTimestamp": "1720670185585",
-#  "lastStopTimestamp": "0",
-#  "nextStopTimestamp": "0",
-#  "source_spiStream_0_records_in_total": 6,
-#  "source_spiStream_0_records_out_total": 6,
-#  "source_spiStream_0_messages_processed_total": 6,
-#  "source_spiStream_0_process_latency_us": 0,
-#  "source_spiStream_0_buffer_length": 0,
-#  "source_spiStream_0_last_invocation": "2024-07-11T12:02:04.236103",
-#  "source_spiStream_0_exceptions_total": 1,
-#  "source_spiStream_0_last_exception": "The connection to mqtt broker is lost due to EOF",
-#  "source_spiStream_0_last_exception_time": "2024-07-11T12:00:54.586445",
-#  "op_spiStream_2_decoder_0_records_in_total": 6,
-#  "op_spiStream_2_decoder_0_records_out_total": 6,
-#  "op_spiStream_2_decoder_0_messages_processed_total": 6,
-#  "op_spiStream_2_decoder_0_process_latency_us": 3157660,
-#  "op_spiStream_2_decoder_0_buffer_length": 0,
-#  "op_spiStream_2_decoder_0_last_invocation": "2024-07-11T12:02:04.236103",
-#  "op_spiStream_2_decoder_0_exceptions_total": 0,
-#  "op_spiStream_2_decoder_0_last_exception": "",
-#  "op_spiStream_2_decoder_0_last_exception_time": 0,
-#  "op_3_project_0_records_in_total": 6,
-#  "op_3_project_0_records_out_total": 6,
-#  "op_3_project_0_messages_processed_total": 6,
-#  "op_3_project_0_process_latency_us": 0,
-#  "op_3_project_0_buffer_length": 0,
-#  "op_3_project_0_last_invocation": "2024-07-11T12:02:07.394289",
-#  "op_3_project_0_exceptions_total": 0,
-#  "op_3_project_0_last_exception": "",
-#  "op_3_project_0_last_exception_time": 0,
-#  "op_mqtt_0_0_transform_0_records_in_total": 6,
-#  "op_mqtt_0_0_transform_0_records_out_total": 6,
-#  "op_mqtt_0_0_transform_0_messages_processed_total": 6,
-#  "op_mqtt_0_0_transform_0_process_latency_us": 0,
-#  "op_mqtt_0_0_transform_0_buffer_length": 0,
-#  "op_mqtt_0_0_transform_0_last_invocation": "2024-07-11T12:02:07.394289",
-#  "op_mqtt_0_0_transform_0_exceptions_total": 0,
-#  "op_mqtt_0_0_transform_0_last_exception": "",
-#  "op_mqtt_0_0_transform_0_last_exception_time": 0,
-#  "op_mqtt_0_1_encode_0_records_in_total": 6,
-#  "op_mqtt_0_1_encode_0_records_out_total": 6,
-#  "op_mqtt_0_1_encode_0_messages_processed_total": 6,
-#  "op_mqtt_0_1_encode_0_process_latency_us": 0,
-#  "op_mqtt_0_1_encode_0_buffer_length": 0,
-#  "op_mqtt_0_1_encode_0_last_invocation": "2024-07-11T12:02:07.394289",
-#  "op_mqtt_0_1_encode_0_exceptions_total": 0,
-#  "op_mqtt_0_1_encode_0_last_exception": "",
-#  "op_mqtt_0_1_encode_0_last_exception_time": 0,
-#  "sink_mqtt_0_0_records_in_total": 7,
-#  "sink_mqtt_0_0_records_out_total": 5,
-#  "sink_mqtt_0_0_messages_processed_total": 7,
-#  "sink_mqtt_0_0_process_latency_us": 0,
-#  "sink_mqtt_0_0_buffer_length": 0,
-#  "sink_mqtt_0_0_last_invocation": "2024-07-11T12:02:07.394289",
-#  "sink_mqtt_0_0_exceptions_total": 2,
-#  "sink_mqtt_0_0_last_exception": "mqtt client is not connected",
-#  "sink_mqtt_0_0_last_exception_time": "2024-07-11T12:00:54.588073"
-#}
 
 ### 1s降采样流
 POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"
+  "sql": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")"
 }
 
-### ### 测试规则 1s 实时采集
+### 1s降采样流
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")"
+}
+
+### 创建长期运行的唯一触发流，用于接收云端的查询请求
+### send with start and end
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM triggerStream() WITH (TYPE=\"mqtt\",FORMAT=\"json\",DATASOURCE=\"trigger\",SHARED=\"true\");"
+}
+
+### 创建长期运行采集流定义，接入nano query 异步结果
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM queryStream () WITH (TYPE=\"nanoquery\", FORMAT=\"spi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\")"
+}
+
+### trigger rule
 POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "ruleAll2",
-  "name": "1s实时采集",
-  "sql": "SELECT * FROM spiOneSec",
+  "id": "ruleTrigger",
+  "name": "发送查询请求",
+  "sql": "SELECT \"async\" as kind, ts1, ts2 FROM triggerStream",
   "actions": [
     {
-      "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "topic": "result/all",
-        "sendSingle": true
-      }
-    }
-  ]
-}
-
-### 10s 周期性采集
-POST http://{{host}}/rules
-Content-Type: application/json
-
-{
-  "id": "rule10second",
-  "name": "10s周期采集",
-  "sql": "SELECT window_start() as startTime, rule_id() as identifier, \"1.0.0\" as signals_version, collect(*) as results FROM canmsgBatchStream GROUP BY TumblingWindow(ss, 10)",
-  "actions": [
-    {
-      "mqtt": {
-        "server": "tcp://127.0.0.1:1883",
-        "topic": "result/c10",
-        "sendSingle": true
-      }
-    }
-  ]
-}
-
-### 10s 周期性采集并压缩
-POST http://{{host}}/rules
-Content-Type: application/json
-
-{
-  "id": "rule10secondCompress",
-  "name": "10s周期采集并压缩",
-  "sql": "SELECT window_start() as startTime, rule_id() as identifier, \"1.0.0\" as signals_version, collect(*) as results FROM canmsgBatchStream GROUP BY TumblingWindow(ss, 10)",
-  "actions": [
-    {
-      "mqtt": {
-        "server": "tcp://127.0.0.1:1883",
-        "topic": "result/c10",
-        "compression": "zstd",
-        "sendSingle": true
-      }
-    }
-  ]
-}
-
-### 10s 文件采集
-PUT http://{{host}}/rules/rule10secondCSV
-Content-Type: application/json
-
-{
-  "id": "rule10secondCSV",
-  "name": "10s周期文件",
-  "sql": "SELECT * FROM spiOneSec",
-  "actions": [
-    {
-      "file": {
-        "path": "data/mock.csv",
+      "nanoquery": {
+        "url": "tcp://127.0.0.1:10000",
         "format": "delimited",
-        "fileType": "csv",
-        "hasHeader": true,
-        "sendSingle": true,
-        "rollingCount": 10,
-        "rollingNamePattern": "suffix",
-        "rollingHook":        "nano",
-        "sendError": false,
-        "rollingHookProps": {
-          "server": "tcp://syno.home:1883",
-          "topic": "result/filetran",
-          "delete": 10
-        }
+        "delimiter": "-",
+        "fields": [
+          "kind",
+          "ts1",
+          "ts2"
+        ],
+        "sendSingle": true
       }
     }
   ]
 }
 
-### 场景一周期采集 10s 文件采集
+### 场景一周期采集 10s 文件采集 For Local (去除rollingNamePattern，若是在盒子测试，防止硬盘满)
 POST http://{{host}}/rules
 Content-Type: application/json
 
 {
   "id": "rule10secondCSV_ZSTD",
   "name": "10s周期文件压缩",
-  "sql": "SELECT * FROM canmsgBatchStream",
+  "sql": "SELECT * FROM spi_1000ms_stream",
   "actions": [
     {
       "file": {
-        "path": "data/mock.zstd",
+        "path": "/bigdata/rule1/mock.zstd",
         "format": "delimited",
         "fileType": "csv",
         "hasHeader": true,
         "sendSingle": true,
-        "rollingCount": 10,
+        "rollingInterval": "10s",
         "compression": "zstd",
-        "rollingNamePattern": "suffix"
+        "rollingNamePattern": "suffix",
+        "rollingHook": "nano",
+        "rollingHookProps": {
+          "server": "tcp://127.0.0.1:1883",
+          "topic": "file_transfer",
+          "delete": 10
+        }
       }
     }
-  ]
+  ],
+  "options": {
+    "sendError": false
+  }
 }
 
-### 场景二 历史采集  30min 50信号
-
-### 场景三 事件采集
-PUT http://{{host}}/rules/ruleTriggerSample
+##### 场景2 事件采集
+POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "ruleTriggerSample",
+  "id": "rulePick1",
   "name": "事件采集例子",
-  "sql": "SELECT `PrivateInfoCAN.0x380.AcoustModSts`, `PrivateInfoCAN.0x380.AcoustModSts_UB`,`PrivateInfoCAN.0x380.AudioMuteSts` FROM spiStream GROUP BY TumblingWindow(ss, 30)",
+  "sql": "SELECT ts, `ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`PropulsionCAN.0x315.HvBattTMin`,`ZCU_CANFD2.0x491.BattIRaw`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x145.CellUMaxId`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x315.HvBattTAvg`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x145.CellUMin`,`PropulsionCAN.0x315.HvBattTMax`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `PropulsionCAN.0x142.HvBattLimnIndcn` = 1 AND lag(`PropulsionCAN.0x142.HvBattLimnIndcn`) != 1)",
   "actions": [
     {
       "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "topic": "result/trigger",
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/pick1",
+        "compression": "zstd",
         "format": "delimited",
         "hasHeader": true,
         "sendSingle": false
@@ -234,77 +126,232 @@ Content-Type: application/json
   }
 }
 
-###util
-PUT http://{{host}}/rules/rulePick
+###
+POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "rulePickTest",
+  "id": "rulePick2",
   "name": "事件采集例子",
-  "sql": "SELECT `PropulsionCAN.0x178.HvSysLimnIndcn`, ts FROM spiStream GROUP BY SlidingWindow(ss, 1) OVER (WHEN ts - last_hit_time() > 2000)",
+  "sql": "SELECT ts, `PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN (`PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432)) OR ts - last_hit_time() > 40000)",
   "actions": [
     {
       "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "topic": "result/pick",
-        "format": "json",
+        "server": "tcp://127.0.0.1:1883",
+        "compression": "zstd",
+        "topic": "result/pick2",
+        "format": "delimited",
+        "hasHeader": true,
         "sendSingle": false
       }
     }
   ],
   "options": {
-    "sendError": false,
-    "bufferLength": 100
-  }
-}
-
-### rule pick 1
-POST http://{{host}}/rules
-Content-Type: application/json
-
-{
-  "id": "rulePickTest",
-  "name": "事件采集例子",
-  "sql": "SELECT `PropulsionCAN.0x331.HvBattCooltT`,`ZCU_CANFD2.0x491.BattIRaw`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x315.HvBattTAvg`,`PropulsionCAN.0x315.HvBattTMax`,`PropulsionCAN.0x145.CellUMinId`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x145.CellUMaxId`,`PropulsionCAN.0x145.CellUMin`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`PropulsionCAN.0x315.HvBattTMin`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x142.HvBattCellUInfoU3` FROM spiStream GROUP BY SlidingWindow(ss, 1) OVER (WHEN `PropulsionCAN.0x142.HvBattLimnIndcn` = 1 AND lag(`PropulsionCAN.0x142.HvBattLimnIndcn`) != 1)",
-  "actions": [
-    {
-      "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "topic": "result/pick",
-        "format": "json",
-        "sendSingle": false
-      }
-    }
-  ],
-  "options": {
-    "sendError": false,
-    "bufferLength": 100
-  }
-}
-
-###util
-POST http://{{host}}/rules
-Content-Type: application/json
-
-{
-  "id": "rulePickAll",
-  "name": "事件采集例子",
-  "sql": "SELECT `PropulsionCAN.0x178.HvSysLimnIndcn` FROM spiStream",
-  "actions": [
-    {
-      "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "topic": "result/pickall",
-        "format": "json",
-        "sendSingle": true
-      }
-    }
-  ],
-  "options": {
-    "sendError": false,
-    "bufferLength": 100
+    "sendError": false
   }
 }
 
 ###
-GET http://{{host}}/rules/rule10second/status
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rulePick3",
+  "name": "事件采集例子",
+  "sql": "SELECT ts, `PropulsionCAN.0x342.HvPackOverChrgFlt`,`PropulsionCAN.0x315.HvBattTAvg`,`PropulsionCAN.0x346.HvBattCooltLvl`,`PropulsionCAN.0x342.HvBattMismatchFlt`,`PropulsionCAN.0x342.HvCellTOverFlt`,`PropulsionCAN.0x342.HvilFlt`,`PropulsionCAN.0x145.CellUMaxId`,`PropulsionCAN.0x145.CellUMin`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`PropulsionCAN.0x315.HvBattTMax`,`PropulsionCAN.0x342.HvCellUOverFlt`,`PropulsionCAN.0x342.HvSocHiFlt`,`PropulsionCAN.0x288.FastChrgnLEDIndctn`,`PropulsionCAN.0x178.HvBattCoolgReq`,`PropulsionCAN.0x342.HvPackUOverFlt`,`PropulsionCAN.0x342.HvPackUUnderFlt`,`PropulsionCAN.0x315.HvBattTMin`,`ZCU_CANFD1.0x353.DCChrgnHndlSts`,`PropulsionCAN.0x342.HvCellTDifFlt`,`PropulsionCAN.0x342.HvCellUUnderFlt`,`PropulsionCAN.0x342.HvSocLoFlt`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x295.HvBattCoolgSts`,`PropulsionCAN.0x342.HvCellUDifFlt`,`PropulsionCAN.0x342.HvSocHopFlt` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN (`PropulsionCAN.0x342.HvBattMismatchFlt` != 0 AND lag(`PropulsionCAN.0x342.HvBattMismatchFlt`) = 0) OR (`PropulsionCAN.0x342.HvCellTDifFlt` != 0 AND lag(`PropulsionCAN.0x342.HvCellTDifFlt`) = 0) OR (`PropulsionCAN.0x342.HvCellTOverFlt` != 0 AND lag(`PropulsionCAN.0x342.HvCellTOverFlt`) = 0) OR (`PropulsionCAN.0x342.HvCellUDifFlt` != 0 AND lag(`PropulsionCAN.0x342.HvCellUDifFlt`) = 0) OR (`PropulsionCAN.0x342.HvCellUOverFlt` != 0 AND lag(`PropulsionCAN.0x342.HvCellUOverFlt`) = 0) OR (`PropulsionCAN.0x342.HvCellUUnderFlt` != 0 AND lag(`PropulsionCAN.0x342.HvCellUUnderFlt`) = 0) OR (`PropulsionCAN.0x342.HvPackOverChrgFlt` != 0 AND lag(`PropulsionCAN.0x342.HvPackOverChrgFlt`) = 0) OR (`PropulsionCAN.0x342.HvPackUOverFlt` != 0 AND lag(`PropulsionCAN.0x342.HvPackUOverFlt`) = 0) OR (`PropulsionCAN.0x342.HvPackUUnderFlt` != 0 AND lag(`PropulsionCAN.0x342.HvPackUUnderFlt`) = 0) OR (`PropulsionCAN.0x342.HvSocHiFlt` != 0 AND lag(`PropulsionCAN.0x342.HvSocHiFlt`) = 0) OR (`PropulsionCAN.0x342.HvSocHopFlt` != 0 AND lag(`PropulsionCAN.0x342.HvSocHopFlt`) = 0) OR (`PropulsionCAN.0x342.HvSocLoFlt` != 0 AND lag(`PropulsionCAN.0x342.HvSocLoFlt`) = 0) OR (`PropulsionCAN.0x342.HvilFlt` != 0 AND lag(`PropulsionCAN.0x342.HvilFlt`) = 0))",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/pick3",
+        "compression": "zstd",
+        "format": "delimited",
+        "hasHeader": true,
+        "sendSingle": false
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}
+
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "rulePick4",
+  "name": "事件采集例子",
+  "sql": "SELECT ts, `ZCU_CANFD2.0x482.IsgActvDampgModReq`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`PropulsionCAN.0x13A.IsgCooltT`,`ZCU_CANFD2.0x35.IsgIDc`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`ZCU_CANFD2.0x138.IsgInvrT`,`ZCU_CANFD2.0x489.IsgLimnIndcn`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `ZCU_CANFD2.0x489.IsgLimnIndcn` != 0 AND lag(`ZCU_CANFD2.0x489.IsgLimnIndcn`) = 0)",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/pick4",
+        "format": "delimited",
+        "compression": "zstd",
+        "hasHeader": true,
+        "sendSingle": false
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}
+
+
+##### 场景3 诊断规则
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "d10001",
+  "name": "诊断规则1",
+  "sql": "SELECT `ZCU_CANFD1.0x53.VehModMngtGlbSafe1UsgModSts` FROM spiStream WHERE had_changed(true, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1UsgModSts`)",
+  "actions": [
+    {
+      "mqtt": {
+        "format": "json",
+        "sendSingle": true,
+        "server": "tcp://syno.home:1883",
+        "topic": "result/dia10001"
+      }
+    }
+  ]
+}
+
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "d10002",
+  "name": "诊断规则2",
+  "sql": "SELECT `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1` FROM spiStream WHERE had_changed(true, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1`)",
+  "actions": [
+    {
+      "mqtt": {
+        "format": "json",
+        "sendSingle": true,
+        "server": "tcp://syno.home:1883",
+        "topic": "result/dia10002"
+      }
+    }
+  ]
+}
+
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "d10003",
+  "name": "诊断规则3",
+  "sql": "SELECT `ZCU_CANFD2.0x43.CrashSts2`, `PropulsionCAN.0x35.CrashStsSafeSts` FROM spiStream WHERE (`ZCU_CANFD2.0x43.CrashSts2` = 2 AND lag(`ZCU_CANFD2.0x43.CrashSts2`, 1, 0, true) = 0) OR (`PropulsionCAN.0x35.CrashStsSafeSts` = 1 AND lag(`PropulsionCAN.0x35.CrashStsSafeSts`, 1, 0, true) = 0)",
+  "actions": [
+    {
+      "mqtt": {
+        "format": "json",
+        "sendSingle": true,
+        "server": "tcp://syno.home:1883",
+        "topic": "result/dia10003"
+      }
+    }
+  ]
+}
+
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "d10004",
+  "name": "诊断规则4",
+  "sql": "SELECT `ZCU_CANFD2.0x117.FltEgyRstRecReq` FROM spiStream WHERE `ZCU_CANFD2.0x117.FltEgyRstRecReq` = 1",
+  "actions": [
+    {
+      "mqtt": {
+        "format": "json",
+        "sendSingle": true,
+        "server": "tcp://syno.home:1883",
+        "topic": "result/dia10004"
+      }
+    }
+  ]
+}
+
+###
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "d10005",
+  "name": "诊断规则5",
+  "sql": "SELECT `ZCU_CANFD2.0x117.FltEgyRstECUReq` FROM spiStream WHERE `ZCU_CANFD2.0x117.FltEgyRstECUReq` = 1",
+  "actions": [
+    {
+      "mqtt": {
+        "format": "json",
+        "sendSingle": true,
+        "server": "tcp://syno.home:1883",
+        "topic": "result/dia10005"
+      }
+    }
+  ]
+}
+
+### 信号灯诊断规则
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleSig",
+  "name": "测试信号灯诊断",
+  "sql": "SELECT ts, notifyLed(PA_VehNotifAndLedFlt) as n FROM sigStream WHERE cardinality(n) > 0",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/sig",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+##### 场景4 历史查询
+### 3. 创建单次运行采集规则
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleHistoryQuery1",
+  "name": "测试历史数据",
+  "sql": "SELECT ts, `PropulsionCAN.0x342.HvCellUOverFlt`,`PropulsionCAN.0x346.HvBattCooltLvl`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x342.HvPackUUnderFlt`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`ZCU_CANFD1.0x353.DCChrgnHndlSts`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x342.HvSocLoFlt`,`ZCU_CANFD2.0x482.IsgActvDampgModReq`,`PropulsionCAN.0x145.CellUMin`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd`,`PropulsionCAN.0x342.HvCellTOverFlt`,`PropulsionCAN.0x342.HvCellUDifFlt`,`PropulsionCAN.0x342.HvilFlt`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x35.IsgIDc`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x315.HvBattTAvg`,`ZCU_CANFD2.0x491.BattIRaw`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x342.HvSocHiFlt`,`PropulsionCAN.0x342.HvSocHopFlt`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`PropulsionCAN.0x295.HvBattCoolgSts`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`,`PropulsionCAN.0x288.FastChrgnLEDIndctn`,`PropulsionCAN.0x178.HvBattCoolgReq`,`PropulsionCAN.0x13A.IsgCooltT`,`PropulsionCAN.0x315.HvBattTMax`,`ZCU_CANFD2.0x138.IsgInvrT`,`PropulsionCAN.0x342.HvPackUOverFlt`,`PropulsionCAN.0x342.HvCellTDifFlt`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x342.HvPackOverChrgFlt`,`PropulsionCAN.0x342.HvBattMismatchFlt` FROM queryStream",
+  "actions": [
+    {
+      "file": {
+        "path": "/bigdata/rule2/ruleHistoryQuery1.zstd",
+        "format": "delimited",
+        "fileType": "csv",
+        "hasHeader": true,
+        "sendSingle": true,
+        "rollingHook": "nano",
+        "rollingHookProps": {
+          "server": "tcp://127.0.0.1:1883",
+          "topic": "file_transfer",
+          "delete": 10
+        }
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}
+
+### Send multiple batch data to trigger topic
+#{"ts1":10000, "ts2": 20000, "xids":"31102586"}
