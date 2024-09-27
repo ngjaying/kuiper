@@ -1,4 +1,4 @@
 #Global MQTT configurations
-default:
-  qos: 1
-  server: "tcp://127.0.0.1:1883"
+# default:
+#   qos: 1
+#   server: "tcp://127.0.0.1:1883"
