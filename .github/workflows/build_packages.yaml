@@ -21,7 +21,7 @@ jobs:
       - id: arch
         run: |
           if ${{ contains(fromJSON('["release", "workflow_dispatch"]'), github.event_name) }}; then
-            echo "arch=[\"linux/amd64\", \"linux/arm64\", \"linux/arm/v7\"]" >> $GITHUB_OUTPUT
+            echo "arch=[\"linux/amd64\", \"linux/arm64\"]" >> $GITHUB_OUTPUT
           else
             echo "arch=[\"linux/amd64\"]" >> $GITHUB_OUTPUT
           fi
