@@ -4,10 +4,10 @@ go 1.23.1
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.2.6
+	github.com/emqx/ekuiper_can v1.2.7-0.20241009032819-914efe9dc195
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0-beta.1
-	github.com/lf-edge/ekuiper/v2 v2.0.0-beta.2
+	github.com/lf-edge/ekuiper/v2 v2.0.0-beta.3
 	github.com/stretchr/testify v1.9.0
 	github.com/udhos/equalfile v0.3.0
 	go.nanomsg.org/mangos/v3 v3.4.2
@@ -266,7 +266,7 @@ require (
 	github.com/shopspring/decimal v1.4.0 // indirect
 	github.com/shurcooL/go v0.0.0-20230706063926-5fe729b41b3a // indirect
 	github.com/shurcooL/go-goon v1.0.0 // indirect
-	github.com/sijms/go-ora/v2 v2.8.21 // indirect
+	github.com/sijms/go-ora/v2 v2.8.19 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/snowflakedb/gosnowflake v1.11.1 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect

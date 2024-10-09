@@ -910,8 +910,8 @@ github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
 github.com/emqx/can v1.1.0 h1:1XXsA1qfdEgoQQdR8AMcqV61wjJ6lhy8PwBM0yHs0mA=
 github.com/emqx/can v1.1.0/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.2.6 h1:nz3HzdBWfM5T/DxK//j1Oxk6wGPn7+ENMLfX+BTSPRU=
-github.com/emqx/ekuiper_can v1.2.6/go.mod h1:9X7FTA+IWWPIu1AZNGnVDC4D6xNHkSThJK2VcAPP33s=
+github.com/emqx/ekuiper_can v1.2.7-0.20241009032819-914efe9dc195 h1:tVmK+QiHyRp0aZ5UmzWaKarmznr89r8yEV8Z2gCdC6U=
+github.com/emqx/ekuiper_can v1.2.7-0.20241009032819-914efe9dc195/go.mod h1:DoQveElgcfK12NQ1tS0g8rHkrRZpG5h3MSC2CynkSnM=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
@@ -1380,8 +1380,8 @@ github.com/lestrrat-go/strftime v1.1.0 h1:gMESpZy44/4pXLO/m+sL0yBd1W6LjgjrrD4a68
 github.com/lestrrat-go/strftime v1.1.0/go.mod h1:uzeIB52CeUJenCo1syghlugshMysrqUT51HlxphXVeI=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-beta.1 h1:4g5oeyEnPdlBFD8mbMHxAMd16B5nuYwJqefq6czD1I8=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0-beta.1/go.mod h1:AgzJVledX5rWyTsguk9JOIhVFua3nKYxCSQvWpQw7Vo=
-github.com/lf-edge/ekuiper/v2 v2.0.0-beta.2 h1:sM87FC8PkGHiJ57elGBjCW9C4r3cQZS4BstLMoqmVHA=
-github.com/lf-edge/ekuiper/v2 v2.0.0-beta.2/go.mod h1:v60JW65I678zr5y+fs4C6JqpACDnrsOtm3pH/U32m0w=
+github.com/lf-edge/ekuiper/v2 v2.0.0-beta.3 h1:fZJCfmJGKk9sIITMYAkZEsddirIQz3FwZCXMZ6IpQRs=
+github.com/lf-edge/ekuiper/v2 v2.0.0-beta.3/go.mod h1:XGL2yHELVbGCZmij9gENX93etBhak35QC9ZH6k15mU4=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
@@ -1643,8 +1643,8 @@ github.com/shurcooL/go v0.0.0-20230706063926-5fe729b41b3a/go.mod h1:DNrlr0AR9NsH
 github.com/shurcooL/go-goon v1.0.0 h1:BCQPvxGkHHJ4WpBO4m/9FXbITVIsvAm/T66cCcCGI7E=
 github.com/shurcooL/go-goon v1.0.0/go.mod h1:2wTHMsGo7qnpmqA8ADYZtP4I1DD94JpXGQ3Dxq2YQ5w=
 github.com/shurcooL/sanitized_anchor_name v1.0.0/go.mod h1:1NzhyTcUVG4SuEtjjoZeVRXNmyL/1OwPU0+IJeTBvfc=
-github.com/sijms/go-ora/v2 v2.8.21 h1:zhvaKaJzgEn+jq7TJF8YlY4H0P5RHxGc99y9QNoeU+s=
-github.com/sijms/go-ora/v2 v2.8.21/go.mod h1:QgFInVi3ZWyqAiJwzBQA+nbKYKH77tdp1PYoCqhR2dU=
+github.com/sijms/go-ora/v2 v2.8.19 h1:7LoKZatDYGi18mkpQTR/gQvG9yOdtc7hPAex96Bqisc=
+github.com/sijms/go-ora/v2 v2.8.19/go.mod h1:EHxlY6x7y9HAsdfumurRfTd+v8NrEOTR3Xl4FWlH6xk=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sirupsen/logrus v1.7.0/go.mod h1:yWOB1SBYBC5VeMP7gHvWumXLIWorT60ONWic61uBYv0=
