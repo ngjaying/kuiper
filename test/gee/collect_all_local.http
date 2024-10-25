@@ -216,18 +216,23 @@ Content-Type: application/json
 }
 
 ### 电流诊断规则
-POST http://{{host}}/rules
+PUT http://{{host}}/rules/ruleCellu
 Content-Type: application/json
 
 {
   "id": "ruleCellu",
   "name": "电池电压收集",
-  "sql": "SELECT * FROM celluStream",
+  "sql": "SELECT props(\"vin\") as vin, collectu(hvBattCellUInfoU1, hvBattCellUInfoU2, hvBattCellUInfoU3, hvBattCellUInfoU4, `timestamp`) as data FROM celluStream WHERE IsNull(data) = false",
   "actions": [
     {
       "mqtt": {
         "server": "tcp://syno.home:1883",
-        "topic": "result/cellu",
+        "topic": "result/cellu/{{.vin}}/ruleCellu/",
+        "format": "delimited",
+        "fields": ["data"],
+        "hasHeader": false,
+        "compression": "zstd",
+        "encryption": "aes",
         "sendSingle": true
       }
     }

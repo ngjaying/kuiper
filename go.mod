@@ -4,7 +4,7 @@ go 1.23.1
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.2.7-0.20241022115845-2c9074e20c3e
+	github.com/emqx/ekuiper_can v1.2.7-0.20241027053257-39906e53621a
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0
 	github.com/lf-edge/ekuiper/v2 v2.0.0
@@ -359,7 +359,7 @@ require (
 )
 
 //replace github.com/emqx/ekuiper_can => ../ekuiper_can
-
+//
 //replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/contract
 //
 //replace github.com/lf-edge/ekuiper/v2 => ../github.com/lfedge/ekuiper

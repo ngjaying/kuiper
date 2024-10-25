@@ -24,8 +24,10 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/modules"
 
 	"github.com/emqx/ekuiper_can/conf"
+	"github.com/emqx/ekuiper_can/converter/bin/cellt"
+	"github.com/emqx/ekuiper_can/converter/bin/cellu"
+	"github.com/emqx/ekuiper_can/converter/bin/sigl"
 	"github.com/emqx/ekuiper_can/converter/dbc"
-	"github.com/emqx/ekuiper_can/converter/sigl"
 	"github.com/emqx/ekuiper_can/converter/spi"
 	"github.com/emqx/ekuiper_can/funcs"
 	"github.com/emqx/ekuiper_can/io/file_hook"
@@ -49,6 +51,14 @@ func init() {
 		return &sigl.Packet{}, nil
 	})
 	modules.RegisterFunc("notifyled", funcs.NewNotifyLed)
+	modules.RegisterConverter("cellu", func(ctx api.StreamContext, _ string, _ map[string]*ast.JsonStreamField, _ map[string]any) (message.Converter, error) {
+		return &cellu.Cellu{}, nil
+	})
+	modules.RegisterFunc("collectu", funcs.NewCollectU)
+	modules.RegisterConverter("cellt", func(ctx api.StreamContext, _ string, _ map[string]*ast.JsonStreamField, _ map[string]any) (message.Converter, error) {
+		return &cellt.Cellt{}, nil
+	})
+	modules.RegisterFunc("collectt", funcs.NewCollectT)
 
 	modules.RegisterSink("nano", nano.GetSink)
 	modules.RegisterFileRollHook("nano", func() modules.RollHook {
