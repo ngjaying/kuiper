@@ -4,17 +4,17 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"
+  "sql": "CREATE STREAM spi_1000ms_stream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1000ms\");"
 }
 
 ### 场景一周期采集 10s 文件采集 For Local (去除rollingNamePattern，若是在盒子测试，防止硬盘满)
-POST http://{{host}}/rules
+PUT http://{{host}}/rules/rule10secondCSV_ZSTD
 Content-Type: application/json
 
 {
   "id": "rule10secondCSV_ZSTD",
   "name": "10s周期文件压缩",
-  "sql": "SELECT * FROM spiOneSec",
+  "sql": "SELECT * FROM spi_1000ms_stream",
   "actions": [
     {
       "file": {
@@ -23,8 +23,16 @@ Content-Type: application/json
         "fileType": "csv",
         "hasHeader": true,
         "sendSingle": true,
-        "rollingCount": 10,
-        "compression": "zstd"
+        "rollingInterval": "10s",
+        "compression": "zstd",
+        "rollingNamePattern": "suffix",
+        "rollingHook": "nano",
+        "rollingHookProps": {
+          "server": "tcp://127.0.0.1:1883",
+          "topic": "file_transfer",
+          "ruleType": "periodic",
+          "delete": 10
+        }
       }
     }
   ],
@@ -44,7 +52,7 @@ Content-Type: application/json
 }
 
 ### 为保证触发率，添加间隔200s触发的语句
-PUT http://{{host}}/rules/rulePick1
+POST http://{{host}}/rules
 Content-Type: application/json
 
 {
@@ -54,7 +62,7 @@ Content-Type: application/json
   "actions": [
     {
       "mqtt": {
-        "server": "tcp://syno.home:1883",
+        "server": "tcp://127.0.0.1:1883",
         "topic": "result/pick1",
         "compression": "zstd",
         "format": "delimited",
@@ -69,22 +77,24 @@ Content-Type: application/json
 }
 
 ### 为保证触发率，添加间隔200s触发的语句
-PUT http://{{host}}/rules/rulePick2
+POST http://{{host}}/rules
 Content-Type: application/json
 
 {
   "id": "rulePick2",
   "name": "事件采集例子",
-  "sql": "SELECT ts, `PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN (`PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432)) OR ts - last_hit_time() > 40000)",
+  "sql": "SELECT props(\"vin\") as vin, props(\"sig_def_ver\") as sdv,last_value(ts, true) as event_time, collect(object_construct(\"ts\", ts, \"PropulsionCAN.0x15E.BECMHvUMainPosRlyU\",`PropulsionCAN.0x53.CPSRU`,\"PropulsionCAN.0x157.BECMHvPosRlyCirtCurr\",`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,\"PropulsionCAN.0x178.HvSysLimnIndcn\",`PropulsionCAN.0x178.HvSysLimnIndcn`,\"PropulsionCAN.0x156.IsgUDc\",`PropulsionCAN.0x156.IsgUDc`,\"PropulsionCAN.0x15E.BECMHvUHvFuseU\",`PropulsionCAN.0x15E.BECMHvUHvFuseU`,\"PropulsionCAN.0x197.BECMSupplyVoltKL30\",`PropulsionCAN.0x197.BECMSupplyVoltKL30`,\"PropulsionCAN.0x141.HvBattUDc\",`PropulsionCAN.0x141.HvBattUDc`,\"PropulsionCAN.0x143.HvBattIDc1\",`PropulsionCAN.0x143.HvBattIDc1`,\"PropulsionCAN.0x15E.BECMHvUMainNegRlyU\",`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`)) as data FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN (`PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432)) OR ts - last_hit_time() > 40000)",
   "actions": [
     {
       "mqtt": {
-        "server": "tcp://syno.home:1883",
-        "compression": "zstd",
-        "topic": "result/pick2",
+        "topic": "result/event/{{.vin}}/{{.sdv}}/rulePick2/{{.event_time}}",
+        "dataField": "data",
+        "sendSingle": true,
+        "server": "tcp://127.0.0.1:1883",
         "format": "delimited",
         "hasHeader": true,
-        "sendSingle": false
+        "compression": "zstd",
+        "encryption": "aes"
       }
     }
   ],
@@ -190,6 +200,34 @@ Content-Type: application/json
       "mqtt": {
         "server": "tcp://syno.home:1883",
         "topic": "result/sig",
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
+##### 电池电压规则
+### 电池电压流
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM celluStream() WITH (TYPE=\"mqtt\",FORMAT=\"cellu\",DATASOURCE=\"battcell\", SHARED=\"true\");"
+}
+
+### 电流诊断规则
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleCellu",
+  "name": "电池电压收集",
+  "sql": "SELECT * FROM celluStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/cellu",
         "sendSingle": true
       }
     }

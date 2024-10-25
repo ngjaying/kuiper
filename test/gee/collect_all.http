@@ -91,6 +91,7 @@ Content-Type: application/json
         "rollingHookProps": {
           "server": "tcp://127.0.0.1:1883",
           "topic": "file_transfer",
+          "ruleType": "periodic",
           "delete": 10
         }
       }
@@ -108,17 +109,18 @@ Content-Type: application/json
 {
   "id": "rulePick1",
   "name": "事件采集例子",
-  "sql": "SELECT rule_id(), last_value(ts, true) as event_time, collect(object_construct(\"ts\", ts,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,\"ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd\",`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,\"ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd\",`PropulsionCAN.0x142.HvBattCellUInfoU3`,\"PropulsionCAN.0x142.HvBattCellUInfoU3\",`PropulsionCAN.0x142.HvBattCellUInfoU4`,\"PropulsionCAN.0x142.HvBattCellUInfoU4\",`PropulsionCAN.0x315.HvBattTMin`,\"PropulsionCAN.0x315.HvBattTMin\",`ZCU_CANFD2.0x491.BattIRaw`,\"ZCU_CANFD2.0x491.BattIRaw\",`ZCU_CANFD2.0x138.BattURaw`,\"ZCU_CANFD2.0x138.BattURaw\",`PropulsionCAN.0x142.HvBattLimnIndcn`,\"PropulsionCAN.0x142.HvBattLimnIndcn\",`PropulsionCAN.0x145.CellUMax`,\"PropulsionCAN.0x145.CellUMax\",`PropulsionCAN.0x145.CellUMaxId`,\"PropulsionCAN.0x145.CellUMaxId\",`PropulsionCAN.0x145.CellUMinId`,\"PropulsionCAN.0x145.CellUMinId\",`PropulsionCAN.0x315.HvBattTAvg`,\"PropulsionCAN.0x315.HvBattTAvg\",`PropulsionCAN.0x331.HvBattCooltT`,\"PropulsionCAN.0x331.HvBattCooltT\",`PropulsionCAN.0x178.HvSysLimnIndcn`,\"PropulsionCAN.0x178.HvSysLimnIndcn\",`PropulsionCAN.0x145.CellUMin`,\"PropulsionCAN.0x145.CellUMin\",`PropulsionCAN.0x315.HvBattTMax`,\"PropulsionCAN.0x315.HvBattTMax\",`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,\"PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd\")) as data FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `PropulsionCAN.0x142.HvBattLimnIndcn` = 1 AND lag(`PropulsionCAN.0x142.HvBattLimnIndcn`) != 1)",
+  "sql": "SELECT rule_id(), last_value(ts, true) as event_time, props(\"vin\") as vin collect(object_construct(\"ts\", ts,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,\"ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd\",`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,\"ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd\",`PropulsionCAN.0x142.HvBattCellUInfoU3`,\"PropulsionCAN.0x142.HvBattCellUInfoU3\",`PropulsionCAN.0x142.HvBattCellUInfoU4`,\"PropulsionCAN.0x142.HvBattCellUInfoU4\",`PropulsionCAN.0x315.HvBattTMin`,\"PropulsionCAN.0x315.HvBattTMin\",`ZCU_CANFD2.0x491.BattIRaw`,\"ZCU_CANFD2.0x491.BattIRaw\",`ZCU_CANFD2.0x138.BattURaw`,\"ZCU_CANFD2.0x138.BattURaw\",`PropulsionCAN.0x142.HvBattLimnIndcn`,\"PropulsionCAN.0x142.HvBattLimnIndcn\",`PropulsionCAN.0x145.CellUMax`,\"PropulsionCAN.0x145.CellUMax\",`PropulsionCAN.0x145.CellUMaxId`,\"PropulsionCAN.0x145.CellUMaxId\",`PropulsionCAN.0x145.CellUMinId`,\"PropulsionCAN.0x145.CellUMinId\",`PropulsionCAN.0x315.HvBattTAvg`,\"PropulsionCAN.0x315.HvBattTAvg\",`PropulsionCAN.0x331.HvBattCooltT`,\"PropulsionCAN.0x331.HvBattCooltT\",`PropulsionCAN.0x178.HvSysLimnIndcn`,\"PropulsionCAN.0x178.HvSysLimnIndcn\",`PropulsionCAN.0x145.CellUMin`,\"PropulsionCAN.0x145.CellUMin\",`PropulsionCAN.0x315.HvBattTMax`,\"PropulsionCAN.0x315.HvBattTMax\",`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,\"PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd\")) as data FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `PropulsionCAN.0x142.HvBattLimnIndcn` = 1 AND lag(`PropulsionCAN.0x142.HvBattLimnIndcn`) != 1)",
   "actions": [
     {
       "mqtt": {
-        "topic": "result/pick1/{{.rule_id}}/{{.event_time}}",
+        "topic": "result/pick1/{{.vin}}/{{.rule_id}}/{{.event_time}}",
         "dataField": "data",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
         "format": "delimited",
         "hasHeader": true,
-        "compression": "zstd"
+        "compression": "zstd",
+        "encryption": "aes"
       }
     }
   ],
@@ -134,7 +136,7 @@ Content-Type: application/json
 {
   "id": "rulePick2",
   "name": "事件采集例子",
-  "sql": "SELECT rule_id(), last_value(ts, true) as event_time, collect(object_construct(\"ts\", ts, \"PropulsionCAN.0x15E.BECMHvUMainPosRlyU\",`PropulsionCAN.0x53.CPSRU`,\"PropulsionCAN.0x157.BECMHvPosRlyCirtCurr\",`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,\"PropulsionCAN.0x178.HvSysLimnIndcn\",`PropulsionCAN.0x178.HvSysLimnIndcn`,\"PropulsionCAN.0x156.IsgUDc\",`PropulsionCAN.0x156.IsgUDc`,\"PropulsionCAN.0x15E.BECMHvUHvFuseU\",`PropulsionCAN.0x15E.BECMHvUHvFuseU`,\"PropulsionCAN.0x197.BECMSupplyVoltKL30\",`PropulsionCAN.0x197.BECMSupplyVoltKL30`,\"PropulsionCAN.0x141.HvBattUDc\",`PropulsionCAN.0x141.HvBattUDc`,\"PropulsionCAN.0x143.HvBattIDc1\",`PropulsionCAN.0x143.HvBattIDc1`,\"PropulsionCAN.0x15E.BECMHvUMainNegRlyU\",`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`)) as data FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432))",
+  "sql": "SELECT last_value(ts, true) as event_time, collect(object_construct(\"ts\", ts, \"PropulsionCAN.0x15E.BECMHvUMainPosRlyU\",`PropulsionCAN.0x53.CPSRU`,\"PropulsionCAN.0x157.BECMHvPosRlyCirtCurr\",`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,\"PropulsionCAN.0x178.HvSysLimnIndcn\",`PropulsionCAN.0x178.HvSysLimnIndcn`,\"PropulsionCAN.0x156.IsgUDc\",`PropulsionCAN.0x156.IsgUDc`,\"PropulsionCAN.0x15E.BECMHvUHvFuseU\",`PropulsionCAN.0x15E.BECMHvUHvFuseU`,\"PropulsionCAN.0x197.BECMSupplyVoltKL30\",`PropulsionCAN.0x197.BECMSupplyVoltKL30`,\"PropulsionCAN.0x141.HvBattUDc\",`PropulsionCAN.0x141.HvBattUDc`,\"PropulsionCAN.0x143.HvBattIDc1\",`PropulsionCAN.0x143.HvBattIDc1`,\"PropulsionCAN.0x15E.BECMHvUMainNegRlyU\",`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`)) as data FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432))",
   "actions": [
     {
       "mqtt": {
@@ -343,10 +345,12 @@ Content-Type: application/json
         "fileType": "csv",
         "hasHeader": true,
         "sendSingle": true,
+        "compression": "zstd",
         "rollingHook": "nano",
         "rollingHookProps": {
           "server": "tcp://127.0.0.1:1883",
           "topic": "file_transfer",
+          "ruleType": "history",
           "delete": 10
         }
       }
