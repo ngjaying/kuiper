@@ -212,22 +212,22 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM celluStream() WITH (TYPE=\"mqtt\",FORMAT=\"cellu\",DATASOURCE=\"battcell\", SHARED=\"true\");"
+  "sql": "CREATE STREAM celluStream() WITH (TYPE=\"mqtt\",FORMAT=\"cellu\",DATASOURCE=\"batt/cell\", SHARED=\"true\");"
 }
 
 ### 电流诊断规则
-PUT http://{{host}}/rules/ruleCellu
+POST http://{{host}}/rules
 Content-Type: application/json
 
 {
   "id": "ruleCellu",
   "name": "电池电压收集",
-  "sql": "SELECT props(\"vin\") as vin, collectu(hvBattCellUInfoU1, hvBattCellUInfoU2, hvBattCellUInfoU3, hvBattCellUInfoU4, `timestamp`) as data FROM celluStream WHERE IsNull(data) = false",
+  "sql": "SELECT event_time() as ts, collectu(hvBattCellUInfo_UB, hvBattCellUInfoU1, hvBattCellUInfoU2, hvBattCellUInfoU3, hvBattCellUInfoU4) as data FROM celluStream WHERE IsNull(data) = false",
   "actions": [
     {
       "mqtt": {
         "server": "tcp://syno.home:1883",
-        "topic": "result/cellu/{{.vin}}/ruleCellu/",
+        "topic": "result/{{.ts}}/ruleCellu",
         "format": "delimited",
         "fields": ["data"],
         "hasHeader": false,
@@ -239,8 +239,41 @@ Content-Type: application/json
   ]
 }
 
+### 电流诊断规则
+POST http://{{host}}/rules/ruleCellu/restart
+
+### 电池温度流
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM celltStream() WITH (TYPE=\"mqtt\",FORMAT=\"cellt\",DATASOURCE=\"batt/tsnsr\", SHARED=\"true\");"
+}
+
+### 电流诊断规则
+POST http://{{host}}/rules
+Content-Type: application/json
+
+{
+  "id": "ruleCellt",
+  "name": "电池电压收集",
+  "sql": "SELECT event_time() as ts, collectt(HvBattCellTInfoHvBattTSnsrNr, HvBattCellTInfoHvBattSnsrT) as data FROM celltStream WHERE IsNull(data) = false",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://syno.home:1883",
+        "topic": "result/{{.ts}}/ruleCellt",
+        "format": "delimited",
+        "fields": ["data"],
+        "hasHeader": false,
+        "sendSingle": true
+      }
+    }
+  ]
+}
+
 ###
-GET http://{{host}}/rules/ruleSig/status
+GET http://{{host}}/rules/ruleCellu/status
 
 ##### 场景3 历史采集-Aysnc
 ### 1. 创建长期运行的唯一触发流，用于接收云端的查询请求
