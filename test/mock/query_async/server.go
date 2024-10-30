@@ -19,8 +19,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
-	"strings"
 	"time"
 
 	"go.nanomsg.org/mangos/v3"
@@ -57,22 +55,22 @@ func mockNanoQuery(url string, raw []byte) {
 			log.Fatalf("cannot receive on pair socket: %s", err.Error())
 		}
 		fmt.Printf("NODE0: RECEIVED DATE REQUEST %s\n", msg)
-		cols := strings.Split(string(msg), "-")
-		if len(cols) == 3 { // no need to terminate
-			start, _ := strconv.ParseInt(cols[1], 10, 32)
-			end, _ := strconv.ParseInt(cols[2], 10, 32)
-			// at least search 200 seconds
-			alllen := int((end - start) / 1000 / 200)
-			for i := 0; i < 9; i++ {
-				fmt.Printf("sends %d piece\n", i)
-				err = sock.Send(raw)
-				if err != nil {
-					log.Fatalf("can't send reply: %s", err.Error())
-				}
-				time.Sleep(time.Second)
+		//cols := strings.Split(string(msg), "-")
+		//if len(cols) == 3 { // no need to terminate
+		//	start, _ := strconv.ParseInt(cols[1], 10, 32)
+		//	end, _ := strconv.ParseInt(cols[2], 10, 32)
+		//	// at least search 200 seconds
+		//	alllen := int((end - start) / 1000 / 200)
+		for i := 0; i < 9; i++ {
+			fmt.Printf("sends %d piece\n", i)
+			err = sock.Send(raw)
+			if err != nil {
+				log.Fatalf("can't send reply: %s", err.Error())
 			}
-			_ = sock.Send(eof)
-			fmt.Printf("NODE0: SEND DATE REPLY %d\n", alllen)
+			time.Sleep(time.Second)
 		}
+		_ = sock.Send(eof)
+		fmt.Printf("NODE0: SEND DATE REPLY %d\n", 10)
+		//}
 	}
 }

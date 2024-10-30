@@ -36,7 +36,7 @@ basic:
     # 0 indicates unlimited
     maxConnections: 0
   rulePatrolInterval: 10s
-  aesKey: YTA5NThiYTAyMTRkNmZhNjJjYzQ2OWIxYTdkYTczN2M=
+  aesKey: YTA5NThiYTAyMTRkNmZhNg==
 
 # The default options for all rules. Each rule can override this setting by defining its own option
 rule:
