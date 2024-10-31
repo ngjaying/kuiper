@@ -22,8 +22,8 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
 	"github.com/lf-edge/ekuiper/v2/pkg/message"
 	"github.com/lf-edge/ekuiper/v2/pkg/modules"
+	"github.com/lf-edge/ekuiper/v2/pkg/props"
 
-	"github.com/emqx/ekuiper_can/conf"
 	"github.com/emqx/ekuiper_can/converter/bin/cellt"
 	"github.com/emqx/ekuiper_can/converter/bin/cellu"
 	"github.com/emqx/ekuiper_can/converter/bin/sigl"
@@ -69,6 +69,5 @@ func init() {
 	modules.RegisterSource("nanoquery", query.GetSource)
 	modules.RegisterSink("nanoquery", query.GetQuerySink)
 	// Read in vin
-	conf.InitStaticConf()
-	modules.RegisterFunc("props", funcs.NewPropsFunc)
+	props.InitProps()
 }
