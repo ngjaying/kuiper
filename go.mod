@@ -7,7 +7,7 @@ require (
 	github.com/emqx/ekuiper_can v1.2.7-0.20241101015724-0b5e012a50a7
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0
-	github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241101005043-f79ec0b2f3c7
+	github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241105014046-d0adb87f174b
 	github.com/stretchr/testify v1.9.0
 	github.com/udhos/equalfile v0.3.0
 	go.nanomsg.org/mangos/v3 v3.4.2

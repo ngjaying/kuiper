@@ -1380,8 +1380,8 @@ github.com/lestrrat-go/strftime v1.1.0 h1:gMESpZy44/4pXLO/m+sL0yBd1W6LjgjrrD4a68
 github.com/lestrrat-go/strftime v1.1.0/go.mod h1:uzeIB52CeUJenCo1syghlugshMysrqUT51HlxphXVeI=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0 h1:MJB4ZDG099rbHRYxry0X1Iu79kgMVencHd7YX80N1dw=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0/go.mod h1:Y8QwH4jJHqpx3id9mCp7KYS3gKmHtE5NKYeZ3ZK7C2E=
-github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241101005043-f79ec0b2f3c7 h1:86zc/bJrugGocBsqZb0XlHlV6+vLTZreVYRRwYI9dgw=
-github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241101005043-f79ec0b2f3c7/go.mod h1:ZBpLhllQPG/I7eppBQEx468wGzZaxWtfMWWc40cSynI=
+github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241105014046-d0adb87f174b h1:ryL+Y1Qd0QCI0aNEOijtcTyk5AKKG3vHc9jJ2zok9PY=
+github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241105014046-d0adb87f174b/go.mod h1:ZBpLhllQPG/I7eppBQEx468wGzZaxWtfMWWc40cSynI=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
