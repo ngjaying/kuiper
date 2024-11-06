@@ -46,6 +46,11 @@ func (s *GeeTestSuite) SetupTest() {
 		panic(token.Error())
 	}
 	s.mqttClient = mqttClient
+
+	err := copyFile(filepath.Join(PWD, "dbc", "gee", "geeo.json"), filepath.Join(EKPWD, "dbc", "gee", "geeo.json"))
+	if err != nil {
+		fmt.Println(err)
+	}
 }
 
 func (s *GeeTestSuite) TearDownTest() {
@@ -58,7 +63,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare periodic rule
 	// Create stream
 	s.Run("creating stream spiOneSec", func() {
-		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/geeo.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -74,7 +79,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare fetch rule
 	// Create stream
 	s.Run("creating stream spi", func() {
-		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/geeo.json\", SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -315,14 +320,14 @@ func (s *GeeTestSuite) TestLEDRules() {
 		s.Require().NoError(err)
 		s.Require().Equal("running", metrics["status"])
 		ok := s.Equal(100.0, metrics["source_sigStream_0_records_out_total"])
-		s.Equal(40.0, metrics["sink_mqtt_0_0_records_out_total"])
+		s.Equal(43.0, metrics["sink_mqtt_0_0_records_out_total"])
 		if !ok {
 			s.T().Log(metrics)
 		}
 	})
 	// Compare result
 	s.Run("check ruleSig result", func() {
-		exp := []string{"{\"n\":[\"00 fe 0c c2 98 59 7c 02\",\"01 1b 84 f4 50 7d 51 88\",\"02 10 7d 0a be 02 cc 8e\",\"03 89 f7 88 47 c4 0c e5\",\"04 a7 f9 f3 7c 30 7c 5c\",\"05 59 ea 75 25 7c fd 09\",\"06 32 6f 0c e1 f2 05 b0\",\"07 b1 08 e7 47 e3 ce 6b\",\"08 9d fa 59 b7 e2 00 dc\",\"09 ad c2 98 11 9b 12 05\",\"0a 44 73 b7 fd 16 fc 8d\",\"0b 62 35 4c ad f0 1d 74\",\"0c 60 21 86 b7 a9 97 cc\",\"0d e3 59 ec f2 12 30 10\",\"0e 4c 09 e3 0d 42 f6 27\",\"0f 29 a1 55 a6 e9 6e e0\",\"10 04 36 a2 36 df 13 8b\",\"11 6e 0b 4a 8e b3 0e bd\",\"12 17 52 c9 b4 1f 77 68\",\"13 0c 52 8a 75 71 70 15\"],\"ts\":1723536192547}", "{\"n\":[\"00 fe 0c 80 98 59 7c 02\",\"01 1b 80 f4 50 7d 51 88\",\"06 32 6f 0c e1 42 05 b0\",\"07 00 08 e7 47 e3 ce 6b\",\"08 9d a2 59 b7 e2 00 dc\",\"0a 44 73 b7 fd 04 fc 8d\",\"0d e3 59 e8 f2 12 30 10\",\"10 04 36 a2 36 df 13 89\",\"12 17 52 08 b4 1f 77 68\"],\"ts\":1723536193708}", "{\"n\":[\"00 c6 0c 80 98 59 7c 02\",\"07 00 08 e7 47 e3 ce 21\",\"09 ad c2 08 11 9b 12 05\",\"0a 44 21 b7 fd 04 fc 8d\",\"0d e3 00 e8 f2 12 30 10\",\"11 6e 0b 4a 8e b3 00 85\",\"12 17 52 08 b4 1f 15 68\"],\"ts\":1723536194800}"}
+		exp := []string{"{\"n\":[\"00 fe 0c c2 98 59 7c 02\",\"01 1b 84 f4 50 7d 51 88\",\"02 10 7d 0a be 02 cc 8e\",\"04 a7 f9 f3 7c 30 7c 5c\",\"05 59 ea 75 25 7c fd 09\",\"06 32 6f 0c e1 f2 05 b0\",\"07 b1 08 e7 47 e3 ce 6b\",\"08 9d fa 59 b7 e2 00 dc\",\"09 ad c2 98 11 9b 12 05\",\"0a 44 73 b7 fd 16 fc 8d\",\"0b 62 35 4c ad f0 1d 74\",\"0c 60 21 86 b7 a9 97 cc\",\"0d e3 59 ec f2 12 30 10\",\"0e 4c 09 e3 0d 42 f6 27\",\"0f 29 a1 55 a6 e9 6e e0\",\"10 04 36 a2 36 df 13 8b\",\"11 6e 0b 4a 8e b3 0e bd\",\"12 17 52 c9 b4 1f 77 68\",\"13 0c 52 8a 75 71 70 15\"],\"ts\":1723536192547}", "{\"n\":[\"00 fe 0c 80 98 59 7c 02\",\"01 1b 80 f4 50 7d 51 88\",\"06 32 6f 0c e1 42 05 b0\",\"07 00 08 e7 47 e3 ce 6b\",\"08 9d a2 59 b7 e2 00 dc\",\"0a 44 73 b7 fd 04 fc 8d\",\"0d e3 59 e8 f2 12 30 10\",\"10 04 36 a2 36 df 13 89\",\"12 17 52 08 b4 1f 77 68\"],\"ts\":1723536193708}", "{\"n\":[\"00 c6 0c 80 98 59 7c 02\",\"05 59 ea 40 25 7c 74 09\",\"06 32 6f 04 e1 42 05 b0\",\"07 00 08 e7 47 e3 ce 21\",\"08 9d a2 59 94 e2 00 dc\",\"09 ad c2 08 11 9b 12 05\",\"0a 44 21 b7 fd 04 fc 8d\",\"0d e3 00 e8 f2 12 30 10\",\"11 6e 0b 4a 8e b3 00 85\",\"12 17 52 08 b4 1f 15 68\"],\"ts\":1723536194800}"}
 		s.Equal(exp, sigResult)
 	})
 	// Cleanup
@@ -381,7 +386,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
 		if !ok {
-			s.T().Log(resp.Body)
+			s.T().Log(GetResponseText(resp))
 		}
 	})
 	s.Run("creating ruleTrigger", func() {
@@ -391,16 +396,16 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
 		if !ok {
-			s.T().Log(resp.Body)
+			s.T().Log(GetResponseText(resp))
 		}
 	})
 	s.Run("creating queryStream", func() {
-		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json\",SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/geeo.json\",SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
 		if !ok {
-			s.T().Log(resp.Body)
+			s.T().Log(GetResponseText(resp))
 		}
 	})
 	// Create rule before mock server started to test auto connect
@@ -411,7 +416,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
 		if !ok {
-			s.T().Log(resp.Body)
+			s.T().Log(GetResponseText(resp))
 		}
 	})
 	time.Sleep(ConstantInterval)

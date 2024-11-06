@@ -95,3 +95,9 @@ func (sdk *SDK) CreateConf(confpath string, conf map[string]any) (resp *http.Res
 	}
 	return sdk.httpClient.Do(req)
 }
+
+func GetResponseText(resp *http.Response) (string, error) {
+	defer resp.Body.Close()
+	b, err := io.ReadAll(resp.Body)
+	return string(b), err
+}
