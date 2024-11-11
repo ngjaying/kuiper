@@ -92,43 +92,8 @@ Content-Type: application/json
   ]
 }
 
-### 场景一周期采集 10s 文件采集 For Local (去除rollingNamePattern，若是在盒子测试，防止硬盘满)
-POST http://{{host}}/rules
-Content-Type: application/json
-
-{
-  "id": "rulePeriodicFile",
-  "name": "10s周期文件压缩",
-  "sql": "SELECT * FROM spi_1000ms_stream",
-  "actions": [
-    {
-      "file": {
-        "path": "/bigdata/periodic.zstd",
-        "format": "delimited",
-        "fileType": "csv",
-        "hasHeader": true,
-        "sendSingle": true,
-        "rollingInterval": "10s",
-        "compression": "zstd",
-        "rollingNamePattern": "suffix",
-        "rollingHook": "nano",
-        "rollingHookProps": {
-          "server": "tcp://127.0.0.1:1883",
-          "topic": "file_transfer",
-          "ruleType": "periodic",
-          "delete": 10
-        }
-      }
-    }
-  ],
-  "options": {
-    "sendError": false,
-    "sendNilField": true
-  }
-}
-
 ### 场景一周期采集 MQTT 发送
-### use designated signals 
+### use designated signals
 POST http://{{host}}/rules
 Content-Type: application/json
 
@@ -202,7 +167,7 @@ Content-Type: application/json
 {
   "id": "rulePick2",
   "name": "事件采集例子",
-  "sql": "SELECT ts, `PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN (`PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432)) OR ts - last_hit_time() > 40000)",
+  "sql": "SELECT ts, `PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x053.CPSRU`,`PropulsionCAN.0x157.BECMHvPosRlyCirtCurr`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN (`PropulsionCAN.0x178.HvSysLimnIndcn` IN (95,100,1263,1432) AND lag(`PropulsionCAN.0x178.HvSysLimnIndcn`) NOT IN (95,100,1263,1432)) OR ts - last_hit_time() > 40000)",
   "actions": [
     {
       "mqtt": {
@@ -268,7 +233,7 @@ Content-Type: application/json
 {
   "id": "rulePick4",
   "name": "事件采集例子",
-  "sql": "SELECT ts, `ZCU_CANFD2.0x482.IsgActvDampgModReq`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`PropulsionCAN.0x13A.IsgCooltT`,`ZCU_CANFD2.0x35.IsgIDc`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`ZCU_CANFD2.0x138.IsgInvrT`,`ZCU_CANFD2.0x489.IsgLimnIndcn`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `ZCU_CANFD2.0x489.IsgLimnIndcn` != 0 AND lag(`ZCU_CANFD2.0x489.IsgLimnIndcn`) = 0)",
+  "sql": "SELECT ts, `ZCU_CANFD2.0x482.IsgActvDampgModReq`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`PropulsionCAN.0x13A.IsgCooltT`,`ZCU_CANFD2.0x035.IsgIDc`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x143.HvBattIDc1`,`ZCU_CANFD2.0x138.IsgInvrT`,`ZCU_CANFD2.0x489.IsgLimnIndcn`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd` FROM spiStream GROUP BY SlidingWindow(ss, 30) OVER (WHEN `ZCU_CANFD2.0x489.IsgLimnIndcn` != 0 AND lag(`ZCU_CANFD2.0x489.IsgLimnIndcn`) = 0)",
   "actions": [
     {
       "mqtt": {
@@ -304,7 +269,7 @@ Content-Type: application/json
 {
   "id": "diag_10002",
   "name": "诊断规则2",
-  "sql": "SELECT ts, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1` FROM spiStream WHERE had_changed(true, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1`)",
+  "sql": "SELECT ts, `ZCU_CANFD1.0x053.VehModMngtGlbSafe1CarModSts1` FROM spiStream WHERE had_changed(true, `ZCU_CANFD1.0x053.VehModMngtGlbSafe1CarModSts1`)",
   "actions": [
     {
       "mqtt": {
@@ -324,7 +289,7 @@ Content-Type: application/json
 {
   "id": "diag_10003",
   "name": "诊断规则3",
-  "sql": "SELECT ts, `ZCU_CANFD2.0x43.CrashSts2`, `PropulsionCAN.0x35.CrashStsSafeSts` FROM spiStream WHERE (`ZCU_CANFD2.0x43.CrashSts2` = 2 AND lag(`ZCU_CANFD2.0x43.CrashSts2`, 1, 0, true) != 2) OR (`PropulsionCAN.0x35.CrashStsSafeSts` = 1 AND lag(`PropulsionCAN.0x35.CrashStsSafeSts`, 1, 0, true) != 1)",
+  "sql": "SELECT ts, `ZCU_CANFD2.0x043.CrashSts2`, `PropulsionCAN.0x035.CrashStsSafeSts` FROM spiStream WHERE (`ZCU_CANFD2.0x043.CrashSts2` = 2 AND lag(`ZCU_CANFD2.0x043.CrashSts2`, 1, 0, true) != 2) OR (`PropulsionCAN.0x035.CrashStsSafeSts` = 1 AND lag(`PropulsionCAN.0x035.CrashStsSafeSts`, 1, 0, true) != 1)",
   "actions": [
     {
       "mqtt": {
@@ -419,14 +384,14 @@ Content-Type: application/json
 
 ##### 场景4 历史查询
 ### 历史查询 mqtt
-### use designated signals 
+### use designated signals
 POST http://{{host}}/rules
 Content-Type: application/json
 
 {
   "id": "ruleHistoryQuery1",
   "name": "测试历史数据",
-  "sql": "SELECT ts, `PropulsionCAN.0x342.HvCellUOverFlt`,`PropulsionCAN.0x346.HvBattCooltLvl`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x342.HvPackUUnderFlt`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`ZCU_CANFD1.0x353.DCChrgnHndlSts`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x342.HvSocLoFlt`,`ZCU_CANFD2.0x482.IsgActvDampgModReq`,`PropulsionCAN.0x145.CellUMin`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd`,`PropulsionCAN.0x342.HvCellTOverFlt`,`PropulsionCAN.0x342.HvCellUDifFlt`,`PropulsionCAN.0x342.HvilFlt`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x35.IsgIDc`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x315.HvBattTAvg`,`ZCU_CANFD2.0x491.BattIRaw`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x342.HvSocHiFlt`,`PropulsionCAN.0x342.HvSocHopFlt`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`PropulsionCAN.0x295.HvBattCoolgSts`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`,`PropulsionCAN.0x288.FastChrgnLEDIndctn`,`PropulsionCAN.0x178.HvBattCoolgReq`,`PropulsionCAN.0x13A.IsgCooltT`,`PropulsionCAN.0x315.HvBattTMax`,`ZCU_CANFD2.0x138.IsgInvrT`,`PropulsionCAN.0x342.HvPackUOverFlt`,`PropulsionCAN.0x342.HvCellTDifFlt`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x342.HvPackOverChrgFlt`,`PropulsionCAN.0x342.HvBattMismatchFlt` FROM queryStream",
+  "sql": "SELECT ts, `PropulsionCAN.0x342.HvCellUOverFlt`,`PropulsionCAN.0x346.HvBattCooltLvl`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x342.HvPackUUnderFlt`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`ZCU_CANFD1.0x353.DCChrgnHndlSts`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x342.HvSocLoFlt`,`ZCU_CANFD2.0x482.IsgActvDampgModReq`,`PropulsionCAN.0x145.CellUMin`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd`,`PropulsionCAN.0x342.HvCellTOverFlt`,`PropulsionCAN.0x342.HvCellUDifFlt`,`PropulsionCAN.0x342.HvilFlt`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x035.IsgIDc`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x315.HvBattTAvg`,`ZCU_CANFD2.0x491.BattIRaw`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x053.CPSRU`,`PropulsionCAN.0x342.HvSocHiFlt`,`PropulsionCAN.0x342.HvSocHopFlt`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`PropulsionCAN.0x295.HvBattCoolgSts`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`,`PropulsionCAN.0x288.FastChrgnLEDIndctn`,`PropulsionCAN.0x178.HvBattCoolgReq`,`PropulsionCAN.0x13A.IsgCooltT`,`PropulsionCAN.0x315.HvBattTMax`,`ZCU_CANFD2.0x138.IsgInvrT`,`PropulsionCAN.0x342.HvPackUOverFlt`,`PropulsionCAN.0x342.HvCellTDifFlt`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x342.HvPackOverChrgFlt`,`PropulsionCAN.0x342.HvBattMismatchFlt` FROM queryStream",
   "actions": [
     {
       "mqtt": {
@@ -443,40 +408,6 @@ Content-Type: application/json
           "iv": "mao+aO2Bc6Du0GaE",
           "aad": "TSPDzsM0tJvbNwxDf+x43g==",
           "tagSize": 32
-        }
-      }
-    }
-  ],
-  "options": {
-    "sendError": false,
-    "sendNilField": true
-  }
-}
-
-### 3. 创建单次运行采集规则
-POST http://{{host}}/rules
-Content-Type: application/json
-
-{
-  "id": "ruleHistoryQuery1",
-  "name": "测试历史数据",
-  "sql": "SELECT ts, `PropulsionCAN.0x342.HvCellUOverFlt`,`PropulsionCAN.0x346.HvBattCooltLvl`,`PropulsionCAN.0x142.HvBattCellUInfoU3`,`PropulsionCAN.0x331.HvBattCooltT`,`PropulsionCAN.0x342.HvPackUUnderFlt`,`PropulsionCAN.0x178.HvSysLimnIndcn`,`ZCU_CANFD2.0x1A6.IsgCooltFlowMinReqCloud`,`ZCU_CANFD1.0x353.DCChrgnHndlSts`,`ZCU_CANFD1.0x180.BrkPedlPsdBrkPedlPsd`,`PropulsionCAN.0x145.CellUMinId`,`PropulsionCAN.0x156.IsgUDc`,`PropulsionCAN.0x15E.BECMHvUHvFuseU`,`PropulsionCAN.0x15E.BECMHvUMainPosRlyU`,`PropulsionCAN.0x197.BECMSupplyVoltKL30`,`ConnectivityCANFD.0x3C8.VehSpdAvgIndcdVehSpdIndcd`,`PropulsionCAN.0x342.HvSocLoFlt`,`ZCU_CANFD2.0x482.IsgActvDampgModReq`,`PropulsionCAN.0x145.CellUMin`,`ZCU_CANFD2.0x1A0.FrntHeatPwrAllwd`,`PropulsionCAN.0x342.HvCellTOverFlt`,`PropulsionCAN.0x342.HvCellUDifFlt`,`PropulsionCAN.0x342.HvilFlt`,`PropulsionCAN.0x287.CooltFlowForDtElec`,`ZCU_CANFD2.0x35.IsgIDc`,`ZCU_CANFD2.0x138.BattURaw`,`PropulsionCAN.0x315.HvBattTAvg`,`ZCU_CANFD2.0x491.BattIRaw`,`PropulsionCAN.0x116.AccrPedlPsdAccrPedlPsd`,`PropulsionCAN.0x143.HvBattIDc1`,`PropulsionCAN.0x53.CPSRU`,`PropulsionCAN.0x342.HvSocHiFlt`,`PropulsionCAN.0x342.HvSocHopFlt`,`PropulsionCAN.0x142.HvBattCellUInfoU4`,`ZCU_CANFD2.0x1A0.BattVoltKL30`,`ZCU_CANFD2.0x1A6.IsgCoolgReqInvrCloud`,`PropulsionCAN.0x295.HvBattCoolgSts`,`PropulsionCAN.0x15E.BECMHvUMainNegRlyU`,`PropulsionCAN.0x288.FastChrgnLEDIndctn`,`PropulsionCAN.0x178.HvBattCoolgReq`,`PropulsionCAN.0x13A.IsgCooltT`,`PropulsionCAN.0x315.HvBattTMax`,`ZCU_CANFD2.0x138.IsgInvrT`,`PropulsionCAN.0x342.HvPackUOverFlt`,`PropulsionCAN.0x342.HvCellTDifFlt`,`PropulsionCAN.0x191.FrntHeatModEnad`,`PropulsionCAN.0x145.CellUMax`,`PropulsionCAN.0x141.HvBattUDc`,`PropulsionCAN.0x142.HvBattLimnIndcn`,`PropulsionCAN.0x342.HvPackOverChrgFlt`,`PropulsionCAN.0x342.HvBattMismatchFlt` FROM queryStream",
-  "actions": [
-    {
-      "file": {
-        "path": "/bigdata/rule2/ruleHistoryQuery1.zstd",
-        "format": "delimited",
-        "fileType": "csv",
-        "hasHeader": true,
-        "sendSingle": true,
-        "compression": "zstd",
-        "rollingNamePattern": "suffix",
-        "rollingHook": "nano",
-        "rollingHookProps": {
-          "server": "tcp://127.0.0.1:1883",
-          "topic": "file_transfer",
-          "ruleType": "history",
-          "delete": 10
         }
       }
     }
@@ -550,23 +481,3 @@ Content-Type: application/json
     }
   ]
 }
-
-### 同步历史查询场景
-### send with start and end
-POST http://{{host}}/tables
-Content-Type: application/json
-
-{
-  "sql": "CREATE TABLE nanoTable() WITH (TYPE=\"nano\",FORMAT=\"spi\",SCHEMAID=\"data\/uploads\/dbc\",KIND=\"lookup\",CONF_KEY=\"lookup\");"
-}
-
-### send with start and end
-POST http://{{host}}/streams
-Content-Type: application/json
-
-{
-  "sql": "CREATE STREAM triggerStream() WITH (TYPE=\"mqtt\",FORMAT=\"json\",DATASOURCE=\"trigger\",SHARED=\"true\");"
-}
-
-###
-#{"ts1":10000, "ts2": 20000}
