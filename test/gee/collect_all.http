@@ -128,6 +128,7 @@ Content-Type: application/json
 }
 
 ### 场景一周期采集 MQTT 发送
+### use designated signals 
 POST http://{{host}}/rules
 Content-Type: application/json
 
@@ -301,16 +302,16 @@ POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "d10002",
+  "id": "diag_10002",
   "name": "诊断规则2",
-  "sql": "SELECT `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1` FROM spiStream WHERE had_changed(true, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1`)",
+  "sql": "SELECT ts, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1` FROM spiStream WHERE had_changed(true, `ZCU_CANFD1.0x53.VehModMngtGlbSafe1CarModSts1`)",
   "actions": [
     {
       "mqtt": {
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
-        "topic": "result/dia10002"
+        "topic": "diag/10002"
       }
     }
   ]
@@ -321,16 +322,16 @@ POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "d10003",
+  "id": "diag_10003",
   "name": "诊断规则3",
-  "sql": "SELECT `ZCU_CANFD2.0x43.CrashSts2`, `PropulsionCAN.0x35.CrashStsSafeSts` FROM spiStream WHERE (`ZCU_CANFD2.0x43.CrashSts2` = 2 AND lag(`ZCU_CANFD2.0x43.CrashSts2`, 1, 0, true) != 2) OR (`PropulsionCAN.0x35.CrashStsSafeSts` = 1 AND lag(`PropulsionCAN.0x35.CrashStsSafeSts`, 1, 0, true) != 1)",
+  "sql": "SELECT ts, `ZCU_CANFD2.0x43.CrashSts2`, `PropulsionCAN.0x35.CrashStsSafeSts` FROM spiStream WHERE (`ZCU_CANFD2.0x43.CrashSts2` = 2 AND lag(`ZCU_CANFD2.0x43.CrashSts2`, 1, 0, true) != 2) OR (`PropulsionCAN.0x35.CrashStsSafeSts` = 1 AND lag(`PropulsionCAN.0x35.CrashStsSafeSts`, 1, 0, true) != 1)",
   "actions": [
     {
       "mqtt": {
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
-        "topic": "result/dia10003"
+        "topic": "diag/10003"
       }
     }
   ]
@@ -341,16 +342,16 @@ POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "d10004",
+  "id": "diag_10004",
   "name": "诊断规则4",
-  "sql": "SELECT `ZCU_CANFD2.0x117.FltEgyRstRecReq` FROM spiStream WHERE `ZCU_CANFD2.0x117.FltEgyRstRecReq` = 1",
+  "sql": "SELECT ts, `ZCU_CANFD2.0x117.FltEgyRstRecReq` FROM spiStream WHERE `ZCU_CANFD2.0x117.FltEgyRstRecReq` = 1",
   "actions": [
     {
       "mqtt": {
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
-        "topic": "result/dia10004"
+        "topic": "diag/10004"
       }
     }
   ]
@@ -361,16 +362,16 @@ POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "d10005",
+  "id": "diag_10005",
   "name": "诊断规则5",
-  "sql": "SELECT `ZCU_CANFD2.0x117.FltEgyRstECUReq` FROM spiStream WHERE `ZCU_CANFD2.0x117.FltEgyRstECUReq` = 1",
+  "sql": "SELECT ts, `ZCU_CANFD2.0x117.FltEgyRstECUReq` FROM spiStream WHERE `ZCU_CANFD2.0x117.FltEgyRstECUReq` = 1",
   "actions": [
     {
       "mqtt": {
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
-        "topic": "result/dia10005"
+        "topic": "diag/10005"
       }
     }
   ]
@@ -381,16 +382,16 @@ POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "d10006",
+  "id": "diag_10006",
   "name": "诊断规则6",
-  "sql": "SELECT `ZCU_CANFD1.0x105.DoorDrvrSts`, `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`, `ZCU_CANFD2.0x220.BtnLockSts` FROM spiStream WHERE `ZCU_CANFD1.0x105.DoorDrvrSts` = 1 AND ((`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND ts - lag(ts) OVER (WHEN `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND lag(`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`) = 0) > 4900) OR (`ZCU_CANFD2.0x220.BtnLockSts` = 1 AND ts - lag(ts) OVER (WHEN `ZCU_CANFD2.0x220.BtnLockSts` = 1 AND lag(`ZCU_CANFD2.0x220.BtnLockSts`) = 0) > 4900)",
+  "sql": "SELECT ts, `ZCU_CANFD1.0x105.DoorDrvrSts`, `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`, `ZCU_CANFD2.0x220.BtnLockSts` FROM spiStream WHERE `ZCU_CANFD1.0x105.DoorDrvrSts` = 1 AND ((`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND ts - lag(ts) OVER (WHEN `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND lag(`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`) = 0) > 4900) OR (`ZCU_CANFD2.0x220.BtnLockSts` = 1 AND ts - lag(ts) OVER (WHEN `ZCU_CANFD2.0x220.BtnLockSts` = 1 AND lag(`ZCU_CANFD2.0x220.BtnLockSts`) = 0) > 4900)",
   "actions": [
     {
       "mqtt": {
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
-        "topic": "result/dia10006"
+        "topic": "diag/10006"
       }
     }
   ]
@@ -402,14 +403,14 @@ POST http://{{host}}/rules
 Content-Type: application/json
 
 {
-  "id": "d10101",
+  "id": "diag_10101",
   "name": "测试信号灯诊断",
-  "sql": "SELECT ts, notifyLed(PA_VehNotifAndLedFlt) as n FROM sigStream WHERE cardinality(n) > 0",
+  "sql": "SELECT ts, notifyLed(PA_VehNotifAndLedFlt) as pavehnotifandledflt FROM sigStream WHERE cardinality(pavehnotifandledflt) > 0",
   "actions": [
     {
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
-        "topic": "result/sig",
+        "topic": "diag/10101",
         "sendSingle": true
       }
     }
@@ -418,6 +419,7 @@ Content-Type: application/json
 
 ##### 场景4 历史查询
 ### 历史查询 mqtt
+### use designated signals 
 POST http://{{host}}/rules
 Content-Type: application/json
 
