@@ -46,11 +46,6 @@ func (s *GeeTestSuite) SetupTest() {
 		panic(token.Error())
 	}
 	s.mqttClient = mqttClient
-
-	err := copyFile(filepath.Join(PWD, "dbc", "gee", "geeo.json"), filepath.Join(EKPWD, "dbc", "gee", "geeo.json"))
-	if err != nil {
-		fmt.Println(err)
-	}
 }
 
 func (s *GeeTestSuite) TearDownTest() {
@@ -63,7 +58,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare periodic rule
 	// Create stream
 	s.Run("creating stream spiOneSec", func() {
-		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/geeo.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -79,7 +74,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare fetch rule
 	// Create stream
 	s.Run("creating stream spi", func() {
-		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/geeo.json\", SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -160,8 +155,8 @@ func (s *GeeTestSuite) TestSPIRules() {
 	})
 	// Check file
 	s.Run("check generate file", func() {
-		left := filepath.Join(PWD, ResultPath, "mock.zstd")
-		right := filepath.Join(EKPWD, "data", "mock.zstd")
+		left := filepath.Join(PWD, ResultPath, "mock.zst")
+		right := filepath.Join(EKPWD, "data", "mock.zst")
 		s.T().Logf("compare %s vs %s", left, right)
 		cmp := equalfile.New(nil, equalfile.Options{Debug: true})
 		equal, err := cmp.CompareFile(left, right)
@@ -400,7 +395,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 		}
 	})
 	s.Run("creating queryStream", func() {
-		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/geeo.json\",SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json\",SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
@@ -482,8 +477,8 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 	time.Sleep(ConstantInterval)
 	// compare result file
 	s.Run("check generate file", func() {
-		left := filepath.Join(PWD, ResultPath, "ruleHistoryQuery1.zstd")
-		right := filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zstd")
+		left := filepath.Join(PWD, ResultPath, "ruleHistoryQuery1.zst")
+		right := filepath.Join(EKPWD, "data", "ruleHistoryQuery1.zst")
 		s.T().Logf("compare %s vs %s", left, right)
 		var (
 			count = 5

@@ -5,7 +5,7 @@
   "actions": [
     {
       "file": {
-        "path": "data/mock.zstd",
+        "path": "data/mock.zst",
         "format": "delimited",
         "fileType": "csv",
         "hasHeader": true,
