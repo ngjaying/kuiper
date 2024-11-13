@@ -105,12 +105,22 @@ build_ex: build_prepare
 			new_path=$${meta}; \
 		fi; \
 		echo "New path: $${new_path}"; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		if [ "$$(basename $${meta} | cut -d. -f2)" = "json" ]; then \
+		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		  jq -c . $${file_path} > $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path};\
+		else \
+		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		fi \
 	done
 	@echo "Overwrite etc from ext"
 	@echo $(EXT_IN_EX) | tr ' ' '\n' | while read plugin; do \
 		file_path=etc/$${plugin}; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		if [ "$$(basename $${plugin} | cut -d. -f2)" = "json" ]; then \
+		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		  jq -c . $${file_path} > $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path};\
+		else \
+		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		fi \
 	done
 	@rsync -av --checksum etc_ex/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo "Build successfully"
@@ -170,12 +180,22 @@ build_sdv: build_prepare
             new_path=$${meta}; \
         fi; \
         echo "New path: $${new_path}"; \
-        cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+        if [ "$$(basename $${meta} | cut -d. -f2)" = "json" ]; then \
+		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		  jq -c . $${file_path} > $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path};\
+		else \
+		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		fi \
     done
 	@echo "Overwrite etc from ext"
 	@echo $(EXT_IN_SDV) | tr ' ' '\n' | while read plugin; do \
 		file_path=etc/$${plugin}; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		if [ "$$(basename $${plugin} | cut -d. -f2)" = "json" ]; then \
+		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		  jq -c . $${file_path} > $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path};\
+		else \
+		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		fi \
 	done
 	@rsync -av --checksum etc_sdv/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo "Build successfully"
@@ -231,17 +251,27 @@ build_gee: build_prepare
 			new_path=$${meta}; \
 		fi; \
 		echo "New path: $${new_path}"; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		if [ "$$(basename $${meta} | cut -d. -f2)" = "json" ]; then \
+		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		  jq -c . $${file_path} > $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path};\
+		else \
+		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
+		fi \
 	done
 	@echo "Overwrite etc from ext"
 	@echo $(EXT_IN_GEE) | tr ' ' '\n' | while read plugin; do \
 		file_path=etc/$${plugin}; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		if [ "$$(basename $${plugin} | cut -d. -f2)" = "json" ]; then \
+		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		  jq -c . $${file_path} > $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path};\
+		else \
+		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
+		fi \
 	done
 	@rsync -av --checksum etc_gee/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc
-	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc/
-	@cp init/gee/init.json $(BUILD_PATH)/$(PACKAGE_NAME)/data/
+	@jq -c . dbc/gee/gee.json > $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc/gee.json
+	@jq -c . init/gee/init.json > $(BUILD_PATH)/$(PACKAGE_NAME)/data/init.json
 	@echo "Build successfully"
 
 .PHONY: pkg_gee
