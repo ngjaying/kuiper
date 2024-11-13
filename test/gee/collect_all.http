@@ -349,12 +349,18 @@ Content-Type: application/json
 {
   "id": "diag_10006",
   "name": "诊断规则6",
-  "sql": "SELECT ts, `ZCU_CANFD1.0x105.DoorDrvrSts`, `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`, `ZCU_CANFD2.0x220.BtnLockSts` FROM spiStream WHERE `ZCU_CANFD1.0x105.DoorDrvrSts` = 1 AND ((`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND ts - lag(ts) OVER (WHEN `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND lag(`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`) = 0) > 4900) OR (`ZCU_CANFD2.0x220.BtnLockSts` = 1 AND ts - lag(ts) OVER (WHEN `ZCU_CANFD2.0x220.BtnLockSts` = 1 AND lag(`ZCU_CANFD2.0x220.BtnLockSts`) = 0) > 4900)",
+  "sql": "SELECT ts, `ZCU_CANFD1.0x105.DoorDrvrSts`, `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`, `ZCU_CANFD2.0x220.BtnLockSts`, lag(ts) OVER (WHEN `ZCU_CANFD2.0x220.BtnLockSts` = 1 AND lag(`ZCU_CANFD2.0x220.BtnLockSts`) = 0) as stsChTs, lag(ts) OVER (WHEN `ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND lag(`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq`) = 0) as reqChTs FROM spiStream WHERE `ZCU_CANFD1.0x105.DoorDrvrSts` = 1 AND ((`ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq` = 2 AND ts - reqChTs > 4990 AND last_hit_time() < reqChTs) OR (`ZCU_CANFD2.0x220.BtnLockSts` = 1 AND ts - stsChTs > 4990 AND last_hit_time() < stsChTs))",
   "actions": [
     {
       "mqtt": {
         "format": "json",
         "sendSingle": true,
+        "fields": [
+          "ts",
+          "ZCU_CANFD1.0x105.DoorDrvrSts",
+          "ZCU_CANFD2.0x491.DoorDrvrSwtIntrLockgReq",
+          "ZCU_CANFD2.0x220.BtnLockSts"
+        ],
         "server": "tcp://127.0.0.1:1883",
         "topic": "diag/10006"
       }
