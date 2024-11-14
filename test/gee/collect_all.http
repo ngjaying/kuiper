@@ -106,6 +106,7 @@ Content-Type: application/json
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
         "topic": "ek/collect/periodic/rulePeriodic/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
+        "qos": 1,
         "format": "delimited",
         "hasHeader": true,
         "sendSingle": false,
@@ -141,6 +142,7 @@ Content-Type: application/json
         "topic": "ek/event/1/rulePick1/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
         "sendSingle": false,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "format": "delimited",
         "hasHeader": true,
         "compression": "zstd",
@@ -173,6 +175,7 @@ Content-Type: application/json
       "mqtt": {
         "topic": "ek/event/2/rulePick2/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "format": "delimited",
         "hasHeader": true,
         "sendSingle": false,
@@ -207,6 +210,7 @@ Content-Type: application/json
         "topic": "ek/event/3/rulePick3/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
         "sendSingle": false,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "format": "delimited",
         "hasHeader": true,
         "compression": "zstd",
@@ -240,6 +244,7 @@ Content-Type: application/json
         "topic": "ek/event/4/rulePick4/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
         "sendSingle": false,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "format": "delimited",
         "hasHeader": true,
         "compression": "zstd",
@@ -276,6 +281,7 @@ Content-Type: application/json
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "topic": "diag/10002"
       }
     }
@@ -296,6 +302,7 @@ Content-Type: application/json
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "topic": "diag/10003"
       }
     }
@@ -316,6 +323,7 @@ Content-Type: application/json
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "topic": "diag/10004"
       }
     }
@@ -336,6 +344,7 @@ Content-Type: application/json
         "format": "json",
         "sendSingle": true,
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "topic": "diag/10005"
       }
     }
@@ -362,6 +371,7 @@ Content-Type: application/json
           "ZCU_CANFD2.0x220.BtnLockSts"
         ],
         "server": "tcp://127.0.0.1:1883",
+        "qos": 1,
         "topic": "diag/10006"
       }
     }
@@ -382,6 +392,7 @@ Content-Type: application/json
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
         "topic": "diag/10101",
+        "qos": 1,
         "sendSingle": true
       }
     }
@@ -403,6 +414,7 @@ Content-Type: application/json
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
         "topic": "ek/collect/history/ruleHistoryQuery1/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
+        "qos": 1,
         "format": "delimited",
         "hasHeader": true,
         "sendSingle": false,
@@ -441,6 +453,7 @@ Content-Type: application/json
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
         "topic": "ek/cell/1/ruleCellu/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
+        "qos": 1,
         "format": "delimited",
         "fields": ["data"],
         "hasHeader": false,
@@ -471,6 +484,7 @@ Content-Type: application/json
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
         "topic": "ek/cell/2/ruleCellt/{{prop \"cs\"}}/{{prop \"nc\"}}/{{prop \"v\"}}/{{prop \"sv\"}}/{{prop \"et\"}}",
+        "qos": 1,
         "format": "delimited",
         "fields": ["data"],
         "hasHeader": false,
