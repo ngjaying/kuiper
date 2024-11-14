@@ -4,7 +4,7 @@ go 1.23.1
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.2.7-0.20241112123747-6e1077baba39
+	github.com/emqx/ekuiper_can v1.2.7-0.20241114084821-e3f1859af0b9
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0
 	github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241111121240-691bb8dad3db
@@ -105,7 +105,7 @@ require (
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/elastic/go-sysinfo v1.8.1 // indirect
 	github.com/elastic/go-windows v1.0.0 // indirect
-	github.com/emqx/can v1.1.0 // indirect
+	github.com/emqx/can v1.1.1-0.20241114070911-7e6efee8c65c // indirect
 	github.com/envoyproxy/go-control-plane v0.12.1-0.20240621013728-1eb8caab5155 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.0.4 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect

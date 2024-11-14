@@ -908,10 +908,10 @@ github.com/elastic/go-windows v1.0.0 h1:qLURgZFkkrYyTTkvYpsZIgf83AUsdIHfvlJaqaZ7
 github.com/elastic/go-windows v1.0.0/go.mod h1:TsU0Nrp7/y3+VwE82FoZF8gC/XFg/Elz6CcloAxnPgU=
 github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc=
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
-github.com/emqx/can v1.1.0 h1:1XXsA1qfdEgoQQdR8AMcqV61wjJ6lhy8PwBM0yHs0mA=
-github.com/emqx/can v1.1.0/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.2.7-0.20241112123747-6e1077baba39 h1:+kMuQwNm7VA+oKbXgLkDOBk7fAaMlmMMd35U/4UYkqw=
-github.com/emqx/ekuiper_can v1.2.7-0.20241112123747-6e1077baba39/go.mod h1:LzYvYlWolw0AbxFlcdhPeyztIqxy3ID8ApxR72NPkeY=
+github.com/emqx/can v1.1.1-0.20241114070911-7e6efee8c65c h1:070pU0OhtkgoFxghwE6S9cfCIc+ywWY332UWgn4KSvA=
+github.com/emqx/can v1.1.1-0.20241114070911-7e6efee8c65c/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
+github.com/emqx/ekuiper_can v1.2.7-0.20241114084821-e3f1859af0b9 h1:JfT0wtlULLdRzNn0sxNCy5k5c8MOcJ4TgePDjVChUA4=
+github.com/emqx/ekuiper_can v1.2.7-0.20241114084821-e3f1859af0b9/go.mod h1:TBP+8dmT4PXzxaouVNltKl1V0ThLu7j0QUesbJf2DnY=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
