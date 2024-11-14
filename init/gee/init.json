@@ -2,9 +2,9 @@
   "streams": {
     "triggerStream": "CREATE STREAM triggerStream () WITH (TYPE=\"mqtt\", FORMAT=\"json\", DATASOURCE=\"trigger\", SHARED=\"TRUE\")",
     "queryStream": "CREATE STREAM queryStream () WITH (TYPE=\"nanoquery\", FORMAT=\"spi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\")",
-    "spiStream": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"true\")",
-    "spi_1000ms_stream": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")",
-    "spi_200ms_stream": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")",
+    "spiStream": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"true\")",
+    "spi_1000ms_stream": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canspi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")",
+    "spi_200ms_stream": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canspi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")",
     "celltStream": "CREATE STREAM celltStream() WITH (TYPE=\"mqtt\",FORMAT=\"cellt\",DATASOURCE=\"batttsnsr\", SHARED=\"true\");",
     "celluStream": "CREATE STREAM celluStream() WITH (TYPE=\"mqtt\",FORMAT=\"cellu\",DATASOURCE=\"battcell\", SHARED=\"true\");",
     "sigStream": "CREATE STREAM sigStream () WITH (TYPE=\"mqtt\", FORMAT=\"sigl\", DATASOURCE=\"signal\", SHARED=\"TRUE\")"

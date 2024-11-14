@@ -58,7 +58,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare periodic rule
 	// Create stream
 	s.Run("creating stream spiOneSec", func() {
-		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiOneSec() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\", CONF_KEY=\"spi_1sec\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -74,7 +74,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 	/// Prepare fetch rule
 	// Create stream
 	s.Run("creating stream spi", func() {
-		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"dbc\/gee\/gee.json\", SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
@@ -230,7 +230,7 @@ func (s *GeeTestSuite) TestSPIRules() {
 }
 
 func pubSpi(client mqtt.Client, s string) {
-	topic := "canudp"
+	topic := "canspi"
 	interval := 1000
 	fmt.Printf("start publishing to %s, topic %s with interval %d ms\n", MQTTBroker, topic, interval)
 	count := 1

@@ -7,7 +7,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canudp\",SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"true\")"
+  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"true\")"
 }
 
 ### 电池电压流
@@ -39,7 +39,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")"
+  "sql": "CREATE STREAM spi_1000ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canspi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_1000ms\")"
 }
 
 ### 1s降采样流
@@ -47,7 +47,7 @@ POST http://{{host}}/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canudp\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")"
+  "sql": "CREATE STREAM spi_200ms_stream () WITH (TYPE=\"mqtt\", FORMAT=\"spi\", DATASOURCE=\"canspi\", SCHEMAID=\"data\/uploads\/dbc\", SHARED=\"TRUE\", CONF_KEY=\"spi_200ms\")"
 }
 
 ### 创建长期运行的唯一触发流，用于接收云端的查询请求
