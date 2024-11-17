@@ -396,7 +396,11 @@ Content-Type: application/json
         "sendSingle": true
       }
     }
-  ]
+  ],
+  "options": {
+    "sendError": false,
+    "notifySub": true
+  }
 }
 
 ##### 场景4 历史查询
