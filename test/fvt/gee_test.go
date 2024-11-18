@@ -395,7 +395,7 @@ func (s *GeeTestSuite) TestHistoryQuery() {
 		}
 	})
 	s.Run("creating queryStream", func() {
-		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json\",SHARED=\"true\");"}`
+		streamJson := `{"sql": "CREATE STREAM queryStream() WITH (TYPE=\"nanoquery\",FORMAT=\"spi\",SCHEMAID=\"dbc\/gee\/gee.json;1\",SHARED=\"true\");"}`
 		resp, err := client.CreateStream(streamJson)
 		s.Require().NoError(err)
 		ok := s.Equal(201, resp.StatusCode)
