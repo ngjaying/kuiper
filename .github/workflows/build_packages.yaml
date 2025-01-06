@@ -33,7 +33,7 @@ jobs:
     strategy:
       matrix:
         golang:
-          - 1.23.1
+          - 1.23.4
         arch: ${{fromJson(needs.prepare.outputs.arch)}}
 
     steps:
@@ -59,7 +59,7 @@ jobs:
               --env KUIPER_SOURCE='/ekuiper' \
               --platform ${{ matrix.arch }} \
               ghcr.io/lf-edge/ekuiper/base:${{ matrix.golang }}-debian \
-              bash -euc "apt-get update && apt-get install -y rsync && git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_ex && make pkg_sdv && make pkg_gee"
+              bash -euc "apt-get update && apt-get install -y rsync && git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_ex && make pkg_sdv"
           fi
       - name: create sha file
         run: |

@@ -1,13 +1,13 @@
 module github.com/emqx/ekuiper_build
 
-go 1.23.1
+go 1.23.4
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
 	github.com/emqx/ekuiper_can v1.2.7-0.20241121062157-cc9b4980fb42
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0
-	github.com/lf-edge/ekuiper/v2 v2.0.1-0.20241118025248-9a4bfa22301d
+	github.com/lf-edge/ekuiper/v2 v2.1.0-alpha.2
 	github.com/stretchr/testify v1.9.0
 	github.com/udhos/equalfile v0.3.0
 	go.nanomsg.org/mangos/v3 v3.4.2
@@ -69,6 +69,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/internal/s3shared v1.17.5 // indirect
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.53.1 // indirect
 	github.com/aws/smithy-go v1.20.2 // indirect
+	github.com/beevik/etree v1.4.1 // indirect
 	github.com/beltran/gohive v1.6.0 // indirect
 	github.com/beltran/gosasl v0.0.0-20231124144235-92b2e4f10bb6 // indirect
 	github.com/beltran/gssapi v0.0.0-20200324152954-d86554db4bab // indirect
@@ -100,6 +101,7 @@ require (
 	github.com/dop251/goja v0.0.0-20240828124009-016eb7256539 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/dvsekhvalnov/jose2go v1.6.0 // indirect
+	github.com/eclipse/paho.golang v0.21.0 // indirect
 	github.com/edgexfoundry/go-mod-core-contracts/v3 v3.1.0 // indirect
 	github.com/edgexfoundry/go-mod-messaging/v3 v3.1.0 // indirect
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
@@ -109,7 +111,7 @@ require (
 	github.com/envoyproxy/go-control-plane v0.12.1-0.20240621013728-1eb8caab5155 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.0.4 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
-	github.com/fsnotify/fsnotify v1.7.0 // indirect
+	github.com/fsnotify/fsnotify v1.8.0 // indirect
 	github.com/fullsailor/pkcs7 v0.0.0-20190404230743-d7302db945fa // indirect
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.5 // indirect
@@ -195,7 +197,7 @@ require (
 	github.com/kardianos/osext v0.0.0-20190222173326-2bc1f35cddc0 // indirect
 	github.com/kataras/go-events v0.0.3 // indirect
 	github.com/keepeye/logrus-filename v0.0.0-20190711075016-ce01a4391dd1 // indirect
-	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
+	github.com/klauspost/cpuid/v2 v2.2.7 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/lestrrat-go/strftime v1.1.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
@@ -310,15 +312,15 @@ require (
 	go.uber.org/automaxprocs v1.5.3 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/crypto v0.27.0 // indirect
+	golang.org/x/crypto v0.31.0 // indirect
 	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 // indirect
 	golang.org/x/mod v0.21.0 // indirect
 	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/oauth2 v0.22.0 // indirect
-	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/sys v0.25.0 // indirect
-	golang.org/x/term v0.24.0 // indirect
-	golang.org/x/text v0.18.0 // indirect
+	golang.org/x/sync v0.10.0 // indirect
+	golang.org/x/sys v0.28.0 // indirect
+	golang.org/x/term v0.27.0 // indirect
+	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.6.0 // indirect
 	golang.org/x/tools v0.25.0 // indirect
 	golang.org/x/xerrors v0.0.0-20240716161551-93cc26a95ae9 // indirect
@@ -336,15 +338,15 @@ require (
 	gopkg.in/jcmturner/rpc.v1 v1.1.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	howett.net/plist v0.0.0-20181124034731-591f970eefbb // indirect
-	modernc.org/b v1.0.4 // indirect
-	modernc.org/db v1.0.8 // indirect
-	modernc.org/file v1.0.7 // indirect
+	modernc.org/b v1.1.0 // indirect
+	modernc.org/db v1.0.10 // indirect
+	modernc.org/file v1.0.8 // indirect
 	modernc.org/fileutil v1.3.0 // indirect
 	modernc.org/gc/v3 v3.0.0-20240801135723-a856999a2e4a // indirect
-	modernc.org/golex v1.0.5 // indirect
-	modernc.org/internal v1.0.7 // indirect
+	modernc.org/golex v1.1.0 // indirect
+	modernc.org/internal v1.1.0 // indirect
 	modernc.org/libc v1.60.1 // indirect
-	modernc.org/lldb v1.0.4 // indirect
+	modernc.org/lldb v1.0.8 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.8.0 // indirect
 	modernc.org/ql v1.4.7 // indirect
@@ -352,7 +354,7 @@ require (
 	modernc.org/sqlite v1.33.1 // indirect
 	modernc.org/strutil v1.2.0 // indirect
 	modernc.org/token v1.1.0 // indirect
-	modernc.org/zappy v1.0.5 // indirect
+	modernc.org/zappy v1.1.0 // indirect
 	nhooyr.io/websocket v1.8.17 // indirect
 	sqlflow.org/gohive v0.0.0-20240730014249-8960223660e2 // indirect
 	sqlflow.org/gomaxcompute v0.0.0-20210805062559-c14ae028b44c // indirect
