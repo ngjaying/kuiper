@@ -1,4 +1,4 @@
-// Copyright 2024 EMQ Technologies Co., Ltd.
+// Copyright 2024-2025 EMQ Technologies Co., Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -15,13 +15,20 @@
 package node
 
 import (
+	"context"
 	"fmt"
 	"time"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
+	"github.com/pingcap/failpoint"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/lf-edge/ekuiper/v2/internal/pkg/def"
+	topoContext "github.com/lf-edge/ekuiper/v2/internal/topo/context"
+	"github.com/lf-edge/ekuiper/v2/internal/topo/node/batcher"
+	"github.com/lf-edge/ekuiper/v2/internal/topo/node/tracenode"
 	"github.com/lf-edge/ekuiper/v2/internal/xsql"
+	"github.com/lf-edge/ekuiper/v2/pkg/ast"
 	"github.com/lf-edge/ekuiper/v2/pkg/infra"
 	"github.com/lf-edge/ekuiper/v2/pkg/timex"
 )
@@ -32,10 +39,16 @@ type BatchOp struct {
 	batchSize      int
 	lingerInterval time.Duration
 	// state
-	currIndex int
+	batcher batcher.Batcher
+
+	nextLink    trace.Link
+	nextSpanCtx context.Context
+	nextSpan    trace.Span
+	rowHandle   map[xsql.Row]trace.Span
+	currIndex   int
 }
 
-func NewBatchOp(name string, rOpt *def.RuleOption, batchSize int, lingerInterval time.Duration) (*BatchOp, error) {
+func NewBatchOp(name string, rOpt *def.RuleOption, batchSize int, lingerInterval time.Duration, columnar bool, schema map[string]*ast.JsonStreamField) (*BatchOp, error) {
 	if batchSize < 1 && lingerInterval < 1 {
 		return nil, fmt.Errorf("either batchSize or lingerInterval should be larger than 0")
 	}
@@ -43,15 +56,19 @@ func NewBatchOp(name string, rOpt *def.RuleOption, batchSize int, lingerInterval
 		defaultSinkNode: newDefaultSinkNode(name, rOpt),
 		batchSize:       batchSize,
 		lingerInterval:  lingerInterval,
+		currIndex:       0,
+		rowHandle:       make(map[xsql.Row]trace.Span),
 	}
 	if batchSize == 0 {
 		batchSize = 1024
 	}
+	o.batcher = batcher.GetBatcher(columnar, batchSize, schema)
 	return o, nil
 }
 
 func (b *BatchOp) Exec(ctx api.StreamContext, errCh chan<- error) {
 	b.prepareExec(ctx, errCh, "op")
+	b.handleNextWindowTupleSpan(ctx)
 	switch {
 	case b.batchSize > 0 && b.lingerInterval > 0:
 		b.runWithTickerAndBatchSize(ctx, errCh)
@@ -77,7 +94,7 @@ func (b *BatchOp) runWithTickerAndBatchSize(ctx api.StreamContext, errCh chan<- 
 				case d := <-b.input:
 					b.ingest(ctx, d, true)
 				case <-ticker.C:
-					b.sendBatchEnd(ctx)
+					b.send(ctx)
 				}
 			}
 		})
@@ -92,26 +109,50 @@ func (b *BatchOp) ingest(ctx api.StreamContext, item any, checkSize bool) {
 	if processed {
 		return
 	}
-	// If receive EOF, sendBatchEnd out the result immediately. Only work with single stream
+	// If receive EOF, send out the result immediately. Only work with single stream
 	if _, ok := data.(xsql.EOFTuple); ok {
-		b.sendBatchEnd(ctx)
+		b.send(ctx)
 		b.Broadcast(data)
 		return
 	}
 	b.onProcessStart(ctx, data)
-	b.Broadcast(data)
-	b.onSend(ctx, data)
+	switch input := data.(type) {
+	case xsql.Row:
+		b.handleTraceIngest(ctx, input)
+		b.batcher.Ingest(ctx, input)
+	case xsql.Collection:
+		_ = input.Range(func(i int, r xsql.ReadonlyRow) (bool, error) {
+			x := r.(xsql.Row)
+			b.handleTraceIngest(ctx, x)
+			b.batcher.Ingest(ctx, x)
+			return true, nil
+		})
+	default:
+		ctx.GetLogger().Errorf("run batch error: invalid data type %T", input)
+	}
 	b.currIndex++
 	if checkSize && b.currIndex >= b.batchSize {
-		b.sendBatchEnd(ctx)
+		b.send(ctx)
 	}
+	// For batching operator, do not end the span immediately so set it to nil
+	b.span = nil
 	b.onProcessEnd(ctx)
+	b.statManager.SetBufferLength(int64(len(b.input) + b.currIndex))
 }
 
-func (b *BatchOp) sendBatchEnd(ctx api.StreamContext) {
-	ctx.GetLogger().Debugf("send batch end")
-	b.Broadcast(xsql.BatchEOFTuple(time.Now()))
-	// Reset buffer
+func (b *BatchOp) send(ctx api.StreamContext) {
+	if b.batcher.Len(ctx) < 1 {
+		return
+	}
+	failpoint.Inject("injectPanic", func() {
+		panic("shouldn't send message when empty")
+	})
+	result := b.batcher.Flush(ctx)
+	if wt, ok := result.(*xsql.WindowTuples); ok {
+		b.handleTraceEmitTuple(ctx, wt)
+	}
+	b.Broadcast(result)
+	b.onSend(ctx, result)
 	b.currIndex = 0
 }
 
@@ -151,7 +192,7 @@ func (b *BatchOp) runWithTicker(ctx api.StreamContext, errCh chan<- error) {
 				case d := <-b.input:
 					b.ingest(ctx, d, false)
 				case <-ticker.C:
-					b.sendBatchEnd(ctx)
+					b.send(ctx)
 				}
 			}
 		})
@@ -159,4 +200,44 @@ func (b *BatchOp) runWithTicker(ctx api.StreamContext, errCh chan<- error) {
 			infra.DrainError(ctx, err, errCh)
 		}
 	}()
+}
+
+func (b *BatchOp) handleNextWindowTupleSpan(ctx api.StreamContext) {
+	traced, spanCtx, span := tracenode.StartTraceBackground(ctx, "batch_op")
+	if traced {
+		b.nextSpanCtx = spanCtx
+		b.nextSpan = span
+		b.nextLink = trace.Link{
+			SpanContext: span.SpanContext(),
+		}
+	}
+}
+
+func (b *BatchOp) handleTraceIngest(_ api.StreamContext, row xsql.Row) {
+	if b.span != nil {
+		b.rowHandle[row] = b.span
+	}
+}
+
+func (b *BatchOp) handleTraceEmitTuple(ctx api.StreamContext, wt *xsql.WindowTuples) {
+	if ctx.IsTraceEnabled() {
+		if b.nextSpan == nil {
+			b.handleNextWindowTupleSpan(ctx)
+		}
+		for _, row := range wt.Content {
+			span, stored := b.rowHandle[row]
+			if stored {
+				span.AddLink(b.nextLink)
+				span.End()
+				delete(b.rowHandle, row)
+			}
+		}
+		wt.SetTracerCtx(topoContext.WithContext(b.nextSpanCtx))
+		// discard span if windowTuple is empty
+		if len(wt.Content) > 0 {
+			tracenode.RecordRowOrCollection(wt, b.nextSpan)
+			b.nextSpan.End()
+		}
+		b.handleNextWindowTupleSpan(ctx)
+	}
 }

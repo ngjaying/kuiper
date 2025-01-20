@@ -172,9 +172,18 @@ func splitSink(tp *topo.Topo, s api.Sink, sinkName string, options *def.RuleOpti
 	index := 0
 	result := make([]node.TopNode, 0)
 	batchEnabled := sc.BatchSize > 0 || sc.LingerInterval > 0
+	streamBatch := batchEnabled && !sc.BatchColumnar
+	columnarBatch := batchEnabled && sc.BatchColumnar
 	// Batch enabled
-	if batchEnabled {
-		batchOp, err := node.NewBatchOp(fmt.Sprintf("%s_%d_batch", sinkName, index), options, sc.BatchSize, time.Duration(sc.LingerInterval))
+	if streamBatch {
+		batchOp, err := node.NewBatchOp(fmt.Sprintf("%s_%d_batch", sinkName, index), options, sc.BatchSize, time.Duration(sc.LingerInterval), false, nil)
+		if err != nil {
+			return nil, err
+		}
+		index++
+		result = append(result, batchOp)
+	} else if columnarBatch {
+		batchOp, err := node.NewBatchOp(fmt.Sprintf("%s_%d_batch", sinkName, index), options, sc.BatchSize, time.Duration(sc.LingerInterval), sc.BatchColumnar, schema)
 		if err != nil {
 			return nil, err
 		}
@@ -189,7 +198,7 @@ func splitSink(tp *topo.Topo, s api.Sink, sinkName string, options *def.RuleOpti
 	}
 	index++
 	result = append(result, transformOp)
-	if batchEnabled {
+	if streamBatch {
 		batchWriterOp, err := node.NewBatchWriterOp(tp.GetContext(), fmt.Sprintf("%s_%d_batchWriter", sinkName, index), options, schema, sc)
 		if err != nil {
 			return nil, err
@@ -199,7 +208,7 @@ func splitSink(tp *topo.Topo, s api.Sink, sinkName string, options *def.RuleOpti
 	}
 	// Encode will convert the result to []byte
 	if _, ok := s.(api.BytesCollector); ok {
-		if !batchEnabled {
+		if !streamBatch {
 			encodeOp, err := node.NewEncodeOp(tp.GetContext(), fmt.Sprintf("%s_%d_encode", sinkName, index), options, sc)
 			if err != nil {
 				return nil, err
