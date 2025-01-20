@@ -1,4 +1,4 @@
-// Copyright 2024 EMQ Technologies Co., Ltd.
+// Copyright 2024-2025 EMQ Technologies Co., Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ package modules
 
 import (
 	"github.com/lf-edge/ekuiper/contract/v2/api"
+	"github.com/lf-edge/ekuiper/v2/extensions/impl/onnx"
 
 	"github.com/emqx/ekuiper_can/io/file_hook/cime"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/image"
@@ -57,5 +58,8 @@ func init() {
 	})
 	modules.RegisterConverter("canjson", func(ctx api.StreamContext, dbcFile string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return canjson.NewConverter(ctx, dbcFile, logicalSchema, props)
+	})
+	modules.RegisterFunc("onnx", func() api.Function {
+		return &onnx.OnnxFunc{}
 	})
 }

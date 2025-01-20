@@ -7,7 +7,7 @@ require (
 	github.com/emqx/ekuiper_can v1.2.7-0.20241121062157-cc9b4980fb42
 	github.com/klauspost/compress v1.17.9
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0
-	github.com/lf-edge/ekuiper/v2 v2.1.0-alpha.2
+	github.com/lf-edge/ekuiper/v2 v2.1.0-beta.1
 	github.com/stretchr/testify v1.9.0
 	github.com/udhos/equalfile v0.3.0
 	go.nanomsg.org/mangos/v3 v3.4.2
@@ -283,6 +283,7 @@ require (
 	github.com/uber-go/tally v3.3.17+incompatible // indirect
 	github.com/uber/athenadriver v1.1.15 // indirect
 	github.com/ugorji/go/codec v1.2.12 // indirect
+	github.com/utahta/go-cronowriter v1.2.0 // indirect
 	github.com/valyala/fastjson v1.6.4 // indirect
 	github.com/vertica/vertica-sql-go v1.3.3 // indirect
 	github.com/x448/float16 v0.8.4 // indirect
@@ -291,6 +292,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
+	github.com/yalue/onnxruntime_go v1.9.0 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect

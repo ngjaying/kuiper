@@ -285,7 +285,7 @@ pkg_gee: build_gee
 build_fvt: SHELL:=/bin/bash -euo pipefail
 build_fvt: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee sdv ex" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee sdv ex" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc"
 	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
