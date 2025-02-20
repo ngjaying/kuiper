@@ -1384,8 +1384,8 @@ github.com/lestrrat-go/strftime v1.1.0/go.mod h1:uzeIB52CeUJenCo1syghlugshMysrqU
 github.com/lestrrat/go-envload v0.0.0-20180220120943-6ed08b54a570/go.mod h1:BLt8L9ld7wVsvEWQbuLrUZnCMnUmLZ+CGDzKtclrTlE=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0 h1:MJB4ZDG099rbHRYxry0X1Iu79kgMVencHd7YX80N1dw=
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0/go.mod h1:Y8QwH4jJHqpx3id9mCp7KYS3gKmHtE5NKYeZ3ZK7C2E=
-github.com/lf-edge/ekuiper/v2 v2.1.0-beta.2.0.20250213101257-711b8493c840 h1:dATnn3CK3j5raQFyBOhRRpf/6CWz0hAm+BiB1MuWXUE=
-github.com/lf-edge/ekuiper/v2 v2.1.0-beta.2.0.20250213101257-711b8493c840/go.mod h1:1grs/TY31nZW6BU6CHzLN49LC12zCuy3TQ9dmytqEgE=
+github.com/lf-edge/ekuiper/v2 v2.1.0-beta.3 h1:k7y/cSffEyLtFjxBwzzONHWteUOrc0ioGdyxwpreWjE=
+github.com/lf-edge/ekuiper/v2 v2.1.0-beta.3/go.mod h1:1grs/TY31nZW6BU6CHzLN49LC12zCuy3TQ9dmytqEgE=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
