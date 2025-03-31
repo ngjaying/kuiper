@@ -37,7 +37,7 @@ jobs:
     steps:
       - uses: actions/setup-go@v3
         with:
-          go-version: '1.23'
+          go-version: '1.24'
       - name: set git token
         run: git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
       - uses: actions/checkout@v4
