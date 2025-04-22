@@ -15,10 +15,24 @@ TARGET ?= lfedge/ekuiper
 export KUIPER_SOURCE := $(shell pwd)
 
 # Get cached eKuiper dir
-MODULE_PATH := github.com/lf-edge/ekuiper/v2
+MODULE := github.com/lf-edge/ekuiper/v2
 GO_MOD_CACHE := $(shell go env GOMODCACHE)
-EK_VERSION := $(shell go list -m $(MODULE_PATH) | awk -F' ' '{print $$2}')
-EK_DIR := $(GO_MOD_CACHE)/$(MODULE_PATH)@$(EK_VERSION)
+
+# Get the effective module and version, handling replacement output
+EK_INFO := $(shell go list -m $(MODULE) | awk '{ if ($$3 == "=>") print $$4 " " $$5; else print $$1 " " $$2 }')
+EK_MODULE := $(word 1,$(EK_INFO))
+EK_VERSION := $(word 2,$(EK_INFO))
+
+# Use MODULE for EK_DIR, as Go caches under the original path
+EK_DIR := $(GO_MOD_CACHE)/$(EK_MODULE)@$(EK_VERSION)
+
+# Debugging output
+print-vars:
+	@echo "MODULE: $(MODULE)"
+	@echo "GO_MOD_CACHE: $(GO_MOD_CACHE)"
+	@echo "EK_MODULE: $(EK_MODULE)"
+	@echo "EK_VERSION: $(EK_VERSION)"
+	@echo "EK_DIR: $(EK_DIR)"
 
 .PHONY: build
 build: build_ex
