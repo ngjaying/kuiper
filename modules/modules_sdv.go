@@ -1,4 +1,4 @@
-// Copyright 2024 EMQ Technologies Co., Ltd.
+// Copyright 2024-2025 EMQ Technologies Co., Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 package modules
 
 import (
+	"github.com/emqx/ekuiper_can/hack"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
@@ -25,7 +26,6 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/modules"
 
 	converterCan "github.com/emqx/ekuiper_can/converter/can"
-	"github.com/emqx/ekuiper_can/converter/canbin"
 	"github.com/emqx/ekuiper_can/converter/canjson"
 	"github.com/emqx/ekuiper_can/converter/json_can_merger"
 	"github.com/emqx/ekuiper_can/io/can"
@@ -35,22 +35,14 @@ import (
 )
 
 func init() {
+	hack.SetDefaultNS2([]string{"223.5.5.5:53", "8.8.8.8:53"})
+	hack.FixTimezone()
 	// From LF
 	modules.RegisterSource("video", video.GetSource)
 	// From Others
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return converterCan.NewConverter(ctx, dbcFile, schema)
-	})
-	modules.RegisterConverter("canpacket", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
-		return canbin.NewCanPacketFormat(ctx, dbcFile, schema)
-	})
-	modules.RegisterConverter("canmsg", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
-		return canbin.NewCanMsgFormat(ctx, dbcFile, schema)
-	})
-	modules.RegisterMerger("canmsg", func(ctx api.StreamContext, payloadSchema string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
-		f, err := canbin.NewCanMsgFormat(ctx, payloadSchema, logicalSchema)
-		return f.(modules.Merger), err
 	})
 	modules.RegisterConverter("canjson", func(ctx api.StreamContext, dbcFile string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return canjson.NewConverter(ctx, dbcFile, logicalSchema, props)
