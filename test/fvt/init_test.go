@@ -1,4 +1,4 @@
-// Copyright 2024 EMQ Technologies Co., Ltd.
+// Copyright 2024-2025 EMQ Technologies Co., Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -22,6 +22,8 @@ import (
 	"path/filepath"
 	"strings"
 	"time"
+
+	"github.com/lf-edge/ekuiper/v2/fvt"
 )
 
 const (
@@ -37,7 +39,7 @@ const (
 var (
 	PWD    string
 	EKPWD  string
-	client *SDK
+	client *fvt.SDK
 )
 
 func init() {
@@ -68,7 +70,7 @@ func init() {
 		})
 	}
 	fmt.Println("Current EKPWD:", EKPWD)
-	client, err = NewSdk(URL)
+	client, err = fvt.NewSdk(URL)
 	if err != nil {
 		log.Fatal(err)
 	}

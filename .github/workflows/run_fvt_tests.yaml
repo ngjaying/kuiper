@@ -49,7 +49,7 @@ jobs:
       - name: run kuiper
         run: |
           bash ./test/setup_env.sh
-      - name: run gee integration tests
+      - name: run integration tests
         run: |
           go test ./test/fvt/...
       - uses: actions/setup-java@v3

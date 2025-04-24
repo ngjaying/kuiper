@@ -1,4 +1,4 @@
-// Copyright 2024 EMQ Technologies Co., Ltd.
+// Copyright 2024-2025 EMQ Technologies Co., Ltd.
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -116,13 +116,13 @@ func (s *CIMETestSuite) TestGuangdong() {
 		try := 10
 		for i := 0; i < try; i++ {
 			time.Sleep(100 * time.Millisecond)
-			metrics, err := client.GetRulStatus("ruleCimE")
+			metrics, err := client.GetRuleStatus("ruleCimE")
 			s.NoError(err)
 			if metrics["status"] == "stopped" {
 				break
 			}
 		}
-		metrics, err := client.GetRulStatus("ruleCimE")
+		metrics, err := client.GetRuleStatus("ruleCimE")
 		s.NoError(err)
 		s.T().Log(metrics)
 		s.Require().Equal("stopped", metrics["status"])
@@ -215,13 +215,13 @@ func (s *CIMETestSuite) TestHenan() {
 		try := 10
 		for i := 0; i < try; i++ {
 			time.Sleep(100 * time.Millisecond)
-			metrics, err := client.GetRulStatus("ruleCimE")
+			metrics, err := client.GetRuleStatus("ruleCimE")
 			s.NoError(err)
 			if metrics["status"] == "stopped" {
 				break
 			}
 		}
-		metrics, err := client.GetRulStatus("ruleCimE")
+		metrics, err := client.GetRuleStatus("ruleCimE")
 		s.NoError(err)
 		s.T().Log(metrics)
 		s.Require().Equal("stopped", metrics["status"])
@@ -313,13 +313,13 @@ func (s *CIMETestSuite) TestHubei() {
 		try := 10
 		for i := 0; i < try; i++ {
 			time.Sleep(100 * time.Millisecond)
-			metrics, err := client.GetRulStatus("ruleCimE")
+			metrics, err := client.GetRuleStatus("ruleCimE")
 			s.NoError(err)
 			if metrics["status"] == "stopped" {
 				break
 			}
 		}
-		metrics, err := client.GetRulStatus("ruleCimE")
+		metrics, err := client.GetRuleStatus("ruleCimE")
 		s.NoError(err)
 		s.T().Log(metrics)
 		s.Require().Equal("stopped", metrics["status"])

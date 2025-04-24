@@ -221,42 +221,15 @@ pkg_sdv: build_sdv
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-sdv.tar.gz $(PACKAGES_PATH)
 	@echo "Package for SDV flow success"
 
-META_IN_GEE := \
-	etc/sinks/file.json \
-	etc/sinks/log.json \
-	etc/sinks/memory.json \
-	etc/sinks/mqtt.json \
-	etc/sinks/neuron.json \
-	etc/sinks/nop.json \
-	etc/sinks/rest.json \
-	etc/sinks/websocket.json \
-	etc/sources/file.json \
-	etc/sources/file.yaml \
-	etc/sources/httppull.json \
-	etc/sources/httppull.yaml \
-	etc/sources/httppush.json \
-	etc/sources/httppush.yaml \
-	etc/sources/memory.json \
-	etc/sources/memory.yaml \
-	etc/sources/neuron.json \
-	etc/sources/neuron.yaml \
-	etc/sources/simulator.json \
-	etc/sources/simulator.yaml \
-	etc/sources/websocket.yaml
-
-EXT_IN_GEE := \
-	sources/nano.yaml \
-	sources/nanoquery.yaml
-
-.PHONY: build_gee
-build_gee: SHELL:=/bin/bash -euo pipefail
-build_gee: build_prepare
+.PHONY: build_fvt
+build_fvt: SHELL:=/bin/bash -euo pipefail
+build_fvt: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee" -pgo=gee.pgo -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION) -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus sdv ex" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
-	@echo "Overwrite etc"
+	@echo "Overwrite etc from LF"
 	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
-	@echo $(META_IN_GEE) | tr ' ' '\n' | while read meta; do \
+	@echo $(META_IN_SDV) | tr ' ' '\n' | while read meta; do \
 		echo "Meta: $${meta}"; \
 		file_path=$(EK_DIR)/$${meta}; \
 		if [[ $${meta} == extensions/* ]]; then \
@@ -273,7 +246,7 @@ build_gee: build_prepare
 		fi \
 	done
 	@echo "Overwrite etc from ext"
-	@echo $(EXT_IN_GEE) | tr ' ' '\n' | while read plugin; do \
+	@echo $(EXT_IN_SDV) | tr ' ' '\n' | while read plugin; do \
 		file_path=etc/$${plugin}; \
 		if [ "$$(basename $${plugin} | cut -d. -f2)" = "json" ]; then \
 		  rm -f $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
@@ -282,46 +255,7 @@ build_gee: build_prepare
 		  cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
 		fi \
 	done
-	@rsync -av --checksum etc_gee/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
-	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc
-	@jq -c . dbc/gee/gee.json > $(BUILD_PATH)/$(PACKAGE_NAME)/data/uploads/dbc/gee.json
-	@jq -c . init/gee/init.json > $(BUILD_PATH)/$(PACKAGE_NAME)/data/init.json
-	@echo "Build successfully"
-
-.PHONY: pkg_gee
-pkg_gee: build_gee
-	@mkdir -p $(PACKAGES_PATH)
-	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-gee.tar.gz $(PACKAGE_NAME)
-	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-gee.tar.gz $(PACKAGES_PATH)
-	@echo "Package for Gee successful"
-
-.PHONY: build_fvt
-build_fvt: SHELL:=/bin/bash -euo pipefail
-build_fvt: build_prepare
-	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_gee -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core compression ui prometheus gee sdv ex" -o kuiperd main.go
-	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
-	@echo "Overwrite etc"
-	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
-	@echo $(META_IN_GEE) | tr ' ' '\n' | while read meta; do \
-		echo "Meta: $${meta}"; \
-		file_path=$(EK_DIR)/$${meta}; \
-		if [[ $${meta} == extensions/* ]]; then \
-			new_path=$$(echo $${meta} | sed 's/^extensions/etc/' | awk -F'/' '{print $$1 "/" $$2 "/" $$4}'); \
-		else \
-			new_path=$${meta}; \
-		fi; \
-		echo "New path: $${new_path}"; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${new_path}; \
-	done
-	@echo "Overwrite etc from ext"
-	@echo $(EXT_IN_GEE) | tr ' ' '\n' | while read plugin; do \
-		file_path=etc/$${plugin}; \
-		cp -f $${file_path} $(BUILD_PATH)/$(PACKAGE_NAME)/$${file_path}; \
-	done
-	@rsync -av --checksum etc_gee/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
-	@mkdir -p $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee
-	@cp dbc/gee/gee.json $(BUILD_PATH)/$(PACKAGE_NAME)/dbc/gee/
+	@rsync -av --checksum etc_sdv/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
 	@echo "Build successfully"
 
 .PHONY: real_pkg
