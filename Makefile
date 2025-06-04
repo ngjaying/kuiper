@@ -89,6 +89,7 @@ META_IN_EX := \
 	etc/sources/redisSub.yaml \
 	etc/sources/simulator.json \
 	etc/sources/simulator.yaml \
+	etc/sources/websocket.json \
 	etc/sources/websocket.yaml \
 	extensions/sources/sql/sql.yaml \
 	extensions/sources/sql/sql.json \
