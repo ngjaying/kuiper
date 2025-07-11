@@ -1,0 +1,21 @@
+{
+  "id": "write",
+  "name": "cloud To Edge Data Ingestion",
+  "sql": "SELECT uId, action as identifier, to_json(*) as data FROM sim",
+  "actions": [
+    {
+      "sql": {
+        "connectionSelector": "sqlc",
+        "fields": [
+          "uId",
+          "data"
+        ],
+        "format": "json",
+        "keyField": "uId",
+        "rowkindField": "identifier",
+        "sendSingle": true,
+        "table": "assetInfo"
+      }
+    }
+  ]
+}

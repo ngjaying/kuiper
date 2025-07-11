@@ -1,0 +1,10 @@
+{
+  "id": "read",
+  "name": "Read SQL Data",
+  "sql": "SELECT * FROM sqLiteStream",
+  "actions": [
+    {
+      "log": {}
+    }
+  ]
+}

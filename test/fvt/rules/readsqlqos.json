@@ -1,0 +1,15 @@
+{
+  "id": "readq",
+  "name": "Read SQL Data",
+  "sql": "SELECT * FROM index_sqlcdcstream",
+  "actions": [
+    {
+      "log": {}
+    }
+  ],
+  "options": {
+    "qos": 1,
+    "checkpointInterval": "1m",
+    "enableSaveStateBeforeStop": true
+  }
+}

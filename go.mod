@@ -1,12 +1,12 @@
 module github.com/emqx/ekuiper_build
 
-go 1.24.1
+go 1.24.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
 	github.com/emqx/ekuiper_can v1.3.2-0.20250610031749-f5215c96590d
 	github.com/lf-edge/ekuiper/contract/v2 v2.0.0
-	github.com/lf-edge/ekuiper/v2 v2.2.0-alpha.5
+	github.com/lf-edge/ekuiper/v2 v2.2.1-0.20250714025130-14c5b7ebf1cc
 	github.com/stretchr/testify v1.10.0
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -156,7 +156,7 @@ require (
 	github.com/googleapis/go-sql-spanner v1.7.1 // indirect
 	github.com/gorilla/handlers v1.5.2 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
-	github.com/gorilla/schema v1.3.0 // indirect
+	github.com/gorilla/schema v1.4.1 // indirect
 	github.com/gorilla/securecookie v1.1.2 // indirect
 	github.com/gorilla/websocket v1.5.3 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0 // indirect
@@ -289,7 +289,6 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
-	github.com/yalue/onnxruntime_go v1.9.0 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
@@ -367,6 +366,6 @@ replace github.com/segmentio/kafka-go => github.com/yisaer/kafka-go v0.0.0-20250
 //
 //replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/contract
 //
-//replace github.com/lf-edge/ekuiper/v2 => ../github.com/lfedge/ekuiper
+//replace github.com/lf-edge/ekuiper/v2 => ../lfek
 
 //replace github.com/emqx/can => ../can-go
