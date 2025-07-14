@@ -1387,6 +1387,8 @@ github.com/lf-edge/ekuiper/contract/v2 v2.0.0 h1:MJB4ZDG099rbHRYxry0X1Iu79kgMVen
 github.com/lf-edge/ekuiper/contract/v2 v2.0.0/go.mod h1:Y8QwH4jJHqpx3id9mCp7KYS3gKmHtE5NKYeZ3ZK7C2E=
 github.com/lf-edge/ekuiper/v2 v2.2.1-0.20250714025130-14c5b7ebf1cc h1:yl3Chc7HolPVtMEvOCeNc6xshnnK227Zv/XB+h8wlOQ=
 github.com/lf-edge/ekuiper/v2 v2.2.1-0.20250714025130-14c5b7ebf1cc/go.mod h1:DlCfNKdeOIiFl5R2ntplQ4qadjtortaXHdBeU4oPVng=
+github.com/lf-edge/ekuiper/v2 v2.2.1-0.20250714063310-37cc6053adb1 h1:zCigqOXFeHvCv4L34UJykrwMIAaala4rlAaojBX7Wzs=
+github.com/lf-edge/ekuiper/v2 v2.2.1-0.20250714063310-37cc6053adb1/go.mod h1:DlCfNKdeOIiFl5R2ntplQ4qadjtortaXHdBeU4oPVng=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
