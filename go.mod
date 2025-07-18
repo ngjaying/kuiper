@@ -289,6 +289,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
+	github.com/yalue/onnxruntime_go v1.9.0 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect

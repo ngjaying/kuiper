@@ -23,6 +23,7 @@ import (
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/influx"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/influx2"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/kafka"
+	"github.com/lf-edge/ekuiper/v2/extensions/impl/onnx"
 	sql2 "github.com/lf-edge/ekuiper/v2/extensions/impl/sql"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
@@ -57,7 +58,7 @@ func init() {
 	modules.RegisterConverter("canjson", func(ctx api.StreamContext, dbcFile string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return canjson.NewConverter(ctx, dbcFile, logicalSchema, props)
 	})
-	//modules.RegisterFunc("onnx", func() api.Function {
-	//	return &onnx.OnnxFunc{}
-	//})
+	modules.RegisterFunc("onnx", func() api.Function {
+		return &onnx.OnnxFunc{}
+	})
 }
