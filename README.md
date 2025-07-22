@@ -69,3 +69,9 @@ For full example, please refer to the [can module](https://github.com/emqx/ekuip
 Basically, unless the eKuiper module API changes, the module should be able to integrate with any version of eKuiper.
 
 To update the eKuiper or module version, you can modify the `go.mod` file directly or use the `go get` command.
+
+### How to update eKuiper_can
+
+```shell
+GOPRIVATE=github.com/emqx/ekuiper_can  go get github.com/emqx/ekuiper_can@<commit-id>
+```

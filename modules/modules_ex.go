@@ -18,6 +18,7 @@ package modules
 
 import (
 	"github.com/emqx/ekuiper_can/io/file_hook/cime"
+	"github.com/emqx/ekuiper_can/io/s3"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/image"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/influx"
@@ -60,5 +61,8 @@ func init() {
 	})
 	modules.RegisterFunc("onnx", func() api.Function {
 		return &onnx.OnnxFunc{}
+	})
+	modules.RegisterFileRollHook("s3", func() modules.RollHook {
+		return &s3.S3UploadHook{}
 	})
 }
