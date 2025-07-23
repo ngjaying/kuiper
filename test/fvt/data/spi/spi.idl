@@ -1,0 +1,13 @@
+module spi {
+    struct frame {
+        unsigned long id; // 4 字节 id
+        unsigned long len; // 4 字节 长度
+        sequence<octet> payload;  // len字节Payload
+    };
+
+    struct packet {
+        unsigned long long ts;            // 8字节 时间戳
+        unsigned short len;            // 2字节 总长度
+        @format(dbc="sim.json") sequence<frame> frames;
+    }
+}

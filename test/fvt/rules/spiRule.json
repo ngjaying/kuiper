@@ -1,0 +1,16 @@
+{
+  "id": "spi1",
+  "name": "Read SPI Data",
+  "sql": "SELECT ts, `ZCUDZCUCANFD2Fr36$BswAppVersion`, `Mess0$Mess0_Sig2` FROM spiStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "ek/result1",
+        "qos": 1,
+        "format": "json",
+        "sendSingle": true
+      }
+    }
+  ]
+}

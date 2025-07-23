@@ -1,0 +1,144 @@
+{
+  "version": "v1",
+  "source_file": "a.sdb",
+  "buses": [
+    {
+      "source_file": "sim.dbc",
+      "version": "v1",
+      "name": "PropulsionCAN",
+      "id": 1,
+      "messages": [
+        {
+          "name": "Mess0",
+          "id": 586,
+          "frameId": "0x24A",
+          "length": 8,
+          "signals": [
+            {
+              "name": "Mess0_Sig1",
+              "start": 1,
+              "length": 10,
+              "isBigEndian": true,
+              "isSigned": false,
+              "offset": 1,
+              "scale": 0,
+              "min": 0,
+              "max": 1023
+            },
+            {
+              "name": "Mess0_Sig2",
+              "start": 33,
+              "length": 10,
+              "isBigEndian": true,
+              "isSigned": false,
+              "offset": 1,
+              "scale": 0,
+              "min": 0,
+              "max": 1023
+            },
+            {
+              "name": "Mess0_Sig3",
+              "start": 39,
+              "length": 10,
+              "isBigEndian": true,
+              "isSigned": false,
+              "offset": 1,
+              "scale": 0,
+              "min": 0,
+              "max": 1023
+            }
+          ]
+        },
+        {
+          "signals": [
+            {
+              "unit": "",
+              "isSigned": false,
+              "name": "BswAppVersion",
+              "start": 7,
+              "length": 64,
+              "isBigEndian": true,
+              "scale": 1.0
+            },
+            {
+              "unit": "",
+              "isSigned": false,
+              "name": "BswCalVersion",
+              "start": 71,
+              "length": 64,
+              "isBigEndian": true,
+              "scale": 1.0
+            },
+            {
+              "unit": "",
+              "isSigned": false,
+              "name": "BswRervedSignal",
+              "start": 135,
+              "length": 32,
+              "isBigEndian": true,
+              "scale": 1.0
+            },
+            {
+              "unit": "",
+              "isSigned": false,
+              "name": "VcEvFehMsgRedPerf",
+              "start": 167,
+              "length": 16,
+              "isBigEndian": true,
+              "scale": 1.0
+            }
+          ],
+          "frameId": "0x4F0",
+          "name": "ZCUDZCUCANFD2Fr36",
+          "length": 64,
+          "id": 1264
+        },
+        {
+          "name": "Mess1",
+          "id": 1414,
+          "frameId": "0x586",
+          "length": 8,
+          "signals": [
+            {
+              "name": "Mess1_Sig1",
+              "start": 1,
+              "length": 10,
+              "isBigEndian": true,
+              "isSigned": false,
+              "offset": 1,
+              "scale": 0,
+              "min": 0,
+              "max": 1023
+            },
+            {
+              "name": "Mess1_Sig2",
+              "start": 33,
+              "length": 10,
+              "isBigEndian": true,
+              "isSigned": false,
+              "offset": 1,
+              "scale": 0,
+              "min": 0,
+              "max": 1023
+            },
+            {
+              "name": "Mess1_Sig3",
+              "start": 39,
+              "length": 10,
+              "isBigEndian": true,
+              "isSigned": false,
+              "offset": 1,
+              "scale": 0,
+              "min": 0,
+              "max": 1023,
+              "isMultiplexer": false,
+              "isMultiplexed": false,
+              "multiplexerValue": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

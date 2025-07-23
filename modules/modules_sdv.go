@@ -17,6 +17,7 @@
 package modules
 
 import (
+	"github.com/emqx/ekuiper_can/converter/spi"
 	"github.com/emqx/ekuiper_can/hack"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
@@ -40,6 +41,13 @@ func init() {
 	// From LF
 	modules.RegisterSource("video", video.GetSource)
 	// From Others
+	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+		return spi.NewSpi(ctx, idlPath, schema)
+	})
+	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
+		f, err := spi.NewSpi(ctx, idlPath, logicalSchema)
+		return f.(modules.Merger), err
+	})
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return converterCan.NewConverter(ctx, dbcFile, schema)
