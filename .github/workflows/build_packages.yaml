@@ -12,58 +12,85 @@ on:
       - published
 
 jobs:
-  prepare:
-    runs-on: ubuntu-latest
-    outputs:
-      arch: ${{ steps.arch.outputs.arch }}
-
-    steps:
-      - id: arch
-        run: |
-          if ${{ contains(fromJSON('["release", "workflow_dispatch"]'), github.event_name) }}; then
-            echo "arch=[\"linux/amd64\", \"linux/arm64\", \"linux/arm/v7\"]" >> $GITHUB_OUTPUT
-          else
-            echo "arch=[\"linux/amd64\"]" >> $GITHUB_OUTPUT
-          fi
-
   build:
     runs-on: ubuntu-24.04
-    needs: prepare
 
     strategy:
       matrix:
         golang:
-          - 1.24.1
-        arch: ${{fromJson(needs.prepare.outputs.arch)}}
+          - 1.24.5
+        target:
+          - { "goos": "linux", "goarch": "amd64", "cc": "gcc" }
+          - { "goos": "linux", "goarch": "arm64", "cc": "aarch64-linux-gnu-gcc" }
+          - { "goos": "linux", "goarch": "arm", "goarm": "7", "cc": "arm-linux-gnueabihf-gcc" }
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: docker/setup-qemu-action@v3
-      - uses: docker/setup-buildx-action@v3
-      - name: build binary packages
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: ${{ matrix.golang }}
+
+      - name: Install cross-compilation toolchains
         run: |
-          docker run -i --rm \
-              -v $(pwd):/ekuiper \
-              --workdir /ekuiper \
-              --env KUIPER_SOURCE='/ekuiper' \
-              --platform ${{ matrix.arch }} \
-              ghcr.io/lf-edge/ekuiper/base:${{ matrix.golang }}-debian \
-              bash -euc "apt-get update && apt-get install -y rsync && git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx" && git config --global --add safe.directory /ekuiper && make pkg_ex && make pkg_sdv"
+          sudo apt-get update
+          if [ "${{ matrix.target.goarch }}" = "arm64" ]; then
+            sudo apt-get install -y gcc-aarch64-linux-gnu
+          elif [ "${{ matrix.target.goarch }}" = "arm" ]; then
+            sudo apt-get install -y gcc-arm-linux-gnueabihf
+          fi
+          # Install any additional dependencies your project needs
+          sudo apt-get install -y rsync
+
+      - name: Configure git
+        run: |
+          git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
+          git config --global --add safe.directory $(pwd)
+
+      - name: Build binary packages
+        env:
+          GOOS: ${{ matrix.target.goos }}
+          GOARCH: ${{ matrix.target.goarch }}
+          GOARM: ${{ matrix.target.goarm }}
+          CC: ${{ matrix.target.cc }}
+          CGO_ENABLED: 1
+          KUIPER_SOURCE: ${{ github.workspace }}
+        run: |
+          # Set additional environment variables for cross-compilation if needed
+          if [ "${{ matrix.target.goarch }}" = "arm64" ]; then
+            export CC_FOR_TARGET=aarch64-linux-gnu-gcc
+            export CXX_FOR_TARGET=aarch64-linux-gnu-g++
+          elif [ "${{ matrix.target.goarch }}" = "arm" ]; then
+            export CC_FOR_TARGET=arm-linux-gnueabihf-gcc
+            export CXX_FOR_TARGET=arm-linux-gnueabihf-g++
+          fi
+          
+          # Run your build commands
+          make pkg_ex
+          make pkg_sdv
+
       - name: create sha file
         run: |
           cd _packages && for var in $(ls); do sudo bash -c "echo $(sha256sum $var | awk '{print $1}') > $var.sha256"; done && cd -
+
       - name: Set artifact name
         id: artifact_name
         env:
-          ARCH: ${{ matrix.arch }}
+          GOARCH: ${{ matrix.target.goarch }}
+          GOARM: ${{ matrix.target.goarm }}
           REF: ${{ github.ref_name }}
         run: |
-          arch=$(echo $ARCH | sed -r 's|linux/([a-z]*)(/.*)*|\1|g')
+          arch=$GOARCH
+          if [ "$GOARCH" = "arm" ] && [ -n "$GOARM" ]; then
+            arch="${GOARCH}v${GOARM}"
+          fi
           ref=$(echo ${REF/\//-})
-          artifact_name="kuiper-${ref}-${{ matrix.os }}-${arch}"
+          artifact_name="kuiper-${ref}-linux-${arch}"
           echo "artifact_name=$artifact_name" >> $GITHUB_OUTPUT
+
       - uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.artifact_name.outputs.artifact_name }}
