@@ -17,9 +17,15 @@
 package modules
 
 import (
+	"github.com/emqx/ekuiper_can/converter/avro"
+	"github.com/emqx/ekuiper_can/converter/jsonColStr"
+	"github.com/emqx/ekuiper_can/converter/ocf"
 	"github.com/emqx/ekuiper_can/converter/spi"
+	"github.com/emqx/ekuiper_can/dynconf"
+	"github.com/emqx/ekuiper_can/funcs"
 	"github.com/emqx/ekuiper_can/hack"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
+	"github.com/lf-edge/ekuiper/v2/pkg/props"
 
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
@@ -66,4 +72,20 @@ func init() {
 
 	modules.RegisterSource("nanoquery", query.GetSource)
 	modules.RegisterSink("nanoquery", query.GetQuerySink)
+	// Read in vin
+	props.InitProps()
+	dynconf.InitDynconfSub("tcp://127.0.0.1:1883", "ekprops", "$local/notification")
+	modules.RegisterConverter("avro", func(ctx api.StreamContext, avscPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+		return avro.NewConverter(ctx, avscPath, schema)
+	})
+	modules.RegisterWriterConverter("ocf", func(ctx api.StreamContext, avscPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.ConvertWriter, error) {
+		return ocf.NewWriter(ctx, avscPath, schema, props)
+	})
+	modules.RegisterWriterConverter("jsoncolstr", func(ctx api.StreamContext, _ string, schema map[string]*ast.JsonStreamField, _ map[string]any) (message.ConvertWriter, error) {
+		return jsonColStr.NewWriter(ctx, schema)
+	})
+	modules.RegisterConverter("jsoncolstr", func(ctx api.StreamContext, _ string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+		return jsonColStr.NewConverter(ctx, schema)
+	})
+	modules.RegisterFunc("bit", funcs.NewBitFunc)
 }
