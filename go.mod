@@ -4,9 +4,9 @@ go 1.24.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.3.2-0.20250723092203-36c60a3a03d8
+	github.com/emqx/ekuiper_can v1.3.2-0.20250730051835-0364e242e3e3
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.0
-	github.com/lf-edge/ekuiper/v2 v2.2.0-beta.1.0.20250723095448-2e58365a9016
+	github.com/lf-edge/ekuiper/v2 v2.2.0-beta.1.0.20250730061123-03df7f33e4ef
 	github.com/otiai10/copy v1.14.1
 	github.com/stretchr/testify v1.10.0
 	go.nanomsg.org/mangos/v3 v3.4.2
