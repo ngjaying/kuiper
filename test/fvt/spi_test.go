@@ -10,7 +10,6 @@ import (
 	"time"
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
-	"github.com/otiai10/copy"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -35,14 +34,15 @@ func (s *SpiTestSuite) TearDownTest() {
 }
 
 func (s *SpiTestSuite) TestIDLRules() {
-	s.Run("creating streams", func() {
-		// EKPWD = "C:/repo/go/ekbuild"
-		// Copy idl
-		srcName := filepath.Join(PWD, "test", "fvt", "data", "spi")
-		dstName := filepath.Join(EKPWD, "data", "uploads", "spi")
-		err := copy.Copy(srcName, dstName)
+	s.Run("creating schema", func() {
+		idlPath := filepath.Join(PWD, "test", "fvt", "data", "spi", "spi.zip")
+		idlUrl, err := FilePathToURL(idlPath)
 		s.Require().NoError(err)
-
+		resp, err := client.Post("schemas/idl", fmt.Sprintf(`{"name":"spi","type":"idl","file":"%s"}`, idlUrl))
+		s.Require().NoError(err)
+		s.Require().Equal(201, resp.StatusCode)
+	})
+	s.Run("creating streams", func() {
 		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spiStream.json"))
 		s.Require().NoError(err)
 		resp, err := client.CreateStream(string(streamJson))
@@ -92,12 +92,9 @@ func (s *SpiTestSuite) TestIDLRules() {
 		resp, err = client.DeleteStream("spiStream")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
-		err = os.RemoveAll(filepath.Join(EKPWD, "data/uploads/spi"))
-		if err != nil {
-			fmt.Printf("remove idl error: %v\n", err)
-		} else {
-			fmt.Printf("remove idl done\n")
-		}
+		resp, err = client.Delete("schemas/idl/spi")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
 	})
 }
 

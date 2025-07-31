@@ -24,7 +24,9 @@ import (
 	"github.com/emqx/ekuiper_can/dynconf"
 	"github.com/emqx/ekuiper_can/funcs"
 	"github.com/emqx/ekuiper_can/hack"
+	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
+
 	"github.com/lf-edge/ekuiper/v2/pkg/props"
 
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
@@ -54,6 +56,8 @@ func init() {
 		f, err := spi.NewSpi(ctx, idlPath, logicalSchema)
 		return f.(modules.Merger), err
 	})
+	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
+	modules.RegisterConverterSchemas("spi", "idl")
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return converterCan.NewConverter(ctx, dbcFile, schema)

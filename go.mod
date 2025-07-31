@@ -4,10 +4,9 @@ go 1.24.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.3.2-0.20250730051835-0364e242e3e3
+	github.com/emqx/ekuiper_can v1.3.2-0.20250731083221-9a29b02ace0c
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.0
-	github.com/lf-edge/ekuiper/v2 v2.2.0-beta.1.0.20250730061123-03df7f33e4ef
-	github.com/otiai10/copy v1.14.1
+	github.com/lf-edge/ekuiper/v2 v2.2.0-beta.1.0.20250731101707-c912bed589ef
 	github.com/stretchr/testify v1.10.0
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -247,7 +246,6 @@ require (
 	github.com/openziti/secretstream v0.1.21 // indirect
 	github.com/openziti/transport/v2 v2.0.146 // indirect
 	github.com/orcaman/concurrent-map/v2 v2.0.1 // indirect
-	github.com/otiai10/mint v1.6.3 // indirect
 	github.com/parallaxsecond/parsec-client-go v0.0.0-20221025095442-f0a77d263cf9 // indirect
 	github.com/parquet-go/parquet-go v0.23.0 // indirect
 	github.com/paulmach/orb v0.11.1 // indirect
@@ -304,7 +302,7 @@ require (
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
 	github.com/yalue/onnxruntime_go v1.9.0 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
-	github.com/yisaer/idl-parser v0.0.3-0.20250721061519-f42322fb518a // indirect
+	github.com/yisaer/idl-parser v0.0.3-0.20250730074346-9e7e3c093bf5 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	github.com/zitadel/oidc/v2 v2.12.2 // indirect
