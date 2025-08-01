@@ -1,6 +1,0 @@
-default:
-  url: tcp://127.0.0.1:10000
-  eof: C60=
-
-smooth:
-  sendInterval: 0.1ms
