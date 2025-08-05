@@ -38,8 +38,23 @@ jobs:
       - uses: actions/setup-go@v3
         with:
           go-version: '1.24'
-      - name: set git token
-        run: git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
+      - uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ vars.AUTH_APP_ID }}
+          private-key: ${{ secrets.AUTH_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            lfek
+            ekuiper_can
+            can
+            sdv-tools
+
+      - name: Configure Go environment
+        run: |
+          git config --global url."https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+          go env -w GOPRIVATE=github.com/emqx/*
+
       - uses: actions/checkout@v4
       - name: build kuiper
         run: |

@@ -45,10 +45,22 @@ jobs:
           # Install any additional dependencies your project needs
           sudo apt-get install -y rsync
 
-      - name: Configure git
+      - uses: actions/create-github-app-token@v1
+        id: generate-token
+        with:
+          app-id: ${{ vars.AUTH_APP_ID }}
+          private-key: ${{ secrets.AUTH_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: |
+            lfek
+            ekuiper_can
+            can
+            sdv-tools
+
+      - name: Configure Go environment
         run: |
-          git config --global url."https://${{ secrets.CI_GIT_TOKEN }}:x-oauth-basic@github.com/emqx".insteadOf "https://github.com/emqx"
-          git config --global --add safe.directory $(pwd)
+          git config --global url."https://x-access-token:${{ steps.generate-token.outputs.token }}@github.com/".insteadOf "https://github.com/"
+          go env -w GOPRIVATE=github.com/emqx/*
 
       - name: Build binary packages
         env:
@@ -119,7 +131,7 @@ jobs:
         with:
           repo: ekuiper
           path: "_packages/kuiper*"
-          token: ${{ secrets.CI_GIT_TOKEN }}
+          token: ${{ steps.create-token.outputs.token }}
       - uses: geekyeggo/delete-artifact@v5
         with:
           name: "*"
