@@ -17,30 +17,31 @@
 package modules
 
 import (
+	"fmt"
+
 	"github.com/emqx/ekuiper_can/converter/avro"
+	converterCan "github.com/emqx/ekuiper_can/converter/can"
+	"github.com/emqx/ekuiper_can/converter/canjson"
+	convidl "github.com/emqx/ekuiper_can/converter/idl"
 	"github.com/emqx/ekuiper_can/converter/jsonColStr"
+	"github.com/emqx/ekuiper_can/converter/json_can_merger"
 	"github.com/emqx/ekuiper_can/converter/ocf"
 	"github.com/emqx/ekuiper_can/converter/spi"
 	"github.com/emqx/ekuiper_can/dynconf"
 	"github.com/emqx/ekuiper_can/funcs"
 	"github.com/emqx/ekuiper_can/hack"
-	"github.com/emqx/ekuiper_can/schema/idl"
-	"github.com/lf-edge/ekuiper/contract/v2/api"
-
-	"github.com/lf-edge/ekuiper/v2/pkg/props"
-
-	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
-	"github.com/lf-edge/ekuiper/v2/pkg/ast"
-	"github.com/lf-edge/ekuiper/v2/pkg/message"
-	"github.com/lf-edge/ekuiper/v2/pkg/modules"
-
-	converterCan "github.com/emqx/ekuiper_can/converter/can"
-	"github.com/emqx/ekuiper_can/converter/canjson"
-	"github.com/emqx/ekuiper_can/converter/json_can_merger"
 	"github.com/emqx/ekuiper_can/io/can"
 	"github.com/emqx/ekuiper_can/io/file_hook"
 	"github.com/emqx/ekuiper_can/io/nano"
 	"github.com/emqx/ekuiper_can/io/query"
+	"github.com/emqx/ekuiper_can/schema/dbc"
+	"github.com/emqx/ekuiper_can/schema/idl"
+	"github.com/lf-edge/ekuiper/contract/v2/api"
+	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
+	"github.com/lf-edge/ekuiper/v2/pkg/ast"
+	"github.com/lf-edge/ekuiper/v2/pkg/message"
+	"github.com/lf-edge/ekuiper/v2/pkg/modules"
+	"github.com/lf-edge/ekuiper/v2/pkg/props"
 )
 
 func init() {
@@ -58,6 +59,7 @@ func init() {
 	})
 	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
 	modules.RegisterConverterSchemas("spi", "idl")
+
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return converterCan.NewConverter(ctx, dbcFile, schema)
@@ -68,6 +70,19 @@ func init() {
 	modules.RegisterMerger("jsoncan", func(ctx api.StreamContext, payloadSchema string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
 		return json_can_merger.NewMerger(ctx, payloadSchema, logicalSchema)
 	})
+	modules.RegisterSchemaType("dbc", &dbc.DbcType{}, ".dbc")
+	modules.RegisterConverterSchemas("can", "dbc")
+	modules.RegisterConverterSchemas("canjson", "dbc")
+
+	modules.RegisterConverter("idl", func(ctx api.StreamContext, idlPath string, _ map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+		// Required to register schema firstly
+		m, ok := props["$$messageName"]
+		if !ok {
+			return nil, fmt.Errorf("schema message name not found")
+		}
+		return convidl.NewIDLConverter(m.(string), idlPath)
+	})
+
 	modules.RegisterSink("nano", nano.GetSink)
 	modules.RegisterFileRollHook("nano", func() modules.RollHook {
 		return &file_hook.NanoMQRollingHook{}
