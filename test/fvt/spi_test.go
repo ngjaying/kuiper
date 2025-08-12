@@ -61,6 +61,25 @@ func (s *SpiTestSuite) TestIDLRules() {
 			result = append(result, string(message.Payload()))
 		})
 	})
+	s.Run("creating 1s streams", func() {
+		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spi1sStream.json"))
+		s.Require().NoError(err)
+		resp, err := client.CreateStream(string(streamJson))
+		s.Require().NoError(err)
+		s.Require().Equal(201, resp.StatusCode)
+	})
+	// Create the simplest rule
+	var result2 []string
+	s.Run("setup rule spi2", func() {
+		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spi2Rule.json"))
+		s.Require().NoError(err)
+		resp, err := client.CreateRule(string(ruleStr))
+		s.Require().NoError(err)
+		s.Require().Equal(201, resp.StatusCode)
+		s.mqttClient.Subscribe("ek/result2", 2, func(c mqtt.Client, message mqtt.Message) {
+			result2 = append(result2, string(message.Payload()))
+		})
+	})
 	time.Sleep(ConstantInterval)
 	// Check rule status
 	s.Run("check spi1 status before feeding data", func() {
@@ -85,11 +104,27 @@ func (s *SpiTestSuite) TestIDLRules() {
 		s.Require().NoError(err)
 		s.Require().Equal([]string{"{\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ts\":1731316891295}", "{\"Mess0$Mess0_Sig2\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ts\":1731316895391}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316899487}", "{\"Mess0$Mess0_Sig2\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ts\":1731316903583}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316907679}"}, result)
 	})
+	s.Run("check spi2 status after feeding data", func() {
+		time.Sleep(time.Second)
+		metrics, err := client.GetRuleStatus("spi2")
+		s.NoError(err)
+		s.Require().Equal("running", metrics["status"])
+		s.Require().Equal(5.0, metrics["source_spi1sStream_0_records_in_total"])
+		s.Require().Equal(1.0, metrics["sink_mqtt_0_0_records_out_total"])
+		s.Require().NoError(err)
+		s.Require().Equal([]string{"{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316907679}"}, result2)
+	})
 	s.Run("clean", func() {
 		resp, err := client.DeleteRule("spi1")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
 		resp, err = client.DeleteStream("spiStream")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+		resp, err = client.DeleteRule("spi2")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+		resp, err = client.DeleteStream("spi1sStream")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
 		resp, err = client.Delete("schemas/spi/spi")
@@ -100,7 +135,7 @@ func (s *SpiTestSuite) TestIDLRules() {
 
 func pubSpi(client mqtt.Client, s string) {
 	topic := "canspi"
-	interval := 1000
+	interval := 200
 	fmt.Printf("start publishing to %s, topic %s with interval %d ms\n", MQTTBroker, topic, interval)
 	count := 1
 	ticker := time.NewTicker(time.Duration(interval) * time.Millisecond)
@@ -135,6 +170,6 @@ func pubSpi(client mqtt.Client, s string) {
 	_ = file.Close()
 }
 
-func TestGeeTestSuite(t *testing.T) {
+func TestSpiTestSuite(t *testing.T) {
 	suite.Run(t, new(SpiTestSuite))
 }

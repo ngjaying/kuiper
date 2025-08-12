@@ -18,6 +18,7 @@ package modules
 
 import (
 	"fmt"
+	"path/filepath"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
@@ -54,8 +55,11 @@ func init() {
 	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return spi.NewSpi(ctx, idlPath, schema)
 	})
-	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
-		f, err := spi.NewSpi(ctx, idlPath, logicalSchema)
+	modules.RegisterMerger("spi", func(ctx api.StreamContext, schemaId string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
+		f, err := spi.NewSpi(ctx, filepath.Join("data", "schemas", "spi", schemaId+".idl"), logicalSchema)
+		if err != nil {
+			return nil, err
+		}
 		return f.(modules.Merger), err
 	})
 	modules.RegisterSchemaType("spi", &spiSchema.IdlType{}, ".idl")

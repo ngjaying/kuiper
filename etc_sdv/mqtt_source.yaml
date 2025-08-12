@@ -3,16 +3,15 @@ default:
   qos: 1
   server: "tcp://127.0.0.1:1883"
 
-canmsg:
-  payloadField: packet
-  payloadFormat: canpacket
-  payloadSchemaId: dbc/test
-
-canmsg_batch_merge:
+spi_1000ms:
   interval: 1s
-  payloadFormat: canpacket
-  payloadSchemaId: dbc/test
-  merger: canmsg
+  payloadFormat: spi
+  merger: spi
+
+spi_200ms:
+  interval: 200ms
+  payloadFormat: spi
+  merger: spi
 
 canjson:
   payloadBatchField: frames
