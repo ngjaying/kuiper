@@ -1,42 +1,42 @@
-# 如何使用 IDL (Interface Description Language) Schema
+# 如何使用 SPI 格式
 
-eKuiper 平台通过支持 IDL (Interface Description Language) schema，提供了一种定义复杂数据结构的强大机制。此功能尤其适用于高效处理和解析二进制数据流，例如来自 CAN 总线或 SPI 接口的原始数据。IDL schema 的应用确保了原始字节流能够被精确地转换为结构化、可读的数据格式。
+来自 CAN 总线的数据通常可聚合成自定义的二进制格式，用于高效处理和解析。eKuiper 平台通过 SPI 格式，提供了一种定义复杂的聚合
+CAN 报文的数据结构的机制。SPI schema 的应用确保了原始字节流能够被精确地转换为结构化、可读的数据格式。
 
 ## 操作指南
 
 本指南旨在详细阐述以下核心操作流程：
 
-1.  IDL schema 的创建。
-
-2.  基于 IDL schema 的流定义。
-
+1. SPI schema 的创建，用于描述了流的数据格式。
+2. SPI流的定义，引用上一步创建的 schema。
 3.  规则的构建与数据处理。
 
 ### 前提条件
 
 * eKuiper 实例须处于运行状态。
-
 * MQTT Broker 服务应可访问。
 
-### 1. 创建 IDL Schema
+### 1. 创建 SPI Schema
 
-IDL schema 通常以 `.idl` 或其他特定于 IDL 的文件扩展名形式存在。eKuiper 提供了两种导入 schema 的机制：通过统一资源定位符 (URL) 引用，或直接提供其文本内容。在本示例中，我们将演示如何通过引用包含 IDL schema 及其相关支持文件的 ZIP 归档来创建 schema。
+SPI schema 为 `.idl` 格式的文件。eKuiper 提供了两种导入 schema 的机制：通过统一资源定位符 (URL)
+引用，或直接提供其文本内容。在本示例中，我们将演示如何通过引用包含 schema 及其相关支持文件的 ZIP 归档来创建 schema。
 
 **创建方法：**
 
-IDL schema 的创建通过向 eKuiper 的 `/schemas/idl` 端点发送 `POST` 请求实现。请求体中必须包含 schema 的名称 (`name`)、类型（固定为 `idl`）以及指向 schema 文件或 ZIP 归档的路径 (`file`)。此文件路径可采用 `http`、`https` 或 `file` 协议方案。
+IDL schema 的创建通过向 eKuiper 的 `/schemas/spi` 端点发送 `POST` 请求实现。请求体中必须包含 schema 的名称 (`name`)
+、类型（固定为 `spi`）以及指向 schema 文件或 ZIP 归档的路径 (`file`)。此文件路径可采用 `http`、`https` 或 `file` 协议方案。
 
 **REST API 请求示例：**
 
 ```
 
-POST http://localhost:9020/schemas/idl
+POST http://localhost:9020/schemas/spi
 Content-Type: application/json
 
 {
-"name": "spi",
-"type": "idl",
-"file": "file:///path/to/your/spi.zip"  // 请替换为实际的 spi.zip 文件路径
+  "name": "spi1",
+  "type": "spi",
+  "file": "file:///path/to/your/spi.zip"  // 请替换为实际的 spi.zip 文件路径
 }
 
 ```
@@ -50,14 +50,14 @@ Content-Type: application/json
 spi.zip/
 ├── spi.idl          // 主 IDL schema 文件
 └── spi/             // 可选的辅助文件目录
-├── common.idl
-└── definitions.txt
-
+  ├── a.dbc
+  └── b.dbc
 ````
 
-### 2. 创建使用 IDL Schema 的流
+### 2. 创建 SPI 流
 
-在 eKuiper 环境中，流的定义用于明确数据源及其内在结构。当集成 IDL schema 时，用户可在流定义中明确引用已创建的 IDL schema，从而使 eKuiper 能够精确解析传入的二进制数据。
+在 eKuiper 环境中，流的定义用于明确数据源及其内在结构。当创建 SPI 流时，用户可在流定义中明确引用已创建的 SPI schema，从而使
+eKuiper 能够精确解析传入的二进制数据。
 
 **创建方法：**
 
@@ -69,15 +69,15 @@ spi.zip/
 
 ```json
 {
-  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"spi\", SHARED=\"true\")"
+  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"spi1\", SHARED=\"true\")"
 }
 ````
 
-* `format`: 此字段强制设置为 `BINARY`，因为 IDL schema 的核心功能即在于解析非结构化的原始字节数据流。
-
-* `schemaId`: 此字段用于引用通过 `/schemas/idl` API 创建的 IDL schema 的名称（在本示例中为 `spi`）。
-
-* `SHARED="true"`: 此选项指示 MQTT 订阅将作为共享订阅处理，允许多个消费者从同一订阅中接收消息，从而实现负载均衡。
+* `format`: 此字段强制设置为 `spi`，表示流为 spi 格式。
+* `schemaId`: 此字段引用了上一步创建名为 spi1 的 schema。
+* `type`: 设置为 mqtt，表示数据通过 MQTT 协议接入。mqtt 连接配置在 `mqtt_source.yaml` 中定义。
+* `datasource`: 设置监听的 MQTT topic。
+* `shared`: 设置为 true，表示使用流的多个规则共用一份数据。
 
 **REST API 请求示例：**
 
@@ -86,13 +86,14 @@ POST http://localhost:9020/streams
 Content-Type: application/json
 
 {
-  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"spi\", SHARED=\"true\")"
+  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"spi1\", SHARED=\"true\")"
 }
 ```
 
 ### 3. 创建规则并处理数据
 
-流定义完成后，用户可着手构建规则以对流中的数据进行查询与处理。eKuiper 系统将自动运用 IDL schema 解析传入的二进制数据，使其在 SQL 规则表达式中可被有效访问与操作。
+流定义完成后，用户可着手构建规则以对流中的数据进行查询与处理。eKuiper 系统将自动运用 SPI schema 解析传入的二进制数据，使其在
+SQL 规则表达式中可被有效访问与操作。
 
 **创建方法：**
 
@@ -169,13 +170,15 @@ GET http://localhost:9020/rules/spi1/status
 
 ## 数据格式
 
-以下文档通过示例详细描述了如何利用 IDL (Interface Description Language) schema 定义数据结构，并将其应用于解析原始二进制数据。
+以下文档通过示例详细描述了如何利用 IDL (Interface Description Language) 定义 SPI 的数据结构，并将其应用于解析原始二进制数据。
 
 -----
 
 ## 基于 IDL 定义解析二进制数据
 
-在物联网和工业控制领域，设备常常以原始二进制格式传输数据，这些数据通常缺乏明确的结构定义，难以直接解读和处理。Interface Description Language (IDL) Schema 提供了一种标准化的方式来精确描述这些二进制数据流的内部结构。eKuiper 作为一个轻量级物联网边缘流式数据处理引擎，能够利用 IDL Schema 对这些原始二进制数据进行解析，将其转化为结构化、可查询的格式，从而简化后续的数据分析和应用集成。
+在物联网和工业控制领域，设备常常以原始二进制格式传输数据，这些数据通常缺乏明确的结构定义，难以直接解读和处理。Interface
+Description Language (IDL) Schema 提供了一种标准化的方式来精确描述这些二进制数据流的内部结构。eKuiper
+作为一个轻量级物联网边缘流式数据处理引擎，能够利用 IDL 的定义对这些原始二进制数据进行解析，将其转化为结构化、可查询的格式，从而简化后续的数据分析和应用集成。
 
 本示例将结合 `spi.idl` 和 `spi.lines` 文件，阐述 IDL 如何作为二进制数据的“蓝图”，指导 eKuiper 进行数据解析。
 
@@ -186,14 +189,14 @@ SPI 数据包聚合了多个 CAN 帧（frame）。`spi.idl` 文件定义了数�
 ```idl
 module spi {
     struct frame {
-        unsigned long id; [cite_start]// 4 字节 id [cite: 1]
-        unsigned long len; [cite_start]// 4 字节 长度 [cite: 2, 3]
-        sequence<octet> payload;  [cite_start]// len字节Payload [cite: 1]
+        unsigned long id; // 4 字节 id
+        unsigned long len; // 4 字节 长度 
+        sequence<octet> payload;  // len字节Payload 
     };
     struct packet {
-        unsigned long long ts; [cite_start]// 8字节 时间戳 [cite: 4, 5]
-        unsigned short len; [cite_start]// 2字节 总长度 [cite: 4, 6]
-        [cite_start]@format(dbc="spi/sim.json") sequence<frame> frames; [cite: 4]
+        unsigned long long ts; // 8字节 时间戳
+        unsigned short len; // 2字节 总长度
+        @format(dbc="spi/sim.json") sequence<frame> frames;
     }
 }
 ```

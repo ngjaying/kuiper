@@ -19,6 +19,8 @@ package modules
 import (
 	"fmt"
 
+	"github.com/lf-edge/ekuiper/contract/v2/api"
+
 	"github.com/emqx/ekuiper_can/converter/avro"
 	converterCan "github.com/emqx/ekuiper_can/converter/can"
 	"github.com/emqx/ekuiper_can/converter/canjson"
@@ -35,8 +37,7 @@ import (
 	"github.com/emqx/ekuiper_can/io/nano"
 	"github.com/emqx/ekuiper_can/io/query"
 	"github.com/emqx/ekuiper_can/schema/dbc"
-	"github.com/emqx/ekuiper_can/schema/idl"
-	"github.com/lf-edge/ekuiper/contract/v2/api"
+	spiSchema "github.com/emqx/ekuiper_can/schema/spi"
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
 	"github.com/lf-edge/ekuiper/v2/pkg/message"
@@ -57,8 +58,8 @@ func init() {
 		f, err := spi.NewSpi(ctx, idlPath, logicalSchema)
 		return f.(modules.Merger), err
 	})
-	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
-	modules.RegisterConverterSchemas("spi", "idl")
+	modules.RegisterSchemaType("spi", &spiSchema.IdlType{}, ".idl")
+	modules.RegisterConverterSchemas("spi", "spi")
 
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
