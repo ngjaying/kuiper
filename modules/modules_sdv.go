@@ -18,7 +18,6 @@ package modules
 
 import (
 	"fmt"
-	"path/filepath"
 
 	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
@@ -40,6 +39,7 @@ import (
 	"github.com/emqx/ekuiper_can/io/query"
 	"github.com/emqx/ekuiper_can/schema/dbc"
 	spiSchema "github.com/emqx/ekuiper_can/schema/spi"
+
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
 	"github.com/lf-edge/ekuiper/v2/pkg/message"
@@ -56,8 +56,8 @@ func init() {
 	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return spi.NewSpi(ctx, idlPath, schema)
 	})
-	modules.RegisterMerger("spi", func(ctx api.StreamContext, schemaId string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
-		f, err := spi.NewSpi(ctx, filepath.Join("data", "schemas", "spi", schemaId+".idl"), logicalSchema)
+	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
+		f, err := spi.NewSpi(ctx, idlPath, logicalSchema)
 		if err != nil {
 			return nil, err
 		}
@@ -79,8 +79,9 @@ func init() {
 		return json_can_merger.NewMerger(ctx, payloadSchema, logicalSchema)
 	})
 	modules.RegisterSchemaType("dbc", &dbc.DbcType{}, ".dbc")
-	modules.RegisterConverterSchemas("can", "dbc")
-	modules.RegisterConverterSchemas("canjson", "dbc")
+	// In order to be compatible with the current implementation, do not require schema for now
+	// modules.RegisterConverterSchemas("can", "dbc")
+	// modules.RegisterConverterSchemas("canjson", "dbc")
 
 	modules.RegisterConverter("idl", func(ctx api.StreamContext, idlPath string, _ map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		// Required to register schema firstly
