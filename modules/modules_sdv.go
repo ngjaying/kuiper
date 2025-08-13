@@ -20,6 +20,7 @@ import (
 	"fmt"
 	"path/filepath"
 
+	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
 	"github.com/emqx/ekuiper_can/converter/avro"
@@ -63,7 +64,9 @@ func init() {
 		return f.(modules.Merger), err
 	})
 	modules.RegisterSchemaType("spi", &spiSchema.IdlType{}, ".idl")
+	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
 	modules.RegisterConverterSchemas("spi", "spi")
+	modules.RegisterConverterSchemas("idl", "idl")
 
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {

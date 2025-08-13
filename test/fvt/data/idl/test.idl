@@ -1,0 +1,8 @@
+module a {
+    module b {
+        struct c {
+            octet id1;
+            octet id2;
+        }
+    };
+}

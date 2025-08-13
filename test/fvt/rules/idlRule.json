@@ -1,0 +1,15 @@
+{
+  "id": "idl1",
+  "sql": "SELECT id1,id2 from idldemo",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "ek/result1",
+        "qos": 1,
+        "format": "json",
+        "sendSingle": true
+      }
+    }
+  ]
+}

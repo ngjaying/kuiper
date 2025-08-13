@@ -914,8 +914,8 @@ github.com/emirpasic/gods v1.18.1 h1:FXtiHYKDGKCW2KzwZKx0iC0PQmdlorYgdFG9jPXJ1Bc
 github.com/emirpasic/gods v1.18.1/go.mod h1:8tpGGwCnJ5H4r6BWwaV6OrWmMoPhUl5jm/FMNAnJvWQ=
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021 h1:wghOfqkrrwt3r0nWHhj1xJXKCsw049Fw4EuUU2H+9MQ=
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.3.2-0.20250812065652-f766d92c57d4 h1:/bTr6OwtcTf2gugoHJQfMxR+I2diFC0yh2DnK5IyAxE=
-github.com/emqx/ekuiper_can v1.3.2-0.20250812065652-f766d92c57d4/go.mod h1:PrK/iG5whB1o+mxnUdxubsQwKWSH7qbOyLsXH4G5/tc=
+github.com/emqx/ekuiper_can v1.3.2-0.20250812093836-5b977940280d h1:keK8LUSKTO7/8u5ThYGqzlYU7p04hwjOhA0MIpJ2xWU=
+github.com/emqx/ekuiper_can v1.3.2-0.20250812093836-5b977940280d/go.mod h1:PrK/iG5whB1o+mxnUdxubsQwKWSH7qbOyLsXH4G5/tc=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=

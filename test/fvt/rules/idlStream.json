@@ -1,0 +1,3 @@
+{
+  "sql":" CREATE stream idldemo ()  WITH (FORMAT=\"idl\",TYPE=\"mqtt\", SCHEMAID=\"idl.a.b.c\", DATASOURCE=\"idldemo\");"
+}
