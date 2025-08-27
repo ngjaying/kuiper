@@ -54,10 +54,31 @@ func init() {
 	modules.RegisterSource("video", video.GetSource)
 	// From Others
 	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
-		return spi.NewSpi(ctx, idlPath, schema)
+		isLittleEndian := false
+		vv, ok := props["isLittleEndian"]
+		if ok {
+			vvBool, isBool := vv.(bool)
+			if isBool {
+				isLittleEndian = vvBool
+			} else {
+				return nil, fmt.Errorf("isLittleEndian property should be a bool")
+			}
+		}
+
+		return spi.NewSpi(ctx, idlPath, schema, isLittleEndian)
 	})
-	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
-		f, err := spi.NewSpi(ctx, idlPath, logicalSchema)
+	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
+		isLittleEndian := false
+		vv, ok := props["isLittleEndian"]
+		if ok {
+			vvBool, isBool := vv.(bool)
+			if isBool {
+				isLittleEndian = vvBool
+			} else {
+				return nil, fmt.Errorf("isLittleEndian property should be a bool")
+			}
+		}
+		f, err := spi.NewSpi(ctx, idlPath, logicalSchema, isLittleEndian)
 		if err != nil {
 			return nil, err
 		}
@@ -75,7 +96,7 @@ func init() {
 	modules.RegisterConverter("canjson", func(ctx api.StreamContext, dbcFile string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return canjson.NewConverter(ctx, dbcFile, logicalSchema, props)
 	})
-	modules.RegisterMerger("jsoncan", func(ctx api.StreamContext, payloadSchema string, logicalSchema map[string]*ast.JsonStreamField) (modules.Merger, error) {
+	modules.RegisterMerger("jsoncan", func(ctx api.StreamContext, payloadSchema string, logicalSchema map[string]*ast.JsonStreamField, _ map[string]any) (modules.Merger, error) {
 		return json_can_merger.NewMerger(ctx, payloadSchema, logicalSchema)
 	})
 	modules.RegisterSchemaType("dbc", &dbc.DbcType{}, ".dbc")
@@ -89,7 +110,17 @@ func init() {
 		if !ok {
 			return nil, fmt.Errorf("schema message name not found")
 		}
-		return convidl.NewIDLConverter(m.(string), idlPath)
+		isLittleEndian := false
+		vv, ok := props["isLittleEndian"]
+		if ok {
+			vvBool, isBool := vv.(bool)
+			if isBool {
+				isLittleEndian = vvBool
+			} else {
+				return nil, fmt.Errorf("isLittleEndian property should be a bool")
+			}
+		}
+		return convidl.NewIDLConverter(m.(string), idlPath, isLittleEndian)
 	})
 
 	modules.RegisterSink("nano", nano.GetSink)

@@ -4,9 +4,9 @@ go 1.24.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.0
-	github.com/emqx/ekuiper_can v1.3.2-0.20250812093836-5b977940280d
+	github.com/emqx/ekuiper_can v1.3.2-0.20250827023435-b93b04faa859
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.0
-	github.com/lf-edge/ekuiper/v2 v2.3.0-beta.3
+	github.com/lf-edge/ekuiper/v2 v2.3.0-beta.3.0.20250826075041-0c56e93c2c15
 	github.com/stretchr/testify v1.10.0
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -302,7 +302,7 @@ require (
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
 	github.com/yalue/onnxruntime_go v1.9.0 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
-	github.com/yisaer/idl-parser v0.0.4 // indirect
+	github.com/yisaer/idl-parser v0.0.5 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	github.com/zitadel/oidc/v2 v2.12.2 // indirect
