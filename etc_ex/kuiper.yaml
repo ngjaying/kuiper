@@ -31,11 +31,11 @@ basic:
   # Maximum log file count
   rotateCount: 3
   # CLI ip
-  ip: 0.0.0.0
+  ip: 127.0.0.1
   # CLI port
   port: 20498
   # REST service ip
-  restIp: 0.0.0.0
+  restIp: 127.0.0.1
   # REST service port
   restPort: 9081
   # The global time zone from the IANA time zone database, or Local if not set.
@@ -51,7 +51,7 @@ basic:
   # pprof settings
   pprof: true
   pprofIp: 127.0.0.1
-  pprofPort: 6060
+  pprofPort: 9081
   # The URL where hosts all of pre-build plugins. By default, it's at packages.emqx.net
   pluginHosts: https://packages.emqx.net
   # Whether to ignore case in SQL processing. Note that, the name of customized function by plugins are case-sensitive.
@@ -75,7 +75,7 @@ basic:
   metricsDumpConfig:
     enable: false
     retainedDuration: 6h
-  enableRestAuditLog: false
+  enableRestAuditLog: true
 
 # The default options for all rules. Each rule can override this setting by defining its own option
 rule:
@@ -122,7 +122,7 @@ sink:
 source:
   ## Configurations for the global http data server for httppush source
   # HTTP data service ip
-  httpServerIp: 0.0.0.0
+  httpServerIp: 127.0.0.1
   # HTTP data service port
   httpServerPort: 10081
   # httpServerTls:
