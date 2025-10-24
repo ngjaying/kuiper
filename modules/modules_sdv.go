@@ -21,6 +21,7 @@ import (
 
 	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
+	"github.com/lf-edge/ekuiper/v2/pkg/cast"
 
 	"github.com/emqx/ekuiper_can/converter/avro"
 	converterCan "github.com/emqx/ekuiper_can/converter/can"
@@ -47,6 +48,11 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/props"
 )
 
+type spiProp struct {
+	IsLittleEndian bool   `json:"isLittleEndian"`
+	Subtype        string `json:"subtype"`
+}
+
 func init() {
 	hack.SetDefaultNS2([]string{"223.5.5.5:53", "8.8.8.8:53"})
 	hack.FixTimezone()
@@ -54,31 +60,20 @@ func init() {
 	modules.RegisterSource("video", video.GetSource)
 	// From Others
 	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
-		isLittleEndian := false
-		vv, ok := props["isLittleEndian"]
-		if ok {
-			vvBool, isBool := vv.(bool)
-			if isBool {
-				isLittleEndian = vvBool
-			} else {
-				return nil, fmt.Errorf("isLittleEndian property should be a bool")
-			}
+		sp := &spiProp{}
+		err := cast.MapToStruct(props, sp)
+		if err != nil {
+			return nil, fmt.Errorf("invalid prop for spi format: %v", err)
 		}
-
-		return spi.NewSpi(ctx, idlPath, schema, isLittleEndian)
+		return spi.NewSpi(ctx, idlPath, schema, sp.Subtype, sp.IsLittleEndian, props)
 	})
 	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
-		isLittleEndian := false
-		vv, ok := props["isLittleEndian"]
-		if ok {
-			vvBool, isBool := vv.(bool)
-			if isBool {
-				isLittleEndian = vvBool
-			} else {
-				return nil, fmt.Errorf("isLittleEndian property should be a bool")
-			}
+		sp := &spiProp{}
+		err := cast.MapToStruct(props, sp)
+		if err != nil {
+			return nil, fmt.Errorf("invalid prop for spi merger: %v", err)
 		}
-		f, err := spi.NewSpi(ctx, idlPath, logicalSchema, isLittleEndian)
+		f, err := spi.NewSpi(ctx, idlPath, logicalSchema, sp.Subtype, sp.IsLittleEndian, props)
 		if err != nil {
 			return nil, err
 		}
