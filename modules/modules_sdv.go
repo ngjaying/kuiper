@@ -59,7 +59,7 @@ func init() {
 	// From LF
 	modules.RegisterSource("video", video.GetSource)
 	// From Others
-	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+	modules.RegisterConverter("gbf", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		sp := &spiProp{}
 		err := cast.MapToStruct(props, sp)
 		if err != nil {
@@ -67,7 +67,7 @@ func init() {
 		}
 		return spi.NewSpi(ctx, idlPath, schema, sp.Subtype, sp.IsLittleEndian, props)
 	})
-	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
+	modules.RegisterMerger("gbf", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
 		sp := &spiProp{}
 		err := cast.MapToStruct(props, sp)
 		if err != nil {
@@ -79,10 +79,16 @@ func init() {
 		}
 		return f.(modules.Merger), err
 	})
-	modules.RegisterSchemaType("spi", &spiSchema.IdlType{}, ".idl")
+	modules.RegisterSchemaType("gbf", &spiSchema.IdlType{}, ".idl")
 	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
-	modules.RegisterConverterSchemas("spi", "spi")
+	modules.RegisterConverterSchemas("gbf", "gbf")
 	modules.RegisterConverterSchemas("idl", "idl")
+
+	// deprecate spi, to be removed. Now point to gbf
+	modules.RegisterConverter("spi", modules.Converters["gbf"])
+	modules.RegisterMerger("spi", modules.Mergers["gbf"])
+	modules.RegisterSchemaType("spi", &spiSchema.IdlType{}, ".idl")
+	modules.RegisterConverterSchemas("spi", "spi")
 
 	modules.RegisterSource("can", can.GetSource)
 	modules.RegisterConverter("can", func(ctx api.StreamContext, dbcFile string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
