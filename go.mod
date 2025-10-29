@@ -4,10 +4,10 @@ go 1.24.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.3.3
+	github.com/emqx/ekuiper_can v1.3.4-0.20251029035122-ba338be1b971
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
 	github.com/lf-edge/ekuiper/v2 v2.3.0
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.1
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
 
@@ -73,6 +73,7 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.30.3 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.34.0 // indirect
 	github.com/aws/smithy-go v1.22.4 // indirect
+	github.com/beevik/etree v1.6.0 // indirect
 	github.com/beltran/gohive v1.6.0 // indirect
 	github.com/beltran/gosasl v0.0.0-20231124144235-92b2e4f10bb6 // indirect
 	github.com/beltran/gssapi v0.0.0-20200324152954-d86554db4bab // indirect
@@ -301,6 +302,7 @@ require (
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
 	github.com/yalue/onnxruntime_go v1.9.0 // indirect
+	github.com/yisaer/arxml-converter v0.0.10 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
 	github.com/yisaer/idl-parser v0.0.16 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
