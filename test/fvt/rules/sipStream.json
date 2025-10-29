@@ -1,0 +1,3 @@
+{
+  "sql": "CREATE STREAM sipStream() WITH (TYPE=\"mqtt\",FORMAT=\"gbf\",DATASOURCE=\"cangbf\",SCHEMAID=\"ar\", SHARED=\"true\",CONF_KEY=\"gbf_someip\")"
+}

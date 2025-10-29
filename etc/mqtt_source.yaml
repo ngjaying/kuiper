@@ -17,3 +17,14 @@ gbf_200ms:
   interval: 200ms
   payloadFormat: gbf
   merger: gbf
+
+gbf_someip:
+  subtype: arxml
+  supportTp: true
+
+gbf_someip_1000ms:
+  interval: 1s
+  payloadFormat: gbf
+  merger: gbf
+  subtype: arxml
+  supportTp: true

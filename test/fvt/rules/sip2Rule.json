@@ -1,0 +1,16 @@
+{
+  "id": "sip2",
+  "name": "Read gbf Data",
+  "sql": "SELECT ts, ADT_ADAS_arr_ParkingSlot[0].DTE_SlotID as firstSlot, ADT_ADAS_strt_TrafficSign_2.DTE_TSRSt as tsrst, cardinality(ADT_ADAS_arr_LaneLineData_2) as tplen FROM sip1sStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "ek/sip2",
+        "qos": 1,
+        "format": "json",
+        "sendSingle": true
+      }
+    }
+  ]
+}

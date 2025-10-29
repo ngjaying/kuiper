@@ -31,3 +31,14 @@ batch:
 batchMerge:
   interval: 10s
   mergeField: id
+
+gbf_someip:
+  subtype: arxml
+  supportTp: true
+
+gbf_someip_1000ms:
+  interval: 1s
+  payloadFormat: gbf
+  merger: gbf
+  subtype: arxml
+  supportTp: true
