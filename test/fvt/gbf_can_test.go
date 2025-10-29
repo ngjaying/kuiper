@@ -13,12 +13,12 @@ import (
 	"github.com/stretchr/testify/suite"
 )
 
-type SpiTestSuite struct {
+type GBFTestSuite struct {
 	suite.Suite
 	mqttClient mqtt.Client
 }
 
-func (s *SpiTestSuite) SetupTest() {
+func (s *GBFTestSuite) SetupTest() {
 	opts := mqtt.NewClientOptions().AddBroker(MQTTBroker)
 	mqttClient := mqtt.NewClient(opts)
 	if token := mqttClient.Connect(); token.Wait() && token.Error() != nil {
@@ -27,23 +27,23 @@ func (s *SpiTestSuite) SetupTest() {
 	s.mqttClient = mqttClient
 }
 
-func (s *SpiTestSuite) TearDownTest() {
+func (s *GBFTestSuite) TearDownTest() {
 	if s.mqttClient != nil {
 		s.mqttClient.Disconnect(0)
 	}
 }
 
-func (s *SpiTestSuite) TestIDLRules() {
+func (s *GBFTestSuite) TestIDLRules() {
 	s.Run("creating schema", func() {
-		idlPath := filepath.Join(PWD, "test", "fvt", "data", "spi", "spi.zip")
+		idlPath := filepath.Join(PWD, "test", "fvt", "data", "gbf", "gbf.zip")
 		idlUrl, err := FilePathToURL(idlPath)
 		s.Require().NoError(err)
-		resp, err := client.Post("schemas/spi", fmt.Sprintf(`{"name":"spi","type":"spi","file":"%s"}`, idlUrl))
+		resp, err := client.Post("schemas/gbf", fmt.Sprintf(`{"name":"gbf","type":"gbf","file":"%s"}`, idlUrl))
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
 	})
 	s.Run("creating streams", func() {
-		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spiStream.json"))
+		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "gbfStream.json"))
 		s.Require().NoError(err)
 		resp, err := client.CreateStream(string(streamJson))
 		s.Require().NoError(err)
@@ -51,8 +51,8 @@ func (s *SpiTestSuite) TestIDLRules() {
 	})
 	// Create the simplest rule
 	var result []string
-	s.Run("setup rule spi1", func() {
-		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spiRule.json"))
+	s.Run("setup rule gbf1", func() {
+		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "gbfRule.json"))
 		s.Require().NoError(err)
 		resp, err := client.CreateRule(string(ruleStr))
 		s.Require().NoError(err)
@@ -62,7 +62,7 @@ func (s *SpiTestSuite) TestIDLRules() {
 		})
 	})
 	s.Run("creating 1s streams", func() {
-		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spi1sStream.json"))
+		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "gbf1sStream.json"))
 		s.Require().NoError(err)
 		resp, err := client.CreateStream(string(streamJson))
 		s.Require().NoError(err)
@@ -70,8 +70,8 @@ func (s *SpiTestSuite) TestIDLRules() {
 	})
 	// Create the simplest rule
 	var result2 []string
-	s.Run("setup rule spi2", func() {
-		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "spi2Rule.json"))
+	s.Run("setup rule gbf2", func() {
+		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "gbf2Rule.json"))
 		s.Require().NoError(err)
 		resp, err := client.CreateRule(string(ruleStr))
 		s.Require().NoError(err)
@@ -82,59 +82,59 @@ func (s *SpiTestSuite) TestIDLRules() {
 	})
 	time.Sleep(ConstantInterval)
 	// Check rule status
-	s.Run("check spi1 status before feeding data", func() {
-		metrics, err := client.GetRuleStatus("spi1")
+	s.Run("check gbf1 status before feeding data", func() {
+		metrics, err := client.GetRuleStatus("gbf1")
 		fmt.Println(metrics)
 		s.Require().NoError(err)
 		s.Require().Equal("running", metrics["status"])
-		s.Require().Equal(0.0, metrics["source_spiStream_0_records_in_total"])
+		s.Require().Equal(0.0, metrics["source_gbfStream_0_records_in_total"])
 	})
 	/// Publish shared data
 	s.Run("publish data", func() {
-		pubSpi(s.mqttClient, filepath.Join(PWD, DataPath, "spi.lines"))
+		pubgbf(s.mqttClient, filepath.Join(PWD, DataPath, "gbf.lines"))
 	})
 	time.Sleep(ConstantInterval)
 	// Check rule status after feeding data
-	s.Run("check spi1 status after feeding data", func() {
-		metrics, err := client.GetRuleStatus("spi1")
+	s.Run("check gbf1 status after feeding data", func() {
+		metrics, err := client.GetRuleStatus("gbf1")
 		s.NoError(err)
 		s.Require().Equal("running", metrics["status"])
-		s.Require().Equal(5.0, metrics["source_spiStream_0_records_in_total"])
+		s.Require().Equal(5.0, metrics["source_gbfStream_0_records_in_total"])
 		s.Require().Equal(5.0, metrics["sink_mqtt_0_0_records_out_total"])
 		s.Require().NoError(err)
 		s.Require().Equal([]string{"{\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ts\":1731316891295}", "{\"Mess0$Mess0_Sig2\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ts\":1731316895391}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316899487}", "{\"Mess0$Mess0_Sig2\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ts\":1731316903583}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316907679}"}, result)
 	})
-	s.Run("check spi2 status after feeding data", func() {
+	s.Run("check gbf2 status after feeding data", func() {
 		time.Sleep(time.Second)
-		metrics, err := client.GetRuleStatus("spi2")
+		metrics, err := client.GetRuleStatus("gbf2")
 		s.NoError(err)
 		s.Require().Equal("running", metrics["status"])
-		s.Require().Equal(5.0, metrics["source_spi1sStream_0_records_in_total"])
+		s.Require().Equal(5.0, metrics["source_gbf1sStream_0_records_in_total"])
 		s.Require().Equal(1.0, metrics["sink_mqtt_0_0_records_out_total"])
 		s.Require().NoError(err)
 		s.Require().Equal([]string{"{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316907679}"}, result2)
 	})
 	s.Run("clean", func() {
-		resp, err := client.DeleteRule("spi1")
+		resp, err := client.DeleteRule("gbf1")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
-		resp, err = client.DeleteStream("spiStream")
+		resp, err = client.DeleteStream("gbfStream")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
-		resp, err = client.DeleteRule("spi2")
+		resp, err = client.DeleteRule("gbf2")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
-		resp, err = client.DeleteStream("spi1sStream")
+		resp, err = client.DeleteStream("gbf1sStream")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
-		resp, err = client.Delete("schemas/spi/spi")
+		resp, err = client.Delete("schemas/gbf/gbf")
 		s.NoError(err)
 		s.Equal(200, resp.StatusCode)
 	})
 }
 
-func pubSpi(client mqtt.Client, s string) {
-	topic := "canspi"
+func pubgbf(client mqtt.Client, s string) {
+	topic := "cangbf"
 	interval := 200
 	fmt.Printf("start publishing to %s, topic %s with interval %d ms\n", MQTTBroker, topic, interval)
 	count := 1
@@ -170,6 +170,6 @@ func pubSpi(client mqtt.Client, s string) {
 	_ = file.Close()
 }
 
-func TestSpiTestSuite(t *testing.T) {
-	suite.Run(t, new(SpiTestSuite))
+func TestGBFTestSuite(t *testing.T) {
+	suite.Run(t, new(GBFTestSuite))
 }

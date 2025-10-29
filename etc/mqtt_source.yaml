@@ -3,17 +3,17 @@ default:
   qos: 1
   server: "tcp://127.0.0.1:1883"
 
-spi_1sec:
+gbf_1sec:
   interval: 1s
-  payloadFormat: spi
-  merger: spi
+  payloadFormat: gbf
+  merger: gbf
 
-spi_1000ms:
+gbf_1000ms:
   interval: 1s
-  payloadFormat: spi
-  merger: spi
+  payloadFormat: gbf
+  merger: gbf
 
-spi_200ms:
+gbf_200ms:
   interval: 200ms
-  payloadFormat: spi
-  merger: spi
+  payloadFormat: gbf
+  merger: gbf

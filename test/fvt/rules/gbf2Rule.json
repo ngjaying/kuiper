@@ -1,12 +1,12 @@
 {
-  "id": "spi1",
-  "name": "Read SPI Data",
-  "sql": "SELECT ts, `ZCUDZCUCANFD2Fr36$BswAppVersion`, `Mess0$Mess0_Sig2` FROM spiStream",
+  "id": "gbf2",
+  "name": "Read gbf Data",
+  "sql": "SELECT ts,`Mess0$Mess0_Sig2` FROM gbf1sStream",
   "actions": [
     {
       "mqtt": {
         "server": "tcp://127.0.0.1:1883",
-        "topic": "ek/result1",
+        "topic": "ek/result2",
         "qos": 1,
         "format": "json",
         "sendSingle": true

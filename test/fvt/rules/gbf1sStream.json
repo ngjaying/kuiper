@@ -1,0 +1,3 @@
+{
+  "sql": "CREATE STREAM gbf1sStream() WITH (TYPE=\"mqtt\",FORMAT=\"gbf\",DATASOURCE=\"cangbf\",SCHEMAID=\"gbf\", SHARED=\"true\",CONF_KEY=\"gbf_1000ms\")"
+}

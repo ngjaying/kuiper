@@ -1,3 +1,0 @@
-{
-  "sql": "CREATE STREAM spiStream() WITH (TYPE=\"mqtt\",FORMAT=\"spi\",DATASOURCE=\"canspi\",SCHEMAID=\"spi\", SHARED=\"true\")"
-}
