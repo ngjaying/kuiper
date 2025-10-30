@@ -21,6 +21,7 @@ import (
 
 	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
+
 	"github.com/lf-edge/ekuiper/v2/pkg/cast"
 
 	"github.com/emqx/ekuiper_can/converter/avro"
@@ -28,7 +29,6 @@ import (
 	"github.com/emqx/ekuiper_can/converter/canjson"
 	convidl "github.com/emqx/ekuiper_can/converter/idl"
 	"github.com/emqx/ekuiper_can/converter/jsonColStr"
-	"github.com/emqx/ekuiper_can/converter/json_can_merger"
 	"github.com/emqx/ekuiper_can/converter/ocf"
 	"github.com/emqx/ekuiper_can/converter/spi"
 	"github.com/emqx/ekuiper_can/dynconf"
@@ -96,9 +96,6 @@ func init() {
 	})
 	modules.RegisterConverter("canjson", func(ctx api.StreamContext, dbcFile string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		return canjson.NewConverter(ctx, dbcFile, logicalSchema, props)
-	})
-	modules.RegisterMerger("jsoncan", func(ctx api.StreamContext, payloadSchema string, logicalSchema map[string]*ast.JsonStreamField, _ map[string]any) (modules.Merger, error) {
-		return json_can_merger.NewMerger(ctx, payloadSchema, logicalSchema)
 	})
 	modules.RegisterSchemaType("dbc", &dbc.DbcType{}, ".dbc")
 	// In order to be compatible with the current implementation, do not require schema for now
