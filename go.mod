@@ -4,9 +4,9 @@ go 1.24.5
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.3.4-0.20251029085644-ea40400eab6c
+	github.com/emqx/ekuiper_can v1.3.5-0.20251031035643-977f2290bb41
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
-	github.com/lf-edge/ekuiper/v2 v2.3.0
+	github.com/lf-edge/ekuiper/v2 v2.3.1-0.20251031031842-43786323c349
 	github.com/stretchr/testify v1.11.1
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -31,6 +31,7 @@ require (
 	github.com/ClickHouse/ch-go v0.65.0 // indirect
 	github.com/ClickHouse/clickhouse-go/v2 v2.28.3 // indirect
 	github.com/DATA-DOG/go-sqlmock v1.4.1 // indirect
+	github.com/DataDog/zstd v1.4.5 // indirect
 	github.com/GoogleCloudPlatform/grpc-gcp-go/grpcgcp v1.5.0 // indirect
 	github.com/IBM/nzgo v11.1.0+incompatible // indirect
 	github.com/JohnCGriffin/overflow v0.0.0-20211019200055-46fa312c352c // indirect
@@ -93,6 +94,11 @@ require (
 	github.com/census-instrumentation/opencensus-proto v0.4.1 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/cncf/xds/go v0.0.0-20240723142845-024c85f92f20 // indirect
+	github.com/cockroachdb/errors v1.11.1 // indirect
+	github.com/cockroachdb/logtags v0.0.0-20230118201751-21c54148d20b // indirect
+	github.com/cockroachdb/pebble v1.1.0 // indirect
+	github.com/cockroachdb/redact v1.1.5 // indirect
+	github.com/cockroachdb/tokenbucket v0.0.0-20230807174530-cc333fc44b06 // indirect
 	github.com/couchbase/go-couchbase v0.1.1 // indirect
 	github.com/couchbase/go_n1ql v0.0.0-20220303011133-0ed4bf93e31d // indirect
 	github.com/couchbase/gomemcached v0.3.1 // indirect
@@ -120,6 +126,7 @@ require (
 	github.com/fullsailor/pkcs7 v0.0.0-20190404230743-d7302db945fa // indirect
 	github.com/fxamacker/cbor/v2 v2.7.0 // indirect
 	github.com/gabriel-vasile/mimetype v1.4.8 // indirect
+	github.com/getsentry/sentry-go v0.18.0 // indirect
 	github.com/go-faster/city v1.0.1 // indirect
 	github.com/go-faster/errors v0.7.1 // indirect
 	github.com/go-logfmt/logfmt v0.6.0 // indirect
@@ -147,6 +154,7 @@ require (
 	github.com/godbus/dbus v0.0.0-20190726142602-4481cbc300e2 // indirect
 	github.com/godror/godror v0.44.7 // indirect
 	github.com/godror/knownpb v0.1.2 // indirect
+	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/golang-collections/collections v0.0.0-20130729185459-604e922904d3 // indirect
 	github.com/golang-jwt/jwt/v5 v5.2.2 // indirect
 	github.com/golang-sql/civil v0.0.0-20190719163853-cb61b32ac6fe // indirect
@@ -206,6 +214,8 @@ require (
 	github.com/keepeye/logrus-filename v0.0.0-20190711075016-ce01a4391dd1 // indirect
 	github.com/klauspost/compress v1.17.11 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.9 // indirect
+	github.com/kr/pretty v0.3.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
 	github.com/leodido/go-urn v1.4.0 // indirect
 	github.com/lestrrat-go/strftime v1.1.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
@@ -269,6 +279,7 @@ require (
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
+	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/segmentio/encoding v0.4.0 // indirect
 	github.com/segmentio/kafka-go v0.4.47 // indirect

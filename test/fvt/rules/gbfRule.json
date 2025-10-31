@@ -1,7 +1,7 @@
 {
   "id": "gbf1",
   "name": "Read gbf Data",
-  "sql": "SELECT ts, `ZCUDZCUCANFD2Fr36$BswAppVersion`, `Mess0$Mess0_Sig2` FROM gbfStream",
+  "sql": "SELECT * FROM gbfStream",
   "actions": [
     {
       "mqtt": {
@@ -12,5 +12,12 @@
         "sendSingle": true
       }
     }
-  ]
+  ],
+  "options": {
+    "experiment": {
+      "useSliceTuple": true
+    },
+    "sendNilField": true,
+    "sendError": false
+  }
 }
