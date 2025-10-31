@@ -1,12 +1,12 @@
 module github.com/emqx/ekuiper_build
 
-go 1.24.5
+go 1.25.3
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.3.5-0.20251031035643-977f2290bb41
+	github.com/emqx/ekuiper_can v1.4.0
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
-	github.com/lf-edge/ekuiper/v2 v2.3.1-0.20251031031842-43786323c349
+	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1
 	github.com/stretchr/testify v1.11.1
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
