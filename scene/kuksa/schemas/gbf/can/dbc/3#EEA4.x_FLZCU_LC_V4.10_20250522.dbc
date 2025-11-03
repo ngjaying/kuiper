@@ -1,0 +1,2267 @@
+VERSION ""
+
+
+NS_ : 
+        NS_DESC_
+        CM_
+        BA_DEF_
+        BA_
+        VAL_
+        CAT_DEF_
+        CAT_
+        FILTER
+        BA_DEF_DEF_
+        EV_DATA_
+        ENVVAR_DATA_
+        SGTYPE_
+        SGTYPE_VAL_
+        BA_DEF_SGTYPE_
+        BA_SGTYPE_
+        SIG_TYPE_REF_
+        VAL_TABLE_
+        SIG_GROUP_
+        SIG_VALTYPE_
+        SIGTYPE_VALTYPE_
+        BO_TX_BU_
+        BA_DEF_REL_
+        BA_REL_
+        BA_DEF_DEF_REL_
+        BU_SG_REL_
+        BU_EV_REL_
+        BU_BO_REL_
+        SG_MUL_VAL_
+
+BS_:
+
+BU_: FLZCU_VCU_LC FLZCU_PDCS_LC FLZCU_LC VCU_LC FLZCU_SignalRoute_LC LHM LISD RHM RISD RLFLM RLPLM RRFLM RRPLM 
+
+
+BO_ 49 ACU_2: 8 Vector__XXX
+ SG_ ACU_2_LateralAcceleration : 23|16@0+ (0.001,-2) [-2|2] "g"  LHM,RHM
+ SG_ ACU_2_YawRate : 39|16@0+ (0.01,-180) [-180|180] "deg/sec"  LHM,RHM
+ SG_ ACU_2_YawrateSigValidData : 50|2@0+ (1,0) [0|3] ""  LHM,RHM
+ SG_ ACU_2_LateralAccelerationSigVD : 52|2@0+ (1,0) [0|3] ""  LHM,RHM
+
+BO_ 33 ACU_3: 8 Vector__XXX
+ SG_ ACU_3_LongitudinalAcceleration : 23|16@0+ (0.001,-2) [-2|2] "g"  LHM,RHM
+ SG_ ACU_3_LongitudinalAccelerationVD : 39|2@0+ (1,0) [0|3] ""  LHM,RHM
+
+BO_ 776 ASU_2: 8 Vector__XXX
+ SG_ ASU_2_CRC1 : 7|8@0+ (1,0) [0|255] ""  LHM,RHM
+ SG_ ASU_2_RollgCntr1 : 11|4@0+ (1,0) [0|14] ""  LHM,RHM
+ SG_ ASU_2_LFHeight : 23|12@0+ (0.1,-150) [0|259.4] "mm"  LHM,RHM
+ SG_ ASU_2_RFHeight : 27|12@0+ (0.1,-150) [0|259.4] "mm"  LHM,RHM
+ SG_ ASU_2_LRHeight : 47|12@0+ (0.1,-150) [0|259.4] "mm"  LHM,RHM
+ SG_ ASU_2_RRHeight : 51|12@0+ (0.1,-150) [0|259.4] "mm"  LHM,RHM
+
+BO_ 778 ASU_4: 32 Vector__XXX
+ SG_ ASU_4_CRC1 : 7|8@0+ (1,0) [0|255] ""  LHM,RHM
+ SG_ ASU_4_RollgCntr1 : 11|4@0+ (1,0) [0|14] ""  LHM,RHM
+ SG_ ASU_4_Resd1 : 15|4@0+ (1,0) [0|15] ""  LHM,RHM
+ SG_ ASU_4_FL_bodyacceleration : 31|14@0+ (0.0204167,-156.8) [-156.8|177.6867961] "m/s2"  LHM,RHM
+ SG_ ASU_4_FL_bodyaccelerationValid : 48|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ ASU_4_FR_bodyaccelerationValid : 49|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ ASU_4_FR_bodyacceleration : 47|14@0+ (0.0204167,-156.8) [-156.8|177.6867961] "m/s2"  LHM,RHM
+ SG_ ASU_4_REAR_bodyaccelerationValid : 89|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ ASU_4_REAR_bodyacceleration : 87|14@0+ (0.0204167,-156.8) [-156.8|177.6867961] "m/s2"  LHM,RHM
+
+BO_ 1291 BMS_2_G: 8 Vector__XXX
+ SG_ BMS_SOCLight : 62|7@0+ (1,0) [0|100] "%"  LISD,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1295 BMS_3_G: 8 Vector__XXX
+ SG_ BMS_ChgWireConnect_LightSts : 32|1@0+ (1,0) [0|1] ""  LISD,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ BMS_Chg_LightSts : 33|1@0+ (1,0) [0|1] ""  LISD,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1143 CDU_2: 8 Vector__XXX
+ SG_ OBC_CC_ConnectSts : 27|3@0+ (1,0) [0|7] ""  RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1172 TMS_1: 8 Vector__XXX
+ SG_ ExternalTemperature_C : 39|8@0+ (0.5,-40) [-40|85] "��C"  RISD
+ SG_ ExternalTemperatureFailSts : 40|1@0+ (1,0) [0|1] ""  RISD
+
+BO_ 306 SAS_1: 8 Vector__XXX
+ SG_ SAM_1_SteeringAngle : 23|16@0+ (0.0625,-2048) [-2048|2047.875] "deg"  LHM,RHM
+ SG_ SAM_1_SteeringAngleSpeed : 39|8@0+ (4,0) [0|1016] "deg/Sec"  LHM,RHM
+ SG_ SAM_1_SteeringAngleVD : 41|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ SAM_1_SteeringAngleSpeedVD : 40|1@0+ (1,0) [0|1] ""  LHM,RHM
+
+BO_ 571 FLZCU_1: 8 FLZCU_VCU_LC
+ SG_ FLZCU_1_CRC : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ FLZCU_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  Vector__XXX
+ SG_ FLZCU_1_Resd : 15|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ HoodSts : 30|2@0+ (1,0) [0|3] ""  LHM,RHM
+ SG_ LHFdoorSts : 23|2@0+ (1,0) [0|3] ""  LHM,RHM
+
+BO_ 350 FLZCU_4: 8 FLZCU_VCU_LC
+ SG_ FLZCU_4_CRC : 7|8@0+ (1,0) [0|255] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ FLZCU_4_RollgCntr : 11|4@0+ (1,0) [0|14] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ FLZCU_4_Resd : 15|4@0+ (1,0) [0|15] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ PosLamp : 16|1@0+ (1,0) [0|1] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ LHTrunLight : 17|1@0+ (1,0) [0|1] ""  LHM,LISD,RLFLM,RLPLM,RRPLM
+ SG_ RHTrunLight : 18|1@0+ (1,0) [0|1] ""  RHM,RISD,RLPLM,RRFLM,RRPLM
+ SG_ LowBeam : 19|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ HighBeam : 20|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ BrkLight : 21|1@0+ (1,0) [0|1] ""  LISD,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ FogLight : 23|2@0+ (1,0) [0|3] ""  LHM,RHM,RLPLM,RRPLM
+ SG_ ReverseLight : 24|1@0+ (1,0) [0|1] ""  RLPLM,RRPLM
+ SG_ DaytimeLight : 26|2@0+ (1,0) [0|3] ""  LHM,RHM
+ SG_ LowBeamHighAdj : 29|3@0+ (1,0) [0|7] ""  LHM,RHM
+ SG_ FlowLampEnable : 31|2@0+ (1,0) [0|3] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ WelcomeLight : 33|2@0+ (1,0) [0|3] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ TrailerRearFogLightSts : 35|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ RearPosLamp : 39|2@0+ (1,0) [0|3] ""  RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1181 FLZCU_9: 8 FLZCU_VCU_LC
+ SG_ FLZCU_9_CRC : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ FLZCU_9_RollgCntr : 11|4@0+ (1,0) [0|14] ""  Vector__XXX
+ SG_ FLZCU_9_Resd1 : 15|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ FLZCU_9_PowerMode : 17|2@0+ (1,0) [0|3] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 683 FRZCU_1: 8 Vector__XXX
+ SG_ RHFDoorSts : 22|2@0+ (1,0) [0|3] ""  LHM,RHM
+
+BO_ 1324 FRZCU_7: 8 Vector__XXX
+ SG_ TirePressureWarningLampSts : 31|2@0+ (1,0) [0|3] ""  LISD,RISD
+
+BO_ 699 RZCU_2: 8 FLZCU_VCU_LC
+ SG_ RZCU_2_CRC : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RZCU_2_RollgCntr : 11|4@0+ (1,0) [0|14] ""  Vector__XXX
+ SG_ RZCU_2_Resd : 15|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ LHRdoorSts : 21|2@0+ (1,0) [0|3] ""  LHM,RHM
+ SG_ TrunkSts : 23|2@0+ (1,0) [0|3] ""  LHM,RHM,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1139 RLFLM_1: 8 RLFLM
+ SG_ RLFLM_1_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLPLM,RRFLM,RRPLM
+ SG_ RLFLM_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLPLM,RRFLM,RRPLM
+ SG_ RLFLM_1_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLPLM,RRFLM,RRPLM
+ SG_ RLFLM_1_ParkLiFaildSts : 23|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLPLM,RRFLM,RRPLM
+ SG_ RLFLM_1_LHTurnLiFaildSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLPLM,RRFLM,RRPLM
+ SG_ RLFLM_1_BrkLampFaildSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLPLM,RRFLM,RRPLM
+
+BO_ 1222 RLPLM_1: 8 RLPLM
+ SG_ RLPLM_1_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_ParkLiFaildSts : 23|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_LHTurnLiFaildSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_BrkLampFaildSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_RvsLampFaildSts : 20|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+ SG_ RLPLM_1_RafLampFaildSts : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RRFLM,RRPLM
+
+BO_ 1205 RRFLM_1: 8 RRFLM
+ SG_ RRFLM_1_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRPLM
+ SG_ RRFLM_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRPLM
+ SG_ RRFLM_1_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRPLM
+ SG_ RRFLM_1_ParkLiFaildSts : 23|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRPLM
+ SG_ RRFLM_1_LHTurnLiFaildSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRPLM
+ SG_ RRFLM_1_BrkLampFaildSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRPLM
+
+BO_ 1249 RRPLM_1: 8 RRPLM
+ SG_ RRPLM_1_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_ParkLiFaildSts : 23|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_LHTurnLiFaildSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_BrkLampFaildSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_RvsLampFaildSts : 20|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+ SG_ RRPLM_1_RafLampFaildSts : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,RLFLM,RLPLM,RRFLM
+
+BO_ 1250 ICC_ZCU_6: 8 Vector__XXX
+ SG_ ICC_AutoLightSW : 10|1@0+ (1,0) [0|1] ""  LHM,RHM
+
+BO_ 1296 ICC_COM_8: 8 Vector__XXX
+ SG_ CurrentTimeYear : 7|8@0+ (1,2000) [2000|2255] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ CurrentTimeMonth : 15|4@0+ (1,0) [1|12] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ CurrentTimeDay : 23|5@0+ (1,0) [1|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ CurrentTimeHour : 31|5@0+ (1,0) [0|23] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ CurrentTimeMinute : 39|6@0+ (1,0) [0|59] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ CurrentTimeSecond : 47|6@0+ (1,0) [0|59] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 917 ICC_LC_12: 8 Vector__XXX
+ SG_ RandomMusicShowCMD : 3|2@0+ (1,0) [0|3] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ DIYMusicShowmod : 5|2@0+ (1,0) [0|3] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ LiShowMod : 15|3@0+ (1,0) [0|7] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_55HZ : 12|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_123HZ : 23|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_262HZ : 18|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_440HZ : 29|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_587HZ : 24|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_784HZ : 35|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_1318HZ : 46|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_2794HZ : 41|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ MusicLoudness_6272HZ : 52|5@0+ (1,0) [0|31] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+ SG_ ISDShowCMD : 59|1@0+ (1,0) [0|1] ""  LISD,RISD
+ SG_ ISDShowMode : 63|4@0+ (1,0) [0|15] ""  LISD,RISD
+
+BO_ 1279 ICC_COM_16: 8 Vector__XXX
+ SG_ Weather_Type : 23|6@0+ (1,0) [0|63] ""  LISD
+
+BO_ 1162 ONEBOX_1_G: 8 Vector__XXX
+ SG_ VehicleSpeedVSOSig : 23|13@0+ (0.0625,0) [0|511.875] "km/h"  LHM,LISD,RHM,RISD
+ SG_ VehicleSpeedVSOSigValidData : 26|1@0+ (1,0) [0|1] ""  LHM,LISD,RHM,RISD
+
+BO_ 1218 LHM_1: 8 LHM
+ SG_ LHM_1_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_HiBeamFaildSts : 23|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_LoBeamFaildSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_ParkLiFaildSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_LHTurnLiFaildSts : 20|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LHM_1_DRLFaildSts : 19|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+
+BO_ 274 LHM_2: 8 LHM
+ SG_ LHM_2_CRC : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ LHM_2_RollgCntr : 11|4@0+ (1,0) [0|14] ""  Vector__XXX
+ SG_ LHM_2_Resd : 15|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ LHM_2_MotRefReq : 29|1@0+ (1,0) [0|1] ""  RHM
+ SG_ LHM_2_MotPosReq : 23|10@0+ (0.01,-3) [0|3] ""  RHM
+ SG_ LHM_2_Left_ALS_State : 25|2@0+ (1,0) [0|3] ""  RHM
+ SG_ LHM_2_LED_ON_OFF : 27|2@0+ (1,0) [0|3] ""  RHM
+ SG_ LHM_2_Motor_Step : 39|16@0+ (1,0) [0|4800] "step"  RHM
+ SG_ LHM_2_LiShowCnt : 55|8@0+ (1,0) [0|255] ""  RHM
+
+BO_ 568 LISD_1: 8 LISD
+ SG_ LISD_1_LiShowCnt : 23|8@0+ (1,0) [0|255] ""  RISD
+
+BO_ 1269 LISD_2: 8 LISD
+ SG_ LISD_2_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LISD_2_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LISD_2_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LISDShowCMDSts : 16|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ LISDShowModeSts : 20|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ LISDPosLampSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ LISDTrunLightSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+
+BO_ 1233 RISD_2: 8 RISD
+ SG_ RISD_2_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RISD_2_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RISD_2_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RISDShowCMDSts : 16|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ RISDShowModeSts : 20|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ RISDPosLampSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RISDTrunLightSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+
+BO_ 1187 RHM_1: 8 RHM
+ SG_ RHM_1_CRC : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_RollgCntr : 11|4@0+ (1,0) [0|14] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_Resd : 15|4@0+ (1,0) [0|15] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_HiBeamFaildSts : 23|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_LoBeamFaildSts : 22|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_ParkLiFaildSts : 21|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_RHTurnLiFaildSts : 20|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ RHM_1_DRLFaildSts : 19|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC
+ SG_ Right_ALS_Fault : 27|2@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC,LHM
+
+BO_ 280 RHM_2: 8 RHM
+ SG_ RHM_2_CRC : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RHM_2_RollgCntr : 11|4@0+ (1,0) [0|14] ""  Vector__XXX
+ SG_ RHM_2_Resd : 15|4@0+ (1,0) [0|15] ""  Vector__XXX
+ SG_ RHM_2_MotPosFed : 23|10@0+ (0.01,-3) [0|3] ""  LHM
+ SG_ RHM_2_MotStsFed : 29|2@0+ (1,0) [0|2] ""  LHM
+
+BO_ 1035 VCC_1: 8 FLZCU_VCU_LC
+ SG_ VCC_1_OTASts : 17|2@0+ (1,0) [0|3] ""  Vector__XXX
+ SG_ VCC_1_CarMode : 31|3@0+ (1,0) [0|7] ""  Vector__XXX
+
+BO_ 1075 VCC_2: 8 FLZCU_VCU_LC
+ SG_ VCC_2_ConfigurationMessageTrg : 23|1@0+ (1,0) [0|1] ""  LHM,RHM
+
+BO_ 1136 VCC_3: 32 FLZCU_VCU_LC
+ SG_ VCC_3_CRC : 7|8@0+ (1,0) [0|255] ""  LHM,RHM
+ SG_ VCC_3_RollgCntr : 11|4@0+ (1,0) [0|14] ""  LHM,RHM
+ SG_ VCC_3_Resd1 : 15|4@0+ (1,0) [0|15] ""  LHM,RHM
+
+BO_ 1204 VCU_1_G: 8 FLZCU_VCU_LC
+ SG_ VCU_AcceleratorPosRaw : 29|10@0+ (0.1,0) [0|100] "%"  LHM,RHM
+ SG_ VCU_PRNDGearAct : 62|3@0+ (1,0) [0|7] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1209 VCU_2_G: 8 FLZCU_VCU_LC
+ SG_ VCU_GasPedalPosition : 49|10@0+ (0.1,0) [0|100] "%"  LHM,RHM
+ SG_ VCU_BrakePedalStsValidData : 31|1@0+ (1,0) [0|1] ""  LHM,RHM
+ SG_ VCU_BrakePedalSts : 36|1@0+ (1,0) [0|1] ""  LHM,RHM
+
+BO_ 1302 LHM_RemoteDiag: 32 LHM
+ SG_ LHM_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ LHM_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ LHM_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ LHM_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LHM_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1303 RHM_RemoteDiag: 32 RHM
+ SG_ RHM_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RHM_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ RHM_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ RHM_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RHM_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1305 RLFLM_RemoteDiag: 32 RLFLM
+ SG_ RLFLM_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RLFLM_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ RLFLM_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ RLFLM_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLFLM_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1387 RRFLM_RemoteDiag: 32 RRFLM
+ SG_ RRFLM_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RRFLM_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ RRFLM_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ RRFLM_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRFLM_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1388 RLPLM_RemoteDiag: 32 RLPLM
+ SG_ RLPLM_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RLPLM_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ RLPLM_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ RLPLM_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RLPLM_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1389 RRPLM_RemoteDiag: 32 RRPLM
+ SG_ RRPLM_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RRPLM_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ RRPLM_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ RRPLM_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RRPLM_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1390 LISD_RemoteDiag: 32 LISD
+ SG_ LISD_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ LISD_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ LISD_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ LISD_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ LISD_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1391 RISD_RemoteDiag: 32 RISD
+ SG_ RISD_TotalFaultNum : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RISD_FrameIndex : 12|5@0+ (1,0) [0|31] ""  Vector__XXX
+ SG_ RISD_SupplierNum : 15|3@0+ (1,0) [0|7] ""  Vector__XXX
+ SG_ RISD_FaultNum1 : 23|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum2 : 27|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum3 : 47|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum4 : 51|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum5 : 71|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum6 : 75|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum7 : 95|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum8 : 99|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum9 : 119|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum10 : 123|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum11 : 143|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum12 : 147|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum13 : 167|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum14 : 171|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum15 : 191|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum16 : 195|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum17 : 215|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum18 : 219|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum19 : 239|12@0+ (1,0) [0|4095] ""  Vector__XXX
+ SG_ RISD_FaultNum20 : 243|12@0+ (1,0) [0|4095] ""  Vector__XXX
+
+BO_ 1592 NMm_LHM: 8 LHM
+ SG_ srcNodeID_LHM : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_LHM : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_DCM_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LHM_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LHM_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LHM_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LHM_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LHM_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LHM_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1593 NMm_RHM: 8 RHM
+ SG_ srcNodeID_RHM : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_RHM : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_DCM_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RHM_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RHM_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RHM_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RHM_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RHM_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RHM_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1594 NMm_RLFLM: 8 RLFLM
+ SG_ srcNodeID_RLFLM : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_RLFLM : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_DCM_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLFLM_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLFLM_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLFLM_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLFLM_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLFLM_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLFLM_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1595 NMm_RLPLM: 8 RLPLM
+ SG_ srcNodeID_RLPLM : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_RLPLM : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_DCM_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLPLM_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLPLM_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLPLM_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLPLM_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLPLM_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RLPLM_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1596 NMm_RRFLM: 8 RRFLM
+ SG_ srcNodeID_RRFLM : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_RRFLM : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_DCM_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRFLM_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRFLM_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRFLM_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRFLM_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRFLM_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRFLM_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1597 NMm_RRPLM: 8 RRPLM
+ SG_ srcNodeID_RRPLM : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_RRPLM : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_DCM_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRPLM_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRPLM_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRPLM_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRPLM_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRPLM_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RRPLM_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1615 NMm_FLZCU: 8 FLZCU_VCU_LC
+ SG_ srcNodeID_FLZCU : 7|8@0+ (1,0) [0|255] ""  Vector__XXX
+ SG_ RMR_FLZCU : 8|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ NMm_FLZCU_Reserved1 : 15|7@0+ (1,0) [0|127] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_DDSP : 19|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_InsideSwitch : 20|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_OutsideSwitch : 21|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_FLDoorSignal : 22|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_LSA : 23|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_DoorLockSt : 24|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_HazardlightswitchSt : 25|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_Hazardlight : 27|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_RKEHV_Req : 29|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_KL15 : 30|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_IntelligentRecharge : 31|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_BrakeswitchLVHV : 32|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_ETH : 33|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_RLInsideSwitch : 34|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_RLOutsideSwitch : 35|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_RLDoorSignal : 36|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Wakeup_ChargingportSwitch : 37|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_NM : 41|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_DDSP : 43|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_InsideSwitch : 44|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_OutsideSwitch : 45|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_FLDoorSignal : 46|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_LSA_OKS : 47|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_DoorLockSt : 48|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_HazardlightswitchSt : 49|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_Powercomfortable : 50|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_Hazardlight : 51|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_AntitheftState : 52|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_RKEHV_Req : 53|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_KL15 : 54|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_IntelligentRecharge : 55|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_BrakeswitchHV : 56|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_ETH : 57|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_RLInsideSwitch : 58|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_RLOutsideSwitch : 59|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_RLDoorSignal : 60|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_ChargingportSwitch : 61|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_HVON : 62|1@0+ (1,0) [0|1] ""  Vector__XXX
+ SG_ FLZCU_Awake_FMH_LMC_WelcomeLight : 63|1@0+ (1,0) [0|1] ""  Vector__XXX
+
+BO_ 1623 NMm_LISD: 8 LISD
+ SG_ srcNodeID_LISD : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_LISD : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_LISD_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LISD_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LISD_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LISD_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LISD_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LISD_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ LISD_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1624 NMm_RISD: 8 RISD
+ SG_ srcNodeID_RISD : 7|8@0+ (1,0) [0|255] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RMR_RISD : 8|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ NMm_RISD_Reserved1 : 15|7@0+ (1,0) [0|127] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RISD_Wakeup_Poweron : 16|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RISD_Wakeup_NM : 17|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RISD_Wakeup_Diag : 18|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RISD_Awake_Poweron : 40|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RISD_Awake_NM : 41|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+ SG_ RISD_Awake_Diag : 42|1@0+ (1,0) [0|1] ""  FLZCU_VCU_LC,FLZCU_PDCS_LC
+
+BO_ 1901 Diag_RRPLM_RES: 64 RRPLM
+ SG_ Diag_RRPLM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 1952 Diag_LISD_RES: 64 LISD
+ SG_ Diag_LISD_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 1958 Diag_RISD_RES: 64 RISD
+ SG_ Diag_RISD_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 1976 Diag_LHM_RES: 64 LHM
+ SG_ Diag_LHM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 1977 Diag_RHM_RES: 64 RHM
+ SG_ Diag_RHM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 2010 Diag_RLPLM_RES: 64 RLPLM
+ SG_ Diag_RLPLM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 2011 Diag_RLFLM_RES: 64 RLFLM
+ SG_ Diag_RLFLM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 2012 Diag_RRFLM_RES: 64 RRFLM
+ SG_ Diag_RRFLM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 1824 Diag_LISD_REQ: 64 Vector__XXX
+ SG_ Diag_LISD_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  LISD
+
+BO_ 1830 Diag_RISD_REQ: 64 Vector__XXX
+ SG_ Diag_RISD_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RISD
+
+BO_ 1848 Diag_LHM_REQ: 64 Vector__XXX
+ SG_ Diag_LHM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  LHM
+
+BO_ 1849 Diag_RHM_REQ: 64 Vector__XXX
+ SG_ Diag_RHM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RHM
+
+BO_ 1882 Diag_RLPLM_REQ: 64 Vector__XXX
+ SG_ Diag_RLPLM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RLPLM
+
+BO_ 1883 Diag_RLFLM_REQ: 64 Vector__XXX
+ SG_ Diag_RLFLM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RLFLM
+
+BO_ 1884 Diag_RRFLM_REQ: 64 Vector__XXX
+ SG_ Diag_RRFLM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RRFLM
+
+BO_ 1893 Diag_RRPLM_REQ: 64 Vector__XXX
+ SG_ Diag_RRPLM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RRPLM
+
+BO_ 2015 DIAG_OBD_REQ_Broadcast: 64 Vector__XXX
+ SG_ Diag_Functional_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  LHM,LISD,RHM,RISD,RLFLM,RLPLM,RRFLM,RRPLM
+
+BO_ 1668 CCP_LHM_REQ: 64 Vector__XXX
+ SG_ CCP_LHM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  LHM
+
+BO_ 1669 XCP_LHM_RES: 64 LHM
+ SG_ XCP_LHM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+BO_ 1670 CCP_RHM_REQ: 64 Vector__XXX
+ SG_ CCP_RHM_REQ : 7|64@0+ (1,0) [0|18446744073709551615] ""  RHM
+
+BO_ 1671 XCP_RHM_RES: 64 RHM
+ SG_ XCP_RHM_RES : 7|64@0+ (1,0) [0|18446744073709551615] ""  Vector__XXX
+
+
+BO_TX_BU_ 571 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,FLZCU_SignalRoute_LC;
+
+BO_TX_BU_ 350 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC;
+
+BO_TX_BU_ 1181 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,FLZCU_SignalRoute_LC;
+
+BO_TX_BU_ 699 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,FLZCU_SignalRoute_LC;
+
+BO_TX_BU_ 1035 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC,FLZCU_SignalRoute_LC;
+
+BO_TX_BU_ 1075 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC;
+
+BO_TX_BU_ 1136 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC;
+
+BO_TX_BU_ 1204 : FLZCU_VCU_LC,VCU_LC;
+
+BO_TX_BU_ 1209 : FLZCU_VCU_LC,VCU_LC;
+
+BO_TX_BU_ 1615 : FLZCU_VCU_LC,FLZCU_PDCS_LC,FLZCU_LC;
+
+
+CM_ "Version:V1.0,Date:2023.09.01,Author:XianliZhang,Review:ZhonglinWang,Approval:JiancaiLi,Description:()first version;
+Version:V1.1,Date:2023.09.08,Author:XianliZhang,Review:ZhonglinWang,Approval:JiancaiLi,Description:(FLZCU_15(0x42F))delete signal for FLZCU_IC:
+FLZCU_PowerOFFWarning
+FLZCU_KeyValidSts
+FLZCU_KeylessWarning`
+(FLZCU_TO_FRZCU(0x4C0))change Signal Name for FLZCU_GL:
+FLZCU_RLChildLockSts to FLZCU_RL_ChildrenProtectSwitch
+FLZCU_FogLightReq to FLZCU_RearFogLightReq;
+ ";
+
+CM_ BO_ 1901 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1952 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1958 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1976 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1977 "8~64�ֽ�����Ӧ";
+CM_ BO_ 2010 "8~64�ֽ�����Ӧ";
+CM_ BO_ 2011 "8~64�ֽ�����Ӧ";
+CM_ BO_ 2012 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1824 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1830 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1848 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1849 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1882 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1883 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1884 "8~64�ֽ�����Ӧ";
+CM_ BO_ 1893 "8~64�ֽ�����Ӧ";
+CM_ BO_ 2015 "8~64�ֽ�����Ӧ";
+CM_ SG_ 49 ACU_2_LateralAcceleration "Lateral acceleration signal
+Sensor accuracy��0.0027680342857143g";
+CM_ SG_ 49 ACU_2_YawRate "Yaw rate signal
+Sensor accuracy��0.122189236 deg/s";
+CM_ SG_ 49 ACU_2_YawrateSigValidData "Signal state for yawrate";
+CM_ SG_ 49 ACU_2_LateralAccelerationSigVD "If hasn��t been calibrated, after initialization, this signal ��s value is always 10(invalid).";
+CM_ SG_ 33 ACU_3_LongitudinalAcceleration "Longitudinal acceleration signal
+Sensor accuracy��0.0027680342857143 g";
+CM_ SG_ 33 ACU_3_LongitudinalAccelerationVD "If hasn��t been calibrated, after initialization, this signal ��s value is always10(invalid)";
+CM_ SG_ 776 ASU_2_CRC1 "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0013";
+CM_ SG_ 776 ASU_2_RollgCntr1 "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 776 ASU_2_LFHeight "Height of front left wheel.";
+CM_ SG_ 776 ASU_2_RFHeight "Height of front right wheel.";
+CM_ SG_ 776 ASU_2_LRHeight "Height of rear left wheel.";
+CM_ SG_ 776 ASU_2_RRHeight "Height of rear right wheel.";
+CM_ SG_ 778 ASU_4_CRC1 "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0078";
+CM_ SG_ 778 ASU_4_RollgCntr1 "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 778 ASU_4_Resd1 "Profile1A:E2E Reserved";
+CM_ SG_ 778 ASU_4_FL_bodyacceleration "��ǰ������ٶȴ�����ֵ";
+CM_ SG_ 778 ASU_4_FL_bodyaccelerationValid "��ǰ������ٶȴ�����ֵ��Чֵ";
+CM_ SG_ 778 ASU_4_FR_bodyaccelerationValid "��ǰ������ٶȴ�����ֵ��Чֵ";
+CM_ SG_ 778 ASU_4_FR_bodyacceleration "��ǰ������ٶȴ�����ֵ";
+CM_ SG_ 778 ASU_4_REAR_bodyaccelerationValid "������ٶȴ�����ֵ��Чֵ";
+CM_ SG_ 778 ASU_4_REAR_bodyacceleration "������ٶȴ�����ֵ";
+CM_ SG_ 1291 BMS_SOCLight "BMS_SOCLight";
+CM_ SG_ 1295 BMS_ChgWireConnect_LightSts "BMS_ChgWireConnect_LightSts";
+CM_ SG_ 1295 BMS_Chg_LightSts "BMS_Chg_LightSts";
+CM_ SG_ 1143 OBC_CC_ConnectSts "CC connect states";
+CM_ SG_ 1172 ExternalTemperature_C "External temperature���棩
+Invalid: When external temperature is fail, the signal value is 0xFE.";
+CM_ SG_ 1172 ExternalTemperatureFailSts "External Temperature Sensor Fail Status
+���´���������״̬";
+CM_ SG_ 306 SAM_1_SteeringAngle "The actual range is from -720 deg to +720 deg.";
+CM_ SG_ 306 SAM_1_SteeringAngleVD "Steering Angle Valid Data";
+CM_ SG_ 306 SAM_1_SteeringAngleSpeedVD "Steering Angle Speed Valid Data";
+CM_ SG_ 571 FLZCU_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0036";
+CM_ SG_ 571 FLZCU_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 571 FLZCU_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 350 FLZCU_4_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0037";
+CM_ SG_ 350 FLZCU_4_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 350 FLZCU_4_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 350 RearPosLamp "��λ�õƣ�ŷ�ˣ�";
+CM_ SG_ 1181 FLZCU_9_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x009C";
+CM_ SG_ 1181 FLZCU_9_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1181 FLZCU_9_Resd1 "Profile1A:E2E Reserved";
+CM_ SG_ 1181 FLZCU_9_PowerMode "��ѹ��Դ״̬";
+CM_ SG_ 1324 TirePressureWarningLampSts "̥ѹ������״̬����Ϩ����˸������ʧѹ������������ѹ������״̬";
+CM_ SG_ 699 RZCU_2_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x003B";
+CM_ SG_ 699 RZCU_2_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 699 RZCU_2_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1139 RLFLM_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x008A";
+CM_ SG_ 1139 RLFLM_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1139 RLFLM_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1139 RLFLM_1_ParkLiFaildSts "RLFLM Park Light Faild Status
+λ�õƹ��Ϸ���";
+CM_ SG_ 1139 RLFLM_1_LHTurnLiFaildSts "RLFLM  Left Hand Turn Light Faild Status
+ת��ƹ��Ϸ���";
+CM_ SG_ 1139 RLFLM_1_BrkLampFaildSts "RLFLM Break Lamp Faild Status
+�ƶ��ƹ��Ϸ���";
+CM_ SG_ 1222 RLPLM_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x008B";
+CM_ SG_ 1222 RLPLM_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1222 RLPLM_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1222 RLPLM_1_ParkLiFaildSts "RLPLM Park Light Faild Status
+λ�õƹ��Ϸ���";
+CM_ SG_ 1222 RLPLM_1_LHTurnLiFaildSts "RLPLM  Left Hand Turn Light Faild Status
+ת��ƹ��Ϸ���";
+CM_ SG_ 1222 RLPLM_1_BrkLampFaildSts "RLPLM Break Lamp Faild Status
+�ƶ��ƹ��Ϸ���";
+CM_ SG_ 1222 RLPLM_1_RvsLampFaildSts "RLPLM Reverse Lamp Faild Status
+�����ƹ����źŷ���";
+CM_ SG_ 1222 RLPLM_1_RafLampFaildSts "RLPLM Rear Fog Lamp Faild Status
+����ƹ���״̬�ź�";
+CM_ SG_ 1205 RRFLM_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x008C";
+CM_ SG_ 1205 RRFLM_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1205 RRFLM_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1205 RRFLM_1_ParkLiFaildSts "RRFLM Park Light Faild Status
+λ�õƹ��Ϸ���";
+CM_ SG_ 1205 RRFLM_1_LHTurnLiFaildSts "RRFLM  Left Hand Turn Light Faild Status
+ת��ƹ��Ϸ���";
+CM_ SG_ 1205 RRFLM_1_BrkLampFaildSts "RRFLM Break Lamp Faild Status
+�ƶ��ƹ��Ϸ���";
+CM_ SG_ 1249 RRPLM_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x008D";
+CM_ SG_ 1249 RRPLM_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1249 RRPLM_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1249 RRPLM_1_ParkLiFaildSts "RRPLM Park Light Faild Status";
+CM_ SG_ 1249 RRPLM_1_LHTurnLiFaildSts "RRPLM  Left Hand Turn Light Faild Status";
+CM_ SG_ 1249 RRPLM_1_BrkLampFaildSts "RRPLM Break Lamp Faild Status";
+CM_ SG_ 1249 RRPLM_1_RvsLampFaildSts "RLPLM Reverse Lamp Faild Status";
+CM_ SG_ 1249 RRPLM_1_RafLampFaildSts "RRPLM Rear Fog Lamp Faild Status";
+CM_ SG_ 1250 ICC_AutoLightSW "AUTO�ƿ��أ�������λ�ã��򿪣���1����������λ�ã��رգ���0��Ĭ�Ϸ�0";
+CM_ SG_ 1296 CurrentTimeYear "GPSʱ�䣨�꣩";
+CM_ SG_ 1296 CurrentTimeMonth "GPSʱ�䣨�£�";
+CM_ SG_ 1296 CurrentTimeDay "GPSʱ�䣨�գ�";
+CM_ SG_ 1296 CurrentTimeHour "GPSʱ�䣨ʱ��";
+CM_ SG_ 1296 CurrentTimeMinute "GPSʱ�䣨�֣�";
+CM_ SG_ 1296 CurrentTimeSecond "GPSʱ�䣨�룩";
+CM_ SG_ 917 RandomMusicShowCMD "RandomMusic";
+CM_ SG_ 917 DIYMusicShowmod "DIYMusicShow";
+CM_ SG_ 917 LiShowMod "LightShowMode";
+CM_ SG_ 917 MusicLoudness_55HZ "The corresponding audio loudness when the sampling point music frequency is 
+55HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_123HZ "The corresponding audio loudness when the sampling point music frequency is 123HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_262HZ "The corresponding audio loudness when the sampling point music frequency is 262HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_440HZ "The corresponding audio loudness when the sampling point music frequency is 440HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_587HZ "The corresponding audio loudness when the sampling point music frequency is 587HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_784HZ "The corresponding audio loudness when the sampling point music frequency is 784HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_1318HZ "The corresponding audio loudness when the sampling point music frequency is 1318HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_2794HZ "The corresponding audio loudness when the sampling point music frequency is 2794HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 MusicLoudness_6272HZ "The corresponding audio loudness when the sampling point music frequency is 6272HZ
+Note:
+      1.When DVD don't display music , DVD send this signal value '0x1F'
+       2.Within a cycle time, If DVD don't acquire this frequency, DVD send this signal value '0x1F'";
+CM_ SG_ 917 ISDShowCMD "ISD�ƹ⿪��,ͬһ��ģʽ���뷴�����ţ���Ҫ��";
+CM_ SG_ 917 ISDShowMode "ISD�ƹ�ģʽ";
+CM_ SG_ 1279 Weather_Type "��������
+0x1������
+0x2������
+0x3������
+0x4������
+0x5��������
+0x6��������б���
+0x7�����ѩ
+0x8��С��
+0x9������
+0xA������
+0xB��������
+0xF��Сѩ
+0x10����ѩ
+0x11����ѩ
+0x12������ѩ
+0x13������
+0x15������
+0x1E������
+0x1F����ɳ
+0x21������";
+CM_ SG_ 1162 VehicleSpeedVSOSig "Vehicle Speed";
+CM_ SG_ 1162 VehicleSpeedVSOSigValidData "Valid check bit of the signal VehicleSpeedVSOSig";
+CM_ SG_ 1218 LHM_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0086";
+CM_ SG_ 1218 LHM_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1218 LHM_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1218 LHM_1_HiBeamFaildSts "LHM High Beam Faild Status";
+CM_ SG_ 1218 LHM_1_LoBeamFaildSts "LHM low Beam Faild Status";
+CM_ SG_ 1218 LHM_1_ParkLiFaildSts "LHM Park Light Faild Status";
+CM_ SG_ 1218 LHM_1_LHTurnLiFaildSts "LHM Left Hand Turn Light Faild Status";
+CM_ SG_ 1218 LHM_1_DRLFaildSts "LHM  DRL Faild Status";
+CM_ SG_ 274 LHM_2_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:No ASIL requirements.Not configure
+CRC Reserved.";
+CM_ SG_ 274 LHM_2_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 274 LHM_2_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 274 LHM_2_MotRefReq "Motor reference request signal";
+CM_ SG_ 274 LHM_2_MotPosReq "Motor position request signal
+0x0~0x258: valid motor position";
+CM_ SG_ 274 LHM_2_Left_ALS_State "��ע���������";
+CM_ SG_ 274 LHM_2_Motor_Step "��ע���������";
+CM_ SG_ 274 LHM_2_LiShowCnt "�̶������ɶ���������֤����ͬ��";
+CM_ SG_ 568 LISD_1_LiShowCnt "������������֤����ͬ��";
+CM_ SG_ 1269 LISD_2_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0088";
+CM_ SG_ 1269 LISD_2_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1269 LISD_2_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1269 LISDShowCMDSts "ISD�ƹ⿪��״̬";
+CM_ SG_ 1269 LISDShowModeSts "ISD�ƹ�ģʽ״̬";
+CM_ SG_ 1269 LISDPosLampSts "ISDλ��״̬
+FLZCU��";
+CM_ SG_ 1269 LISDTrunLightSts "ISDת��״̬
+FLZCU��";
+CM_ SG_ 1233 RISD_2_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0089";
+CM_ SG_ 1233 RISD_2_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1233 RISD_2_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1233 RISDShowCMDSts "ISD�ƹ⿪��״̬";
+CM_ SG_ 1233 RISDShowModeSts "ISD�ƹ�ģʽ״̬";
+CM_ SG_ 1233 RISDPosLampSts "ISDλ��״̬
+FLZCU��";
+CM_ SG_ 1233 RISDTrunLightSts "ISDת��״̬
+FLZCU��";
+CM_ SG_ 1187 RHM_1_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:0x0087";
+CM_ SG_ 1187 RHM_1_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1187 RHM_1_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 1187 RHM_1_HiBeamFaildSts "RHM High Beam Faild Status";
+CM_ SG_ 1187 RHM_1_LoBeamFaildSts "RHM low Beam Faild Status";
+CM_ SG_ 1187 RHM_1_ParkLiFaildSts "RHM Park Light Faild Status";
+CM_ SG_ 1187 RHM_1_RHTurnLiFaildSts "RHM Right Hand Turn Light Faild Status";
+CM_ SG_ 1187 RHM_1_DRLFaildSts "RHM DRL Faild Status";
+CM_ SG_ 280 RHM_2_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 8 Bytes
+DataID:No ASIL requirements.Not configure
+CRC Reserved.";
+CM_ SG_ 280 RHM_2_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 280 RHM_2_Resd "Profile1A:E2E Reserved";
+CM_ SG_ 280 RHM_2_MotPosFed "Motor position feedback signal
+0x0~0x258: valid motor position
+0x3FF: the motor is not referenced
+0x3FE: Reference Run, during reference sequence of stepper motor
+0x3FD:motor off";
+CM_ SG_ 280 RHM_2_MotStsFed "Motor status";
+CM_ SG_ 1035 VCC_1_OTASts "OTA status";
+CM_ SG_ 1136 VCC_3_CRC "Profile1A:E2E CRC (SAE J1850 CRC-8) for 32 Bytes
+DataID:0x0070";
+CM_ SG_ 1136 VCC_3_RollgCntr "Profile1A:E2E Rolling message counter(the maximum value of Alive counter is 14)";
+CM_ SG_ 1136 VCC_3_Resd1 "Profile1A:E2E Reserved";
+CM_ SG_ 1136 VCC_3_SN "Message ID�ź�ֵ.��VCC�ɹ���д��������Ϣʱ��VCC��100ms�����ڹ������ͱ��ģ�Message ID�ź�ֵ��1��32ѭ�����͡�";
+CM_ SG_ 1204 VCU_AcceleratorPosRaw "Raw position of the accelerator pedal (unfiltered). Represents always raw pedal position without any other influcence only mandatory to calculated gradient acceleration pedal.";
+CM_ SG_ 1204 VCU_PRNDGearAct "Gear indication";
+CM_ SG_ 1209 VCU_GasPedalPosition "Driver/Cruise control
+This signal including compositive informations which are actual gas pedal position and dummy Cruise control gas pedal position";
+CM_ SG_ 1302 LHM_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1302 LHM_FrameIndex "֡���";
+CM_ SG_ 1302 LHM_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1302 LHM_FaultNum1 "�����б�1";
+CM_ SG_ 1302 LHM_FaultNum2 "�����б�2";
+CM_ SG_ 1302 LHM_FaultNum3 "�����б�3";
+CM_ SG_ 1302 LHM_FaultNum4 "�����б�4";
+CM_ SG_ 1302 LHM_FaultNum5 "�����б�5";
+CM_ SG_ 1302 LHM_FaultNum6 "�����б�6";
+CM_ SG_ 1302 LHM_FaultNum7 "�����б�7";
+CM_ SG_ 1302 LHM_FaultNum8 "�����б�8";
+CM_ SG_ 1302 LHM_FaultNum9 "�����б�9";
+CM_ SG_ 1302 LHM_FaultNum10 "�����б�10";
+CM_ SG_ 1302 LHM_FaultNum11 "�����б�11";
+CM_ SG_ 1302 LHM_FaultNum12 "�����б�12";
+CM_ SG_ 1302 LHM_FaultNum13 "�����б�13";
+CM_ SG_ 1302 LHM_FaultNum14 "�����б�14";
+CM_ SG_ 1302 LHM_FaultNum15 "�����б�15";
+CM_ SG_ 1302 LHM_FaultNum16 "�����б�16";
+CM_ SG_ 1302 LHM_FaultNum17 "�����б�17";
+CM_ SG_ 1302 LHM_FaultNum18 "�����б�18";
+CM_ SG_ 1302 LHM_FaultNum19 "�����б�19";
+CM_ SG_ 1302 LHM_FaultNum20 "�����б�20";
+CM_ SG_ 1303 RHM_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1303 RHM_FrameIndex "֡���";
+CM_ SG_ 1303 RHM_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1303 RHM_FaultNum1 "�����б�1";
+CM_ SG_ 1303 RHM_FaultNum2 "�����б�2";
+CM_ SG_ 1303 RHM_FaultNum3 "�����б�3";
+CM_ SG_ 1303 RHM_FaultNum4 "�����б�4";
+CM_ SG_ 1303 RHM_FaultNum5 "�����б�5";
+CM_ SG_ 1303 RHM_FaultNum6 "�����б�6";
+CM_ SG_ 1303 RHM_FaultNum7 "�����б�7";
+CM_ SG_ 1303 RHM_FaultNum8 "�����б�8";
+CM_ SG_ 1303 RHM_FaultNum9 "�����б�9";
+CM_ SG_ 1303 RHM_FaultNum10 "�����б�10";
+CM_ SG_ 1303 RHM_FaultNum11 "�����б�11";
+CM_ SG_ 1303 RHM_FaultNum12 "�����б�12";
+CM_ SG_ 1303 RHM_FaultNum13 "�����б�13";
+CM_ SG_ 1303 RHM_FaultNum14 "�����б�14";
+CM_ SG_ 1303 RHM_FaultNum15 "�����б�15";
+CM_ SG_ 1303 RHM_FaultNum16 "�����б�16";
+CM_ SG_ 1303 RHM_FaultNum17 "�����б�17";
+CM_ SG_ 1303 RHM_FaultNum18 "�����б�18";
+CM_ SG_ 1303 RHM_FaultNum19 "�����б�19";
+CM_ SG_ 1303 RHM_FaultNum20 "�����б�20";
+CM_ SG_ 1305 RLFLM_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1305 RLFLM_FrameIndex "֡���";
+CM_ SG_ 1305 RLFLM_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1305 RLFLM_FaultNum1 "�����б�1";
+CM_ SG_ 1305 RLFLM_FaultNum2 "�����б�2";
+CM_ SG_ 1305 RLFLM_FaultNum3 "�����б�3";
+CM_ SG_ 1305 RLFLM_FaultNum4 "�����б�4";
+CM_ SG_ 1305 RLFLM_FaultNum5 "�����б�5";
+CM_ SG_ 1305 RLFLM_FaultNum6 "�����б�6";
+CM_ SG_ 1305 RLFLM_FaultNum7 "�����б�7";
+CM_ SG_ 1305 RLFLM_FaultNum8 "�����б�8";
+CM_ SG_ 1305 RLFLM_FaultNum9 "�����б�9";
+CM_ SG_ 1305 RLFLM_FaultNum10 "�����б�10";
+CM_ SG_ 1305 RLFLM_FaultNum11 "�����б�11";
+CM_ SG_ 1305 RLFLM_FaultNum12 "�����б�12";
+CM_ SG_ 1305 RLFLM_FaultNum13 "�����б�13";
+CM_ SG_ 1305 RLFLM_FaultNum14 "�����б�14";
+CM_ SG_ 1305 RLFLM_FaultNum15 "�����б�15";
+CM_ SG_ 1305 RLFLM_FaultNum16 "�����б�16";
+CM_ SG_ 1305 RLFLM_FaultNum17 "�����б�17";
+CM_ SG_ 1305 RLFLM_FaultNum18 "�����б�18";
+CM_ SG_ 1305 RLFLM_FaultNum19 "�����б�19";
+CM_ SG_ 1305 RLFLM_FaultNum20 "�����б�20";
+CM_ SG_ 1387 RRFLM_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1387 RRFLM_FrameIndex "֡���";
+CM_ SG_ 1387 RRFLM_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1387 RRFLM_FaultNum1 "�����б�1";
+CM_ SG_ 1387 RRFLM_FaultNum2 "�����б�2";
+CM_ SG_ 1387 RRFLM_FaultNum3 "�����б�3";
+CM_ SG_ 1387 RRFLM_FaultNum4 "�����б�4";
+CM_ SG_ 1387 RRFLM_FaultNum5 "�����б�5";
+CM_ SG_ 1387 RRFLM_FaultNum6 "�����б�6";
+CM_ SG_ 1387 RRFLM_FaultNum7 "�����б�7";
+CM_ SG_ 1387 RRFLM_FaultNum8 "�����б�8";
+CM_ SG_ 1387 RRFLM_FaultNum9 "�����б�9";
+CM_ SG_ 1387 RRFLM_FaultNum10 "�����б�10";
+CM_ SG_ 1387 RRFLM_FaultNum11 "�����б�11";
+CM_ SG_ 1387 RRFLM_FaultNum12 "�����б�12";
+CM_ SG_ 1387 RRFLM_FaultNum13 "�����б�13";
+CM_ SG_ 1387 RRFLM_FaultNum14 "�����б�14";
+CM_ SG_ 1387 RRFLM_FaultNum15 "�����б�15";
+CM_ SG_ 1387 RRFLM_FaultNum16 "�����б�16";
+CM_ SG_ 1387 RRFLM_FaultNum17 "�����б�17";
+CM_ SG_ 1387 RRFLM_FaultNum18 "�����б�18";
+CM_ SG_ 1387 RRFLM_FaultNum19 "�����б�19";
+CM_ SG_ 1387 RRFLM_FaultNum20 "�����б�20";
+CM_ SG_ 1388 RLPLM_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1388 RLPLM_FrameIndex "֡���";
+CM_ SG_ 1388 RLPLM_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1388 RLPLM_FaultNum1 "�����б�1";
+CM_ SG_ 1388 RLPLM_FaultNum2 "�����б�2";
+CM_ SG_ 1388 RLPLM_FaultNum3 "�����б�3";
+CM_ SG_ 1388 RLPLM_FaultNum4 "�����б�4";
+CM_ SG_ 1388 RLPLM_FaultNum5 "�����б�5";
+CM_ SG_ 1388 RLPLM_FaultNum6 "�����б�6";
+CM_ SG_ 1388 RLPLM_FaultNum7 "�����б�7";
+CM_ SG_ 1388 RLPLM_FaultNum8 "�����б�8";
+CM_ SG_ 1388 RLPLM_FaultNum9 "�����б�9";
+CM_ SG_ 1388 RLPLM_FaultNum10 "�����б�10";
+CM_ SG_ 1388 RLPLM_FaultNum11 "�����б�11";
+CM_ SG_ 1388 RLPLM_FaultNum12 "�����б�12";
+CM_ SG_ 1388 RLPLM_FaultNum13 "�����б�13";
+CM_ SG_ 1388 RLPLM_FaultNum14 "�����б�14";
+CM_ SG_ 1388 RLPLM_FaultNum15 "�����б�15";
+CM_ SG_ 1388 RLPLM_FaultNum16 "�����б�16";
+CM_ SG_ 1388 RLPLM_FaultNum17 "�����б�17";
+CM_ SG_ 1388 RLPLM_FaultNum18 "�����б�18";
+CM_ SG_ 1388 RLPLM_FaultNum19 "�����б�19";
+CM_ SG_ 1388 RLPLM_FaultNum20 "�����б�20";
+CM_ SG_ 1389 RRPLM_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1389 RRPLM_FrameIndex "֡���";
+CM_ SG_ 1389 RRPLM_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1389 RRPLM_FaultNum1 "�����б�1";
+CM_ SG_ 1389 RRPLM_FaultNum2 "�����б�2";
+CM_ SG_ 1389 RRPLM_FaultNum3 "�����б�3";
+CM_ SG_ 1389 RRPLM_FaultNum4 "�����б�4";
+CM_ SG_ 1389 RRPLM_FaultNum5 "�����б�5";
+CM_ SG_ 1389 RRPLM_FaultNum6 "�����б�6";
+CM_ SG_ 1389 RRPLM_FaultNum7 "�����б�7";
+CM_ SG_ 1389 RRPLM_FaultNum8 "�����б�8";
+CM_ SG_ 1389 RRPLM_FaultNum9 "�����б�9";
+CM_ SG_ 1389 RRPLM_FaultNum10 "�����б�10";
+CM_ SG_ 1389 RRPLM_FaultNum11 "�����б�11";
+CM_ SG_ 1389 RRPLM_FaultNum12 "�����б�12";
+CM_ SG_ 1389 RRPLM_FaultNum13 "�����б�13";
+CM_ SG_ 1389 RRPLM_FaultNum14 "�����б�14";
+CM_ SG_ 1389 RRPLM_FaultNum15 "�����б�15";
+CM_ SG_ 1389 RRPLM_FaultNum16 "�����б�16";
+CM_ SG_ 1389 RRPLM_FaultNum17 "�����б�17";
+CM_ SG_ 1389 RRPLM_FaultNum18 "�����б�18";
+CM_ SG_ 1389 RRPLM_FaultNum19 "�����б�19";
+CM_ SG_ 1389 RRPLM_FaultNum20 "�����б�20";
+CM_ SG_ 1390 LISD_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1390 LISD_FrameIndex "֡���";
+CM_ SG_ 1390 LISD_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1390 LISD_FaultNum1 "�����б�1";
+CM_ SG_ 1390 LISD_FaultNum2 "�����б�2";
+CM_ SG_ 1390 LISD_FaultNum3 "�����б�3";
+CM_ SG_ 1390 LISD_FaultNum4 "�����б�4";
+CM_ SG_ 1390 LISD_FaultNum5 "�����б�5";
+CM_ SG_ 1390 LISD_FaultNum6 "�����б�6";
+CM_ SG_ 1390 LISD_FaultNum7 "�����б�7";
+CM_ SG_ 1390 LISD_FaultNum8 "�����б�8";
+CM_ SG_ 1390 LISD_FaultNum9 "�����б�9";
+CM_ SG_ 1390 LISD_FaultNum10 "�����б�10";
+CM_ SG_ 1390 LISD_FaultNum11 "�����б�11";
+CM_ SG_ 1390 LISD_FaultNum12 "�����б�12";
+CM_ SG_ 1390 LISD_FaultNum13 "�����б�13";
+CM_ SG_ 1390 LISD_FaultNum14 "�����б�14";
+CM_ SG_ 1390 LISD_FaultNum15 "�����б�15";
+CM_ SG_ 1390 LISD_FaultNum16 "�����б�16";
+CM_ SG_ 1390 LISD_FaultNum17 "�����б�17";
+CM_ SG_ 1390 LISD_FaultNum18 "�����б�18";
+CM_ SG_ 1390 LISD_FaultNum19 "�����б�19";
+CM_ SG_ 1390 LISD_FaultNum20 "�����б�20";
+CM_ SG_ 1391 RISD_TotalFaultNum "��ǰ��������";
+CM_ SG_ 1391 RISD_FrameIndex "֡���";
+CM_ SG_ 1391 RISD_SupplierNum "��Ӧ�̴���";
+CM_ SG_ 1391 RISD_FaultNum1 "�����б�1";
+CM_ SG_ 1391 RISD_FaultNum2 "�����б�2";
+CM_ SG_ 1391 RISD_FaultNum3 "�����б�3";
+CM_ SG_ 1391 RISD_FaultNum4 "�����б�4";
+CM_ SG_ 1391 RISD_FaultNum5 "�����б�5";
+CM_ SG_ 1391 RISD_FaultNum6 "�����б�6";
+CM_ SG_ 1391 RISD_FaultNum7 "�����б�7";
+CM_ SG_ 1391 RISD_FaultNum8 "�����б�8";
+CM_ SG_ 1391 RISD_FaultNum9 "�����б�9";
+CM_ SG_ 1391 RISD_FaultNum10 "�����б�10";
+CM_ SG_ 1391 RISD_FaultNum11 "�����б�11";
+CM_ SG_ 1391 RISD_FaultNum12 "�����б�12";
+CM_ SG_ 1391 RISD_FaultNum13 "�����б�13";
+CM_ SG_ 1391 RISD_FaultNum14 "�����б�14";
+CM_ SG_ 1391 RISD_FaultNum15 "�����б�15";
+CM_ SG_ 1391 RISD_FaultNum16 "�����б�16";
+CM_ SG_ 1391 RISD_FaultNum17 "�����б�17";
+CM_ SG_ 1391 RISD_FaultNum18 "�����б�18";
+CM_ SG_ 1391 RISD_FaultNum19 "�����б�19";
+CM_ SG_ 1391 RISD_FaultNum20 "�����б�20";
+CM_ SG_ 1592 srcNodeID_LHM "The srcNodeID of LHM  is 0x38";
+CM_ SG_ 1592 RMR_LHM "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1592 LHM_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1592 LHM_Wakeup_NM "NM����";
+CM_ SG_ 1592 LHM_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1592 LHM_Awake_Poweron "KL15 ON";
+CM_ SG_ 1592 LHM_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1592 LHM_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1593 srcNodeID_RHM "The srcNodeID of RHM  is 0x39";
+CM_ SG_ 1593 RMR_RHM "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1593 RHM_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1593 RHM_Wakeup_NM "NM����";
+CM_ SG_ 1593 RHM_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1593 RHM_Awake_Poweron "KL15 ON";
+CM_ SG_ 1593 RHM_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1593 RHM_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1594 srcNodeID_RLFLM "The srcNodeID of RLFLM  is 0x3A";
+CM_ SG_ 1594 RMR_RLFLM "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1594 RLFLM_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1594 RLFLM_Wakeup_NM "NM����";
+CM_ SG_ 1594 RLFLM_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1594 RLFLM_Awake_Poweron "KL15 ON";
+CM_ SG_ 1594 RLFLM_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1594 RLFLM_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1595 srcNodeID_RLPLM "The srcNodeID of RLPLM  is 0x3B";
+CM_ SG_ 1595 RMR_RLPLM "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1595 RLPLM_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1595 RLPLM_Wakeup_NM "NM����";
+CM_ SG_ 1595 RLPLM_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1595 RLPLM_Awake_Poweron "KL15 ON";
+CM_ SG_ 1595 RLPLM_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1595 RLPLM_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1596 srcNodeID_RRFLM "The srcNodeID of RRFLM  is 0x3C";
+CM_ SG_ 1596 RMR_RRFLM "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1596 RRFLM_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1596 RRFLM_Wakeup_NM "NM����";
+CM_ SG_ 1596 RRFLM_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1596 RRFLM_Awake_Poweron "KL15 ON";
+CM_ SG_ 1596 RRFLM_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1596 RRFLM_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1597 srcNodeID_RRPLM "The srcNodeID of RRPLM  is 0x3D";
+CM_ SG_ 1597 RMR_RRPLM "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1597 RRPLM_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1597 RRPLM_Wakeup_NM "NM����";
+CM_ SG_ 1597 RRPLM_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1597 RRPLM_Awake_Poweron "KL15 ON";
+CM_ SG_ 1597 RRPLM_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1597 RRPLM_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1615 RMR_FLZCU "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1615 FLZCU_Wakeup_NM "NM����";
+CM_ SG_ 1615 FLZCU_Wakeup_DDSP "DDSP���ܼ��DDSP�����������ƽ��
+�п���Ӳ�߿������أ��ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_InsideSwitch "��ǰ�ŵ��ͷ��ڿ����أ��ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_OutsideSwitch "��ǰ�ŵ��ͷ����⿪���ر仯���ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_FLDoorSignal "��ǰ�Ű뿪�ź����루�ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��
+��ǰ��ȫ���ź����루�ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_LSA "LSA���ܼ��LSA�����������ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_DoorLockSt "��������״̬����״̬�仯���ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_HazardlightswitchSt "Σ�յƿ������루�ߵ�ƽ����Ϊ�͵�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_Hazardlight "Σ�յ������Ч";
+CM_ SG_ 1615 FLZCU_Wakeup_RKEHV_Req "Զ���ϸ�ѹ���� = ON";
+CM_ SG_ 1615 FLZCU_Wakeup_KL15 "ON��Ӳ���źż�⵽�ߵ�ƽ
+ComfortableӲ���źż�⵽�ߵ�ƽ";
+CM_ SG_ 1615 FLZCU_Wakeup_IntelligentRecharge "���ܲ��繦�ܼ��EBS�����������ƽ��FLZCUά��60s��LBMS������NM���ģ�";
+CM_ SG_ 1615 FLZCU_Wakeup_BrakeswitchLVHV "�ƶ����ش�δ���µ����£��ƶ�̤�忪���ź�0���������ɵ͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_ETH "��̫����(���)Ӳ���źż�⵽�ߵ�ƽ";
+CM_ SG_ 1615 FLZCU_Wakeup_RLInsideSwitch "����ŵ��ͷ��ڿ����أ��ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_RLOutsideSwitch "����ŵ��ͷ��⿪���أ��ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_RLDoorSignal "����Ű뿪�ź����루�ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��
+�����ȫ���ź����루�ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Wakeup_ChargingportSwitch "���ڸ�Ӳ�߿������أ��ߵ�ƽ����Ϊ�͵�ƽ ���� �͵�ƽ����Ϊ�ߵ�ƽ��";
+CM_ SG_ 1615 FLZCU_Awake_Poweron "������Դ��λΪ��OFF��
+��FRZCU_PowerMode��0x27E��ȡֵΪ0x2��";
+CM_ SG_ 1615 FLZCU_Awake_NM "NM����";
+CM_ SG_ 1615 FLZCU_Awake_Diag "�������ģʽ";
+CM_ SG_ 1615 FLZCU_Awake_DDSP "DDSP����ά�֣��пؽ�������ء����ε��ڿ��ء����μ��俪�أ������籣��60s
+�п���Ӳ�߿�������״̬�仯�����籣��60s��֮���ͷ���������";
+CM_ SG_ 1615 FLZCU_Awake_InsideSwitch "���ݵ��ͷ����ڿ�����";
+CM_ SG_ 1615 FLZCU_Awake_OutsideSwitch "���ݵ��ͷ����⿪����";
+CM_ SG_ 1615 FLZCU_Awake_FLDoorSignal "��ǰ�ſ��ź�����״̬�ɹص������ߵ��ͣ������籣��180s
+��ǰ�ſ��ź�����״̬�ɿ����أ��͵��ߣ������籣��10s";
+CM_ SG_ 1615 FLZCU_Awake_LSA_OKS "LSA����ά�֣�λ�õƿ��أ������籣��60s
+OKS����ά�֣�OKS_Awake=0x1:Active��";
+CM_ SG_ 1615 FLZCU_Awake_DoorLockSt "��������״̬����״̬�仯";
+CM_ SG_ 1615 FLZCU_Awake_HazardlightswitchSt "Σ�յƿ�������״̬�仯";
+CM_ SG_ 1615 FLZCU_Awake_Powercomfortable "������Դ��λΪ��OFF��
+��FRZCU_PowerMode��0x27E��ȡֵΪ0x1��";
+CM_ SG_ 1615 FLZCU_Awake_Hazardlight "Σ�յ������Ч";
+CM_ SG_ 1615 FLZCU_Awake_AntitheftState "�������״̬�����仯������������β�ŵ��������Ԥ��������������������ʧ�� ��������״̬�л���
+���ڲ��ӿ�VbOUT_ALM_SleepPermit_flg=0��";
+CM_ SG_ 1615 FLZCU_Awake_RKEHV_Req "Զ���ϸ�ѹ����=ON��off��ά��10s����";
+CM_ SG_ 1615 FLZCU_Awake_KL15 "ON��Ӳ���źż�⵽�ߵ�ƽ
+ComfortableӲ���źż�⵽�ߵ�ƽ";
+CM_ SG_ 1615 FLZCU_Awake_IntelligentRecharge "���ܲ��繦��ά�֣��ڲ��ӿ�IntelligentReqCharge=0x1:Request)";
+CM_ SG_ 1615 FLZCU_Awake_BrakeswitchHV "�ƶ����ش�δ���µ����£��ƶ�̤�忪���ź�0���������ɵ͵��ߣ������籣��180s
+�ƶ����شӲ��µ�δ���£��ƶ�̤�忪���ź�0���������ɸߵ��ͣ������籣��10s";
+CM_ SG_ 1615 FLZCU_Awake_ETH "��̫����(���)Ӳ���źż�⵽�ߵ�ƽ";
+CM_ SG_ 1615 FLZCU_Awake_RLInsideSwitch "����ŵ��ͷ����ڿ�����״̬�仯�����籣��10s";
+CM_ SG_ 1615 FLZCU_Awake_RLOutsideSwitch "����ŵ��ͷ��⿪���أ����籣��10s��֮���ͷ��������ߣ�";
+CM_ SG_ 1615 FLZCU_Awake_RLDoorSignal "����Ű뿪�ź����룬״̬�ɹص������ߵ��ͣ������籣��180s
+����Ű뿪�ź����룬״̬�ɿ����أ��͵��ߣ������籣��10s
+�����ȫ���ź����룬״̬�ɹص������ߵ��ͣ������籣��180s
+�����ȫ���ź����룬״̬�ɿ����أ��͵��ߣ������籣��10s";
+CM_ SG_ 1615 FLZCU_Awake_ChargingportSwitch "���ڸ�Ӳ�߿�������״̬�仯�����籣��10s��֮���ͷ��������ߣ������������10�δ�����û���ҵ��Ϸ�Կ�׺�ֻ���ѱ��أ�����������";
+CM_ SG_ 1615 FLZCU_Awake_HVON "�������ڸ�ѹ״̬���ڲ��ӿ�VCU_HVNM=0x1:Request)����PDCS������ʱ�޴����籣��������";
+CM_ SG_ 1615 FLZCU_Awake_FMH_LMC_WelcomeLight "FMH���ܼ���/LMC���ܼ���/ӭ�����ܼ���";
+CM_ SG_ 1623 RMR_LISD "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1623 LISD_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1623 LISD_Wakeup_NM "NM����";
+CM_ SG_ 1623 LISD_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1623 LISD_Awake_Poweron "KL15 ON";
+CM_ SG_ 1623 LISD_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1623 LISD_Awake_Diag "���յ���������ص���ϱ���";
+CM_ SG_ 1624 RMR_RISD "If set to 1 to force the network management of all other nodes on the bus into the re-peat message state.";
+CM_ SG_ 1624 RISD_Wakeup_Poweron "KL15 ON";
+CM_ SG_ 1624 RISD_Wakeup_NM "NM����";
+CM_ SG_ 1624 RISD_Wakeup_Diag "Wakeup Source3 Reserved";
+CM_ SG_ 1624 RISD_Awake_Poweron "KL15 ON";
+CM_ SG_ 1624 RISD_Awake_NM "Awake Reason2 Reserved";
+CM_ SG_ 1624 RISD_Awake_Diag "���յ���������ص���ϱ���";
+
+
+BA_DEF_ BO_  "NmMessage" ENUM "No","Yes";
+BA_DEF_ BO_  "DiagState" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagRequest" ENUM  "No","Yes";
+BA_DEF_ BO_  "DiagResponse" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgSendType" ENUM  "Cyclic","Event","IfActive","CE","CA","NoMsgSendType";
+BA_DEF_ BO_  "GenMsgCycleTime" INT 0 0;
+BA_DEF_ SG_  "GenSigSendType" ENUM  "Cyclic","OnChange","OnWrite","IfActive","OnChangeWithRepetition","OnWriteWithRepetition","IfActiveWithRepetition","NoSigSendType","OnChangeAndIfActive","OnChangeAndIfActiveWithRepetition","CA","CE","Event";
+BA_DEF_ SG_  "GenSigStartValue" INT 0 0;
+BA_DEF_ SG_  "GenSigInactiveValue" INT 0 0;
+BA_DEF_ BO_  "GenMsgCycleTimeFast" INT 0 0;
+BA_DEF_ BO_  "GenMsgNrOfRepetition" INT 0 0;
+BA_DEF_ BO_  "GenMsgDelayTime" INT 0 0;
+BA_DEF_  "DBName" STRING ;
+BA_DEF_ BO_  "CANFD_BRS" ENUM  "0","1";
+BA_DEF_ BO_  "VFrameFormat" ENUM  "StandardCAN","ExtendedCAN","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","reserved","StandardCAN_FD","ExtendedCAN_FD";
+BA_DEF_  "NmMessageCount" INT 0 255;
+BA_DEF_ BO_  "GenMsgILSupport" ENUM  "No","Yes";
+BA_DEF_ BO_  "GenMsgStartDelayTime" INT 0 65535;
+BA_DEF_ BU_  "NmStationAddress" INT 0 63;
+BA_DEF_ BU_  "NmNode" ENUM  "no","yes";
+BA_DEF_  "NmBaseAddress" HEX 1024 1087;
+BA_DEF_  "BusType" STRING ;
+BA_DEF_ BU_  "NodeLayerModules" STRING ;
+BA_DEF_ BU_  "ECU" STRING ;
+BA_DEF_ BU_  "CANoeJitterMax" INT 0 0;
+BA_DEF_ BU_  "CANoeJitterMin" INT 0 0;
+BA_DEF_ BU_  "CANoeDrift" INT 0 0;
+BA_DEF_ BU_  "CANoeStartDelay" INT 0 0;
+BA_DEF_ SG_ "GenSigMeplex" STRING;
+BA_DEF_ SG_ "GenSigASIL" ENUM "QM","A","B","C","D","";
+BA_DEF_DEF_  "NmMessage" "No";
+BA_DEF_DEF_  "DiagState" "No";
+BA_DEF_DEF_  "DiagRequest" "No";
+BA_DEF_DEF_  "DiagResponse" "No";
+BA_DEF_DEF_  "GenMsgSendType" "Cyclic";
+BA_DEF_DEF_  "GenMsgCycleTime" 0;
+BA_DEF_DEF_  "GenSigSendType" "Cyclic";
+BA_DEF_DEF_  "GenSigStartValue" 0;
+BA_DEF_DEF_  "GenSigInactiveValue" 0;
+BA_DEF_DEF_  "GenMsgCycleTimeFast" 0;
+BA_DEF_DEF_  "GenMsgNrOfRepetition" 0;
+BA_DEF_DEF_  "GenMsgDelayTime" 0;
+BA_DEF_DEF_  "DBName" "";
+BA_DEF_DEF_  "CANFD_BRS" "1";
+BA_DEF_DEF_  "VFrameFormat" "StandardCAN_FD";
+BA_DEF_DEF_  "NmMessageCount" 128;
+BA_DEF_DEF_  "GenMsgILSupport" "No";
+BA_DEF_DEF_  "GenMsgStartDelayTime" 0;
+BA_DEF_DEF_  "NmStationAddress" 0;
+BA_DEF_DEF_  "NmNode" "no";
+BA_DEF_DEF_  "NmBaseAddress" 1024;
+BA_DEF_DEF_  "BusType" "CAN FD";
+BA_DEF_DEF_  "NodeLayerModules" "";
+BA_DEF_DEF_  "ECU" "";
+BA_DEF_DEF_  "CANoeJitterMax" 0;
+BA_DEF_DEF_  "CANoeJitterMin" 0;
+BA_DEF_DEF_  "CANoeDrift" 0;
+BA_DEF_DEF_  "CANoeStartDelay" 0;
+BA_DEF_DEF_ "GenSigMeplex" "";
+BA_DEF_DEF_ "GenSigASIL" "QM";
+BA_ "DBName" "EEA4.x_FLZCU_LC_V4.10_20250522";
+BA_ "GenMsgILSupport" BO_ 49 1;
+BA_ "GenMsgCycleTime" BO_ 49 10;
+BA_ "GenSigASIL"  SG_ 49 ACU_2_LateralAcceleration 2;
+BA_ "GenSigASIL"  SG_ 49 ACU_2_YawRate 2;
+BA_ "GenSigStartValue" SG_ 49 ACU_2_YawrateSigValidData 3;
+BA_ "GenSigASIL"  SG_ 49 ACU_2_YawrateSigValidData 2;
+BA_ "GenSigStartValue" SG_ 49 ACU_2_LateralAccelerationSigVD 3;
+BA_ "GenSigASIL"  SG_ 49 ACU_2_LateralAccelerationSigVD 2;
+BA_ "GenMsgILSupport" BO_ 33 1;
+BA_ "GenMsgSendType" BO_ 33 3;
+BA_ "GenMsgCycleTime" BO_ 33 10;
+BA_ "GenMsgCycleTimeFast" BO_ 33 10;
+BA_ "GenMsgNrOfRepetition" BO_ 33 6;
+BA_ "GenMsgDelayTime" BO_ 33 5;
+BA_ "GenSigASIL"  SG_ 33 ACU_3_LongitudinalAcceleration 2;
+BA_ "GenSigStartValue" SG_ 33 ACU_3_LongitudinalAccelerationVD 3;
+BA_ "GenSigASIL"  SG_ 33 ACU_3_LongitudinalAccelerationVD 2;
+BA_ "GenMsgILSupport" BO_ 776 1;
+BA_ "GenMsgCycleTime" BO_ 776 50;
+BA_ "GenSigASIL"  SG_ 776 ASU_2_CRC1 5;
+BA_ "GenSigASIL"  SG_ 776 ASU_2_RollgCntr1 5;
+BA_ "GenSigStartValue" SG_ 776 ASU_2_LFHeight 1500;
+BA_ "GenSigASIL"  SG_ 776 ASU_2_LFHeight 2;
+BA_ "GenSigStartValue" SG_ 776 ASU_2_RFHeight 1500;
+BA_ "GenSigASIL"  SG_ 776 ASU_2_RFHeight 2;
+BA_ "GenSigStartValue" SG_ 776 ASU_2_LRHeight 1500;
+BA_ "GenSigASIL"  SG_ 776 ASU_2_LRHeight 2;
+BA_ "GenSigStartValue" SG_ 776 ASU_2_RRHeight 1500;
+BA_ "GenSigASIL"  SG_ 776 ASU_2_RRHeight 2;
+BA_ "GenMsgILSupport" BO_ 778 1;
+BA_ "GenMsgCycleTime" BO_ 778 50;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_CRC1 5;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_RollgCntr1 5;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_Resd1 5;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_FL_bodyacceleration 2;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_FL_bodyaccelerationValid 2;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_FR_bodyaccelerationValid 2;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_FR_bodyacceleration 2;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_REAR_bodyaccelerationValid 2;
+BA_ "GenSigASIL"  SG_ 778 ASU_4_REAR_bodyacceleration 2;
+BA_ "GenMsgILSupport" BO_ 1291 1;
+BA_ "GenMsgCycleTime" BO_ 1291 500;
+BA_ "GenSigASIL"  SG_ 1291 BMS_SOCLight 2;
+BA_ "GenMsgILSupport" BO_ 1295 1;
+BA_ "GenMsgCycleTime" BO_ 1295 500;
+BA_ "GenSigASIL"  SG_ 1295 BMS_ChgWireConnect_LightSts 5;
+BA_ "GenSigASIL"  SG_ 1295 BMS_Chg_LightSts 5;
+BA_ "GenMsgILSupport" BO_ 1143 1;
+BA_ "GenMsgCycleTime" BO_ 1143 100;
+BA_ "GenSigASIL"  SG_ 1143 OBC_CC_ConnectSts 1;
+BA_ "GenMsgILSupport" BO_ 1172 1;
+BA_ "GenMsgCycleTime" BO_ 1172 100;
+BA_ "GenSigStartValue" SG_ 1172 ExternalTemperature_C 254;
+BA_ "GenSigASIL"  SG_ 1172 ExternalTemperature_C 5;
+BA_ "GenSigASIL"  SG_ 1172 ExternalTemperatureFailSts 5;
+BA_ "GenMsgILSupport" BO_ 306 1;
+BA_ "GenMsgCycleTime" BO_ 306 10;
+BA_ "GenSigStartValue" SG_ 306 SAM_1_SteeringAngle 65535;
+BA_ "GenSigASIL"  SG_ 306 SAM_1_SteeringAngle 2;
+BA_ "GenSigStartValue" SG_ 306 SAM_1_SteeringAngleSpeed 255;
+BA_ "GenSigASIL"  SG_ 306 SAM_1_SteeringAngleSpeed 2;
+BA_ "GenSigStartValue" SG_ 306 SAM_1_SteeringAngleVD 1;
+BA_ "GenSigASIL"  SG_ 306 SAM_1_SteeringAngleVD 2;
+BA_ "GenSigStartValue" SG_ 306 SAM_1_SteeringAngleSpeedVD 1;
+BA_ "GenSigASIL"  SG_ 306 SAM_1_SteeringAngleSpeedVD 2;
+BA_ "GenMsgILSupport" BO_ 571 1;
+BA_ "GenMsgCycleTime" BO_ 571 20;
+BA_ "GenSigASIL"  SG_ 571 FLZCU_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 571 FLZCU_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 571 FLZCU_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 571 HoodSts 1;
+BA_ "GenSigASIL"  SG_ 571 LHFdoorSts 1;
+BA_ "GenMsgILSupport" BO_ 350 1;
+BA_ "GenMsgCycleTime" BO_ 350 10;
+BA_ "GenSigASIL"  SG_ 350 FLZCU_4_CRC 5;
+BA_ "GenSigASIL"  SG_ 350 FLZCU_4_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 350 FLZCU_4_Resd 5;
+BA_ "GenSigASIL"  SG_ 350 PosLamp 1;
+BA_ "GenSigASIL"  SG_ 350 LHTrunLight 2;
+BA_ "GenSigASIL"  SG_ 350 RHTrunLight 2;
+BA_ "GenSigASIL"  SG_ 350 LowBeam 2;
+BA_ "GenSigASIL"  SG_ 350 HighBeam 1;
+BA_ "GenSigASIL"  SG_ 350 BrkLight 2;
+BA_ "GenSigASIL"  SG_ 350 FogLight 5;
+BA_ "GenSigASIL"  SG_ 350 ReverseLight 5;
+BA_ "GenSigASIL"  SG_ 350 DaytimeLight 5;
+BA_ "GenSigASIL"  SG_ 350 LowBeamHighAdj 5;
+BA_ "GenSigASIL"  SG_ 350 FlowLampEnable 5;
+BA_ "GenSigASIL"  SG_ 350 WelcomeLight 5;
+BA_ "GenSigASIL"  SG_ 350 TrailerRearFogLightSts 5;
+BA_ "GenSigASIL"  SG_ 350 RearPosLamp 1;
+BA_ "GenMsgILSupport" BO_ 1181 1;
+BA_ "GenMsgCycleTime" BO_ 1181 100;
+BA_ "GenSigASIL"  SG_ 1181 FLZCU_9_CRC 5;
+BA_ "GenSigASIL"  SG_ 1181 FLZCU_9_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1181 FLZCU_9_Resd1 5;
+BA_ "GenSigASIL"  SG_ 1181 FLZCU_9_PowerMode 2;
+BA_ "GenMsgILSupport" BO_ 683 1;
+BA_ "GenMsgCycleTime" BO_ 683 20;
+BA_ "GenSigASIL"  SG_ 683 RHFDoorSts 1;
+BA_ "GenMsgILSupport" BO_ 1324 1;
+BA_ "GenMsgCycleTime" BO_ 1324 500;
+BA_ "GenSigASIL"  SG_ 1324 TirePressureWarningLampSts 2;
+BA_ "GenMsgILSupport" BO_ 699 1;
+BA_ "GenMsgCycleTime" BO_ 699 20;
+BA_ "GenSigASIL"  SG_ 699 RZCU_2_CRC 5;
+BA_ "GenSigASIL"  SG_ 699 RZCU_2_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 699 RZCU_2_Resd 5;
+BA_ "GenSigASIL"  SG_ 699 LHRdoorSts 1;
+BA_ "GenSigASIL"  SG_ 699 TrunkSts 1;
+BA_ "GenMsgILSupport" BO_ 1139 1;
+BA_ "GenMsgCycleTime" BO_ 1139 100;
+BA_ "GenSigASIL"  SG_ 1139 RLFLM_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 1139 RLFLM_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1139 RLFLM_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 1139 RLFLM_1_ParkLiFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1139 RLFLM_1_LHTurnLiFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1139 RLFLM_1_BrkLampFaildSts 2;
+BA_ "GenMsgILSupport" BO_ 1222 1;
+BA_ "GenMsgCycleTime" BO_ 1222 100;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_ParkLiFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_LHTurnLiFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_BrkLampFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_RvsLampFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1222 RLPLM_1_RafLampFaildSts 5;
+BA_ "GenMsgILSupport" BO_ 1205 1;
+BA_ "GenMsgCycleTime" BO_ 1205 100;
+BA_ "GenSigASIL"  SG_ 1205 RRFLM_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 1205 RRFLM_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1205 RRFLM_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 1205 RRFLM_1_ParkLiFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1205 RRFLM_1_LHTurnLiFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1205 RRFLM_1_BrkLampFaildSts 2;
+BA_ "GenMsgILSupport" BO_ 1249 1;
+BA_ "GenMsgCycleTime" BO_ 1249 100;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_ParkLiFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_LHTurnLiFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_BrkLampFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_RvsLampFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1249 RRPLM_1_RafLampFaildSts 5;
+BA_ "GenMsgILSupport" BO_ 1250 1;
+BA_ "GenMsgSendType" BO_ 1250 3;
+BA_ "GenMsgCycleTime" BO_ 1250 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1250 50;
+BA_ "GenMsgNrOfRepetition" BO_ 1250 3;
+BA_ "GenMsgDelayTime" BO_ 1250 5;
+BA_ "GenSigASIL"  SG_ 1250 ICC_AutoLightSW 5;
+BA_ "GenMsgILSupport" BO_ 1296 1;
+BA_ "GenMsgCycleTime" BO_ 1296 500;
+BA_ "GenSigASIL"  SG_ 1296 CurrentTimeYear 5;
+BA_ "GenSigStartValue" SG_ 1296 CurrentTimeMonth 1;
+BA_ "GenSigASIL"  SG_ 1296 CurrentTimeMonth 5;
+BA_ "GenSigStartValue" SG_ 1296 CurrentTimeDay 1;
+BA_ "GenSigASIL"  SG_ 1296 CurrentTimeDay 5;
+BA_ "GenSigASIL"  SG_ 1296 CurrentTimeHour 5;
+BA_ "GenSigASIL"  SG_ 1296 CurrentTimeMinute 5;
+BA_ "GenSigASIL"  SG_ 1296 CurrentTimeSecond 5;
+BA_ "GenMsgILSupport" BO_ 917 1;
+BA_ "GenMsgCycleTime" BO_ 917 50;
+BA_ "GenSigASIL"  SG_ 917 RandomMusicShowCMD 5;
+BA_ "GenSigASIL"  SG_ 917 DIYMusicShowmod 5;
+BA_ "GenSigASIL"  SG_ 917 LiShowMod 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_55HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_123HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_262HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_440HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_587HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_784HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_1318HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_2794HZ 5;
+BA_ "GenSigASIL"  SG_ 917 MusicLoudness_6272HZ 5;
+BA_ "GenSigASIL"  SG_ 917 ISDShowCMD 5;
+BA_ "GenSigASIL"  SG_ 917 ISDShowMode 5;
+BA_ "GenMsgILSupport" BO_ 1279 1;
+BA_ "GenMsgSendType" BO_ 1279 3;
+BA_ "GenMsgCycleTime" BO_ 1279 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1279 50;
+BA_ "GenMsgNrOfRepetition" BO_ 1279 3;
+BA_ "GenMsgDelayTime" BO_ 1279 5;
+BA_ "GenSigASIL"  SG_ 1279 Weather_Type 5;
+BA_ "GenMsgILSupport" BO_ 1162 1;
+BA_ "GenMsgCycleTime" BO_ 1162 100;
+BA_ "GenSigASIL"  SG_ 1162 VehicleSpeedVSOSig 2;
+BA_ "GenSigStartValue" SG_ 1162 VehicleSpeedVSOSigValidData 1;
+BA_ "GenSigASIL"  SG_ 1162 VehicleSpeedVSOSigValidData 2;
+BA_ "GenMsgILSupport" BO_ 1218 1;
+BA_ "GenMsgCycleTime" BO_ 1218 100;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_HiBeamFaildSts 1;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_LoBeamFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_ParkLiFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_LHTurnLiFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1218 LHM_1_DRLFaildSts 5;
+BA_ "GenMsgILSupport" BO_ 274 1;
+BA_ "GenMsgCycleTime" BO_ 274 10;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_CRC 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_Resd 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_MotRefReq 5;
+BA_ "GenSigStartValue" SG_ 274 LHM_2_MotPosReq 300;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_MotPosReq 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_Left_ALS_State 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_LED_ON_OFF 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_Motor_Step 5;
+BA_ "GenSigASIL"  SG_ 274 LHM_2_LiShowCnt 5;
+BA_ "GenMsgILSupport" BO_ 568 1;
+BA_ "GenMsgCycleTime" BO_ 568 20;
+BA_ "GenSigASIL"  SG_ 568 LISD_1_LiShowCnt 5;
+BA_ "GenMsgILSupport" BO_ 1269 1;
+BA_ "GenMsgCycleTime" BO_ 1269 100;
+BA_ "GenSigASIL"  SG_ 1269 LISD_2_CRC 5;
+BA_ "GenSigASIL"  SG_ 1269 LISD_2_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1269 LISD_2_Resd 5;
+BA_ "GenSigASIL"  SG_ 1269 LISDShowCMDSts 5;
+BA_ "GenSigASIL"  SG_ 1269 LISDShowModeSts 5;
+BA_ "GenSigASIL"  SG_ 1269 LISDPosLampSts 5;
+BA_ "GenSigASIL"  SG_ 1269 LISDTrunLightSts 2;
+BA_ "GenMsgILSupport" BO_ 1233 1;
+BA_ "GenMsgCycleTime" BO_ 1233 100;
+BA_ "GenSigASIL"  SG_ 1233 RISD_2_CRC 5;
+BA_ "GenSigASIL"  SG_ 1233 RISD_2_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1233 RISD_2_Resd 5;
+BA_ "GenSigASIL"  SG_ 1233 RISDShowCMDSts 5;
+BA_ "GenSigASIL"  SG_ 1233 RISDShowModeSts 5;
+BA_ "GenSigASIL"  SG_ 1233 RISDPosLampSts 5;
+BA_ "GenSigASIL"  SG_ 1233 RISDTrunLightSts 2;
+BA_ "GenMsgILSupport" BO_ 1187 1;
+BA_ "GenMsgCycleTime" BO_ 1187 100;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_CRC 5;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_Resd 5;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_HiBeamFaildSts 1;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_LoBeamFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_ParkLiFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_RHTurnLiFaildSts 2;
+BA_ "GenSigASIL"  SG_ 1187 RHM_1_DRLFaildSts 5;
+BA_ "GenSigASIL"  SG_ 1187 Right_ALS_Fault 5;
+BA_ "GenMsgILSupport" BO_ 280 1;
+BA_ "GenMsgCycleTime" BO_ 280 10;
+BA_ "GenSigASIL"  SG_ 280 RHM_2_CRC 5;
+BA_ "GenSigASIL"  SG_ 280 RHM_2_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 280 RHM_2_Resd 5;
+BA_ "GenSigStartValue" SG_ 280 RHM_2_MotPosFed 300;
+BA_ "GenSigASIL"  SG_ 280 RHM_2_MotPosFed 5;
+BA_ "GenSigASIL"  SG_ 280 RHM_2_MotStsFed 5;
+BA_ "GenMsgILSupport" BO_ 1035 1;
+BA_ "GenMsgCycleTime" BO_ 1035 100;
+BA_ "GenSigASIL"  SG_ 1035 VCC_1_OTASts 5;
+BA_ "GenSigASIL"  SG_ 1035 VCC_1_CarMode 5;
+BA_ "GenMsgILSupport" BO_ 1075 1;
+BA_ "GenMsgSendType" BO_ 1075 1;
+BA_ "GenMsgCycleTimeFast" BO_ 1075 100;
+BA_ "GenMsgNrOfRepetition" BO_ 1075 3;
+BA_ "GenMsgDelayTime" BO_ 1075 5;
+BA_ "GenSigSendType" SG_ 1075 VCC_2_ConfigurationMessageTrg 5;
+BA_ "GenSigASIL"  SG_ 1075 VCC_2_ConfigurationMessageTrg 5;
+BA_ "GenMsgILSupport" BO_ 1136 1;
+BA_ "GenMsgSendType" BO_ 1136 1;
+BA_ "GenMsgCycleTimeFast" BO_ 1136 100;
+BA_ "GenMsgNrOfRepetition" BO_ 1136 32;
+BA_ "GenMsgDelayTime" BO_ 1136 5;
+BA_ "GenSigSendType" SG_ 1136 VCC_3_CRC 5;
+BA_ "GenSigASIL"  SG_ 1136 VCC_3_CRC 5;
+BA_ "GenSigSendType" SG_ 1136 VCC_3_RollgCntr 5;
+BA_ "GenSigASIL"  SG_ 1136 VCC_3_RollgCntr 5;
+BA_ "GenSigSendType" SG_ 1136 VCC_3_Resd1 5;
+BA_ "GenSigASIL"  SG_ 1136 VCC_3_Resd1 5;
+BA_ "GenSigSendType" SG_ 1136 VCC_3_SN 5;
+BA_ "GenSigStartValue" SG_ 1136 VCC_3_SN 1;
+BA_ "GenSigASIL"  SG_ 1136 VCC_3_SN 5;
+BA_ "GenMsgILSupport" BO_ 1204 1;
+BA_ "GenMsgSendType" BO_ 1204 3;
+BA_ "GenMsgCycleTime" BO_ 1204 100;
+BA_ "GenMsgCycleTimeFast" BO_ 1204 100;
+BA_ "GenMsgNrOfRepetition" BO_ 1204 10;
+BA_ "GenSigASIL"  SG_ 1204 VCU_AcceleratorPosRaw 2;
+BA_ "GenSigASIL"  SG_ 1204 VCU_PRNDGearAct 2;
+BA_ "GenMsgILSupport" BO_ 1209 1;
+BA_ "GenMsgCycleTime" BO_ 1209 100;
+BA_ "GenSigASIL"  SG_ 1209 VCU_GasPedalPosition 2;
+BA_ "GenSigASIL"  SG_ 1209 VCU_BrakePedalStsValidData 5;
+BA_ "GenSigASIL"  SG_ 1209 VCU_BrakePedalSts 2;
+BA_ "GenMsgILSupport" BO_ 1302 1;
+BA_ "GenMsgCycleTime" BO_ 1302 500;
+BA_ "GenSigASIL"  SG_ 1302 LHM_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1302 LHM_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1303 1;
+BA_ "GenMsgCycleTime" BO_ 1303 500;
+BA_ "GenSigASIL"  SG_ 1303 RHM_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1303 RHM_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1305 1;
+BA_ "GenMsgCycleTime" BO_ 1305 500;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1305 RLFLM_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1387 1;
+BA_ "GenMsgCycleTime" BO_ 1387 500;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1387 RRFLM_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1388 1;
+BA_ "GenMsgCycleTime" BO_ 1388 500;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1388 RLPLM_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1389 1;
+BA_ "GenMsgCycleTime" BO_ 1389 500;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1389 RRPLM_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1390 1;
+BA_ "GenMsgCycleTime" BO_ 1390 500;
+BA_ "GenSigASIL"  SG_ 1390 LISD_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1390 LISD_FaultNum20 5;
+BA_ "GenMsgILSupport" BO_ 1391 1;
+BA_ "GenMsgCycleTime" BO_ 1391 500;
+BA_ "GenSigASIL"  SG_ 1391 RISD_TotalFaultNum 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FrameIndex 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_SupplierNum 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum1 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum2 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum3 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum4 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum5 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum6 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum7 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum8 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum9 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum10 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum11 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum12 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum13 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum14 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum15 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum16 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum17 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum18 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum19 5;
+BA_ "GenSigASIL"  SG_ 1391 RISD_FaultNum20 5;
+BA_ "NmMessage" BO_ 1592 1;
+BA_ "GenMsgCycleTime" BO_ 1592 1000;
+BA_ "CANFD_BRS" BO_ 1592 0;
+BA_ "VFrameFormat" BO_ 1592 0;
+BA_ "GenSigStartValue" SG_ 1592 srcNodeID_LHM 56;
+BA_ "GenSigASIL"  SG_ 1592 srcNodeID_LHM 5;
+BA_ "GenSigASIL"  SG_ 1592 RMR_LHM 5;
+BA_ "GenSigASIL"  SG_ 1592 NMm_DCM_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1592 LHM_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1592 LHM_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1592 LHM_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1592 LHM_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1592 LHM_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1592 LHM_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1593 1;
+BA_ "GenMsgCycleTime" BO_ 1593 1000;
+BA_ "CANFD_BRS" BO_ 1593 0;
+BA_ "VFrameFormat" BO_ 1593 0;
+BA_ "GenSigStartValue" SG_ 1593 srcNodeID_RHM 57;
+BA_ "GenSigASIL"  SG_ 1593 srcNodeID_RHM 5;
+BA_ "GenSigASIL"  SG_ 1593 RMR_RHM 5;
+BA_ "GenSigASIL"  SG_ 1593 NMm_DCM_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1593 RHM_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1593 RHM_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1593 RHM_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1593 RHM_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1593 RHM_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1593 RHM_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1594 1;
+BA_ "GenMsgCycleTime" BO_ 1594 1000;
+BA_ "CANFD_BRS" BO_ 1594 0;
+BA_ "VFrameFormat" BO_ 1594 0;
+BA_ "GenSigStartValue" SG_ 1594 srcNodeID_RLFLM 58;
+BA_ "GenSigASIL"  SG_ 1594 srcNodeID_RLFLM 5;
+BA_ "GenSigASIL"  SG_ 1594 RMR_RLFLM 5;
+BA_ "GenSigASIL"  SG_ 1594 NMm_DCM_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1594 RLFLM_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1594 RLFLM_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1594 RLFLM_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1594 RLFLM_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1594 RLFLM_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1594 RLFLM_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1595 1;
+BA_ "GenMsgCycleTime" BO_ 1595 1000;
+BA_ "CANFD_BRS" BO_ 1595 0;
+BA_ "VFrameFormat" BO_ 1595 0;
+BA_ "GenSigStartValue" SG_ 1595 srcNodeID_RLPLM 59;
+BA_ "GenSigASIL"  SG_ 1595 srcNodeID_RLPLM 5;
+BA_ "GenSigASIL"  SG_ 1595 RMR_RLPLM 5;
+BA_ "GenSigASIL"  SG_ 1595 NMm_DCM_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1595 RLPLM_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1595 RLPLM_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1595 RLPLM_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1595 RLPLM_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1595 RLPLM_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1595 RLPLM_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1596 1;
+BA_ "GenMsgCycleTime" BO_ 1596 1000;
+BA_ "CANFD_BRS" BO_ 1596 0;
+BA_ "VFrameFormat" BO_ 1596 0;
+BA_ "GenSigStartValue" SG_ 1596 srcNodeID_RRFLM 60;
+BA_ "GenSigASIL"  SG_ 1596 srcNodeID_RRFLM 5;
+BA_ "GenSigASIL"  SG_ 1596 RMR_RRFLM 5;
+BA_ "GenSigASIL"  SG_ 1596 NMm_DCM_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1596 RRFLM_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1596 RRFLM_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1596 RRFLM_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1596 RRFLM_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1596 RRFLM_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1596 RRFLM_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1597 1;
+BA_ "GenMsgCycleTime" BO_ 1597 1000;
+BA_ "CANFD_BRS" BO_ 1597 0;
+BA_ "VFrameFormat" BO_ 1597 0;
+BA_ "GenSigStartValue" SG_ 1597 srcNodeID_RRPLM 61;
+BA_ "GenSigASIL"  SG_ 1597 srcNodeID_RRPLM 5;
+BA_ "GenSigASIL"  SG_ 1597 RMR_RRPLM 5;
+BA_ "GenSigASIL"  SG_ 1597 NMm_DCM_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1597 RRPLM_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1597 RRPLM_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1597 RRPLM_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1597 RRPLM_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1597 RRPLM_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1597 RRPLM_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1615 1;
+BA_ "GenMsgCycleTime" BO_ 1615 1000;
+BA_ "CANFD_BRS" BO_ 1615 0;
+BA_ "VFrameFormat" BO_ 1615 0;
+BA_ "GenSigStartValue" SG_ 1615 srcNodeID_FLZCU 79;
+BA_ "GenSigASIL"  SG_ 1615 srcNodeID_FLZCU 5;
+BA_ "GenSigASIL"  SG_ 1615 RMR_FLZCU 5;
+BA_ "GenSigASIL"  SG_ 1615 NMm_FLZCU_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_DDSP 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_InsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_OutsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_FLDoorSignal 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_LSA 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_DoorLockSt 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_HazardlightswitchSt 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_Hazardlight 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_RKEHV_Req 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_KL15 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_IntelligentRecharge 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_BrakeswitchLVHV 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_ETH 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_RLInsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_RLOutsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_RLDoorSignal 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Wakeup_ChargingportSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_Diag 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_DDSP 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_InsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_OutsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_FLDoorSignal 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_LSA_OKS 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_DoorLockSt 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_HazardlightswitchSt 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_Powercomfortable 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_Hazardlight 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_AntitheftState 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_RKEHV_Req 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_KL15 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_IntelligentRecharge 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_BrakeswitchHV 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_ETH 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_RLInsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_RLOutsideSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_RLDoorSignal 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_ChargingportSwitch 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_HVON 5;
+BA_ "GenSigASIL"  SG_ 1615 FLZCU_Awake_FMH_LMC_WelcomeLight 5;
+BA_ "NmMessage" BO_ 1623 1;
+BA_ "GenMsgCycleTime" BO_ 1623 1000;
+BA_ "CANFD_BRS" BO_ 1623 0;
+BA_ "VFrameFormat" BO_ 1623 0;
+BA_ "GenSigStartValue" SG_ 1623 srcNodeID_LISD 87;
+BA_ "GenSigASIL"  SG_ 1623 srcNodeID_LISD 5;
+BA_ "GenSigASIL"  SG_ 1623 RMR_LISD 5;
+BA_ "GenSigASIL"  SG_ 1623 NMm_LISD_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1623 LISD_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1623 LISD_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1623 LISD_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1623 LISD_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1623 LISD_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1623 LISD_Awake_Diag 5;
+BA_ "NmMessage" BO_ 1624 1;
+BA_ "GenMsgCycleTime" BO_ 1624 1000;
+BA_ "CANFD_BRS" BO_ 1624 0;
+BA_ "VFrameFormat" BO_ 1624 0;
+BA_ "GenSigStartValue" SG_ 1624 srcNodeID_RISD 88;
+BA_ "GenSigASIL"  SG_ 1624 srcNodeID_RISD 5;
+BA_ "GenSigASIL"  SG_ 1624 RMR_RISD 5;
+BA_ "GenSigASIL"  SG_ 1624 NMm_RISD_Reserved1 5;
+BA_ "GenSigASIL"  SG_ 1624 RISD_Wakeup_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1624 RISD_Wakeup_NM 5;
+BA_ "GenSigASIL"  SG_ 1624 RISD_Wakeup_Diag 5;
+BA_ "GenSigASIL"  SG_ 1624 RISD_Awake_Poweron 5;
+BA_ "GenSigASIL"  SG_ 1624 RISD_Awake_NM 5;
+BA_ "GenSigASIL"  SG_ 1624 RISD_Awake_Diag 5;
+BA_ "GenMsgSendType" BO_ 1901 1;
+BA_ "GenSigSendType" SG_ 1901 Diag_RRPLM_RES 2;
+BA_ "GenSigASIL"  SG_ 1901 Diag_RRPLM_RES 5;
+BA_ "GenMsgSendType" BO_ 1952 1;
+BA_ "GenSigSendType" SG_ 1952 Diag_LISD_RES 2;
+BA_ "GenSigASIL"  SG_ 1952 Diag_LISD_RES 5;
+BA_ "GenMsgSendType" BO_ 1958 1;
+BA_ "GenSigSendType" SG_ 1958 Diag_RISD_RES 2;
+BA_ "GenSigASIL"  SG_ 1958 Diag_RISD_RES 5;
+BA_ "GenMsgSendType" BO_ 1976 1;
+BA_ "GenSigSendType" SG_ 1976 Diag_LHM_RES 2;
+BA_ "GenSigASIL"  SG_ 1976 Diag_LHM_RES 5;
+BA_ "GenMsgSendType" BO_ 1977 1;
+BA_ "GenSigSendType" SG_ 1977 Diag_RHM_RES 2;
+BA_ "GenSigASIL"  SG_ 1977 Diag_RHM_RES 5;
+BA_ "GenMsgSendType" BO_ 2010 1;
+BA_ "GenSigSendType" SG_ 2010 Diag_RLPLM_RES 2;
+BA_ "GenSigASIL"  SG_ 2010 Diag_RLPLM_RES 5;
+BA_ "GenMsgSendType" BO_ 2011 1;
+BA_ "GenSigSendType" SG_ 2011 Diag_RLFLM_RES 2;
+BA_ "GenSigASIL"  SG_ 2011 Diag_RLFLM_RES 5;
+BA_ "GenMsgSendType" BO_ 2012 1;
+BA_ "GenSigSendType" SG_ 2012 Diag_RRFLM_RES 2;
+BA_ "GenSigASIL"  SG_ 2012 Diag_RRFLM_RES 5;
+BA_ "GenMsgSendType" BO_ 1824 1;
+BA_ "GenSigSendType" SG_ 1824 Diag_LISD_REQ 2;
+BA_ "GenSigASIL"  SG_ 1824 Diag_LISD_REQ 5;
+BA_ "GenMsgSendType" BO_ 1830 1;
+BA_ "GenSigSendType" SG_ 1830 Diag_RISD_REQ 2;
+BA_ "GenSigASIL"  SG_ 1830 Diag_RISD_REQ 5;
+BA_ "GenMsgSendType" BO_ 1848 1;
+BA_ "GenSigSendType" SG_ 1848 Diag_LHM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1848 Diag_LHM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1849 1;
+BA_ "GenSigSendType" SG_ 1849 Diag_RHM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1849 Diag_RHM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1882 1;
+BA_ "GenSigSendType" SG_ 1882 Diag_RLPLM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1882 Diag_RLPLM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1883 1;
+BA_ "GenSigSendType" SG_ 1883 Diag_RLFLM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1883 Diag_RLFLM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1884 1;
+BA_ "GenSigSendType" SG_ 1884 Diag_RRFLM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1884 Diag_RRFLM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1893 1;
+BA_ "GenSigSendType" SG_ 1893 Diag_RRPLM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1893 Diag_RRPLM_REQ 5;
+BA_ "DiagState" BO_ 2015 1;
+BA_ "GenMsgSendType" BO_ 2015 1;
+BA_ "GenSigSendType" SG_ 2015 Diag_Functional_REQ 2;
+BA_ "GenSigASIL"  SG_ 2015 Diag_Functional_REQ 5;
+BA_ "GenMsgSendType" BO_ 1668 1;
+BA_ "GenSigSendType" SG_ 1668 CCP_LHM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1668 CCP_LHM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1669 1;
+BA_ "GenSigSendType" SG_ 1669 XCP_LHM_RES 2;
+BA_ "GenSigASIL"  SG_ 1669 XCP_LHM_RES 5;
+BA_ "GenMsgSendType" BO_ 1670 1;
+BA_ "GenSigSendType" SG_ 1670 CCP_RHM_REQ 2;
+BA_ "GenSigASIL"  SG_ 1670 CCP_RHM_REQ 5;
+BA_ "GenMsgSendType" BO_ 1671 1;
+BA_ "GenSigSendType" SG_ 1671 XCP_RHM_RES 2;
+BA_ "GenSigASIL"  SG_ 1671 XCP_RHM_RES 5;
+VAL_ 49 ACU_2_LateralAcceleration 65535 "Invalid" ;
+VAL_ 49 ACU_2_YawRate 65535 "Invalid" ;
+VAL_ 49 ACU_2_YawrateSigValidData 3 "Initialize" 2 "Invalid" 1 "Reserved" 0 "Valid" ;
+VAL_ 49 ACU_2_LateralAccelerationSigVD 3 "Initialize" 2 "Invalid" 1 "Reserved" 0 "Valid" ;
+VAL_ 33 ACU_3_LongitudinalAcceleration 65535 "Invalid" ;
+VAL_ 33 ACU_3_LongitudinalAccelerationVD 3 "Initialize" 2 "Invalid" 1 "Reserved" 0 "Valid" ;
+VAL_ 776 ASU_2_LFHeight 4095 "Invalid" ;
+VAL_ 776 ASU_2_RFHeight 4095 "Invalid" ;
+VAL_ 776 ASU_2_LRHeight 4095 "Invalid" ;
+VAL_ 776 ASU_2_RRHeight 4095 "Invalid" ;
+VAL_ 778 ASU_4_FL_bodyacceleration 16383 "Invalid" ;
+VAL_ 778 ASU_4_FL_bodyaccelerationValid 1 "Valid" 0 "Invalid" ;
+VAL_ 778 ASU_4_FR_bodyaccelerationValid 1 "Valid" 0 "Invalid" ;
+VAL_ 778 ASU_4_FR_bodyacceleration 16383 "Invalid" ;
+VAL_ 778 ASU_4_REAR_bodyaccelerationValid 1 "Valid" 0 "Invalid" ;
+VAL_ 778 ASU_4_REAR_bodyacceleration 16383 "Invalid" ;
+VAL_ 1291 BMS_SOCLight 127 "Invalid" ;
+VAL_ 1295 BMS_ChgWireConnect_LightSts 1 "Connect" 0 "DIsconnect" ;
+VAL_ 1295 BMS_Chg_LightSts 1 "charging" 0 "No Charge" ;
+VAL_ 1143 OBC_CC_ConnectSts 7 "Reserved" 6 "Reserved" 5 "Error" 4 "Half Connection" 3 "V2L" 2 "V2V" 1 "Charge Connected" 0 "Not connected" ;
+VAL_ 1172 ExternalTemperature_C 255 "Invalid" 254 "invalid" ;
+VAL_ 1172 ExternalTemperatureFailSts 1 "Fail Present" 0 "Fail Not Present" ;
+VAL_ 306 SAM_1_SteeringAngle 65535 "Invalid" ;
+VAL_ 306 SAM_1_SteeringAngleSpeed 255 "Invalid" ;
+VAL_ 306 SAM_1_SteeringAngleVD 1 "Not Valid" 0 "Valid" ;
+VAL_ 306 SAM_1_SteeringAngleSpeedVD 1 "Not Valid" 0 "Valid" ;
+VAL_ 571 HoodSts 3 "Reserved" 2 "full_open" 1 "Ajar " 0 "Close" ;
+VAL_ 571 LHFdoorSts 3 "Reserved" 2 "full_open" 1 "Ajar " 0 "Close" ;
+VAL_ 350 PosLamp 1 "Open" 0 "Close" ;
+VAL_ 350 LHTrunLight 1 "Open" 0 "Close" ;
+VAL_ 350 RHTrunLight 1 "Open" 0 "Close" ;
+VAL_ 350 LowBeam 1 "Open" 0 "Close" ;
+VAL_ 350 HighBeam 1 "Open" 0 "Close" ;
+VAL_ 350 BrkLight 1 "Open" 0 "Close" ;
+VAL_ 350 FogLight 3 "Both" 2 "Rear" 1 "Front" 0 "None" ;
+VAL_ 350 ReverseLight 1 "Open" 0 "Close" ;
+VAL_ 350 DaytimeLight 3 "Both" 2 "Right" 1 "Left" 0 "None" ;
+VAL_ 350 LowBeamHighAdj 7 "Not Used" 6 "Not Used" 5 "Not Used" 4 "Not Used" 3 "Level 3" 2 "Level 2" 1 "Level 1" 0 "Level 0" ;
+VAL_ 350 FlowLampEnable 2 "Enable" 1 "Disable" 0 "Not Active" ;
+VAL_ 350 WelcomeLight 3 "Stop" 2 "UnLock Welcome" 1 "Lock Welcome" 0 "Not Active" ;
+VAL_ 350 TrailerRearFogLightSts 1 "Open" 0 "Close" ;
+VAL_ 350 RearPosLamp 3 "Reserved" 2 "Open" 1 "Close" 0 "Not Active" ;
+VAL_ 1181 FLZCU_9_PowerMode 3 "Reserved" 2 "ON" 1 "Comfortable" 0 "Off" ;
+VAL_ 683 RHFDoorSts 3 "Reserved" 2 "full_open" 1 "Ajar " 0 "Close" ;
+VAL_ 1324 TirePressureWarningLampSts 3 "Not used" 2 "Lamp On" 1 "Lamp Flashing(Reserved)" 0 "Lamp Off" ;
+VAL_ 699 LHRdoorSts 3 "Reserved" 2 "full_open" 1 "Ajar " 0 "Close" ;
+VAL_ 699 TrunkSts 3 "Reserved" 2 "full_open" 1 "Ajar " 0 "Close" ;
+VAL_ 1139 RLFLM_1_ParkLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1139 RLFLM_1_LHTurnLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1139 RLFLM_1_BrkLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1222 RLPLM_1_ParkLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1222 RLPLM_1_LHTurnLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1222 RLPLM_1_BrkLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1222 RLPLM_1_RvsLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1222 RLPLM_1_RafLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1205 RRFLM_1_ParkLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1205 RRFLM_1_LHTurnLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1205 RRFLM_1_BrkLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1249 RRPLM_1_ParkLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1249 RRPLM_1_LHTurnLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1249 RRPLM_1_BrkLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1249 RRPLM_1_RvsLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1249 RRPLM_1_RafLampFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1250 ICC_AutoLightSW 1 "Active" 0 "Not active" ;
+VAL_ 917 RandomMusicShowCMD 3 "Reserved" 2 "Reserved" 1 "Active" 0 "Not active" ;
+VAL_ 917 DIYMusicShowmod 3 "mode2" 2 "mode1" 1 "waiting" 0 "Not active" ;
+VAL_ 917 LiShowMod 6 "Mode5(Reserved)" 5 "Mode4(Reserved)" 4 "Mode3" 3 "Mode2" 2 "Mode1" 1 "OFF" 0 "NotActive" ;
+VAL_ 917 MusicLoudness_55HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_123HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_262HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_440HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_587HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_784HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_1318HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_2794HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 MusicLoudness_6272HZ 31 "Invalid" 30 "Reserved" 29 "Reserved" 28 "Reserved" 27 "Reserved" 26 "Reserved" 25 "Reserved" 24 "Reserved" 23 "Reserved" 22 "Reserved" 21 "Reserved" 20 "Reserved" 19 "Reserved" 18 "Reserved" 17 "Reserved" 16 "Reserved" 15 "Level 16" 14 "Level 15" 13 "Level 14" 12 "Level 13" 11 "Level 12" 10 "Level 11" 9 "Level 10" 8 "Level 9" 7 "Level 8" 6 "Level 7" 5 "Level 6" 4 "Level 5" 3 "Level 4" 2 "Level 3" 1 "Level 2" 0 "Level 1" ;
+VAL_ 917 ISDShowCMD 1 "ON" 0 "OFF" ;
+VAL_ 917 ISDShowMode 15 "Reserved" 14 "Yellow Duck" 13 "National Day" 12 "Rabbit" 11 "Coffee" 10 "Kite" 9 "PingPong" 8 "PredestrianCrossing" 7 "Panda" 6 "Package" 5 "Greetings" 4 "Weather" 3 "TiresPressures" 2 "Brand" 1 "BatteryCharging" 0 "Default value" ;
+VAL_ 1279 Weather_Type 63 "Reserved" 62 "Reserved" 61 "Reserved" 60 "Reserved" 59 "Reserved" 58 "Reserved" 57 "Reserved" 56 "Reserved" 55 "Reserved" 54 "Reserved" 53 "Reserved" 52 "Reserved" 51 "Reserved" 50 "Reserved" 49 "Reserved" 48 "Reserved" 47 "Reserved" 46 "Reserved" 45 "Reserved" 44 "Reserved" 43 "Reserved" 42 "Reserved" 41 "Reserved" 40 "Reserved" 39 "Reserved" 38 "Reserved" 37 "Reserved" 36 "Reserved" 35 "Reserved" 34 "Reserved" 33 "Haze" 32 "Reserved(Sandstorm)" 31 "Sand" 30 "Dust" 29 "Reserve(Heavy snow to snowstorm)" 28 "Reserved(Moderate to heavy snow)" 27 "Reserved(Light to moderate snow)" 26 "Reserved(Heavy to severe storm)" 25 "Reserved(Storm to heavy storm)" 24 "Reserved(Heavy rain to storm)" 23 "Reserved(Moderate to heavy rain)" 22 "Reserved(Light to moderate rain)" 21 "Duststorm" 20 "Reserved(Ice rain)" 19 "Foggy" 18 "Snowstorm" 17 "Heavy snow" 16 "Moderate snow" 15 "Light snow" 14 "Reserved(Snow flurry)" 13 "Reserved(Severe storm)" 12 "Reserved(Heavy storm)" 11 "Storm" 10 "Heavy rain" 9 "Moderate rain" 8 "Light rain" 7 "Sleet" 6 "Thundershower with hail" 5 "Thundershower" 4 "Shower" 3 "Overcast" 2 "Cloudy" 1 "Sunny" 0 "Reserved" ;
+VAL_ 1162 VehicleSpeedVSOSig 8191 "Invalid" ;
+VAL_ 1162 VehicleSpeedVSOSigValidData 1 "Not valid" 0 "Valid" ;
+VAL_ 1218 LHM_1_HiBeamFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1218 LHM_1_LoBeamFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1218 LHM_1_ParkLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1218 LHM_1_LHTurnLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1218 LHM_1_DRLFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 274 LHM_2_MotRefReq 1 "Launch reference sequence" 0 "default" ;
+VAL_ 274 LHM_2_MotPosReq 1023 "Invalid" ;
+VAL_ 274 LHM_2_Left_ALS_State 3 "reserved" 2 "reserved" 1 "ALS_Fault" 0 "ALS Normal" ;
+VAL_ 274 LHM_2_LED_ON_OFF 3 "reserved" 2 "reserved" 1 "ON" 0 "OFF" ;
+VAL_ 1269 LISDShowCMDSts 1 "ON" 0 "OFF" ;
+VAL_ 1269 LISDShowModeSts 15 "Reserved" 14 "Yellow Duck" 13 "National Day" 12 "Rabbit" 11 "Coffee" 10 "Kite" 9 "PingPong" 8 "PredestrianCrossing" 7 "Panda" 6 "Package" 5 "Greetings" 4 "Weather" 3 "TiresPressures" 2 "Brand" 1 "BatteryCharging" 0 "Default value" ;
+VAL_ 1269 LISDPosLampSts 1 "Failure" 0 "Normal" ;
+VAL_ 1269 LISDTrunLightSts 1 "Failure" 0 "Normal" ;
+VAL_ 1233 RISDShowCMDSts 1 "ON" 0 "OFF" ;
+VAL_ 1233 RISDShowModeSts 15 "Reserved" 14 "Yellow Duck" 13 "National Day" 12 "Rabbit" 11 "Coffee" 10 "Kite" 9 "PingPong" 8 "PredestrianCrossing" 7 "Panda" 6 "Package" 5 "Greetings" 4 "Weather" 3 "TiresPressures" 2 "Brand" 1 "BatteryCharging" 0 "Default value" ;
+VAL_ 1233 RISDPosLampSts 1 "Failure" 0 "Normal" ;
+VAL_ 1233 RISDTrunLightSts 1 "Failure" 0 "Normal" ;
+VAL_ 1187 RHM_1_HiBeamFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1187 RHM_1_LoBeamFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1187 RHM_1_ParkLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1187 RHM_1_RHTurnLiFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1187 RHM_1_DRLFaildSts 1 "Failure" 0 "Normal" ;
+VAL_ 1187 Right_ALS_Fault 3 "reserved" 2 "reserved" 1 "ALS_Fault" 0 "ALS Normal" ;
+VAL_ 280 RHM_2_MotPosFed 1023 "Invalid" ;
+VAL_ 280 RHM_2_MotStsFed 3 "Invalid" 2 "steploss" 1 "moving" 0 "not moving" ;
+VAL_ 1035 VCC_1_OTASts 3 "Reserved" 2 "Reserved" 1 "OTA Status" 0 "Normal Status" ;
+VAL_ 1035 VCC_1_CarMode 7 "Reserved" 6 "Reserved" 5 "Reserved" 4 "Reserved" 3 "Reserved" 2 "Transport Mode" 1 "Factory Mode" 0 "Normal Mode" ;
+VAL_ 1075 VCC_2_ConfigurationMessageTrg 1 "active" 0 "not active" ;
+VAL_ 1204 VCU_PRNDGearAct 7 "Invalid" 6 "Reserved" 5 "Reserved" 4 "D" 3 "N" 2 "R" 1 "P" 0 "Init" ;
+VAL_ 1209 VCU_GasPedalPosition 1023 "Invalid" ;
+VAL_ 1209 VCU_BrakePedalStsValidData 1 "Not Valid" 0 "Valid" ;
+VAL_ 1209 VCU_BrakePedalSts 1 "Applied" 0 "Not applied" ;
+VAL_ 1592 RMR_LHM 1 "Active" 0 "Inactive" ;
+VAL_ 1592 LHM_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1592 LHM_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1592 LHM_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1592 LHM_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1592 LHM_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1592 LHM_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RMR_RHM 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RHM_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RHM_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RHM_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RHM_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RHM_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1593 RHM_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RMR_RLFLM 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RLFLM_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RLFLM_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RLFLM_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RLFLM_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RLFLM_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1594 RLFLM_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RMR_RLPLM 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RLPLM_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RLPLM_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RLPLM_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RLPLM_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RLPLM_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1595 RLPLM_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RMR_RRFLM 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RRFLM_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RRFLM_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RRFLM_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RRFLM_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RRFLM_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1596 RRFLM_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RMR_RRPLM 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RRPLM_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RRPLM_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RRPLM_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RRPLM_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RRPLM_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1597 RRPLM_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1615 RMR_FLZCU 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_DDSP 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_InsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_OutsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_FLDoorSignal 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_LSA 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_DoorLockSt 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_HazardlightswitchSt 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_Hazardlight 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_RKEHV_Req 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_KL15 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_IntelligentRecharge 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_BrakeswitchLVHV 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_ETH 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_RLInsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_RLOutsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_RLDoorSignal 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Wakeup_ChargingportSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_DDSP 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_InsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_OutsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_FLDoorSignal 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_LSA_OKS 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_DoorLockSt 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_HazardlightswitchSt 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_Powercomfortable 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_Hazardlight 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_AntitheftState 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_RKEHV_Req 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_KL15 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_IntelligentRecharge 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_BrakeswitchHV 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_ETH 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_RLInsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_RLOutsideSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_RLDoorSignal 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_ChargingportSwitch 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_HVON 1 "Active" 0 "Inactive" ;
+VAL_ 1615 FLZCU_Awake_FMH_LMC_WelcomeLight 1 "Active" 0 "Inactive" ;
+VAL_ 1623 RMR_LISD 1 "Active" 0 "Inactive" ;
+VAL_ 1623 LISD_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1623 LISD_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1623 LISD_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1623 LISD_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1623 LISD_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1623 LISD_Awake_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RMR_RISD 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RISD_Wakeup_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RISD_Wakeup_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RISD_Wakeup_Diag 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RISD_Awake_Poweron 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RISD_Awake_NM 1 "Active" 0 "Inactive" ;
+VAL_ 1624 RISD_Awake_Diag 1 "Active" 0 "Inactive" ;

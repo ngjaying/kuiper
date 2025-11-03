@@ -19,6 +19,7 @@ package modules
 import (
 	"fmt"
 
+	"github.com/emqx/ekuiper_can/io/kuksa"
 	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
@@ -145,4 +146,7 @@ func init() {
 		return jsonColStr.NewConverter(ctx, schema)
 	})
 	modules.RegisterFunc("bit", funcs.NewBitFunc)
+	modules.RegisterSink("kuksa", func() api.Sink {
+		return &kuksa.KuksaSink{}
+	})
 }

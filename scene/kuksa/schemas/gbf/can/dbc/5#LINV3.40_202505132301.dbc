@@ -1,0 +1,164 @@
+VERSION "created by canmatrix"
+
+
+NS_ :
+
+BS_:
+
+BU_: 
+
+
+BO_ 17 WIPSW: 4 FLZCU
+ SG_ KeySts : 0|2@1+ (1,0) [0|3] "" RLHS
+ SG_ S_WindowSts : 2|2@1+ (1,0) [0|3] "" RLHS
+ SG_ S_WASH : 4|1@1+ (1,0) [0|0] "" RLHS
+ SG_ S_INT_AUTO : 5|1@1+ (1,0) [0|0] "" RLHS
+ SG_ S_HIGH : 6|1@1+ (1,0) [0|0] "" RLHS
+ SG_ S_LOW : 7|1@1+ (1,0) [0|0] "" RLHS
+ SG_ S_SENS_ValidData : 12|1@1+ (1,0) [0|0] "" RLHS
+ SG_ S_SENS : 13|3@1+ (1,0) [0|7] "" RLHS
+ SG_ S_Transmission_550nm : 16|8@1+ (1,0) [0|100] "%" RLHS
+ SG_ S_Transmission_880nm : 24|8@1+ (1,0) [0|100] "%" RLHS
+
+BO_ 18 MOTOR: 2 FLZCU
+ SG_ S_Wiper_Position : 0|1@1+ (1,0) [0|0] "" RLHS
+ SG_ S_Wash_Mode : 1|1@1+ (1,0) [0|0] "" RLHS
+ SG_ VehicleSpeedVSOSig : 3|13@1+ (0.0625,0) [0|8190] "Km/h" RLHS
+
+BO_ 16 Auto_Wipe: 8 RLHS
+ SG_ S_COMMFAULT : 0|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_AUTOPANEL : 2|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_AUTO_LAMP : 3|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_RS_FAULT : 4|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_RAIN : 5|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_AUTO_H : 6|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_AUTO_L : 7|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ Response_error : 15|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ S_Transmission_550nm_Rsp : 16|8@1+ (1,0) [0|100] "%" FLZCU
+ SG_ S_Transmission_880nm_Rsp : 24|8@1+ (1,0) [0|100] "%" FLZCU
+ SG_ AutoWipe_RollgCounter : 52|4@1+ (1,0) [0|14] "" FLZCU
+ SG_ AutoWipe_CRC : 56|8@1+ (1,0) [0|255] "" FLZCU
+
+BO_ 3 RLHS_1: 8 RLHS
+ SG_ RLHS_Solar_Drvr : 0|8@1+ (4,0) [0|250] "W/m2" FLZCU
+ SG_ RLHS_Solar_Pass : 8|8@1+ (4,0) [0|250] "W/m2" FLZCU
+ SG_ RLHS_1_FWBrightness : 16|10@1+ (6,0) [0|1021] "Lux" FLZCU
+ SG_ RLHS_HumidSensorValue : 32|8@1+ (0.5,-0.5) [1|201] "%" FLZCU
+ SG_ RLHS_TempSensorValue : 40|8@1+ (0.5,-40) [1|254] "C" FLZCU
+ SG_ RLHS_TempDewPoint : 48|11@1+ (0.1,-39.6) [1|1000] "C" FLZCU
+ SG_ RLHS_Humid_Temp_Error : 61|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ RLHS_VotalgeError : 62|2@1+ (1,0) [0|3] "" FLZCU
+
+BO_ 25 RLHS_2: 8 RLHS
+ SG_ RLHS_2_AmbBrightness : 0|12@1+ (20,0) [0|4094] "Lux" FLZCU
+ SG_ RLHS_2_IRBrightness : 12|8@1+ (400,0) [0|254] "Lux" FLZCU
+ SG_ RLHS_HUDBriRawVal : 32|7@1+ (1,0) [0|126] "" FLZCU
+ SG_ RLHS_HUDBriUnit : 39|2@1+ (1,0) [0|3] "" FLZCU
+ SG_ RLHS_WinClsCmd : 41|2@1+ (1,0) [0|2] "" FLZCU
+ SG_ RLHS_Rainfall : 43|2@1+ (1,0) [0|3] "" FLZCU
+ SG_ RLHS_LiSwithReason : 48|2@1+ (1,0) [0|3] "" FLZCU
+ SG_ RLHS_LampOnReqVld : 50|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ RLHS_LampOnIvsReq : 51|1@1+ (1,0) [0|0] "" FLZCU
+
+BO_ 6 FLZCU_EWM: 8 FLZCU
+ SG_ FLZCU_WprEN : 0|1@1+ (1,0) [0|0] "" EWM
+ SG_ FLZCU_WprRq : 1|4@1+ (1,0) [0|15] "cycles/minute" EWM
+ SG_ FLZCU_WprSplash : 5|1@1+ (1,0) [0|0] "" EWM
+ SG_ FLZCU_WprStopImmRq : 6|1@1+ (1,0) [0|0] "" EWM
+ SG_ ExternalTemperature_C : 8|8@1+ (0.5,-40) [0|254] "C" EWM
+ SG_ ONEBOX_VehicleSpeedVSOSig : 16|13@1+ (0.0625,0) [0|8190] "km/h" EWM
+ SG_ FLZCU_WprPosnRq : 29|2@1+ (1,0) [0|3] "" EWM
+ SG_ FLZCU_BlockOverride : 31|1@1+ (1,0) [0|0] "" EWM
+ SG_ FLZCU_PlantMRq : 32|1@1+ (1,0) [0|0] "" EWM
+ SG_ FLZCU_IPPRq : 33|1@1+ (1,0) [0|0] "" EWM
+
+BO_ 7 EWM_FLZCU: 8 EWM
+ SG_ EWM_CrkAngl : 0|8@1+ (1,0) [0|255] "degree" FLZCU
+ SG_ EWM_Spd : 8|4@1+ (1,0) [0|15] "cycles/minute" FLZCU
+ SG_ EWM_Actv : 12|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_SP : 13|2@1+ (1,0) [0|3] "" FLZCU
+ SG_ EWM_SupVoltLo : 15|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_SupVoltHi : 16|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_PrkAR : 17|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_TunPo : 18|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_Blk : 19|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_ActMoveDir : 20|2@1+ (1,0) [0|3] "" FLZCU
+ SG_ EWM_WMEr : 22|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_LINErr : 23|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_OverTemp : 25|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_PlantM : 26|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_SlaBlk : 27|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_SlaOverTemp : 28|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_SlaLINErr : 29|1@1+ (1,0) [0|0] "" FLZCU
+ SG_ EWM_SlaWMEr : 30|1@1+ (1,0) [0|0] "" FLZCU
+
+
+
+
+
+BA_DEF_ SG_ "GenSigStartValue" FLOAT 0 100000000000;
+
+
+
+BA_ "GenSigStartValue" SG_ 17 S_Transmission_550nm 90;
+BA_ "GenSigStartValue" SG_ 17 S_Transmission_880nm 60;
+BA_ "GenSigStartValue" SG_ 16 S_Transmission_550nm_Rsp 90;
+BA_ "GenSigStartValue" SG_ 16 S_Transmission_880nm_Rsp 60;
+BA_ "GenSigStartValue" SG_ 3 RLHS_Solar_Drvr 62;
+BA_ "GenSigStartValue" SG_ 3 RLHS_Solar_Pass 62;
+BA_ "GenSigStartValue" SG_ 3 RLHS_HumidSensorValue 3;
+BA_ "GenSigStartValue" SG_ 3 RLHS_TempSensorValue 240;
+BA_ "GenSigStartValue" SG_ 3 RLHS_TempDewPoint 4356;
+BA_ "GenSigStartValue" SG_ 6 ExternalTemperature_C 240;
+
+VAL_ 17 KeySts 0 "OFF" 1 "ACC" 2 "ON" 3 "CRANK + ON(Reserved)";
+VAL_ 17 S_WindowSts 0 "Not Active" 1 "Close" 2 "Open" 3 "Not Used";
+VAL_ 17 S_WASH 0 "FALSE" 1 "TRUE";
+VAL_ 17 S_INT_AUTO 0 "FALSE" 1 "TRUE";
+VAL_ 17 S_HIGH 0 "FALSE" 1 "TRUE";
+VAL_ 17 S_LOW 0 "FALSE" 1 "TRUE";
+VAL_ 17 S_SENS_ValidData 0 "Valid" 1 "Not valid";
+VAL_ 17 S_SENS 0 "Startup" 1 "Low Sens" 2 "Med Low Sens" 3 "Med Sens" 4 "Med High Sens" 5 "High Sens" 6 "Not Used" 7 "Not Used";
+VAL_ 18 S_Wiper_Position 0 "ON_GLASS" 1 "HOME";
+VAL_ 18 S_Wash_Mode 0 "FALSE" 1 "TRUE";
+VAL_ 16 S_COMMFAULT 0 "FALSE" 1 "TRUE";
+VAL_ 16 S_AUTOPANEL 0 "Panel Dim Deactivate" 1 "Panel Dim Activate";
+VAL_ 16 S_AUTO_LAMP 0 "Headlamp Deactivate" 1 "Headlamp Activate";
+VAL_ 16 S_RS_FAULT 0 "FALSE" 1 "TRUE";
+VAL_ 16 S_RAIN 0 "FALSE" 1 "TRUE";
+VAL_ 16 S_AUTO_H 0 "FALSE" 1 "TRUE";
+VAL_ 16 S_AUTO_L 0 "FALSE" 1 "TRUE";
+VAL_ 16 Response_error 0 "FALSE" 1 "TRUE";
+VAL_ 3 RLHS_Humid_Temp_Error 0 "Normal" 1 "Error";
+VAL_ 3 RLHS_VotalgeError 0 "Normal" 1 "Low voltage" 2 "High voltage" 3 "Not used";
+VAL_ 25 RLHS_HUDBriUnit 0 "1 lux" 1 "10 lux" 2 "100 lux" 3 "1000 lux";
+VAL_ 25 RLHS_WinClsCmd 0 "No Request" 1 "Request Close Windows and Sunroof" 2 "Time out Request Close Windows and Sunroof" 3 "Invalid";
+VAL_ 25 RLHS_Rainfall 0 "No Rain" 1 "Light Rain" 2 "Moderate Rain" 3 "Heavy Rain";
+VAL_ 25 RLHS_LiSwithReason 0 "Darkstart" 1 "Day" 2 "Night" 3 "Tunnul";
+VAL_ 25 RLHS_LampOnReqVld 0 "Valid" 1 "invalid";
+VAL_ 25 RLHS_LampOnIvsReq 0 "invalid" 1 "Valid";
+VAL_ 6 FLZCU_WprEN 0 "disable" 1 "enable";
+VAL_ 6 FLZCU_WprRq 0 "park" 1 "32/min" 2 "34/min" 3 "36/min" 4 "38/min" 5 "40/min(low speed)" 6 "42/min" 7 "44/min" 8 "46/min" 9 "48/min" 10 "50/min" 11 "52/min" 12 "54/min" 13 "56/min" 14 "58/min" 15 "60/min(high speed)";
+VAL_ 6 FLZCU_WprSplash 0 "No splash" 1 "splash requested";
+VAL_ 6 FLZCU_WprStopImmRq 0 "No stop" 1 "Stop requested";
+VAL_ 6 FLZCU_WprPosnRq 0 "park position requested" 1 "Service position requested" 2 "Upper reverse position requested" 3 "Lower reverse position requested";
+VAL_ 6 FLZCU_BlockOverride 0 "no request" 1 "override request";
+VAL_ 6 FLZCU_PlantMRq 0 "not in wiper production mode request" 1 "in wiper production mode request";
+VAL_ 6 FLZCU_IPPRq 0 "no intermittent park position request" 1 "Intermittent park position request";
+VAL_ 7 EWM_Spd 0 "park" 1 "32/min" 2 "34/min" 3 "36/min" 4 "38/min" 5 "40/min(low speed)" 6 "42/min" 7 "44/min" 8 "46/min" 9 "48/min" 10 "50/min" 11 "52/min" 12 "54/min" 13 "56/min" 14 "58/min" 15 "60/min(high speed)";
+VAL_ 7 EWM_Actv 0 "inactive" 1 "active";
+VAL_ 7 EWM_SP 0 "not in special position" 1 "in Service position" 2 "in Upper reverse position" 3 "in Lower reverse position";
+VAL_ 7 EWM_SupVoltLo 0 "no under voltage" 1 "under voltage";
+VAL_ 7 EWM_SupVoltHi 0 "no overvoltage" 1 "overvoltage";
+VAL_ 7 EWM_PrkAR 0 "Not in parking area" 1 "In parking areas";
+VAL_ 7 EWM_TunPo 0 "Not in turning position" 1 "In turning position";
+VAL_ 7 EWM_Blk 0 "No block detected" 1 "Block detected";
+VAL_ 7 EWM_ActMoveDir 0 "Upper direction" 1 "Down direction" 2 "park/stop" 3 "reserved";
+VAL_ 7 EWM_WMEr 0 "no failure" 1 "failure detected";
+VAL_ 7 EWM_LINErr 0 "no failure" 1 "Lin failure detected";
+VAL_ 7 EWM_OverTemp 0 "no over temperature" 1 "over temperature";
+VAL_ 7 EWM_PlantM 0 "not in wiper production mode" 1 "in wiper production mode";
+VAL_ 7 EWM_SlaBlk 0 "No block detected" 1 "Block detected";
+VAL_ 7 EWM_SlaOverTemp 0 "no over temperature" 1 "over temperature";
+VAL_ 7 EWM_SlaLINErr 0 "no failure" 1 "Lin failure detected";
+VAL_ 7 EWM_SlaWMEr 0 "no failure" 1 "failure detected";

@@ -1,0 +1,15 @@
+module basque2 {
+
+    struct frame {
+        unsigned short tsdiff;            // 2 bytes relative ts
+        unsigned short id; // 2 bytes id
+        unsigned short len;            // 2 bytes payload length
+        sequence<octet> payload;  // can payload
+    };
+
+    struct packet {
+        unsigned long long ts;            // 8 bytes timestamp
+        unsigned long len;            // 4 bytes frames length
+        @format(dbc="can/dbc") sequence<frame> frames;
+    }
+}

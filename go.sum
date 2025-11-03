@@ -933,6 +933,8 @@ github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021 h1:wghOfqkrrwt3r0nWHhj1
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
 github.com/emqx/ekuiper_can v1.4.0 h1:YAWuHO/yz9covgY099lyrmKfrnvK82g8EcQqShEmncc=
 github.com/emqx/ekuiper_can v1.4.0/go.mod h1:sAUvpOMuXavOiA+V/eOEYom5YpYoVCp6CdomEaH+qA8=
+github.com/emqx/ekuiper_can v1.4.1-0.20251103062443-454853ab74d3 h1:ZeT9gojvbNGqabjJBA8ihkYwMrfdJC2LY3QJj8wMNuA=
+github.com/emqx/ekuiper_can v1.4.1-0.20251103062443-454853ab74d3/go.mod h1:sAUvpOMuXavOiA+V/eOEYom5YpYoVCp6CdomEaH+qA8=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=

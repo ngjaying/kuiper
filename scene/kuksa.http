@@ -1,0 +1,68 @@
+############# can stream
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM canStream() WITH (TYPE=\"mqtt\",FORMAT=\"gbf\",DATASOURCE=\"gbf/can\",SCHEMAID=\"can\", SHARED=\"true\")"
+}
+
+### Get all
+PUT http://{{host}}/rules/rCan
+Content-Type: application/json
+
+{
+  "id": "rCan",
+  "name": "测试所有 CAN 数据",
+  "sql": "SELECT `ONEBOX_1$ABS_ESP_1_VehicleSpeedVSOSig`,`ACU_3$ACU_3_LongitudinalAcceleration`,`ACU_2$ACU_2_LateralAcceleration`,`SAS_1$SAM_1_SteeringAngle` FROM canStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/can",
+        "sendSingle": true
+      },
+      "memory": {
+        "topic": "sources/can",
+        "sendSingle": true
+      }
+    }
+  ],
+  "options": {
+    "sendNilField": false,
+    "sendError": false
+  }
+}
+
+############# merge stream
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM merged() WITH (TYPE=\"memory\",DATASOURCE=\"sources/#\",SHARED=\"true\")"
+}
+
+###
+PUT http://{{host}}/rules/rKuksaProvider
+Content-Type: application/json
+
+{
+  "id": "rKuksaProvider",
+  "name": "Provide all source data to Kuksa",
+  "sql": "SELECT * FROM merged",
+  "actions": [
+    {
+      "log": {
+        "sendSingle": true
+      }
+    },
+    {
+      "kuksa": {
+        "addr": "127.0.0.1:55555",
+        "VSSPath": "data/uploads/vss_release_5.1_mapping.json"
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}

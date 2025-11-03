@@ -1,0 +1,6 @@
+Vehicle.Speed 10995   ONEBOX_1$ABS_ESP_1_VehicleSpeedVSOSig
+Vehicle.Acceleration.Longitudinal 293 ACU_3$ACU_3_LongitudinalAcceleration
+Vehicle.Acceleration.Lateral ACU_2$ACU_2_LateralAcceleration
+Vehicle.Chassis.SteeringWheel.Angle 6745 SAS_1$SAM_1_SteeringAngle
+
+https://digitalauto.netlify.app/model/STLWzk1WyqVVLbfymb4f/cvi/list/Vehicle
