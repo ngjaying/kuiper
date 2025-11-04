@@ -95,12 +95,24 @@
               "IsEnabled": {
                 "datatype": "boolean",
                 "description": "Indicates if EBA is enabled. True = Enabled. False = Disabled.",
-                "type": "actuator"
+                "type": "actuator",
+                "sig2vss": {
+                  "serviceId": 43776,
+                  "messageId": 32800,
+                  "signal": "DTE_AebSts",
+                  "qualifiedName": "DTE_AebSts"
+                }
               },
               "IsEngaged": {
                 "datatype": "boolean",
                 "description": "Indicates if EBA is currently regulating brake pressure. True = Engaged. False = Not Engaged.",
-                "type": "sensor"
+                "type": "sensor",
+                "sig2vss": {
+                  "serviceId": 43776,
+                  "messageId": 32800,
+                  "signal": "DTE_AebAcitveSt",
+                  "qualifiedName": "DTE_AebAcitveSt"
+                }
               },
               "IsError": {
                 "datatype": "boolean",

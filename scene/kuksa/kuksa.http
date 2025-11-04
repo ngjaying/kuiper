@@ -33,6 +33,41 @@ Content-Type: application/json
   }
 }
 
+############# SOME/IP stream
+POST http://{{host}}/streams
+Content-Type: application/json
+
+{
+  "sql": "CREATE STREAM someipStream() WITH (TYPE=\"mqtt\",FORMAT=\"gbf\",DATASOURCE=\"gbf/someip\",SCHEMAID=\"ar\", SHARED=\"true\",CONF_KEY=\"gbf_someip\")"
+}
+
+### Get all
+PUT http://{{host}}/rules/rSomeip
+Content-Type: application/json
+
+{
+  "id": "rSomeip",
+  "name": "Get all someip data",
+  "sql": "SELECT ADT_ADAS_strt_ActiveSafetyFcnInfo_2.DTE_AebSts, ADT_ADAS_strt_ActiveSafetyFcnInfo_2.DTE_AebAcitveSt FROM someipStream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "result/someip",
+        "sendSingle": true
+      },
+      "memory": {
+        "topic": "sources/someip",
+        "sendSingle": true
+      }
+    }
+  ],
+  "options": {
+    "sendNilField": false,
+    "sendError": false
+  }
+}
+
 ############# merge stream
 POST http://{{host}}/streams
 Content-Type: application/json
