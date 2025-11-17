@@ -1,12 +1,12 @@
 module github.com/emqx/ekuiper_build
 
-go 1.25.3
+go 1.25.4
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
 	github.com/emqx/ekuiper_can v1.4.1-0.20251104034351-47bc16220875
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
-	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251104031235-feab3a44160b
+	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251117014953-0bdf5a631715
 	github.com/stretchr/testify v1.11.1
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -111,7 +111,7 @@ require (
 	github.com/dlclark/regexp2 v1.11.4 // indirect
 	github.com/dop251/goja v0.0.0-20240828124009-016eb7256539 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
-	github.com/dvsekhvalnov/jose2go v1.6.0 // indirect
+	github.com/dvsekhvalnov/jose2go v1.7.0 // indirect
 	github.com/eclipse/paho.golang v0.21.0 // indirect
 	github.com/edgexfoundry/go-mod-core-contracts/v4 v4.0.1 // indirect
 	github.com/edgexfoundry/go-mod-messaging/v4 v4.0.1 // indirect

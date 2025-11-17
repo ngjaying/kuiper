@@ -15,12 +15,13 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     container:
-      image: golang:1.25.3-bookworm
+      # Use the Debian Bullseye base image for glibc compatibility
+      image: debian:bullseye
 
     strategy:
       matrix:
         golang:
-          - 1.25.3
+          - 1.25.4
         target:
           - { "goos": "linux", "goarch": "amd64", "cc": "gcc" }
           - { "goos": "linux", "goarch": "arm64", "cc": "aarch64-linux-gnu-gcc" }
@@ -30,12 +31,22 @@ jobs:
       - name: Install essential build tools and cross-compilation toolchains
         run: |
           apt-get update
-          apt-get install -y --no-install-recommends git curl make rsync jq
+          apt-get install -y git curl make rsync jq ca-certificates build-essential
           if [ "${{ matrix.target.goarch }}" = "arm64" ]; then
             apt-get install -y gcc-aarch64-linux-gnu
           elif [ "${{ matrix.target.goarch }}" = "arm" ]; then
             apt-get install -y gcc-arm-linux-gnueabihf
           fi
+          
+          GO_VERSION="1.25.4"
+          GO_URL="https://golang.org/dl/go${GO_VERSION}.linux-amd64.tar.gz"
+          
+          curl -fvL -o go.tar.gz "$GO_URL"
+          tar -C /usr/local -xzf go.tar.gz
+          rm go.tar.gz
+          echo "/usr/local/go/bin" >> $GITHUB_PATH
+          export PATH=/usr/local/go/bin:$PATH
+          go version
 
       - uses: actions/create-github-app-token@v1
         id: generate-token

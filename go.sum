@@ -911,8 +911,8 @@ github.com/dop251/goja v0.0.0-20240828124009-016eb7256539/go.mod h1:MxLav0peU43G
 github.com/dustin/go-humanize v1.0.0/go.mod h1:HtrtbFcZ19U5GC7JDqmcUSB87Iq5E25KnS6fMYU6eOk=
 github.com/dustin/go-humanize v1.0.1 h1:GzkhY7T5VNhEkwH0PVJgjz+fX1rhBrR7pRT3mDkpeCY=
 github.com/dustin/go-humanize v1.0.1/go.mod h1:Mu1zIs6XwVuF/gI1OepvI0qD18qycQx+mFykh5fBlto=
-github.com/dvsekhvalnov/jose2go v1.6.0 h1:Y9gnSnP4qEI0+/uQkHvFXeD2PLPJeXEL+ySMEA2EjTY=
-github.com/dvsekhvalnov/jose2go v1.6.0/go.mod h1:QsHjhyTlD/lAVqn/NSbVZmSCGeDehTB/mPZadG+mhXU=
+github.com/dvsekhvalnov/jose2go v1.7.0 h1:bnQc8+GMnidJZA8zc6lLEAb4xNrIqHwO+9TzqvtQZPo=
+github.com/dvsekhvalnov/jose2go v1.7.0/go.mod h1:QsHjhyTlD/lAVqn/NSbVZmSCGeDehTB/mPZadG+mhXU=
 github.com/eclipse/paho.golang v0.21.0 h1:cxxEReu+iFbA5RrHfRGxJOh8tXZKDywuehneoeBeyn8=
 github.com/eclipse/paho.golang v0.21.0/go.mod h1:GHF6vy7SvDbDHBguaUpfuBkEB5G6j0zKxMG4gbh6QRQ=
 github.com/eclipse/paho.mqtt.golang v1.5.1 h1:/VSOv3oDLlpqR2Epjn1Q7b2bSTplJIeV2ISgCl2W7nE=
@@ -1410,8 +1410,8 @@ github.com/lestrrat-go/strftime v1.1.0/go.mod h1:uzeIB52CeUJenCo1syghlugshMysrqU
 github.com/lestrrat/go-envload v0.0.0-20180220120943-6ed08b54a570/go.mod h1:BLt8L9ld7wVsvEWQbuLrUZnCMnUmLZ+CGDzKtclrTlE=
 github.com/lf-edge/ekuiper/contract/v2 v2.3.1 h1:ANhBqgkAZEVMeF+BFPn61kOD08P5wS72Ct3pOPKKnxg=
 github.com/lf-edge/ekuiper/contract/v2 v2.3.1/go.mod h1:3Ox1JmJ4Dn03ALK/+Z8u/49dCOy/2h4oVsi1LTvdtxE=
-github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251104031235-feab3a44160b h1:12NHvpqFbrnd7G6qnFkFHiTKLMyuqx5qRExQ59eFbaQ=
-github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251104031235-feab3a44160b/go.mod h1:kffwzH2XZmh8QByMPdR2gvcpnJmM/E+fr3EhHqH6KMg=
+github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251117014953-0bdf5a631715 h1:Lfol5sDeWqc3aXD99+J9+aYoijIqOjMKc/LocGGaEUY=
+github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251117014953-0bdf5a631715/go.mod h1:Y6jO7iAU7fZaBUBPzrfBcbSbKJ8gI/GQAjUmOVjN+ck=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
