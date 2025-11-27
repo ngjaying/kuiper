@@ -1,0 +1,4 @@
+default:
+  batchSize: 100
+  sendInterval: 0
+  topic: canspi

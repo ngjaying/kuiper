@@ -1,0 +1,3 @@
+{
+  "sql": "CREATE STREAM q1Stream() WITH (TYPE=\"history\",FORMAT=\"gbf\",SCHEMAID=\"gbf\",DATASOURCE=\"/tmp/parquets\",EXTRA=\"{\\\"start\\\":1732689000050,\\\"end\\\":1732689000100}\");"
+}

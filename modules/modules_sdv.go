@@ -19,6 +19,7 @@ package modules
 import (
 	"fmt"
 
+	"github.com/emqx/ekuiper_can/io/history"
 	"github.com/emqx/ekuiper_can/io/kuksa"
 	"github.com/emqx/ekuiper_can/schema/idl"
 	"github.com/lf-edge/ekuiper/contract/v2/api"
@@ -149,4 +150,5 @@ func init() {
 	modules.RegisterSink("kuksa", func() api.Sink {
 		return &kuksa.KuksaSink{}
 	})
+	modules.RegisterSource("history", history.GetSource)
 }

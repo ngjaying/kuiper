@@ -172,6 +172,57 @@ func pubgbf(client mqtt.Client, s string) {
 	_ = file.Close()
 }
 
+func (s *GBFTestSuite) TestHistoryCan() {
+	s.Run("creating schema", func() {
+		idlPath := filepath.Join(PWD, "test", "fvt", "data", "gbf", "gbf.zip")
+		idlUrl, err := FilePathToURL(idlPath)
+		s.Require().NoError(err)
+		resp, err := client.Post("schemas/gbf", fmt.Sprintf(`{"name":"gbf","type":"gbf","file":"%s"}`, idlUrl))
+		s.Require().NoError(err)
+		s.Require().Equal(201, resp.StatusCode)
+	})
+	s.Run("creating streams", func() {
+		streamJson, err := os.ReadFile(filepath.Join(PWD, RulesPath, "q1Stream.json"))
+		s.Require().NoError(err)
+		resp, err := client.CreateStream(string(streamJson))
+		s.Require().NoError(err)
+		s.Require().Equal(201, resp.StatusCode)
+	})
+	// Create the simplest rule
+	var result []string
+	s.Run("setup rule h1", func() {
+		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "h1.json"))
+		s.Require().NoError(err)
+		resp, err := client.CreateRule(string(ruleStr))
+		s.Require().NoError(err)
+		s.Require().Equal(201, resp.StatusCode)
+		s.mqttClient.Subscribe("ek/h1", 2, func(c mqtt.Client, message mqtt.Message) {
+			result = append(result, string(message.Payload()))
+		})
+	})
+	time.Sleep(ConstantInterval)
+	// Check rule status after feeding data
+	s.Run("check h1 status after feeding data", func() {
+		metrics, err := client.GetRuleStatus("h1")
+		s.NoError(err)
+		s.Require().Equal("stopped", metrics["status"])
+		s.Require().Equal("done: 0", metrics["message"])
+		s.Require().Equal(6.0, metrics["source_q1Stream_0_records_in_total"])
+		s.Require().Equal(6.0, metrics["sink_mqtt_0_0_records_out_total"])
+		s.Require().NoError(err)
+		exp := []string{"{\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000050}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1732689000060}", "{\"Mess0$Mess0_Sig2\":1,\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000070}", "{\"Mess0$Mess0_Sig2\":1,\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000080}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1732689000090}", "{\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000100}"}
+		s.Require().Equal(exp, result)
+	})
+	s.Run("clean", func() {
+		resp, err := client.DeleteStream("q1Stream")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+		resp, err = client.Delete("schemas/gbf/gbf")
+		s.NoError(err)
+		s.Equal(200, resp.StatusCode)
+	})
+}
+
 func TestGBFTestSuite(t *testing.T) {
 	suite.Run(t, new(GBFTestSuite))
 }

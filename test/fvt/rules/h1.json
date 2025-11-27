@@ -1,0 +1,18 @@
+{
+  "id": "h1",
+  "temp": true,
+  "name": "Test first history query",
+  "sql": "SELECT ts, `Mess0$Mess0_Sig2`, `Mess1$Mess1_Sig1` FROM q1Stream",
+  "actions": [
+    {
+      "mqtt": {
+        "server": "tcp://127.0.0.1:1883",
+        "topic": "ek/h1",
+        "sendSingle": true
+      }
+    }
+  ],
+  "options": {
+    "sendError": false
+  }
+}

@@ -4,7 +4,7 @@ go 1.25.4
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.4.1-0.20251104034351-47bc16220875
+	github.com/emqx/ekuiper_can v1.4.1-0.20251127011952-1de905acee02
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
 	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251117014953-0bdf5a631715
 	github.com/stretchr/testify v1.11.1
@@ -48,6 +48,7 @@ require (
 	github.com/amsokol/ignite-go-client v0.12.2 // indirect
 	github.com/andybalholm/brotli v1.1.1 // indirect
 	github.com/apache/arrow-go/v18 v18.0.0 // indirect
+	github.com/apache/arrow/go/arrow v0.0.0-20200730104253-651201b0f516 // indirect
 	github.com/apache/calcite-avatica-go/v5 v5.3.0 // indirect
 	github.com/apache/thrift v0.21.0 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
@@ -310,6 +311,8 @@ require (
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
 	github.com/xdg-go/scram v1.1.2 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
+	github.com/xitongsys/parquet-go v1.6.2 // indirect
+	github.com/xitongsys/parquet-go-source v0.0.0-20200817004010-026bad9b25d0 // indirect
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
 	github.com/yalue/onnxruntime_go v1.9.0 // indirect
