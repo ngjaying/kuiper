@@ -4,7 +4,7 @@ go 1.25.4
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.4.1-0.20251127011952-1de905acee02
+	github.com/emqx/ekuiper_can v1.4.1-0.20251205075611-8f9cf2bee271
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
 	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251117014953-0bdf5a631715
 	github.com/stretchr/testify v1.11.1
@@ -119,7 +119,9 @@ require (
 	github.com/edsrzf/mmap-go v1.1.0 // indirect
 	github.com/elastic/go-sysinfo v1.8.1 // indirect
 	github.com/elastic/go-windows v1.0.0 // indirect
+	github.com/emqx/arxml-converter v0.1.1-0.20251205070047-e29e33b01f45 // indirect
 	github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021 // indirect
+	github.com/emqx/idl-parser v0.1.0 // indirect
 	github.com/envoyproxy/go-control-plane v0.13.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.1.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
@@ -316,9 +318,7 @@ require (
 	github.com/xo/dburl v0.23.2 // indirect
 	github.com/xwb1989/sqlparser v0.0.0-20180606152119-120387863bf2 // indirect
 	github.com/yalue/onnxruntime_go v1.9.0 // indirect
-	github.com/yisaer/arxml-converter v0.0.10 // indirect
 	github.com/yisaer/file-rotatelogs v0.0.0-20240926070915-3a4d03835c68 // indirect
-	github.com/yisaer/idl-parser v0.0.16 // indirect
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	github.com/zeebo/xxh3 v1.0.2 // indirect
 	github.com/zitadel/oidc/v2 v2.12.2 // indirect
@@ -391,6 +391,7 @@ require (
 replace github.com/segmentio/kafka-go => github.com/yisaer/kafka-go v0.0.0-20250314054731-4abde56ff0ac
 
 //replace github.com/emqx/ekuiper_can => ../ekuiper_can
+
 //
 //replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/contract
 //

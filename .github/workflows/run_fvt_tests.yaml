@@ -49,6 +49,8 @@ jobs:
             ekuiper_can
             can
             sdv-tools
+            arxml-converter
+            idl-parser
 
       - name: Configure Go environment
         run: |
