@@ -131,6 +131,8 @@ func TestSubtopoRunError(t *testing.T) {
 	assert.Equal(t, false, subTopo.opened.Load())
 	subTopo.Open(ctx0, make(chan<- error))
 	subTopo.Close(ctx0, "rule0", 1)
+	time.Sleep(500 * time.Millisecond)
+	assert.Equal(t, false, subTopo.opened.Load())
 	// Test run firstly, successfully
 	subTopo.Open(ctx1, make(chan error))
 	assert.Equal(t, 1, len(subTopo.refRules))
@@ -138,7 +140,7 @@ func TestSubtopoRunError(t *testing.T) {
 	subTopo.Close(ctx1, "rule1", 1)
 	assert.Equal(t, 0, len(subTopo.refRules))
 	assert.Equal(t, 0, len(subTopoPool))
-	time.Sleep(10 * time.Millisecond)
+	time.Sleep(500 * time.Millisecond)
 	assert.Equal(t, false, subTopo.opened.Load())
 	// Test run secondly and thirdly, should fail
 	errCh1 := make(chan error, 1)
@@ -231,7 +233,7 @@ func (m *mockSrc) RemoveOutput(s string) error {
 }
 
 func (m *mockSrc) Open(ctx api.StreamContext, errCh chan<- error) {
-	if m.runCount%3 != 0 {
+	if m.runCount >= 2 {
 		fmt.Printf("sent error for %d \n", m.runCount)
 		select {
 		case errCh <- assert.AnError:
