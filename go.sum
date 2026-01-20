@@ -939,10 +939,10 @@ github.com/emqx/arxml-converter v0.1.1-0.20251205070047-e29e33b01f45 h1:BRIDuwLb
 github.com/emqx/arxml-converter v0.1.1-0.20251205070047-e29e33b01f45/go.mod h1:/bDQPlMWuZMJ8068oZ6HL+jE3NBXVMZ2ybSV0UX5++8=
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021 h1:wghOfqkrrwt3r0nWHhj1xJXKCsw049Fw4EuUU2H+9MQ=
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.4.1-0.20251208092431-c8343f15a153 h1:Iz6l+falh93JplfAM/jC09XG4aY0MlY320mlOBX/rCU=
-github.com/emqx/ekuiper_can v1.4.1-0.20251208092431-c8343f15a153/go.mod h1:r5VvZaDJm/IHA4dVOaolTP8F+K6f+i4/fgzLoL7G4Mw=
-github.com/emqx/idl-parser v0.1.0 h1:JDEKY3iDojW+rDIMhPlpZDk6pVU1Ipu1stYVTyVq+28=
-github.com/emqx/idl-parser v0.1.0/go.mod h1:MjXtURK32mdCE4VhlTjmPSoFPo5Hc30+fWoGJ+l4Z94=
+github.com/emqx/ekuiper_can v1.4.1-0.20251219074216-086b5922bda8 h1:SDA9U1zAK2+H8bzNGlacEPGVoknp5RIe0REFjm+Og4Q=
+github.com/emqx/ekuiper_can v1.4.1-0.20251219074216-086b5922bda8/go.mod h1:jZ61DvnuaghHZMghdpxBxT0XevlsOLS6tuKkna/zuy4=
+github.com/emqx/idl-parser v0.1.2 h1:dJbHMn5WlIpoNXh/TNNUNQRjW3NG98IZwCnhXnwM9Zg=
+github.com/emqx/idl-parser v0.1.2/go.mod h1:MjXtURK32mdCE4VhlTjmPSoFPo5Hc30+fWoGJ+l4Z94=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/go-control-plane v0.9.4/go.mod h1:6rpuAdCZL397s3pYoYcLgu1mIlRU8Am5FuJP05cCM98=
@@ -1429,8 +1429,8 @@ github.com/lestrrat-go/strftime v1.1.0/go.mod h1:uzeIB52CeUJenCo1syghlugshMysrqU
 github.com/lestrrat/go-envload v0.0.0-20180220120943-6ed08b54a570/go.mod h1:BLt8L9ld7wVsvEWQbuLrUZnCMnUmLZ+CGDzKtclrTlE=
 github.com/lf-edge/ekuiper/contract/v2 v2.3.1 h1:ANhBqgkAZEVMeF+BFPn61kOD08P5wS72Ct3pOPKKnxg=
 github.com/lf-edge/ekuiper/contract/v2 v2.3.1/go.mod h1:3Ox1JmJ4Dn03ALK/+Z8u/49dCOy/2h4oVsi1LTvdtxE=
-github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251208082917-e0c99ecf4a86 h1:bieyZdupXpNPUisNvqnEpNBUzEVXeU0swhknFRpmGSE=
-github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251208082917-e0c99ecf4a86/go.mod h1:CM1no0EEfnA6Z/dQwJ8/BRAlWmTjxoc0MzywGZsBb7k=
+github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.3 h1:phZSJ11A7UfKTWChIUXfFnExVFbZEC7aTz0SscgySdk=
+github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.3/go.mod h1:CM1no0EEfnA6Z/dQwJ8/BRAlWmTjxoc0MzywGZsBb7k=
 github.com/lib/pq v1.0.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.1.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=
 github.com/lib/pq v1.2.0/go.mod h1:5WUZQaWbwv1U+lTReE5YruASi9Al49XbQIvNi/34Woo=

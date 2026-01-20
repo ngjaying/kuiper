@@ -4,9 +4,9 @@ go 1.25.4
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.4.1-0.20251208092431-c8343f15a153
+	github.com/emqx/ekuiper_can v1.4.1-0.20251219074216-086b5922bda8
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
-	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.1.0.20251208082917-e0c99ecf4a86
+	github.com/lf-edge/ekuiper/v2 v2.4.0-alpha.3
 	github.com/stretchr/testify v1.11.1
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -121,7 +121,7 @@ require (
 	github.com/elastic/go-windows v1.0.0 // indirect
 	github.com/emqx/arxml-converter v0.1.1-0.20251205070047-e29e33b01f45 // indirect
 	github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021 // indirect
-	github.com/emqx/idl-parser v0.1.0 // indirect
+	github.com/emqx/idl-parser v0.1.2 // indirect
 	github.com/envoyproxy/go-control-plane v0.13.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.1.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect

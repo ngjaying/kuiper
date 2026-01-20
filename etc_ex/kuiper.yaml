@@ -63,6 +63,10 @@ basic:
   rulePatrolInterval: 10s
   # enableOpenZiti indicates whether to enable OpenZiti for eKuiper REST service. Currently, it is only supported to work with EdgeX secure mode.
   enableOpenZiti: false
+  # enablePrivateNet indicates whether to enable private network access.
+  enablePrivateNet: true
+  # allowExternalFileAccess indicates whether to allow external file access.
+  allowExternalFileAccess: true
   # AES Key, base64 encoded
   aesKey: MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3
   gracefulShutdownTimeout: 10s
