@@ -51,7 +51,11 @@ func repairLogSymlink(logDir, linkName string) error {
 	linkPath := filepath.Join(logDir, linkName)
 
 	// Find all rotated log files
-	pattern := filepath.Join(logDir, "stream.*.log")
+	// Find all rotated log files
+	ext := filepath.Ext(linkName)
+	prefix := linkName[:len(linkName)-len(ext)]
+	pattern := filepath.Join(logDir, prefix+".*"+ext)
+
 	allFiles, err := filepath.Glob(pattern)
 	if err != nil {
 		return fmt.Errorf("failed to glob log files in %s: %w", logDir, err)
@@ -78,6 +82,9 @@ func repairLogSymlink(logDir, linkName string) error {
 		infoJ, errJ := os.Stat(files[j])
 		if errI != nil || errJ != nil {
 			return false
+		}
+		if infoI.ModTime().Equal(infoJ.ModTime()) {
+			return files[i] > files[j]
 		}
 		return infoI.ModTime().After(infoJ.ModTime())
 	})

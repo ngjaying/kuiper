@@ -82,8 +82,14 @@ func TestValidateLogSymlink(t *testing.T) {
 	// Create some rotated log files
 	rotated1 := filepath.Join(tempDir, "stream.2023-01-01.log")
 	rotated2 := filepath.Join(tempDir, "stream.2023-01-02.log")
-	require.NoError(t, os.WriteFile(rotated1, []byte("log1"), 0644))
-	require.NoError(t, os.WriteFile(rotated2, []byte("log2"), 0644))
+	require.NoError(t, os.WriteFile(rotated1, []byte("log1"), 0o644))
+	require.NoError(t, os.WriteFile(rotated2, []byte("log2"), 0o644))
+
+	// Ensure rotated2 is newer than rotated1 for deterministic sorting
+	now := time.Now()
+	require.NoError(t, os.Chtimes(rotated1, now.Add(-1*time.Hour), now.Add(-1*time.Hour)))
+	require.NoError(t, os.Chtimes(rotated2, now, now))
+
 
 	// Test case: no symlink exists, should create one to latest
 	err = validateLogSymlink(tempDir, linkName)
