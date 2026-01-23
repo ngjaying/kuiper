@@ -24,6 +24,7 @@ import (
 	"path"
 	"path/filepath"
 	"runtime"
+	"sort"
 	"strings"
 	"time"
 
@@ -205,6 +206,83 @@ func SetLogLevel(level string, debug bool) {
 	}
 }
 
+// validateLogSymlink checks if the log symlink points to an existing file and repairs it if not.
+// This addresses an issue where rotatelogs may create symlinks that point to deleted files
+// when RotateCount is small and rotation causes filename cycling.
+// Only runs on non-Windows platforms where symlinks are supported.
+func validateLogSymlink(logDir, linkName string) error {
+	linkPath := filepath.Join(logDir, linkName)
+	target, err := os.Readlink(linkPath)
+	if err != nil {
+		if os.IsNotExist(err) {
+			// Symlink doesn't exist, try to create it to the latest log file
+			return repairLogSymlink(logDir, linkName)
+		}
+		return fmt.Errorf("failed to read symlink %s: %w", linkPath, err)
+	}
+	// Resolve relative targets against the symlink's directory
+	if !filepath.IsAbs(target) {
+		target = filepath.Join(filepath.Dir(linkPath), target)
+	}
+	if _, err := os.Stat(target); os.IsNotExist(err) {
+		// Target doesn't exist, repair symlink
+		return repairLogSymlink(logDir, linkName)
+	}
+	return nil
+}
+
+// repairLogSymlink finds the latest rotated log file and updates the symlink
+func repairLogSymlink(logDir, linkName string) error {
+	linkPath := filepath.Join(logDir, linkName)
+
+	// Find all rotated log files
+	pattern := filepath.Join(logDir, "stream.*.log")
+	allFiles, err := filepath.Glob(pattern)
+	if err != nil {
+		return fmt.Errorf("failed to glob log files in %s: %w", logDir, err)
+	}
+	if len(allFiles) == 0 {
+		// No rotated files, nothing to link to - rotatelogs will handle initial symlink creation
+		return nil
+	}
+
+	// Filter to only files that can be stat'ed (exclude inaccessible ones)
+	var files []string
+	for _, f := range allFiles {
+		if _, err := os.Stat(f); err == nil {
+			files = append(files, f)
+		}
+	}
+	if len(files) == 0 {
+		return fmt.Errorf("no accessible rotated log files found in %s", logDir)
+	}
+
+	// Sort files by modification time, newest first
+	sort.Slice(files, func(i, j int) bool {
+		infoI, errI := os.Stat(files[i])
+		infoJ, errJ := os.Stat(files[j])
+		if errI != nil || errJ != nil {
+			return false
+		}
+		return infoI.ModTime().After(infoJ.ModTime())
+	})
+
+	latestFile := files[0]
+
+	// Remove existing symlink if it exists
+	if _, err := os.Lstat(linkPath); err == nil {
+		if err := os.Remove(linkPath); err != nil {
+			return fmt.Errorf("failed to remove existing symlink %s: %w", linkPath, err)
+		}
+	}
+
+	// Create new symlink
+	if err := os.Symlink(latestFile, linkPath); err != nil {
+		return fmt.Errorf("failed to create symlink %s -> %s: %w", linkPath, latestFile, err)
+	}
+	return nil
+}
+
 func SetConsoleAndFileLog(consoleLog, fileLog bool) error {
 	if !fileLog {
 		if consoleLog {
@@ -237,13 +315,18 @@ func SetConsoleAndFileLog(consoleLog, fileLog bool) error {
 	)
 
 	if err != nil {
-		fmt.Printf("Failed to init log file settings: %v", err)
+		Log.Errorf("Failed to init log file settings: %v", err)
 		Log.Infof("Failed to log to file, using default stderr.")
 	} else if consoleLog {
 		mw := io.MultiWriter(os.Stdout, logWriter)
 		Log.SetOutput(mw)
 	} else {
 		Log.SetOutput(logWriter)
+	}
+	if !strings.EqualFold(runtime.GOOS, "windows") {
+		if err := validateLogSymlink(logDir, logFileName); err != nil {
+			Log.Warnf("Failed to validate log symlink %s: %v", filepath.Join(logDir, logFileName), err)
+		}
 	}
 	if Config.Basic.RotateCount > 0 {
 		// gc outdated log files by logrus itself
