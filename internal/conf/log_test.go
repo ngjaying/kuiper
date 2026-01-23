@@ -105,4 +105,20 @@ func TestValidateLogSymlink(t *testing.T) {
 	target, err = os.Readlink(linkPath)
 	require.NoError(t, err)
 	require.Equal(t, rotated2, target)
+
+	// Test case: symlink with relative target pointing to existing file
+	os.Remove(linkPath)
+	relativeTarget := "stream.2023-01-02.log" // relative to link dir
+	require.NoError(t, os.Symlink(relativeTarget, linkPath))
+	err = validateLogSymlink(tempDir, linkName)
+	require.NoError(t, err) // should not repair since target exists
+
+	// Test case: symlink with relative target pointing to non-existent file
+	os.Remove(linkPath)
+	require.NoError(t, os.Symlink("nonexistent.log", linkPath))
+	err = validateLogSymlink(tempDir, linkName)
+	require.NoError(t, err)
+	target, err = os.Readlink(linkPath)
+	require.NoError(t, err)
+	require.Equal(t, rotated2, target) // should repair
 }
