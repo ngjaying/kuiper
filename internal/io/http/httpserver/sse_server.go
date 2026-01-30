@@ -15,8 +15,10 @@
 package httpserver
 
 import (
+	"context"
 	"fmt"
 	"net/http"
+	"sync"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
@@ -27,6 +29,11 @@ import (
 const (
 	SseTopicPrefix = "$$sse/"
 )
+
+type sseEndpointContext struct {
+	wg    *sync.WaitGroup
+	conns map[int64]context.CancelFunc
+}
 
 func recvSseTopic(endpoint string) string {
 	return fmt.Sprintf("%s/server/recv/%s", SseTopicPrefix, endpoint)
@@ -41,7 +48,11 @@ func RegisterSSEEndpoint(ctx api.StreamContext, endpoint string) (string, string
 }
 
 func UnRegisterSSEEndpoint(endpoint string) {
-	manager.UnRegisterSSEEndpoint(endpoint)
+	sctx := manager.UnRegisterSSEEndpoint(endpoint)
+	if sctx != nil {
+		// wait all connections to close
+		sctx.wg.Wait()
+	}
 }
 
 func (m *GlobalServerManager) RegisterSSEEndpoint(ctx api.StreamContext, endpoint string) (string, string, error) {
@@ -65,17 +76,26 @@ func (m *GlobalServerManager) RegisterSSEEndpoint(ctx api.StreamContext, endpoin
 		w.Header().Set("Access-Control-Allow-Origin", "*")
 		flusher.Flush()
 
+		// Create a cancel context for this specific connection
+		connCtx, cancel := context.WithCancel(r.Context())
+		connID := int64(m.FetchInstanceID())
+		wg := m.AddSSEConnection(endpoint, connID, cancel)
+		defer func() {
+			m.CloseSSEConnection(endpoint, connID)
+			wg.Done()
+		}()
+
 		// Create a subscription to the send topic
 		// The sourceID must be unique for each connection to ensure all clients receive the message
-		sourceID := fmt.Sprintf("sse/send/%v", m.FetchInstanceID())
+		sourceID := fmt.Sprintf("sse/send/%v", connID)
 		ch := pubsub.CreateSub(sTopic, nil, sourceID, 1024)
 		defer pubsub.CloseSourceConsumerChannel(sTopic, sourceID)
 
 		conf.Log.Infof("sse client connected to %s", endpoint)
-		notify := r.Context().Done()
+
 		for {
 			select {
-			case <-notify:
+			case <-connCtx.Done():
 				conf.Log.Infof("sse client disconnected from %s", endpoint)
 				return
 			case d, ok := <-ch:
@@ -105,12 +125,52 @@ func (m *GlobalServerManager) RegisterSSEEndpoint(ctx api.StreamContext, endpoin
 	return rTopic, sTopic, nil
 }
 
-func (m *GlobalServerManager) UnRegisterSSEEndpoint(endpoint string) {
+func (m *GlobalServerManager) AddSSEConnection(endpoint string, connID int64, cancel context.CancelFunc) *sync.WaitGroup {
+	m.Lock()
+	defer m.Unlock()
+	sctx, ok := m.sseEndpoint[endpoint]
+	if ok {
+		sctx.conns[connID] = cancel
+		sctx.wg.Add(1)
+		return sctx.wg
+	}
+	wg := &sync.WaitGroup{}
+	wg.Add(1)
+	m.sseEndpoint[endpoint] = &sseEndpointContext{
+		wg: wg,
+		conns: map[int64]context.CancelFunc{
+			connID: cancel,
+		},
+	}
+	return wg
+}
+
+func (m *GlobalServerManager) CloseSSEConnection(endpoint string, connID int64) {
+	m.Lock()
+	defer m.Unlock()
+	sctx, ok := m.sseEndpoint[endpoint]
+	if !ok {
+		return
+	}
+	delete(sctx.conns, connID)
+}
+
+func (m *GlobalServerManager) UnRegisterSSEEndpoint(endpoint string) *sseEndpointContext {
 	conf.Log.Infof("sse endpoint %v unregister", endpoint)
 	pubsub.RemovePub(recvSseTopic(endpoint))
-	pubsub.RemovePub(sendSseTopic(endpoint))
 	m.Lock()
 	defer m.Unlock()
 
+	sctx, ok := m.sseEndpoint[endpoint]
+	if !ok {
+		delete(m.routes, endpoint)
+		return nil
+	}
+	// Cancel all active connections
+	for _, cancel := range sctx.conns {
+		cancel()
+	}
+	delete(m.sseEndpoint, endpoint)
 	delete(m.routes, endpoint)
+	return sctx
 }
