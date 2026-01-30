@@ -6,7 +6,7 @@ require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
 	github.com/emqx/ekuiper_can v1.4.1-0.20251219074216-086b5922bda8
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
-	github.com/lf-edge/ekuiper/v2 v2.4.0-beta.1
+	github.com/lf-edge/ekuiper/v2 v2.4.0-beta.2
 	github.com/stretchr/testify v1.11.1
 	go.nanomsg.org/mangos/v3 v3.4.2
 )
@@ -264,6 +264,7 @@ require (
 	github.com/parquet-go/parquet-go v0.23.0 // indirect
 	github.com/paulmach/orb v0.11.1 // indirect
 	github.com/pebbe/zmq4 v1.2.11 // indirect
+	github.com/petermattis/goid v0.0.0-20250813065127-a731cc31b4fe // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
 	github.com/pingcap/errors v0.11.4 // indirect
 	github.com/pingcap/failpoint v0.0.0-20240528011301-b51a646c7c86 // indirect
@@ -283,6 +284,7 @@ require (
 	github.com/rivo/uniseg v0.4.7 // indirect
 	github.com/robfig/cron/v3 v3.0.1 // indirect
 	github.com/rogpeppe/go-internal v1.13.1 // indirect
+	github.com/sasha-s/go-deadlock v0.3.6 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/segmentio/encoding v0.4.0 // indirect
 	github.com/segmentio/kafka-go v0.4.47 // indirect
