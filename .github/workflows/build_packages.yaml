@@ -82,6 +82,8 @@ jobs:
         run: |
           make pkg_ex VERSION=${REF}
           make pkg_sdv VERSION=${REF}
+          make build_deadlock_ex VERSION=${REF}
+          make build_deadlock_sdv VERSION=${REF}
 
       - name: Create sha file
         run: |

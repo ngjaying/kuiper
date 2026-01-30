@@ -106,7 +106,7 @@ EXT_IN_EX := \
 build_ex: SHELL:=/bin/bash -euo pipefail
 build_ex: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "ex script" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=1 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_ex -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "ex script $(EXTRA_TAGS)" -o kuiperd main.go
 	@if [ "$$(uname -s)" = "Linux" ] && [ ! -z $$(which upx) ]; then upx ./kuiperd; fi
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc from LF"
@@ -147,6 +147,15 @@ pkg_ex: build_ex
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-ex.tar.gz $(PACKAGES_PATH)
 	@echo "Package for Neuron EX success"
 
+.PHONY: build_deadlock_ex
+build_deadlock_ex:
+	@mkdir -p $(PACKAGES_PATH)
+	@rm -rf $(BUILD_PATH)
+	$(MAKE) build_ex SPI_VERSION=v3 EXTRA_TAGS="deadlock"
+	$(eval VERSION_SAFE := $(shell echo "$(VERSION)" | tr '/' '-'))
+	@cp $(BUILD_PATH)/$(PACKAGE_NAME)/bin/kuiperd $(PACKAGES_PATH)/kuiper-ex-deadlock-$(VERSION_SAFE)-$(OS)-$(ARCH)
+	@echo "Build ex deadlock binary success"
+
 META_IN_SDV := \
 	etc/sinks/file.json \
 	etc/sinks/log.json \
@@ -182,7 +191,7 @@ EXT_IN_SDV := \
 build_sdv: SHELL:=/bin/bash -euo pipefail
 build_sdv: build_prepare
 	@echo "Compiling"
-	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template schema" -o kuiperd main.go
+	GO111MODULE=on CGO_ENABLED=0 go build -trimpath -ldflags="-s -w -X github.com/lf-edge/ekuiper/v2/cmd.Version=$(VERSION)_sdv -X github.com/lf-edge/ekuiper/v2/cmd.LoadFileType=relative" -tags "core sdv compression ui prometheus template schema $(EXTRA_TAGS)" -o kuiperd main.go
 	@mv ./kuiperd $(BUILD_PATH)/$(PACKAGE_NAME)/bin
 	@echo "Overwrite etc from LF"
 	@rsync -a --chmod=+w --exclude='sources/' --exclude='sinks/' $(EK_DIR)/etc/ $(BUILD_PATH)/$(PACKAGE_NAME)/etc/
@@ -221,6 +230,15 @@ pkg_sdv: build_sdv
 	@cd $(BUILD_PATH) && tar -czf $(PACKAGE_NAME)-sdv.tar.gz $(PACKAGE_NAME)
 	@mv $(BUILD_PATH)/$(PACKAGE_NAME)-sdv.tar.gz $(PACKAGES_PATH)
 	@echo "Package for SDV flow success"
+
+.PHONY: build_deadlock_sdv
+build_deadlock_sdv:
+	@mkdir -p $(PACKAGES_PATH)
+	@rm -rf $(BUILD_PATH)
+	$(MAKE) build_sdv SPI_VERSION=v3 EXTRA_TAGS="deadlock"
+	$(eval VERSION_SAFE := $(shell echo "$(VERSION)" | tr '/' '-'))
+	@cp $(BUILD_PATH)/$(PACKAGE_NAME)/bin/kuiperd $(PACKAGES_PATH)/kuiper-sdv-deadlock-$(VERSION_SAFE)-$(OS)-$(ARCH)
+	@echo "Build sdv deadlock binary success"
 
 .PHONY: build_fvt
 build_fvt: SHELL:=/bin/bash -euo pipefail
