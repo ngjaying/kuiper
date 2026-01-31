@@ -118,6 +118,27 @@ func (s *State) WithTopo(topo *topo.Topo) *State {
 	return s
 }
 
+func (s *State) GetRule() *def.Rule {
+	s.RLock()
+	defer s.RUnlock()
+	return s.Rule
+}
+
+func (s *State) SetRule(r *def.Rule) {
+	s.Lock()
+	defer s.Unlock()
+	s.Rule = r
+}
+
+func (s *State) Start() error {
+	done := s.sm.TriggerAction(machine.ActionSignalStart)
+	if done {
+		return nil
+>>>>>>> f2b4cd40a (fix(test): resolve data races and isolate extension tests)
+	}
+	return s
+}
+
 func (s *State) HasTopo() bool {
 	return s.topology != nil
 }
