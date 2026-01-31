@@ -108,7 +108,7 @@ func (rr *RuleRegistry) upsert(id string, ruleJson string, newRuleDef *def.Rule,
 	rr.Lock()
 	defer rr.Unlock()
 
-// 1. Check for existing rule and validate version
+	// 1. Check for existing rule and validate version
 	existing, exists := rr.internal[id]
 	if exists {
 		rule := existing.GetRule()

@@ -90,14 +90,12 @@ func InitGlobalServerManager(ip string, port int, tlsConf *model.TlsConf) {
 }
 
 func ShutDown() {
-	managerLock.RLock()
+	managerLock.Lock()
+	defer managerLock.Unlock()
 	if manager != nil {
 		manager.Shutdown()
+		manager = nil
 	}
-	managerLock.RUnlock()
-	managerLock.Lock()
-	manager = nil
-	managerLock.Unlock()
 }
 
 func RegisterEndpoint(endpoint string, method string) (string, error) {
