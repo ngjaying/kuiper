@@ -68,7 +68,7 @@ jobs:
           bash ./test/setup_env.sh
       - name: run integration tests
         run: |
-          go test -trimpath -tags deadlock ./test/fvt/...
+          go test -trimpath -race -tags deadlock ./test/fvt/...
       - uses: actions/setup-java@v3
         with:
           distribution: zulu

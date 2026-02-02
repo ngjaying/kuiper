@@ -18,6 +18,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"sync"
+
 	"os"
 	"path/filepath"
 	"testing"
@@ -79,8 +81,11 @@ func (s *CIMETestSuite) TestGuangdong() {
 	})
 	// Subscribe to result topic
 	var results []string
+	var mu sync.Mutex
 	s.Run("subscribing to result", func() {
 		s.mqttClient.Subscribe("result/ruleCimE", 2, func(c mqtt.Client, message mqtt.Message) {
+			mu.Lock()
+			defer mu.Unlock()
 			if len(results) >= 3 {
 				s.mqttClient.Unsubscribe("result/ruleCimE")
 			} else {
@@ -137,7 +142,11 @@ func (s *CIMETestSuite) TestGuangdong() {
 			"{\"cap\":\"30.00\",\"fts\":1697069700000,\"id\":\"2\",\"ns\":\"#\",\"power\":\"0.00\",\"ts\":1697068800000}",
 			"{\"cap\":\"30.00\",\"fts\":1697070600000,\"id\":\"3\",\"ns\":\"#\",\"power\":\"0.00\",\"ts\":1697068800000}",
 		}
-		s.Equal(exp, results)
+		mu.Lock()
+		got := make([]string, len(results))
+		copy(got, results)
+		mu.Unlock()
+		s.Equal(exp, got)
 	})
 	/// clean up
 	s.Run("delete rule", func() {
@@ -178,8 +187,11 @@ func (s *CIMETestSuite) TestHenan() {
 	})
 	// Subscribe to result topic
 	var results []string
+	var mu sync.Mutex
 	s.Run("subscribing to result", func() {
 		s.mqttClient.Subscribe("result/ruleCimE", 2, func(c mqtt.Client, message mqtt.Message) {
+			mu.Lock()
+			defer mu.Unlock()
 			if len(results) >= 3 {
 				s.mqttClient.Unsubscribe("result/ruleCimE")
 			} else {
@@ -236,7 +248,11 @@ func (s *CIMETestSuite) TestHenan() {
 			"{\"code\":\"HNP\",\"fts\":1361984460000,\"id\":\"#2\",\"offset\":\"2\",\"ts\":1361984400000,\"value\":\"14.82\"}",
 			"{\"code\":\"HNP\",\"fts\":1361984520000,\"id\":\"#3\",\"offset\":\"3\",\"ts\":1361984400000,\"value\":\"14.82\"}",
 		}
-		s.Equal(exp, results)
+		mu.Lock()
+		got := make([]string, len(results))
+		copy(got, results)
+		mu.Unlock()
+		s.Equal(exp, got)
 	})
 	/// clean up
 	s.Run("delete rule", func() {
@@ -276,8 +292,11 @@ func (s *CIMETestSuite) TestHubei() {
 	})
 	// Subscribe to result topic
 	var results []string
+	var mu sync.Mutex
 	s.Run("subscribing to result", func() {
 		s.mqttClient.Subscribe("result/ruleCimE", 2, func(c mqtt.Client, message mqtt.Message) {
+			mu.Lock()
+			defer mu.Unlock()
 			if len(results) >= 3 {
 				s.mqttClient.Unsubscribe("result/ruleCimE")
 			} else {
@@ -334,7 +353,11 @@ func (s *CIMETestSuite) TestHubei() {
 			"{\"fts\":1702686600000,\"id\":\"#2\",\"power\":\"150.86\",\"ts\":1702685700000}",
 			"{\"fts\":1702687500000,\"id\":\"#3\",\"power\":\"140.30\",\"ts\":1702685700000}",
 		}
-		s.Equal(exp, results)
+		mu.Lock()
+		got := make([]string, len(results))
+		copy(got, results)
+		mu.Unlock()
+		s.Equal(exp, got)
 	})
 	/// clean up
 	s.Run("delete rule", func() {

@@ -8,6 +8,8 @@ import (
 	"path/filepath"
 	"testing"
 	"time"
+	"sync"
+
 
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 	"github.com/stretchr/testify/suite"
@@ -51,6 +53,7 @@ func (s *GBFTestSuite) TestIDLRules() {
 	})
 	// Create the simplest rule
 	var result []string
+	var mu sync.Mutex
 	s.Run("setup rule gbf1", func() {
 		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "gbfRule.json"))
 		s.Require().NoError(err)
@@ -58,6 +61,8 @@ func (s *GBFTestSuite) TestIDLRules() {
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
 		s.mqttClient.Subscribe("ek/result1", 2, func(c mqtt.Client, message mqtt.Message) {
+			mu.Lock()
+			defer mu.Unlock()
 			result = append(result, string(message.Payload()))
 		})
 	})
@@ -70,6 +75,7 @@ func (s *GBFTestSuite) TestIDLRules() {
 	})
 	// Create the simplest rule
 	var result2 []string
+	var mu2 sync.Mutex
 	s.Run("setup rule gbf2", func() {
 		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "gbf2Rule.json"))
 		s.Require().NoError(err)
@@ -77,6 +83,8 @@ func (s *GBFTestSuite) TestIDLRules() {
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
 		s.mqttClient.Subscribe("ek/result2", 2, func(c mqtt.Client, message mqtt.Message) {
+			mu2.Lock()
+			defer mu2.Unlock()
 			result2 = append(result2, string(message.Payload()))
 		})
 	})
@@ -104,7 +112,11 @@ func (s *GBFTestSuite) TestIDLRules() {
 		s.Require().NoError(err)
 		exp := []string{"{\"Mess0$Mess0_Sig1\":null,\"Mess0$Mess0_Sig2\":null,\"Mess0$Mess0_Sig3\":null,\"Mess1$Mess1_Sig1\":1,\"Mess1$Mess1_Sig2\":1,\"Mess1$Mess1_Sig3\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ZCUDZCUCANFD2Fr36$BswCalVersion\":0,\"ZCUDZCUCANFD2Fr36$BswRervedSignal\":0,\"ZCUDZCUCANFD2Fr36$VcEvFehMsgRedPerf\":0,\"ts\":1731316891295}", "{\"Mess0$Mess0_Sig1\":1,\"Mess0$Mess0_Sig2\":1,\"Mess0$Mess0_Sig3\":1,\"Mess1$Mess1_Sig1\":null,\"Mess1$Mess1_Sig2\":null,\"Mess1$Mess1_Sig3\":null,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ZCUDZCUCANFD2Fr36$BswCalVersion\":0,\"ZCUDZCUCANFD2Fr36$BswRervedSignal\":0,\"ZCUDZCUCANFD2Fr36$VcEvFehMsgRedPerf\":0,\"ts\":1731316895391}", "{\"Mess0$Mess0_Sig1\":1,\"Mess0$Mess0_Sig2\":1,\"Mess0$Mess0_Sig3\":1,\"Mess1$Mess1_Sig1\":1,\"Mess1$Mess1_Sig2\":1,\"Mess1$Mess1_Sig3\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":null,\"ZCUDZCUCANFD2Fr36$BswCalVersion\":null,\"ZCUDZCUCANFD2Fr36$BswRervedSignal\":null,\"ZCUDZCUCANFD2Fr36$VcEvFehMsgRedPerf\":null,\"ts\":1731316899487}", "{\"Mess0$Mess0_Sig1\":1,\"Mess0$Mess0_Sig2\":1,\"Mess0$Mess0_Sig3\":1,\"Mess1$Mess1_Sig1\":1,\"Mess1$Mess1_Sig2\":1,\"Mess1$Mess1_Sig3\":1,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":18446744073709551615,\"ZCUDZCUCANFD2Fr36$BswCalVersion\":0,\"ZCUDZCUCANFD2Fr36$BswRervedSignal\":0,\"ZCUDZCUCANFD2Fr36$VcEvFehMsgRedPerf\":0,\"ts\":1731316903583}", "{\"Mess0$Mess0_Sig1\":1,\"Mess0$Mess0_Sig2\":1,\"Mess0$Mess0_Sig3\":1,\"Mess1$Mess1_Sig1\":null,\"Mess1$Mess1_Sig2\":null,\"Mess1$Mess1_Sig3\":null,\"ZCUDZCUCANFD2Fr36$BswAppVersion\":null,\"ZCUDZCUCANFD2Fr36$BswCalVersion\":null,\"ZCUDZCUCANFD2Fr36$BswRervedSignal\":null,\"ZCUDZCUCANFD2Fr36$VcEvFehMsgRedPerf\":null,\"ts\":1731316907679}"}
 
-		s.Require().Equal(exp, result)
+		mu.Lock()
+		got := make([]string, len(result))
+		copy(got, result)
+		mu.Unlock()
+		s.Require().Equal(exp, got)
 	})
 	s.Run("check gbf2 status after feeding data", func() {
 		time.Sleep(time.Second)
@@ -114,7 +126,11 @@ func (s *GBFTestSuite) TestIDLRules() {
 		s.Require().Equal(5.0, metrics["source_gbf1sStream_0_records_in_total"])
 		s.Require().Equal(1.0, metrics["sink_mqtt_0_0_records_out_total"])
 		s.Require().NoError(err)
-		s.Require().Equal([]string{"{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316907679}"}, result2)
+		mu2.Lock()
+		got := make([]string, len(result2))
+		copy(got, result2)
+		mu2.Unlock()
+		s.Require().Equal([]string{"{\"Mess0$Mess0_Sig2\":1,\"ts\":1731316907679}"}, got)
 	})
 	s.Run("clean", func() {
 		resp, err := client.DeleteRule("gbf1")
@@ -190,6 +206,7 @@ func (s *GBFTestSuite) TestHistoryCan() {
 	})
 	// Create the simplest rule
 	var result []string
+	var mu sync.Mutex
 	s.Run("setup rule h1", func() {
 		ruleStr, err := os.ReadFile(filepath.Join(PWD, RulesPath, "h1.json"))
 		s.Require().NoError(err)
@@ -197,6 +214,8 @@ func (s *GBFTestSuite) TestHistoryCan() {
 		s.Require().NoError(err)
 		s.Require().Equal(201, resp.StatusCode)
 		s.mqttClient.Subscribe("ek/h1", 2, func(c mqtt.Client, message mqtt.Message) {
+			mu.Lock()
+			defer mu.Unlock()
 			result = append(result, string(message.Payload()))
 		})
 	})
@@ -211,7 +230,11 @@ func (s *GBFTestSuite) TestHistoryCan() {
 		s.Require().Equal(6.0, metrics["sink_mqtt_0_0_records_out_total"])
 		s.Require().NoError(err)
 		exp := []string{"{\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000050}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1732689000060}", "{\"Mess0$Mess0_Sig2\":1,\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000070}", "{\"Mess0$Mess0_Sig2\":1,\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000080}", "{\"Mess0$Mess0_Sig2\":1,\"ts\":1732689000090}", "{\"Mess1$Mess1_Sig1\":1,\"ts\":1732689000100}"}
-		s.Require().Equal(exp, result)
+		mu.Lock()
+		got := make([]string, len(result))
+		copy(got, result)
+		mu.Unlock()
+		s.Require().Equal(exp, got)
 	})
 	s.Run("clean", func() {
 		resp, err := client.DeleteStream("q1Stream")
