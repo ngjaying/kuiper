@@ -62,7 +62,7 @@ type Topo struct {
 	store        api.Store
 	coordinator  *checkpoint.Coordinator
 	topo         *def.PrintableTopo
-	mu           syncx.Mutex
+	mu           syncx.RWMutex
 	hasOpened    atomic.Bool
 	sinkSchema   map[string]*ast.JsonStreamField
 
@@ -132,10 +132,10 @@ func (s *Topo) CancelWithSig(sig int) error {
 	}
 	s.hasOpened.Store(false)
 	// Check coordinator status under lock
-	s.mu.Lock()
+	s.mu.RLock()
 	coordinator := s.coordinator
 	enableSave := s.options.EnableSaveStateBeforeStop
-	s.mu.Unlock()
+	s.mu.RUnlock()
 
 	if coordinator != nil && coordinator.IsActivated() && enableSave {
 		notify, err := coordinator.ForceSaveState(xsql.StopTuple{
@@ -322,37 +322,43 @@ func (s *Topo) Open() <-chan error {
 		s.opsWg = &sync.WaitGroup{}
 	}
 	s.opsWg.Add(1)
+	s.drain = make(chan error, 2)
 	s.mu.Unlock()
 	s.hasOpened.Store(true)
 	defer s.opsWg.Done()
 	s.prepareContext() // ensure context is set
-	s.drain = make(chan error, 2)
 	log := s.ctx.GetLogger()
 	log.Info("Opening stream")
 	err := infra.SafeRun(func() error {
-		var err error
-		if s.store, err = state.CreateStore(s.name, s.options.Qos); err != nil {
+		store, err := state.CreateStore(s.name, s.options.Qos)
+		if err != nil {
 			return fmt.Errorf("topo %s create store error %v", s.name, err)
 		}
+		s.mu.Lock()
+		s.store = store
+		s.mu.Unlock()
+
 		if err := s.enableCheckpoint(s.ctx); err != nil {
 			return err
 		}
-		topoStore := s.store
 		// open stream sink, after log sink is ready.
 		for _, snk := range s.sinks {
-			snk.Exec(s.ctx.WithMeta(s.name, snk.GetName(), topoStore), s.drain)
+			snk.Exec(s.ctx.WithMeta(s.name, snk.GetName(), store), s.drain)
 		}
 
 		for _, op := range s.ops {
-			op.Exec(s.ctx.WithMeta(s.name, op.GetName(), topoStore), s.drain)
+			op.Exec(s.ctx.WithMeta(s.name, op.GetName(), store), s.drain)
 		}
 
 		for _, source := range s.sources {
-			source.Open(s.ctx.WithMeta(s.name, source.GetName(), topoStore), s.drain)
+			source.Open(s.ctx.WithMeta(s.name, source.GetName(), store), s.drain)
 		}
 		// activate checkpoint
-		if s.coordinator != nil {
-			return s.coordinator.Activate()
+		s.mu.RLock()
+		coordinator := s.coordinator
+		s.mu.RUnlock()
+		if coordinator != nil {
+			return coordinator.Activate()
 		}
 		return nil
 	})
@@ -399,7 +405,9 @@ func (s *Topo) enableCheckpoint(ctx api.StreamContext) error {
 		}
 
 		c := checkpoint.NewCoordinator(s.name, sources, ops, sinks, s.options.Qos, s.store, time.Duration(s.options.CheckpointInterval), s.ctx)
+		s.mu.Lock()
 		s.coordinator = c
+		s.mu.Unlock()
 	}
 	return nil
 }
