@@ -1,0 +1,1940 @@
+{
+  "version": "1.0",
+  "generated": "2026-02-24T06:31:41Z",
+  "entries": [
+    {
+      "msg_id": 48409,
+      "type": 1,
+      "key": "AdrInterface.AdrDiagnosis.adr-AdrInterface.AdrDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51615,
+      "type": 1,
+      "key": "DrsProto.DrsDiagnosis.drs-DrsProto.DrsDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 47609,
+      "type": 1,
+      "key": "DrsProto.TripSum.drs-DrsProto.TripSum",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 936,
+      "type": 1,
+      "key": "GwDiagProto.GwDiagnosis.gw-GwDiagProto.GwDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36970,
+      "type": 1,
+      "key": "HmiInterface.ADAPADynguidanceData.hmi_interface-HmiInterface.ADAPADynguidanceData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 42076,
+      "type": 1,
+      "key": "HmiInterface.ADAPADynrecommdData.hmi_interface-HmiInterface.ADAPADynrecommdData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 1362,
+      "type": 1,
+      "key": "HmiInterface.ADAPAFctnIndnMsgData.hmi_interface-HmiInterface.ADAPAFctnIndnMsgData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20402,
+      "type": 1,
+      "key": "HmiInterface.ADAPAFctnStaData.hmi_interface-HmiInterface.ADAPAFctnStaData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 1794,
+      "type": 1,
+      "key": "HmiInterface.BasicConvoyFunInfo.hmi_interface-HmiInterface.BasicConvoyFunInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 10490,
+      "type": 1,
+      "key": "HmiInterface.BasicSmartDrivingTips.hmi_interface-HmiInterface.BasicSmartDrivingTips",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 13806,
+      "type": 1,
+      "key": "HmiInterface.BasicStateFusion.hmi_interface-HmiInterface.BasicStateFusion",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 14442,
+      "type": 1,
+      "key": "HmiInterface.HMIDiagnosis.hmi_interface-HmiInterface.HMIDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 2966,
+      "type": 1,
+      "key": "HmiInterface.HmiADASSecureSet.hmi_interface-HmiInterface.HmiADASSecureSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 61786,
+      "type": 1,
+      "key": "HmiInterface.HmiADFunset.hmi_interface-HmiInterface.HmiADFunset",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56764,
+      "type": 1,
+      "key": "HmiInterface.HmiParkInternal.hmi_interface-HmiInterface.HmiParkInternal",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 48356,
+      "type": 1,
+      "key": "HmiInterface.PushRequest.hmi_interface-HmiInterface.PushRequest",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 14226,
+      "type": 1,
+      "key": "HmiInterface.RMASlotInfosString.hmi_interface-HmiInterface.RMASlotInfosString",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28568,
+      "type": 1,
+      "key": "HmiInterface.RedLightReEnSet.hmi_interface-HmiInterface.RedLightReEnSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 47768,
+      "type": 1,
+      "key": "LidarDiagnosisProto.LidarDiagnosis.lidar_perception-LidarDiagnosisProto.LidarDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28690,
+      "type": 1,
+      "key": "SafeWarningProto.SafeWarnResult.safe_warning-SafeWarningProto.SafeWarnResult",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 48830,
+      "type": 1,
+      "key": "SafeWarningProto.SafeWarningDiagnosis.safe_warning-SafeWarningProto.SafeWarningDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20867,
+      "type": 1,
+      "key": "SasProto.AebDebug.sas_com-SasProto.AebDebug",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51987,
+      "type": 1,
+      "key": "SasProto.AebResult.sas_com-SasProto.AebResult",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56141,
+      "type": 1,
+      "key": "SasProto.AesResult.sas_com-SasProto.AesResult",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 16587,
+      "type": 1,
+      "key": "SasProto.LasSystemState.sas_com-SasProto.LasSystemState",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 14430,
+      "type": 1,
+      "key": "ScDiagnosisProto.ScDiagnosis.ca_adas_sc_sender-ScDiagnosisProto.ScDiagnosis-sc",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33404,
+      "type": 1,
+      "key": "Sts.FromSTS.state_switch-Sts.FromSTS",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 14464,
+      "type": 1,
+      "key": "ThroAssProto.ThroassDiagnosis.throass-ThroAssProto.ThroassDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33688,
+      "type": 1,
+      "key": "VcuProto.Vcu.sab-VcuProto.Vcu",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 38286,
+      "type": 1,
+      "key": "VpDiagnosisProto.VpDiagnosis.ca_adas_ac_sender-VpDiagnosisProto.VpDiagnosis-ac",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 45194,
+      "type": 1,
+      "key": "apapcs.DecisionResult.apapcs-apapcs.DecisionResult",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25960,
+      "type": 1,
+      "key": "csmap.CSMapDiagnosis.car_scheduler-csmap.CSMapDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20427,
+      "type": 1,
+      "key": "e2e.E2EDebug.e2e-e2e.E2EDebug-Version",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36805,
+      "type": 1,
+      "key": "hmi_basic_apainteract.ADAPACustSlotData.hmi_interface-HmiInterface.ADAPACustSlotData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 26619,
+      "type": 1,
+      "key": "hmi_basic_apainteract.ADAPADynrecommdData.hmi_interface-HmiInterface.ADAPADynrecommdData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50980,
+      "type": 1,
+      "key": "hmi_basic_parkinternal.HmiParkInternal.hmi_interface-HmiInterface.HmiParkInternal",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 22014,
+      "type": 1,
+      "key": "idmap.IDMapDiagnosis.map_static_info-idmap.IDMapDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50894,
+      "type": 1,
+      "key": "localization.CsDiagnosis.crowd_sourcing-localization.LocDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 48468,
+      "type": 1,
+      "key": "localization.LocDiagnosis.ins_parser-localization.LocDiagnosis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25810,
+      "type": 1,
+      "key": "phm_info.camera_diag-Phm.PhmSysteminfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50163,
+      "type": 1,
+      "key": "pnc.DecisionOutput.pnc-pnc.DecisionOutput",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43625,
+      "type": 1,
+      "key": "pnc.DrivingEnvInfo.pnc-pnc.DrivingEnvInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31745,
+      "type": 1,
+      "key": "pnc.PlanningOutput.pnc-pnc.PlanningOutput",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 13507,
+      "type": 1,
+      "key": "pnc.SafeWarningOutput.pnc-pnc.SafeWarningOutput",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 49247,
+      "type": 1,
+      "key": "pnc.SimplePncOutput.pnc-pnc.SimplePncOutput",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 22380,
+      "type": 2,
+      "key": "Basc_ACChrgMntr.Ntf_ACChrgMntrInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 38074,
+      "type": 2,
+      "key": "Basc_ACStsInfo.Ntf_ACFltInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 16021,
+      "type": 2,
+      "key": "Basc_ACStsInfo.Ntf_ACOperPrmInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 29004,
+      "type": 2,
+      "key": "Basc_ACStsInfo.Ntf_ACOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37568,
+      "type": 2,
+      "key": "Basc_AcChrgILimSet.Ntf_AcChrgILimSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4340,
+      "type": 2,
+      "key": "Basc_AcChrgLckKeyReq.Ntf_AcChrgLckKeyReq",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36695,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenFunEn",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28968,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenFunEnSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 61949,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenMoElecFenSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 15597,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenMoInfoSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 29416,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenMoOpenModeSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 58711,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenMoSwitSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 45229,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_ActSenTrig",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 54155,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_SdcardSenErrTrig",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 48195,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_SenSirenSoundSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 60808,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_SenWarningSetSwitchEarly",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 13255,
+      "type": 2,
+      "key": "Basc_ActSenMode.Ntf_UserNotiConfir",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20436,
+      "type": 2,
+      "key": "Basc_ActvEcallTigger.Ntf_ActvEcallTigger",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 35643,
+      "type": 2,
+      "key": "Basc_AdasInfo.Ntf_ADAS_MapNavigationSignal",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31802,
+      "type": 2,
+      "key": "Basc_AppStartUpByCar.Ntf_ColdStartUpData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 18351,
+      "type": 2,
+      "key": "Basc_BLEPhyKeyMag.Ntf_BLEPhyKeyList",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 1868,
+      "type": 2,
+      "key": "Basc_BLEPhyKeyMag.Ntf_BLEPhyKeyStudyInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 23024,
+      "type": 2,
+      "key": "Basc_BattStatus.Ntf_BattStatus",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 53518,
+      "type": 2,
+      "key": "Basc_BattStatus.Ntf_DcdcLowCurrFlg",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 21632,
+      "type": 2,
+      "key": "Basc_BattStatus.Ntf_VoltageDipsFlg",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39789,
+      "type": 2,
+      "key": "Basc_BcuOperInfo.Ntf_BcuOperPrmInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 63412,
+      "type": 2,
+      "key": "Basc_BcuOperInfo.Ntf_BcuOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64071,
+      "type": 2,
+      "key": "Basc_BodyStabySysSts.Ntf_ComFltSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39246,
+      "type": 2,
+      "key": "Basc_BodyStabySysSts.Ntf_EspAbsFailr",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 41653,
+      "type": 2,
+      "key": "Basc_BodyStabySysSts.Ntf_EspEbdFailr",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36860,
+      "type": 2,
+      "key": "Basc_BodyStabySysSts.Ntf_EspTcsFailr",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 2756,
+      "type": 2,
+      "key": "Basc_BokHeatReqSet.Ntf_BokHeatReq",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43296,
+      "type": 2,
+      "key": "Basc_BrkDiscHighTempWarn.Ntf_BrkDiscHighTempWarn",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 26568,
+      "type": 2,
+      "key": "Basc_BrkPedlModSet.Ntf_BrkPedlModSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37604,
+      "type": 2,
+      "key": "Basc_BucSwtSts.Ntf_BucSwtSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 30590,
+      "type": 2,
+      "key": "Basc_C2SignalToEDC.Ntf_SignalData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 12790,
+      "type": 2,
+      "key": "Basc_CANNetWakeUpFL.Ntf_SourceNo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 42528,
+      "type": 2,
+      "key": "Basc_CANNetWakeUpFR.Ntf_SourceNo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4424,
+      "type": 2,
+      "key": "Basc_CarbonEmissInfo.Ntf_OdoCarbonEmiss",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56016,
+      "type": 2,
+      "key": "Basc_CarbonEmissInfo.Ntf_TravelCarBonEmiss",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 604,
+      "type": 2,
+      "key": "Basc_ChrgHeatHldFuncSts.Ntf_ChrgHeatHldFuncStsResp",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 41394,
+      "type": 2,
+      "key": "Basc_ChrgSigIntactv.Ntf_ChrgSigIntactv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33504,
+      "type": 2,
+      "key": "Basc_ChrgSumry.Ntf_ChrgSumryInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64254,
+      "type": 2,
+      "key": "Basc_ChrgnStopStrt.Ntf_ChrgnStopStrtResp",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43536,
+      "type": 2,
+      "key": "Basc_CrashStsInfo.Ntf_CrashStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 40952,
+      "type": 2,
+      "key": "Basc_DTCInfo_C2ToEDC.Ntf_DtcInfo_C2TOEdc",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56744,
+      "type": 2,
+      "key": "Basc_DTCUploadEDCMCU.Ntf_DTCinfo_EDCMCU",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 18722,
+      "type": 2,
+      "key": "Basc_DTCUploadVIU1.Ntf_DTCInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 35363,
+      "type": 2,
+      "key": "Basc_DTCUploadVIU2.Ntf_DTCInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 1548,
+      "type": 2,
+      "key": "Basc_DTCUploadVIU3.Ntf_DTCInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 10916,
+      "type": 2,
+      "key": "Basc_Diag2DCByCar.Ntf_DiagDataByCarMCU",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20980,
+      "type": 2,
+      "key": "Basc_Diag2DCByUpper.Ntf_DiagDataByCloud",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 58966,
+      "type": 2,
+      "key": "Basc_DrSeatFltSts.Ntf_SeatFltSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 38438,
+      "type": 2,
+      "key": "Basc_DrSeatInfo.Ntf_SeatInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 54400,
+      "type": 2,
+      "key": "Basc_DrSeatInfo.Ntf_SeatPosInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 32230,
+      "type": 2,
+      "key": "Basc_DrSeatInfo.Ntf_SeatSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 35228,
+      "type": 2,
+      "key": "Basc_DrivBeha.Ntf_DrivBehaInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56756,
+      "type": 2,
+      "key": "Basc_DrvModSet.Ntf_DrvModSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 55112,
+      "type": 2,
+      "key": "Basc_DrvrGearDmd.Ntf_DrvrGearDmd",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33792,
+      "type": 2,
+      "key": "Basc_EPBFctSt.Ntf_EPBFctSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31309,
+      "type": 2,
+      "key": "Basc_EPBFctSt.Ntf_LostComFltSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 35814,
+      "type": 2,
+      "key": "Basc_EPSBasInfo.Ntf_EPSBasSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 10790,
+      "type": 2,
+      "key": "Basc_ESPBasInfo.Ntf_ESPBasSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36996,
+      "type": 2,
+      "key": "Basc_EdcDcacSwitch.Ntf_EdcDcacSwitch",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 24898,
+      "type": 2,
+      "key": "Basc_EgyMagtModSet.Ntf_EgyMagtModSetResp",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 62732,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSet.Ntf_EleAirSuspHighModSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31206,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSet.Ntf_EleAirSuspIntenModSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 17987,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSet.Ntf_EleAirSuspModInhbSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 2718,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSts.Ntf_EleAirSuspHighModCHASts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 13124,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSts.Ntf_EleAirSuspHighModSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 30578,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSts.Ntf_EleAirSuspIntenModSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 52599,
+      "type": 2,
+      "key": "Basc_EleAirSuspModSts.Ntf_EleAirSuspModInhbSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 49632,
+      "type": 2,
+      "key": "Basc_EmsOperStsInfo.Ntf_EmsOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43238,
+      "type": 2,
+      "key": "Basc_EspBrkSysFltLiSts.Ntf_ComFltSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 38670,
+      "type": 2,
+      "key": "Basc_EspBrkSysFltLiSts.Ntf_EspBrkFluidWarning",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 21772,
+      "type": 2,
+      "key": "Basc_EspBrkSysFltLiSts.Ntf_EspBrkSysFltLiReq",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28878,
+      "type": 2,
+      "key": "Basc_EthManager_Rsp.Ntf_EthManager_Rsp",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 57647,
+      "type": 2,
+      "key": "Basc_ExtrLiActCtrlInfo.Ntf_HiBeamInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 54029,
+      "type": 2,
+      "key": "Basc_ExtrLiActCtrlInfo.Ntf_LoBeamInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 13740,
+      "type": 2,
+      "key": "Basc_ExtrLiInfoTips.Ntf_TurnLiInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33262,
+      "type": 2,
+      "key": "Basc_ExtrLiSwtReqInfo.Ntf_HiBeamSwtReqInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28345,
+      "type": 2,
+      "key": "Basc_FaultStDoor.Ntf_DoorFltStAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 16113,
+      "type": 2,
+      "key": "Basc_FaultStFrtGate.Ntf_FrtGateSysFltSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 9338,
+      "type": 2,
+      "key": "Basc_FaultStLock.Ntf_FaultStAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 5569,
+      "type": 2,
+      "key": "Basc_FaultStWin.Ntf_FltStWinAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 16464,
+      "type": 2,
+      "key": "Basc_FileUploadStatus.Ntf_FileUploadStatus",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33052,
+      "type": 2,
+      "key": "Basc_FrPackDataUpload.Ntf_FrManaDataUpload",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 22052,
+      "type": 2,
+      "key": "Basc_FrPackDataUpload.Ntf_FrNetDataUpload",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 38993,
+      "type": 2,
+      "key": "Basc_FrPackDataUpload.Ntf_FrOtherDataUpload",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 3103,
+      "type": 2,
+      "key": "Basc_FrPackDataUpload.Ntf_FrViuFalutDiagInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 49347,
+      "type": 2,
+      "key": "Basc_FrPackDataUpload.Ntf_FrViuFalutDiagOtherInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56769,
+      "type": 2,
+      "key": "Basc_FrPackDataUpload.Ntf_FrViuResetInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39114,
+      "type": 2,
+      "key": "Basc_FrntWiperStsInfo.Ntf_WiperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 32224,
+      "type": 2,
+      "key": "Basc_GearBasInfo.Ntf_GearBasInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 27432,
+      "type": 2,
+      "key": "Basc_GearErrInfo.Ntf_GearErrInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56609,
+      "type": 2,
+      "key": "Basc_GpsData.Evt_GpsData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 11236,
+      "type": 2,
+      "key": "Basc_HODDetectInfo.Ntf_HODDetectInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 27258,
+      "type": 2,
+      "key": "Basc_HeatHldFuncSts.Ntf_HeatHldFuncSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39090,
+      "type": 2,
+      "key": "Basc_HostIdps.Ntf_HostIdps",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 11212,
+      "type": 2,
+      "key": "Basc_HudStatus.Ntf_HudStatus",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 46376,
+      "type": 2,
+      "key": "Basc_HvActvReq.Ntf_HvBattCpInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 44526,
+      "type": 2,
+      "key": "Basc_HvActvReq.Ntf_HvPwrHldExitTi",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 44284,
+      "type": 2,
+      "key": "Basc_HvActvReq.Ntf_OperationCode",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 33620,
+      "type": 2,
+      "key": "Basc_HvActvReq.Ntf_VcuHvSysErrNr",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 34869,
+      "type": 2,
+      "key": "Basc_HvActvReq.Ntf_ViuHvPwrAllwUseFlg",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25512,
+      "type": 2,
+      "key": "Basc_IBBrkPedlModSts.Ntf_IBBrkPedlModSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64648,
+      "type": 2,
+      "key": "Basc_IBSInfo.Ntf_IBSInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 29962,
+      "type": 2,
+      "key": "Basc_IDSLog.Ntf_IDSDLog",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 22249,
+      "type": 2,
+      "key": "Basc_IDSLog.Ntf_IDSSLog",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25910,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_BLEInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 9277,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_BLEKeyData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39333,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_DigKeySDKErrLog",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 59251,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_NFCDigKeyCmd",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 63906,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_NFCDigKeyInfoBasc",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 55326,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_NFCEnterCardInSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28170,
+      "type": 2,
+      "key": "Basc_KeyInfoSm.Ntf_SetBLEDiscotStsReq",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50664,
+      "type": 2,
+      "key": "Basc_KeySetting.Ntf_KeySetInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4182,
+      "type": 2,
+      "key": "Basc_LBMSinfo.Ntf_LBMSOperInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 11756,
+      "type": 2,
+      "key": "Basc_LIN4Msg2S.Ntf_FBSTouchSig",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 35749,
+      "type": 2,
+      "key": "Basc_LIN4Msg2S.Ntf_FBSTouchSigValue",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 34320,
+      "type": 2,
+      "key": "Basc_LIN4Msg2S.Ntf_RBSTouchSig",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 5217,
+      "type": 2,
+      "key": "Basc_LIN4Msg2S.Ntf_RBSTouchSigValue",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 57688,
+      "type": 2,
+      "key": "Basc_LiSnsrInfo.Ntf_AMBBri",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 7887,
+      "type": 2,
+      "key": "Basc_LiSnsrInfo.Ntf_FWBri",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 60291,
+      "type": 2,
+      "key": "Basc_LiSnsrInfo.Ntf_IRBri",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 9811,
+      "type": 2,
+      "key": "Basc_LoUBattSts.Ntf_BattChrgErrLamp",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 59714,
+      "type": 2,
+      "key": "Basc_LoUBattSts.Ntf_LoBattU",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 30448,
+      "type": 2,
+      "key": "Basc_LockCarAllwd.Ntf_LockCarAllwd",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 47233,
+      "type": 2,
+      "key": "Basc_LogicStChrgCbn.Ntf_LocSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 44990,
+      "type": 2,
+      "key": "Basc_LogicStLock.Ntf_LocStAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 55065,
+      "type": 2,
+      "key": "Basc_LogicStWin.Ntf_WinLogStAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 32418,
+      "type": 2,
+      "key": "Basc_MFSSwtInfo.Ntf_SwtInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 18563,
+      "type": 2,
+      "key": "Basc_MediaVolumeSt.Ntf_MediaVolValue",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 63732,
+      "type": 2,
+      "key": "Basc_MfsGearSet.Ntf_MfsGearSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 7930,
+      "type": 2,
+      "key": "Basc_MirrSoftPos.Ntf_PosErrorFlag",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37862,
+      "type": 2,
+      "key": "Basc_MirrStsInfo.Ntf_StsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 21046,
+      "type": 2,
+      "key": "Basc_NewCarModeCtrl.Ntf_NewCarModeCtrl",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 41153,
+      "type": 2,
+      "key": "Basc_NewCarModeCtrl.Ntf_NewCarModeSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 34316,
+      "type": 2,
+      "key": "Basc_OTAFlag.Ntf_OTAFlag",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 54712,
+      "type": 2,
+      "key": "Basc_PackDataUpload.Ntf_ManaDataUpload",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 60320,
+      "type": 2,
+      "key": "Basc_PackDataUpload.Ntf_NetDataUpload",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 55869,
+      "type": 2,
+      "key": "Basc_PackDataUpload.Ntf_OtherDataUpload",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64291,
+      "type": 2,
+      "key": "Basc_PackDataUpload.Ntf_ViuFalutDiagInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31783,
+      "type": 2,
+      "key": "Basc_PackDataUpload.Ntf_ViuFalutDiagOtherInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 40733,
+      "type": 2,
+      "key": "Basc_PackDataUpload.Ntf_ViuResetInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 35904,
+      "type": 2,
+      "key": "Basc_PartWinCtrlPartSeatSts.Ntf_ObjSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39309,
+      "type": 2,
+      "key": "Basc_PduOperInfo.Ntf_PduOperPrmInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37460,
+      "type": 2,
+      "key": "Basc_PduOperInfo.Ntf_PduOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51133,
+      "type": 2,
+      "key": "Basc_PhoneMap.Ntf_msgType",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 65373,
+      "type": 2,
+      "key": "Basc_PhysicsStDoor.Ntf_PhyStAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 46880,
+      "type": 2,
+      "key": "Basc_PhysicsStFrtGate.Ntf_MotAPCSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 65018,
+      "type": 2,
+      "key": "Basc_PhysicsStFrtGate.Ntf_MotCurPosVIT",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 40727,
+      "type": 2,
+      "key": "Basc_PhysicsStFrtGate.Ntf_PhySt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51077,
+      "type": 2,
+      "key": "Basc_PhysicsStSunShade.Ntf_PhySt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4139,
+      "type": 2,
+      "key": "Basc_PhysicsStWin.Ntf_PhyStWinAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 65157,
+      "type": 2,
+      "key": "Basc_PhysicsStWin.Ntf_PosWinAll",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 58622,
+      "type": 2,
+      "key": "Basc_PrkgChrgSet.Ntf_PrkgChrgSetResp",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 8360,
+      "type": 2,
+      "key": "Basc_PsgSeatInfo.Ntf_SeatInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43102,
+      "type": 2,
+      "key": "Basc_PsgSeatInfo.Ntf_SeatPosInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 2064,
+      "type": 2,
+      "key": "Basc_PsgSeatInfo.Ntf_SeatSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4240,
+      "type": 2,
+      "key": "Basc_PtLampTextDispInfo.Ntf_PtLampTextDispInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 47136,
+      "type": 2,
+      "key": "Basc_RCUndertakes.Ntf_RemoteState",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37481,
+      "type": 2,
+      "key": "Basc_RLSSts.Ntf_WiperRLSSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 17425,
+      "type": 2,
+      "key": "Basc_RadioTech.Evt_RadioTech",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51520,
+      "type": 2,
+      "key": "Basc_RdyProhibitionSts.Ntf_RdyProhibitionSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 53258,
+      "type": 2,
+      "key": "Basc_RearSeatInfo.Ntf_SeatSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37294,
+      "type": 2,
+      "key": "Basc_RearWiperStsInfo.Ntf_WiperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 3367,
+      "type": 2,
+      "key": "Basc_ReevOperInfo.Ntf_ReevOperPrmInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37002,
+      "type": 2,
+      "key": "Basc_ReevOperInfo.Ntf_ReevOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 47174,
+      "type": 2,
+      "key": "Basc_ResiMilgInfo.Ntf_ResiMilgInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 42353,
+      "type": 2,
+      "key": "Basc_RmipuOperInfo.Ntf_RmipuOperPrmInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 11320,
+      "type": 2,
+      "key": "Basc_RmipuOperInfo.Ntf_RmipuOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43265,
+      "type": 2,
+      "key": "Basc_SDMap.Ntf_LNavResidualDis",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 18735,
+      "type": 2,
+      "key": "Basc_SDMap.Ntf_NaviStatus",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 52391,
+      "type": 2,
+      "key": "Basc_SDMap2.Ntf_CurrentPosition",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 28940,
+      "type": 2,
+      "key": "Basc_SDMap2.Ntf_RemainDistance",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 24404,
+      "type": 2,
+      "key": "Basc_SDMap2.Ntf_TotalDistance",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50662,
+      "type": 2,
+      "key": "Basc_SafeGuardSts.Ntf_SafeGuardSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 45082,
+      "type": 2,
+      "key": "Basc_SecLeSeatInfo.Ntf_SeatPosInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31028,
+      "type": 2,
+      "key": "Basc_SecLeSeatInfo.Ntf_SeatSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 7316,
+      "type": 2,
+      "key": "Basc_SecRiSeatInfo.Ntf_SeatPosInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36834,
+      "type": 2,
+      "key": "Basc_SecRiSeatInfo.Ntf_SeatSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 6075,
+      "type": 2,
+      "key": "Basc_SignalStrength.Evt_SignalStrength",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 16568,
+      "type": 2,
+      "key": "Basc_SocChrgTarSet.Ntf_SocChrgTarSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 55808,
+      "type": 2,
+      "key": "Basc_SteerModSet.Ntf_SteerModSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 7048,
+      "type": 2,
+      "key": "Basc_SteerModSts.Ntf_SteerModSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 5876,
+      "type": 2,
+      "key": "Basc_SteeringStsInfo.Ntf_SteeringSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 26085,
+      "type": 2,
+      "key": "Basc_SunShadeLearn.Ntf_LearnRlt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 15682,
+      "type": 2,
+      "key": "Basc_TPMSFaultInfo.Ntf_TireSnsrFaultInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 24627,
+      "type": 2,
+      "key": "Basc_TPMSInfo.Ntf_TireValInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37356,
+      "type": 2,
+      "key": "Basc_TailGateFltSts.Ntf_TailGateSysFltSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56466,
+      "type": 2,
+      "key": "Basc_TailGateSts.Ntf_TailGateSysSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 56916,
+      "type": 2,
+      "key": "Basc_TboxDataInfo.Ntf_TboxDataInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4320,
+      "type": 2,
+      "key": "Basc_TboxMobileNetworkEnviData.Evt_NetworkEnviData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 544,
+      "type": 2,
+      "key": "Basc_TboxReqPreprsInfo.Ntf_TboxReqPreprsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 58976,
+      "type": 2,
+      "key": "Basc_TireSlipSts.Ntf_TireSlipSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 63774,
+      "type": 2,
+      "key": "Basc_TxRechargSet.Ntf_RechargSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 41073,
+      "type": 2,
+      "key": "Basc_TxRechargSet.Ntf_SrvOperInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 46148,
+      "type": 2,
+      "key": "Basc_VIUFLPwrPinData.Ntf_PwrPinFltSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 55470,
+      "type": 2,
+      "key": "Basc_VIUFLPwrPinData.Ntf_PwrPinInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 61614,
+      "type": 2,
+      "key": "Basc_VIUFLPwrPinData.Ntf_PwrPinSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 62446,
+      "type": 2,
+      "key": "Basc_VIUFRPwrPinData.Ntf_PwrPinFltSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25352,
+      "type": 2,
+      "key": "Basc_VIUFRPwrPinData.Ntf_PwrPinInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 8432,
+      "type": 2,
+      "key": "Basc_VIUFRPwrPinData.Ntf_PwrPinSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 49892,
+      "type": 2,
+      "key": "Basc_VIUFRUvalue.Ntf_VIUFRUvalue",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 21124,
+      "type": 2,
+      "key": "Basc_VMCStsInfo.Ntf_VMCBasSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 39378,
+      "type": 2,
+      "key": "Basc_VMCStsInfo.Ntf_VMCStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 65461,
+      "type": 2,
+      "key": "Basc_VcuOperInfo.Ntf_VcuOperPrmInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 15596,
+      "type": 2,
+      "key": "Basc_VcuOperInfo.Ntf_VcuOperStsInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 24329,
+      "type": 2,
+      "key": "Basc_VehEgyCnseInfo.Ntf_EgyCnseSelectCfm",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64784,
+      "type": 2,
+      "key": "Basc_VehEgyCnseInfo.Ntf_VehEgyCnseInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 44017,
+      "type": 2,
+      "key": "Basc_VehEgyCnseInfo.Ntf_VehEgyPercInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 46995,
+      "type": 2,
+      "key": "Basc_VehEgyCnseInfo.Ntf_VehFuelCnseInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 34816,
+      "type": 2,
+      "key": "Basc_VehEleAirSuspModSet.Ntf_VehEleAirSuspModSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 18472,
+      "type": 2,
+      "key": "Basc_VehEleAirSuspModSts.Ntf_VehEleAirSuspModSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 54554,
+      "type": 2,
+      "key": "Basc_VehRdy.Ntf_VehRdy",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 27976,
+      "type": 2,
+      "key": "Cnr_DchaSocLimitSet.Ntf_DchaSocLimitSet",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 24476,
+      "type": 2,
+      "key": "Cnr_Intelligentcool.Ntf_Intelligentcool",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 62016,
+      "type": 2,
+      "key": "Cnr_MirrElecHeat.Ntf_MirrHeatSetSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 14989,
+      "type": 2,
+      "key": "Cnr_NFCKeyMag.Ntf_NFCKeyList",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 16338,
+      "type": 2,
+      "key": "Cnr_NFCKeyMag.Ntf_NFCKeyStudyInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64133,
+      "type": 2,
+      "key": "Cnr_RearDefrostHeat.Ntf_RearDefrostSetSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51309,
+      "type": 2,
+      "key": "Cnr_RemotePsCtl.Ntf_RemtPsValidInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 64322,
+      "type": 2,
+      "key": "Cnr_TPMSWarn.Ntf_TireBurstInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 31556,
+      "type": 2,
+      "key": "Cnr_TPMSWarn.Ntf_TireWarnInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 49390,
+      "type": 2,
+      "key": "Cnr_WinAllCtrl.Ntf_OperationCode",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 65346,
+      "type": 2,
+      "key": "Diag_AppErrorCode.Ntf_AppErrorCode",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50196,
+      "type": 2,
+      "key": "EDCDataCollection.Ntf_Data",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 44135,
+      "type": 2,
+      "key": "Enh_BoxLiAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 51575,
+      "type": 2,
+      "key": "Enh_CenAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20196,
+      "type": 2,
+      "key": "Enh_DiagPhmUpload.Ntf_RealtimeData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 57500,
+      "type": 2,
+      "key": "Enh_DiagPhmUpload.Ntf_ThresholdTriggerData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 54903,
+      "type": 2,
+      "key": "Enh_DomeLiAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 15373,
+      "type": 2,
+      "key": "Enh_FLDoorAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 53595,
+      "type": 2,
+      "key": "Enh_FRDoorAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 27424,
+      "type": 2,
+      "key": "Enh_FootLiAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 43884,
+      "type": 2,
+      "key": "Enh_HUDAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 48293,
+      "type": 2,
+      "key": "Enh_LeftAPillarAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 30512,
+      "type": 2,
+      "key": "Enh_LockFL.Ntf_MotRotateReason",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 60778,
+      "type": 2,
+      "key": "Enh_LockFR.Ntf_MotRotateReason",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 18404,
+      "type": 2,
+      "key": "Enh_LockRL.Ntf_MotRotateReason",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 41622,
+      "type": 2,
+      "key": "Enh_LockRR.Ntf_MotRotateReason",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 50459,
+      "type": 2,
+      "key": "Enh_PerfumeAmbLiGuide.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37349,
+      "type": 2,
+      "key": "Enh_PowerShiftDrv.Ntf_PowerShiftSwtSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25588,
+      "type": 2,
+      "key": "Enh_PowerShiftDrv.Ntf_PwrPinRstInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 9969,
+      "type": 2,
+      "key": "Enh_RLDoorAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 58712,
+      "type": 2,
+      "key": "Enh_RRDoorAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 5754,
+      "type": 2,
+      "key": "Enh_RightAPillarAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 40674,
+      "type": 2,
+      "key": "Enh_SeatAmbLiLine.Ntf_LoglCtrlSt",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 57590,
+      "type": 2,
+      "key": "SDM_DeviceManagement.Ntf_DeviceStatus",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 8566,
+      "type": 2,
+      "key": "SceProgram_ReportMsgCloud.Ntf_SceProRepMsgCellph",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 26069,
+      "type": 2,
+      "key": "SdsDcPrivateData.Ntf_SignData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 25841,
+      "type": 2,
+      "key": "Sys_ApproachDoorLockCtrl.Ntf_DoorLockSysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 59764,
+      "type": 2,
+      "key": "Sys_CanPwrCalcn.Ntf_CanPwrCalcn",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 29842,
+      "type": 2,
+      "key": "Sys_IntLoBattChrg.Ntf_IBSWUTreshold",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 45575,
+      "type": 2,
+      "key": "Sys_IntLoBattChrg.Ntf_LoBattChrgInfo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 38761,
+      "type": 2,
+      "key": "Sys_IntLoBattChrg.Ntf_WUTypeIntLo",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 20027,
+      "type": 2,
+      "key": "Sys_IntLoBattChrg.Ntf_monitorFRUvalue",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 53629,
+      "type": 2,
+      "key": "Sys_KeyManageHandle.Ntf_KeyData",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 1097,
+      "type": 2,
+      "key": "Sys_KeyManageHandle.Ntf_PepsKeyValidSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 27563,
+      "type": 2,
+      "key": "Sys_LoChrgfun.Ntf_LoChrgfuncsts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 53156,
+      "type": 2,
+      "key": "Sys_LockCarMod.Ntf_DropOutRea",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 60404,
+      "type": 2,
+      "key": "Sys_LockCarMod.Ntf_LockCarMod",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 4866,
+      "type": 2,
+      "key": "Sys_PEDoorLockCtrl.Ntf_DoorLockSysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 13408,
+      "type": 2,
+      "key": "Sys_PSFindKey.Ntf_PSFindKeySysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 60067,
+      "type": 2,
+      "key": "Sys_PowGearMgt.Ntf_PowMgtSts",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 44125,
+      "type": 2,
+      "key": "Sys_RKEDoorLockCtrl.Ntf_DoorLockSysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 48308,
+      "type": 2,
+      "key": "Sys_RKEDoorLockCtrl.Ntf_OperationCode",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 36319,
+      "type": 2,
+      "key": "Sys_RKESeekCarCtrl.Ntf_SeekCarSysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 10451,
+      "type": 2,
+      "key": "Sys_RKETrunkUnLockCtrl.Ntf_TrunkSysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 21143,
+      "type": 2,
+      "key": "Sys_RKEWinCtrl.Ntf_WinSysKeyDrv",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 53591,
+      "type": 2,
+      "key": "Sys_TiOutPowerSaving.Ntf_TiOutWarn",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 37518,
+      "type": 2,
+      "key": "Sys_TotalMilg.Ntf_ReevTotalMilg",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 2824,
+      "type": 2,
+      "key": "Sys_VIUFLPwrCalcn.Ntf_VIUFLPwrCalcn",
+      "source": "all.csv"
+    },
+    {
+      "msg_id": 15632,
+      "type": 2,
+      "key": "Sys_VIUFRPwrCalcn.Ntf_VIUFRPwrCalcn",
+      "source": "all.csv"
+    }
+  ],
+  "by_type": {
+    "0": {
+      "description": "CAN/DBC",
+      "count": 0
+    },
+    "1": {
+      "description": "Proto",
+      "count": 45
+    },
+    "2": {
+      "description": "Service/CStruct",
+      "count": 275
+    }
+  }
+}
