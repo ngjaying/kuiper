@@ -1,0 +1,8648 @@
+{
+  "endian": "little",
+  "structs": {
+    "Basc_ACChrgMntr.Ntf_ACChrgMntrInfo": {
+      "fields": [
+        {
+          "name": "ACChrgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "ChrgNotAllowRsn",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_ACStsInfo.Ntf_ACFltInfo": {
+      "fields": [
+        {
+          "name": "ITMSAcSysErr",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_ACStsInfo.Ntf_ACOperPrmInfo": {
+      "fields": [
+        {
+          "name": "ITMSPm25InCarDens",
+          "type": "uint16"
+        },
+        {
+          "name": "ITMSAcCo2Dens",
+          "type": "uint16"
+        },
+        {
+          "name": "ITMSAcIntT",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAcEnvtlT",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAcEnvtlTVld",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding4",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_ACStsInfo.Ntf_ACOperStsInfo": {
+      "fields": [
+        {
+          "name": "ITMSAirOutSwtSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutSwtSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutSwtSts3",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutSwtSts4",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLatSetFb1",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLatSetFb2",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLatSetFb3",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLatSetFb4",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLgtSetFb1",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLgtSetFb2",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLgtSetFb3",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutLgtSetFb4",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirOutModFb",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSPlasmaSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutoDefrstDefogFctSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSFrntAutModOpenSetSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSReAutSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSFrntBlowMod",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSReBlowMod",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSACRearFanAdjustValueReq",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSReWindLvl",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSBacktWindLvlSet",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutWorkSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSHotColdModFb",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSDrvrAutT",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSPassAutT",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSReAutT",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSCycMod",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSFrntDefroster",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAqsSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAirQlyInCarLvl",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutowindSet1Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutWindWorkSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutowindSet2Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAcVentnOnMod",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSACOnOff",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSMaxHeatStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSMaxACStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSMaxDefSt",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutoAirCleanSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAcEgySaveMod",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSBatPulseHeatSwitchSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSMotLockHeatSwitchSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAcVentnOnSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAC_RearSt",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSRearAirOutLatSwingFb",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSRearAirOutLgtSwingFb",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAutoDefogSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAllAcOffReq",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSRearAirOutSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSRearAirOutLatSetFb1",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSRearAirOutLgtSetFb1",
+          "type": "uint8"
+        },
+        {
+          "name": "ITMSAiroutSts",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding4",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_AcChrgILimSet.Ntf_AcChrgILimSet": {
+      "fields": [
+        {
+          "name": "AcChrgILimSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_AcChrgLckKeyReq.Ntf_AcChrgLckKeyReq": {
+      "fields": [
+        {
+          "name": "AcChrgLckKeyReq",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenFunEn": {
+      "fields": [
+        {
+          "name": "FunEnTyp",
+          "type": "uint8"
+        },
+        {
+          "name": "Result",
+          "type": "uint8"
+        },
+        {
+          "name": "FunEnFailReson",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenFunEnSt": {
+      "fields": [
+        {
+          "name": "SenFucEnSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenMoElecFenSet": {
+      "fields": [
+        {
+          "name": "SenElecFenSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenMoInfoSet": {
+      "fields": [
+        {
+          "name": "SenOpenMode",
+          "type": "uint8"
+        },
+        {
+          "name": "SenElecFen",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenMoOpenModeSet": {
+      "fields": [
+        {
+          "name": "SenOpenModeSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenMoSwitSt": {
+      "fields": [
+        {
+          "name": "SenMoSwitSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_ActSenTrig": {
+      "fields": [
+        {
+          "name": "FuncType",
+          "type": "uint8"
+        },
+        {
+          "name": "NotiTrigEvt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_SdcardSenErrTrig": {
+      "fields": [
+        {
+          "name": "SdcardSenErrTrig",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_SenSirenSoundSet": {
+      "fields": [
+        {
+          "name": "SenSirenSoundSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_SenWarningSetSwitchEarly": {
+      "fields": [
+        {
+          "name": "SenWarningSetType",
+          "type": "uint8"
+        },
+        {
+          "name": "SenWarningSetSwitch",
+          "type": "uint8"
+        },
+        {
+          "name": "SenWarningSetHonk",
+          "type": "uint8"
+        },
+        {
+          "name": "SenWarningSetLight",
+          "type": "uint8"
+        },
+        {
+          "name": "SenWarningSetPhone",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActSenMode.Ntf_UserNotiConfir": {
+      "fields": [
+        {
+          "name": "FuncType",
+          "type": "uint8"
+        },
+        {
+          "name": "NotiConfirEvt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ActvEcallTigger.Ntf_ActvEcallTigger": {
+      "fields": [
+        {
+          "name": "ActvEcallTigger",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_AdasInfo.Ntf_ADAS_MapNavigationSignal": {
+      "fields": [
+        {
+          "name": "CurveDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterCurveInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_18",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "RampDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterRampInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "RampInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "RampSide",
+          "type": "uint8"
+        },
+        {
+          "name": "NavCurrentRoadType",
+          "type": "uint8"
+        },
+        {
+          "name": "ForwardRoadType",
+          "type": "uint8"
+        },
+        {
+          "name": "LaneCnt",
+          "type": "uint8"
+        },
+        {
+          "name": "NavSpeedLimitType",
+          "type": "uint8"
+        },
+        {
+          "name": "NavSpeedLimit",
+          "type": "uint8"
+        },
+        {
+          "name": "SpeedLimitDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterTunnelInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_19",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "TunnelDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "TunnelLength",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterSlopeInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_20",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "SlopeDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "FallingRockInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_21",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "FallingRockDis",
+          "type": "uint16"
+        },
+        {
+          "name": "TollInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_22",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "TollDis",
+          "type": "uint16"
+        },
+        {
+          "name": "Construction_Info",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_23",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "Construction_Dis",
+          "type": "uint16"
+        },
+        {
+          "name": "TrafficAccident_Info",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_24",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "TrafficAccident_Dis",
+          "type": "uint16"
+        },
+        {
+          "name": "BranchInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_25",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "Branch_Dis",
+          "type": "uint16"
+        },
+        {
+          "name": "NumchangeOfLanes_Dist",
+          "type": "uint16"
+        },
+        {
+          "name": "Lane_Changtype",
+          "type": "uint8"
+        },
+        {
+          "name": "Road_TrafficFlow",
+          "type": "uint8"
+        },
+        {
+          "name": "RoadCurvature",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_10m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_20m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_30m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_40m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_50m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_60m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_70m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_80m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_90m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_100m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvatureFar",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_300m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_400m",
+          "type": "uint16"
+        },
+        {
+          "name": "RoadCurvature_600m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradientFar",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_300m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_10m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_20m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_30m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_40m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_50m",
+          "type": "uint16"
+        },
+        {
+          "name": "SlopeGradient_100m",
+          "type": "uint16"
+        },
+        {
+          "name": "IntervalVelocityInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_26",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "IntervalVelocityDis",
+          "type": "uint16"
+        },
+        {
+          "name": "AccidentProne",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_27",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "AccidentProneDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "LaneConfluence",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_28",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "LaneConfluenceDis",
+          "type": "uint16"
+        },
+        {
+          "name": "BridgeInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_29",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "BridgeDis",
+          "type": "uint16"
+        },
+        {
+          "name": "WeatherType",
+          "type": "uint8"
+        },
+        {
+          "name": "ServiceRoad",
+          "type": "uint8"
+        },
+        {
+          "name": "ServiceRoadDis",
+          "type": "uint16"
+        },
+        {
+          "name": "LaneType_ID1",
+          "type": "uint8"
+        },
+        {
+          "name": "LaneType_ID2",
+          "type": "uint8"
+        },
+        {
+          "name": "LaneType_ID3",
+          "type": "uint8"
+        },
+        {
+          "name": "LaneType_ID4",
+          "type": "uint8"
+        },
+        {
+          "name": "LaneType_ID5",
+          "type": "uint8"
+        },
+        {
+          "name": "LaneType_ID6",
+          "type": "uint8"
+        },
+        {
+          "name": "EHRHeartFlag",
+          "type": "uint8"
+        },
+        {
+          "name": "EHPHeartFlag",
+          "type": "uint8"
+        },
+        {
+          "name": "ADAS_Posn_Pathldx",
+          "type": "uint16"
+        },
+        {
+          "name": "ADAS_Posn_Offset",
+          "type": "uint16"
+        },
+        {
+          "name": "Byroad",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_30",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "Long_Ramp_Dis",
+          "type": "uint16"
+        },
+        {
+          "name": "Long_Ramp_Side",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_31",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "Llong_Tunnel_Len",
+          "type": "uint16"
+        },
+        {
+          "name": "CrossingDis",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterCrossingInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_32",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "RoundAboutDis",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterRoundAboutInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "CrossingAngle1",
+          "type": "uint8"
+        },
+        {
+          "name": "CrossingAngle2",
+          "type": "uint8"
+        },
+        {
+          "name": "CrossingAngle3",
+          "type": "uint8"
+        },
+        {
+          "name": "CrossingAngle4",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_33",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "EnterToCrossingDis",
+          "type": "uint16"
+        },
+        {
+          "name": "EnterToCrossingAngle",
+          "type": "uint8"
+        },
+        {
+          "name": "ADAS_Posn_Heading",
+          "type": "uint8"
+        },
+        {
+          "name": "HU_ParallelRoadDistance",
+          "type": "uint16"
+        },
+        {
+          "name": "HU_EnterParallelRoadInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "HU_ParallelRoadInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "HU_ParallelRoadSide",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_34",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_AppStartUpByCar.Ntf_ColdStartUpData": {
+      "fields": [
+        {
+          "name": "ColdStartUpData",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_BLEPhyKeyMag.Ntf_BLEPhyKeyList": {
+      "fields": [
+        {
+          "name": "vDlc",
+          "type": "uint16"
+        },
+        {
+          "name": "pData",
+          "type": "uint8[255]"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_BLEPhyKeyMag.Ntf_BLEPhyKeyStudyInfo": {
+      "fields": [
+        {
+          "name": "CardID",
+          "type": "uint8[16]"
+        },
+        {
+          "name": "BLEPhyKeyStudySt",
+          "type": "uint8"
+        },
+        {
+          "name": "EPhyKeyeNum",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyiNum",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BattStatus.Ntf_BattStatus": {
+      "fields": [
+        {
+          "name": "OTASts",
+          "type": "uint8"
+        },
+        {
+          "name": "BattDischrgTime",
+          "type": "uint8"
+        },
+        {
+          "name": "BattDischrgLvl",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BattStatus.Ntf_DcdcLowCurrFlg": {
+      "fields": [
+        {
+          "name": "DcdcLowCurrFlg",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BattStatus.Ntf_VoltageDipsFlg": {
+      "fields": [
+        {
+          "name": "VoltageDipsFlg",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BcuOperInfo.Ntf_BcuOperPrmInfo": {
+      "fields": [
+        {
+          "name": "BcuBattU",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuBattI",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuSocDisp",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuBattResidEgy1",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuBattResidEgy2",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuChrgTiDisp",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuChrgTiPred",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuBokgHeatTi",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuPlsHeatTiRem",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDchaTiDisp",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDchaIContnsMax",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDchaPwrContnsMax",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDchaPwrLongTiMax",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDchaPwrShoTiMax",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuBattTMax",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattTMin",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattTAvrg",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "BCUTotalChrgCpDisp",
+          "type": "uint32"
+        },
+        {
+          "name": "BcuDcboxDischrgPwr",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDcOutDischrgUreq",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDcOutDischrgIreq",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDcboxDcU",
+          "type": "uint16"
+        },
+        {
+          "name": "BcuDcboxDcI",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "BCUTotalChrgCpDisp1",
+          "type": "uint32"
+        },
+        {
+          "name": "ViuEgyResiColor",
+          "type": "uint8"
+        },
+        {
+          "name": "ViuEvResiMilgInvldDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattRatedAh",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_BcuOperInfo.Ntf_BcuOperStsInfo": {
+      "fields": [
+        {
+          "name": "BcuSosMixSt",
+          "type": "uint32"
+        },
+        {
+          "name": "BcuHeatSftyStsRMU",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattLowTempSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuThermRunawaySts",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuChrgMod",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuChrgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "AcChrgCnctrSts",
+          "type": "uint8"
+        },
+        {
+          "name": "DcChrgCnctrSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattHeatActv",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattPlsHeatgGearReq",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuDrvHeatSetSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattIntrHeatReq",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuDchaCabCrrtAbility",
+          "type": "uint8"
+        },
+        {
+          "name": "padding4",
+          "type": "uint8"
+        },
+        {
+          "name": "padding5",
+          "type": "uint8"
+        },
+        {
+          "name": "padding6",
+          "type": "uint8"
+        },
+        {
+          "name": "padding7",
+          "type": "uint8"
+        },
+        {
+          "name": "padding8",
+          "type": "uint8"
+        },
+        {
+          "name": "padding9",
+          "type": "uint8"
+        },
+        {
+          "name": "padding10",
+          "type": "uint8"
+        },
+        {
+          "name": "padding11",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts3",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts4",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuChrgModeDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "BcuUpdateMixFlg",
+          "type": "uint32"
+        },
+        {
+          "name": "BcuDownloadMixFlg",
+          "type": "uint32"
+        },
+        {
+          "name": "BcuDcOutDischrgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_BodyStabySysSts.Ntf_ComFltSts": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_LostComFltSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_CRCChkSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_RollgCntrSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_BodyStabySysSts.Ntf_EspAbsFailr": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_BodyStabySysSts.Ntf_EspEbdFailr": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_BodyStabySysSts.Ntf_EspTcsFailr": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_BokHeatReqSet.Ntf_BokHeatReq": {
+      "fields": [
+        {
+          "name": "BokHeatReq",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BrkDiscHighTempWarn.Ntf_BrkDiscHighTempWarn": {
+      "fields": [
+        {
+          "name": "BrakeDiscHighTempWarning",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BrkPedlModSet.Ntf_BrkPedlModSet": {
+      "fields": [
+        {
+          "name": "BrkPedlModSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_BucSwtSts.Ntf_BucSwtSts": {
+      "fields": [
+        {
+          "name": "SrsDrvrBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsPassBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsLe2ndBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsMid2ndBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsRi2ndBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsLe3rdBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsMid3rdBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsRi3rdBucSwtSts",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_C2SignalToEDC.Ntf_SignalData": {
+      "fields": [
+        {
+          "name": "AD_APATerminateReason",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_CANNetWakeUpFL.Ntf_SourceNo": {
+      "fields": [
+        {
+          "name": "SourceNo",
+          "type": "uint8[40]"
+        }
+      ]
+    },
+    "Basc_CANNetWakeUpFR.Ntf_SourceNo": {
+      "fields": [
+        {
+          "name": "SourceNo",
+          "type": "uint8[40]"
+        }
+      ]
+    },
+    "Basc_CarbonEmissInfo.Ntf_OdoCarbonEmiss": {
+      "fields": [
+        {
+          "name": "carbon_emi",
+          "type": "uint32"
+        },
+        {
+          "name": "recarbon_emi",
+          "type": "uint32"
+        },
+        {
+          "name": "odo",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_CarbonEmissInfo.Ntf_TravelCarBonEmiss": {
+      "fields": [
+        {
+          "name": "carbon_emi",
+          "type": "uint32"
+        },
+        {
+          "name": "recarbon",
+          "type": "uint32"
+        },
+        {
+          "name": "travel",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_ChrgHeatHldFuncSts.Ntf_ChrgHeatHldFuncStsResp": {
+      "fields": [
+        {
+          "name": "ChrgHeatHldFuncAvtc",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgHeatHldFuncEff",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "ChrgHeatHldStrtTick",
+          "type": "uint32"
+        },
+        {
+          "name": "ChrgHeatHldStsInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgHeatHldWakeReq",
+          "type": "uint8"
+        },
+        {
+          "name": "ViuChrgHeatHldReq",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_ChrgSigIntactv.Ntf_ChrgSigIntactv": {
+      "fields": [
+        {
+          "name": "ChrgLockLockCtrl",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgLockUnlLockCtrl",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgLampCtrl1_Red",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgLampCtrl2_Green",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgLampCtrl3_Blue",
+          "type": "uint8"
+        },
+        {
+          "name": "VehDcacSwitchSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ChrgSumry.Ntf_ChrgSumryInfo": {
+      "fields": [
+        {
+          "name": "ChrgSumryTime",
+          "type": "uint16"
+        },
+        {
+          "name": "ChrgSumrySoc",
+          "type": "uint16"
+        },
+        {
+          "name": "ChrgSumryMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "ChrgSumryCount",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "ChrgSumryMod",
+          "type": "uint16"
+        },
+        {
+          "name": "ChrgSumryEgy",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_ChrgnStopStrt.Ntf_ChrgnStopStrtResp": {
+      "fields": [
+        {
+          "name": "ChrgnStopResp",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgnStrtResp",
+          "type": "uint8"
+        },
+        {
+          "name": "ChrgnStopStrtDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "TboxBokgChrgValidTi",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_CrashStsInfo.Ntf_CrashStsInfo": {
+      "fields": [
+        {
+          "name": "SrsCrashOutpSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsCrashOutpStsChks",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutFront",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutLeft",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutMicro",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutRear",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutRight",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutRollover",
+          "type": "uint8"
+        },
+        {
+          "name": "SRSCrashOutCedr",
+          "type": "uint8"
+        },
+        {
+          "name": "SrsWarnLampSts",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_DTCInfo_C2ToEDC.Ntf_DtcInfo_C2TOEdc": {
+      "fields": [
+        {
+          "name": "DTCArrayInfo",
+          "type": "dds_sequence_string"
+        }
+      ]
+    },
+    "Basc_DTCUploadEDCMCU.Ntf_DTCinfo_EDCMCU": {
+      "fields": [
+        {
+          "name": "DTCArrayInfo",
+          "type": "dds_sequence_string"
+        }
+      ]
+    },
+    "Basc_DTCUploadVIU1.Ntf_DTCInfo": {
+      "fields": [
+        {
+          "name": "DTCInfoBuff",
+          "type": "dds_sequence_string"
+        }
+      ]
+    },
+    "Basc_DTCUploadVIU2.Ntf_DTCInfo": {
+      "fields": [
+        {
+          "name": "DTCInfoBuff",
+          "type": "dds_sequence_string"
+        }
+      ]
+    },
+    "Basc_DTCUploadVIU3.Ntf_DTCInfo": {
+      "fields": [
+        {
+          "name": "DTCInfoBuff",
+          "type": "dds_sequence_string"
+        }
+      ]
+    },
+    "Basc_Diag2DCByCar.Ntf_DiagDataByCarMCU": {
+      "fields": [
+        {
+          "name": "diagData",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_Diag2DCByUpper.Ntf_DiagDataByCloud": {
+      "fields": [
+        {
+          "name": "diagData",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_DrSeatFltSts.Ntf_SeatFltSts": {
+      "fields": [
+        {
+          "name": "SeatFltStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsCus",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatFltStsVent",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_DrSeatInfo.Ntf_SeatInfo": {
+      "fields": [
+        {
+          "name": "PinchStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsHei",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsCus",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsPad",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStFR",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStHei",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStBr",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStCus",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_DrSeatInfo.Ntf_SeatPosInfo": {
+      "fields": [
+        {
+          "name": "PosCmdReqFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqHei",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqBr",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqCus",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosCus",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsCus",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "NTCTemp",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_DrSeatInfo.Ntf_SeatSts": {
+      "fields": [
+        {
+          "name": "SeatAdjSwtFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtBr",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtCus",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtZeroGravity",
+          "type": "uint8"
+        },
+        {
+          "name": "FRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "HeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BrInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "CusInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "LegFRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatVent",
+          "type": "uint8"
+        },
+        {
+          "name": "FRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "HeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "BrStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "CusStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LegFRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "DrSeatSBR",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_DrivBeha.Ntf_DrivBehaInfo": {
+      "fields": [
+        {
+          "name": "SlaBrkPedlSt",
+          "type": "uint8"
+        },
+        {
+          "name": "SlaAccrPedlSt",
+          "type": "uint8"
+        },
+        {
+          "name": "SlaSteerSt",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_DrvModSet.Ntf_DrvModSet": {
+      "fields": [
+        {
+          "name": "DrvModSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_DrvrGearDmd.Ntf_DrvrGearDmd": {
+      "fields": [
+        {
+          "name": "VcuDrvrGearDmd",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EPBFctSt.Ntf_EPBFctSt": {
+      "fields": [
+        {
+          "name": "EPBSts",
+          "type": "uint8"
+        },
+        {
+          "name": "EPBTextDispReq",
+          "type": "uint8"
+        },
+        {
+          "name": "EPBFctLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "EPBFailrLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "CRCChkSt",
+          "type": "uint8"
+        },
+        {
+          "name": "RollgCntrSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EPBFctSt.Ntf_LostComFltSt": {
+      "fields": [
+        {
+          "name": "LostComFltSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EPSBasInfo.Ntf_EPSBasSts": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_EPSfaultstate",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ConcussAvailabilityStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LDWShakeLevStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ADSControlFeedback",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ADSAbortfeedback",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LatCtrlAvailabilityStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LatCtrlActive",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ModeSwitchSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_SasCalSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "message_EpsFaild",
+          "type": "uint8"
+        },
+        {
+          "name": "message_reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "message_reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "message_reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "message_reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_ESPBasInfo.Ntf_ESPBasSts": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_VehStandstill",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WhlSpdLeReDir",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WhlSpdRiReDir",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WhlSpdLeFrntDir",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WhlSpdRiFrntDir",
+          "type": "uint8"
+        },
+        {
+          "name": "message_PrefillActive",
+          "type": "uint8"
+        },
+        {
+          "name": "message_PrefillAvailable",
+          "type": "uint8"
+        },
+        {
+          "name": "message_BrakeForce",
+          "type": "uint8"
+        },
+        {
+          "name": "message_BrakeDiscOverHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ABrakeSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_QDCSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_CDDActive",
+          "type": "uint8"
+        },
+        {
+          "name": "message_CDDAvailable",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ABAactive",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ABAavailable",
+          "type": "uint8"
+        },
+        {
+          "name": "message_AEBAvailable",
+          "type": "uint8"
+        },
+        {
+          "name": "message_AEBdecActive",
+          "type": "uint8"
+        },
+        {
+          "name": "message_AWBactive",
+          "type": "uint8"
+        },
+        {
+          "name": "message_AWBavailable",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ParkFTestSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_PbcActuatorSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts3",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts4",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc1HiByte",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc1MidByte",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc1LoByte",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc1Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc2HiByte",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc2MidByte",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc2LoByte",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCUDtc2Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_Calibrated",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts5",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ORCASts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_BrkSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_IBCU_NBrkMode",
+          "type": "uint8"
+        },
+        {
+          "name": "message_LostComFltSts6",
+          "type": "uint8"
+        },
+        {
+          "name": "message_EspCSTFunMod",
+          "type": "uint8"
+        },
+        {
+          "name": "message_MCBActv",
+          "type": "uint8"
+        },
+        {
+          "name": "message_EspVehStanstill_APA",
+          "type": "uint8"
+        },
+        {
+          "name": "message_EspVehStanstill_ACC",
+          "type": "uint8"
+        },
+        {
+          "name": "message_padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "message_padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "message_reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "message_reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "message_reserved6",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_EdcDcacSwitch.Ntf_EdcDcacSwitch": {
+      "fields": [
+        {
+          "name": "EdcDcacSwitch",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EgyMagtModSet.Ntf_EgyMagtModSetResp": {
+      "fields": [
+        {
+          "name": "VcuSocHoldResp1",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuSocHoldResp2",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuSocHoldResp3",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuEgyMagtModResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuEngMagtModMEmsetResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuForceEVModResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuForcePwrPresEVModResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuForceEVModQuitRsn",
+          "type": "uint8"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSet.Ntf_EleAirSuspHighModSet": {
+      "fields": [
+        {
+          "name": "VIUEcasModeReq",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSet.Ntf_EleAirSuspIntenModSet": {
+      "fields": [
+        {
+          "name": "VIUEdcdModeReq",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSet.Ntf_EleAirSuspModInhbSet": {
+      "fields": [
+        {
+          "name": "EleAirSuspModInhbSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSts.Ntf_EleAirSuspHighModCHASts": {
+      "fields": [
+        {
+          "name": "VMCActEcasModeCHASts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSts.Ntf_EleAirSuspHighModSts": {
+      "fields": [
+        {
+          "name": "SuspHighModSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSts.Ntf_EleAirSuspIntenModSts": {
+      "fields": [
+        {
+          "name": "SuspIntenModSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EleAirSuspModSts.Ntf_EleAirSuspModInhbSts": {
+      "fields": [
+        {
+          "name": "EleAirSuspModInhbSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EmsOperStsInfo.Ntf_EmsOperStsInfo": {
+      "fields": [
+        {
+          "name": "EmsMilLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsEngCoolanT",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsEngSts",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsEngProtectionRemind",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsLowPreOilPumpProRemind",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsSolenoidValveSts",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsSolenoidValveStsVaild",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsMILIndcdLightInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsTankDoorSts",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsDcmpssnSts",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsCoolanTErr",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts3",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsAltiFac",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsFltRnk",
+          "type": "uint8"
+        },
+        {
+          "name": "EmsEngTqFlywh",
+          "type": "uint16"
+        },
+        {
+          "name": "EMSEngStrtInhb",
+          "type": "uint8"
+        },
+        {
+          "name": "EMSFuelCapLeakDisplay",
+          "type": "uint8"
+        },
+        {
+          "name": "Padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "Padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_EspBrkSysFltLiSts.Ntf_ComFltSts": {
+      "fields": [
+        {
+          "name": "LostComFltSt",
+          "type": "uint8"
+        },
+        {
+          "name": "CRCChkSt",
+          "type": "uint8"
+        },
+        {
+          "name": "RollgCntrSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EspBrkSysFltLiSts.Ntf_EspBrkFluidWarning": {
+      "fields": [
+        {
+          "name": "BrkFluidWarning",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EspBrkSysFltLiSts.Ntf_EspBrkSysFltLiReq": {
+      "fields": [
+        {
+          "name": "BrkSysFltLamp",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_EthManager_Rsp.Ntf_EthManager_Rsp": {
+      "fields": [
+        {
+          "name": "EthInfoRspData",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_ExtrLiActCtrlInfo.Ntf_HiBeamInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_Le_ActCtrlSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_Ri_ActCtrlSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ExtrLiActCtrlInfo.Ntf_LoBeamInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_Le_ActCtrlSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_Ri_ActCtrlSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ExtrLiInfoTips.Ntf_TurnLiInfo": {
+      "fields": [
+        {
+          "name": "LeSide_LoglSt",
+          "type": "uint8"
+        },
+        {
+          "name": "RiSide_LoglSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ExtrLiSwtReqInfo.Ntf_HiBeamSwtReqInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_FaultStDoor.Ntf_DoorFltStAll": {
+      "fields": [
+        {
+          "name": "DoorFltStAll",
+          "type": "uint8[4]"
+        }
+      ]
+    },
+    "Basc_FaultStFrtGate.Ntf_FrtGateSysFltSt": {
+      "fields": [
+        {
+          "name": "FrtGateBraceFltSt",
+          "type": "uint8"
+        },
+        {
+          "name": "FrtGateLockFltSt",
+          "type": "uint8"
+        },
+        {
+          "name": "FrtGateHallFltSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_FaultStLock.Ntf_FaultStAll": {
+      "fields": [
+        {
+          "name": "MotFltStAll",
+          "type": "uint8[32]"
+        }
+      ]
+    },
+    "Basc_FaultStWin.Ntf_FltStWinAll": {
+      "fields": [
+        {
+          "name": "WinMotFltStAll",
+          "type": "uint8[32]"
+        }
+      ]
+    },
+    "Basc_FileUploadStatus.Ntf_FileUploadStatus": {
+      "fields": [
+        {
+          "name": "taskId",
+          "type": "string"
+        },
+        {
+          "name": "fileName",
+          "type": "string"
+        },
+        {
+          "name": "filePath",
+          "type": "string"
+        },
+        {
+          "name": "controllerName",
+          "type": "string"
+        },
+        {
+          "name": "fileUploadStatus",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_FrPackDataUpload.Ntf_FrManaDataUpload": {
+      "fields": [
+        {
+          "name": "FrManagData",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_FrPackDataUpload.Ntf_FrNetDataUpload": {
+      "fields": [
+        {
+          "name": "FrNetData",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_FrPackDataUpload.Ntf_FrOtherDataUpload": {
+      "fields": [
+        {
+          "name": "FrOtherDataUpload",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_FrPackDataUpload.Ntf_FrViuFalutDiagInfo": {
+      "fields": [
+        {
+          "name": "FrViuFalutDiagInfo",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_FrPackDataUpload.Ntf_FrViuFalutDiagOtherInfo": {
+      "fields": [
+        {
+          "name": "FrViuFalutDiagOtherInfo",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_FrPackDataUpload.Ntf_FrViuResetInfo": {
+      "fields": [
+        {
+          "name": "FrViuResetInfo",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_FrntWiperStsInfo.Ntf_WiperStsInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_FWiperLogicSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WashLogicSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WiperPosSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WashActualSts",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WiperRunningSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_MotAngle",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WiprMotSpd",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WiperActSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_ParkAreaSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_SrvPosSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TunPosSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_MoveDir",
+          "type": "uint8"
+        },
+        {
+          "name": "message_FusbMovedtimes",
+          "type": "uint16"
+        },
+        {
+          "name": "message_FrntWiperSwt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WshrSwt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WiperINTGearTimeHard",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_GearBasInfo.Ntf_GearBasInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_VcuGearPosn",
+          "type": "uint8"
+        },
+        {
+          "name": "message_VcuVehGearPosnVld",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_GearErrInfo.Ntf_GearErrInfo": {
+      "fields": [
+        {
+          "name": "VcuShiftCtrlInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "LeMfsGearErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMfsGearErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "GearKeyPErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "GearKeyRErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "GearKeyNErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "GearKeyDErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "GearDNRErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "GearPErrInfo",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_GpsData.Evt_GpsData": {
+      "fields": [
+        {
+          "name": "lng",
+          "type": "uint32"
+        },
+        {
+          "name": "lat",
+          "type": "uint32"
+        },
+        {
+          "name": "alti",
+          "type": "uint16"
+        },
+        {
+          "name": "gpsTime",
+          "type": "uint8[5]"
+        },
+        {
+          "name": "satNum",
+          "type": "uint8"
+        },
+        {
+          "name": "heading",
+          "type": "uint16"
+        },
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "NS",
+          "type": "uint8"
+        },
+        {
+          "name": "EW",
+          "type": "uint8"
+        },
+        {
+          "name": "speed",
+          "type": "uint8"
+        },
+        {
+          "name": "decline",
+          "type": "uint8"
+        },
+        {
+          "name": "direction",
+          "type": "uint8"
+        },
+        {
+          "name": "quality",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "hdop",
+          "type": "float"
+        }
+      ]
+    },
+    "Basc_HODDetectInfo.Ntf_HODDetectInfo": {
+      "fields": [
+        {
+          "name": "HOD_handsoffDetectResult",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_handsoffAbilityDetect",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_SystemStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_SenserStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_AppStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_LinStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_CalibratedStatus",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_RollingCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_CheckSum",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_HeatingFctCfgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "HOD_Ch0_Value",
+          "type": "uint16"
+        },
+        {
+          "name": "HOD_Ch1_Value",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_HeatHldFuncSts.Ntf_HeatHldFuncSts": {
+      "fields": [
+        {
+          "name": "VcuHeatHldStsResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuHeatHldStsInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "ViuHeatHldWakeReq",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_HostIdps.Ntf_HostIdps": {
+      "fields": [
+        {
+          "name": "HostIdpsLogType",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_HudStatus.Ntf_HudStatus": {
+      "fields": [
+        {
+          "name": "hud_height",
+          "type": "uint16"
+        },
+        {
+          "name": "hud_light",
+          "type": "uint16"
+        },
+        {
+          "name": "hud_angle",
+          "type": "uint16"
+        },
+        {
+          "name": "hud_mode",
+          "type": "uint16"
+        },
+        {
+          "name": "hud_topic",
+          "type": "uint16"
+        },
+        {
+          "name": "hud_switch",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_HvActvReq.Ntf_HvBattCpInfo": {
+      "fields": [
+        {
+          "name": "HvBattLoCpFlg",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "HvActvLimRefSocLo",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_HvActvReq.Ntf_HvPwrHldExitTi": {
+      "fields": [
+        {
+          "name": "HvPwrHldExitTi",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_HvActvReq.Ntf_OperationCode": {
+      "fields": [
+        {
+          "name": "Request_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "Session_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "VehField",
+          "type": "uint8"
+        },
+        {
+          "name": "SourceMod",
+          "type": "uint8"
+        },
+        {
+          "name": "RtnCode",
+          "type": "uint16"
+        },
+        {
+          "name": "Counter",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_HvActvReq.Ntf_VcuHvSysErrNr": {
+      "fields": [
+        {
+          "name": "VcuHvSysErrNr",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_HvActvReq.Ntf_ViuHvPwrAllwUseFlg": {
+      "fields": [
+        {
+          "name": "ViuHvPwrAllwUseFlg",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_IBBrkPedlModSts.Ntf_IBBrkPedlModSts": {
+      "fields": [
+        {
+          "name": "IBBrkPedlModSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_IBSInfo.Ntf_IBSInfo": {
+      "fields": [
+        {
+          "name": "U_Batt",
+          "type": "uint16"
+        },
+        {
+          "name": "I_Range",
+          "type": "uint8"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "I_BATT",
+          "type": "uint16"
+        },
+        {
+          "name": "T_Batt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "I_Batt_Quiescent",
+          "type": "uint8"
+        },
+        {
+          "name": "Status_Current",
+          "type": "uint8"
+        },
+        {
+          "name": "Status_Voltage",
+          "type": "uint8"
+        },
+        {
+          "name": "Status_Temp",
+          "type": "uint8"
+        },
+        {
+          "name": "SOC",
+          "type": "uint8"
+        },
+        {
+          "name": "SOFV_StopEnable",
+          "type": "uint8"
+        },
+        {
+          "name": "SOFV_Restart",
+          "type": "uint8"
+        },
+        {
+          "name": "DisChargeCurrWU_Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "SOCWU_Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "SOC_STATE",
+          "type": "uint8"
+        },
+        {
+          "name": "SOFV_StopEnable_State",
+          "type": "uint8"
+        },
+        {
+          "name": "SOFV_Restart_State",
+          "type": "uint8"
+        },
+        {
+          "name": "Q_Charge",
+          "type": "uint16"
+        },
+        {
+          "name": "Q_Discharge",
+          "type": "uint16"
+        },
+        {
+          "name": "DischargeCurrWu",
+          "type": "uint8"
+        },
+        {
+          "name": "SocWu",
+          "type": "uint8"
+        },
+        {
+          "name": "Wkup_DischargeCurr",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_IDSLog.Ntf_IDSDLog": {
+      "fields": [
+        {
+          "name": "byLogTpyeandLength",
+          "type": "uint8"
+        },
+        {
+          "name": "byCanBusNum",
+          "type": "uint8"
+        },
+        {
+          "name": "byViolationRuleId",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "wSignalStartBit",
+          "type": "uint16"
+        },
+        {
+          "name": "wSignalLength",
+          "type": "uint16"
+        },
+        {
+          "name": "byRawMessageLength",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "dwCanID",
+          "type": "uint32"
+        },
+        {
+          "name": "dwDetectionTime",
+          "type": "uint32"
+        },
+        {
+          "name": "dwDetectionReason_Hi",
+          "type": "uint32"
+        },
+        {
+          "name": "dwDetectionReason_Lo",
+          "type": "uint32"
+        },
+        {
+          "name": "wDuplicationNumber",
+          "type": "uint16"
+        },
+        {
+          "name": "medium",
+          "type": "uint8[14]"
+        },
+        {
+          "name": "byRawMessageBody",
+          "type": "uint8[64]"
+        }
+      ]
+    },
+    "Basc_IDSLog.Ntf_IDSSLog": {
+      "fields": [
+        {
+          "name": "byLogTypeAndLength",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "wSequnceNumber",
+          "type": "uint16"
+        },
+        {
+          "name": "dwMemoryUsage",
+          "type": "uint32"
+        },
+        {
+          "name": "dwFlashUsage",
+          "type": "uint32"
+        },
+        {
+          "name": "byPolicyVersion",
+          "type": "uint8[6]"
+        },
+        {
+          "name": "byFirmwareVersion",
+          "type": "uint8[6]"
+        },
+        {
+          "name": "end",
+          "type": "uint8[25]"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[3]"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_BLEInfo": {
+      "fields": [
+        {
+          "name": "KeyNumber",
+          "type": "uint8"
+        },
+        {
+          "name": "BleMac",
+          "type": "uint8[18]"
+        },
+        {
+          "name": "BleIrk",
+          "type": "uint8[48]"
+        },
+        {
+          "name": "BleMode",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "ConnectState",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "connRssi",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "BLEConCnt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_BLEKeyData": {
+      "fields": [
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "ProtType",
+          "type": "uint8"
+        },
+        {
+          "name": "CardID",
+          "type": "uint8[16]"
+        },
+        {
+          "name": "SType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyAuthSt",
+          "type": "uint8"
+        },
+        {
+          "name": "KPRE",
+          "type": "uint8[4]"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "CurrentTime",
+          "type": "uint32"
+        },
+        {
+          "name": "StartTime",
+          "type": "uint32"
+        },
+        {
+          "name": "EndTime",
+          "type": "uint32"
+        },
+        {
+          "name": "KeyZone",
+          "type": "uint16"
+        },
+        {
+          "name": "UserID",
+          "type": "uint8[40]"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_DigKeySDKErrLog": {
+      "fields": [
+        {
+          "name": "DigKeySDKErrLog",
+          "type": "uint8[27]"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_NFCDigKeyCmd": {
+      "fields": [
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "RKEcmdCnt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "RKECmd",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_NFCDigKeyInfoBasc": {
+      "fields": [
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyAuthSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "KeyZone",
+          "type": "uint16"
+        },
+        {
+          "name": "KPRE",
+          "type": "uint8[4]"
+        },
+        {
+          "name": "padding_5",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "CurrentTime",
+          "type": "uint32"
+        },
+        {
+          "name": "StartTime",
+          "type": "uint32"
+        },
+        {
+          "name": "EndTime",
+          "type": "uint32"
+        },
+        {
+          "name": "ProtType",
+          "type": "uint8"
+        },
+        {
+          "name": "CardID",
+          "type": "uint8[16]"
+        },
+        {
+          "name": "SType",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_6",
+          "type": "uint8[2]"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_NFCEnterCardInSt": {
+      "fields": [
+        {
+          "name": "NFCCardInSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_KeyInfoSm.Ntf_SetBLEDiscotStsReq": {
+      "fields": [
+        {
+          "name": "BLEDiscotStsReq",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEAddMac",
+          "type": "uint8[6]"
+        }
+      ]
+    },
+    "Basc_KeySetting.Ntf_KeySetInfo": {
+      "fields": [
+        {
+          "name": "AphLampSetting",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyAphLkSetting",
+          "type": "uint8"
+        },
+        {
+          "name": "GudModSetting",
+          "type": "uint8"
+        },
+        {
+          "name": "NFCKeyVldTime",
+          "type": "uint8"
+        },
+        {
+          "name": "AphLampTriTime",
+          "type": "uint32"
+        },
+        {
+          "name": "BLEPhyKeyBut1Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyBut2Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyBut3Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyBut4Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyBut5Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyActSt",
+          "type": "uint8"
+        },
+        {
+          "name": "LoadModeSet",
+          "type": "uint8"
+        },
+        {
+          "name": "AphUnLockTimer",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyBut6Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BLEPhyKeyBut7Vle",
+          "type": "uint8"
+        },
+        {
+          "name": "BleChrgEnCfg",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved4",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved5",
+          "type": "uint16"
+        },
+        {
+          "name": "Reserved6",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_LBMSinfo.Ntf_LBMSOperInfo": {
+      "fields": [
+        {
+          "name": "PackCrrt",
+          "type": "uint32"
+        },
+        {
+          "name": "DarkCrrt",
+          "type": "uint16"
+        },
+        {
+          "name": "PackIntU",
+          "type": "uint16"
+        },
+        {
+          "name": "PackExtU",
+          "type": "uint16"
+        },
+        {
+          "name": "MaxAllwChrgCrrt",
+          "type": "uint16"
+        },
+        {
+          "name": "MaxAllwDischrgCrrt",
+          "type": "uint16"
+        },
+        {
+          "name": "MaxAllwChrgU",
+          "type": "uint16"
+        },
+        {
+          "name": "ReChrgReq",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_8",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "ReqChrgU",
+          "type": "uint16"
+        },
+        {
+          "name": "LBMS_SleepTime",
+          "type": "uint32"
+        },
+        {
+          "name": "LBMS_Soh",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_Soc",
+          "type": "uint8"
+        },
+        {
+          "name": "PackMode",
+          "type": "uint8"
+        },
+        {
+          "name": "SocCalMod",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_RealSoc",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_9",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "PackIntUCal",
+          "type": "uint16"
+        },
+        {
+          "name": "AHChrgTotlife",
+          "type": "uint32"
+        },
+        {
+          "name": "AHDisChrgTotlife",
+          "type": "uint32"
+        },
+        {
+          "name": "LBMS_FltNum",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_WillOpen",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_MOSDisCnctnReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackUnderTFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackOverTFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_CellUnderUFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_CellOverUFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackUnderUFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackOverVoltFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_ChrgOverCrrtFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_DischrgOverCrrtFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_LowSoc1Flt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_LowSoc2Flt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_LowSoh",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_BalaenFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_CMosDrvrContrlAbnorFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_DMosDrvrContrlAbnorFlt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_LowSocLatchDisReq",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_RefuseToSleep",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_DMosDrvU",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_CMosDrvU",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_10",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "LBMS_CellU1",
+          "type": "uint16"
+        },
+        {
+          "name": "LBMS_Cell1BalSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_11",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "LBMS_CellU2",
+          "type": "uint16"
+        },
+        {
+          "name": "LBMS_Cell2BalSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_12",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "LBMS_CellU3",
+          "type": "uint16"
+        },
+        {
+          "name": "LBMS_Cell3BalSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_13",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "LBMS_CellU4",
+          "type": "uint16"
+        },
+        {
+          "name": "LBMS_Cell4BalSt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackT1",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackT2",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackT3",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_PackTVld",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_ChrgRlySt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_DisChrgRlySt",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_BoardT",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_ChrgCMOST",
+          "type": "uint8"
+        },
+        {
+          "name": "LBMS_DischrgMOST",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_14",
+          "type": "uint8[2]"
+        }
+      ]
+    },
+    "Basc_LIN4Msg2S.Ntf_FBSTouchSig": {
+      "fields": [
+        {
+          "name": "SwTypeOpe2Sig",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_LIN4Msg2S.Ntf_FBSTouchSigValue": {
+      "fields": [
+        {
+          "name": "FBS_TouchSigValue",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_LIN4Msg2S.Ntf_RBSTouchSig": {
+      "fields": [
+        {
+          "name": "SwTypeOpe2Sig",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_LIN4Msg2S.Ntf_RBSTouchSigValue": {
+      "fields": [
+        {
+          "name": "RBS_TouchSigValue",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_LiSnsrInfo.Ntf_AMBBri": {
+      "fields": [
+        {
+          "name": "AMB_Brightness",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_LiSnsrInfo.Ntf_FWBri": {
+      "fields": [
+        {
+          "name": "FW_Brightness",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_LiSnsrInfo.Ntf_IRBri": {
+      "fields": [
+        {
+          "name": "IR_Brightness",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_LoUBattSts.Ntf_BattChrgErrLamp": {
+      "fields": [
+        {
+          "name": "LoBattErrSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_LoUBattSts.Ntf_LoBattU": {
+      "fields": [
+        {
+          "name": "VIUFLU1",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_LockCarAllwd.Ntf_LockCarAllwd": {
+      "fields": [
+        {
+          "name": "LockCarAllwdFlg",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_LogicStChrgCbn.Ntf_LocSt": {
+      "fields": [
+        {
+          "name": "ObjStTypeDoor",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_LogicStLock.Ntf_LocStAll": {
+      "fields": [
+        {
+          "name": "LockStAll",
+          "type": "uint8[4]"
+        }
+      ]
+    },
+    "Basc_LogicStWin.Ntf_WinLogStAll": {
+      "fields": [
+        {
+          "name": "WinLogStAll",
+          "type": "uint8[4]"
+        }
+      ]
+    },
+    "Basc_MFSSwtInfo.Ntf_SwtInfo": {
+      "fields": [
+        {
+          "name": "MFSSwtLL",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLL",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtLR",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLR",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtLok",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLok",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtLU",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLU",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtLP",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLP",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtLone",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLone",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtLtwo",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressLtwo",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRL",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRL",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRR",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRR",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRok",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRok",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRU",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRU",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRP",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRP",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRone",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRone",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRtwo",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtPressRtwo",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRollLU",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRollLP",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRollRU",
+          "type": "uint8"
+        },
+        {
+          "name": "MFSSwtRollRP",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_MediaVolumeSt.Ntf_MediaVolValue": {
+      "fields": [
+        {
+          "name": "MediaVol",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_MfsGearSet.Ntf_MfsGearSet": {
+      "fields": [
+        {
+          "name": "MfsGearSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_MirrSoftPos.Ntf_PosErrorFlag": {
+      "fields": [
+        {
+          "name": "LePosErrorFlag",
+          "type": "uint8"
+        },
+        {
+          "name": "RiPosErrorFlag",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_MirrStsInfo.Ntf_StsInfo": {
+      "fields": [
+        {
+          "name": "LeMirrFoldCtrl",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMirrFoldCtrl",
+          "type": "uint8"
+        },
+        {
+          "name": "LeMirrHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMirrHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "LeMirrPosnX",
+          "type": "uint8"
+        },
+        {
+          "name": "LeMirrPosnY",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMirrPosnX",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMirrPosnY",
+          "type": "uint8"
+        },
+        {
+          "name": "LeMirrTarPosnX",
+          "type": "uint8"
+        },
+        {
+          "name": "LeMirrTarPosnY",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMirrTarPosnX",
+          "type": "uint8"
+        },
+        {
+          "name": "RiMirrTarPosnY",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_NewCarModeCtrl.Ntf_NewCarModeCtrl": {
+      "fields": [
+        {
+          "name": "NewCarModeCtrl",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_NewCarModeCtrl.Ntf_NewCarModeSts": {
+      "fields": [
+        {
+          "name": "NewCarModeSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_OTAFlag.Ntf_OTAFlag": {
+      "fields": [
+        {
+          "name": "OTAMode",
+          "type": "uint8"
+        },
+        {
+          "name": "OTAChrgMod",
+          "type": "uint8"
+        },
+        {
+          "name": "OTAFuncAForwdStra",
+          "type": "uint8"
+        },
+        {
+          "name": "OTAHvActvReq",
+          "type": "uint8"
+        },
+        {
+          "name": "OTAFaiSendTi",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PackDataUpload.Ntf_ManaDataUpload": {
+      "fields": [
+        {
+          "name": "ManagData",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_PackDataUpload.Ntf_NetDataUpload": {
+      "fields": [
+        {
+          "name": "ALLNetData",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_PackDataUpload.Ntf_OtherDataUpload": {
+      "fields": [
+        {
+          "name": "OtherDataUpload",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_PackDataUpload.Ntf_ViuFalutDiagInfo": {
+      "fields": [
+        {
+          "name": "ViuFalutDiagInfo",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_PackDataUpload.Ntf_ViuFalutDiagOtherInfo": {
+      "fields": [
+        {
+          "name": "ViuFalutDiagOtherInfo",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_PackDataUpload.Ntf_ViuResetInfo": {
+      "fields": [
+        {
+          "name": "ViuResetInfo",
+          "type": "dds_sequence_bytes"
+        }
+      ]
+    },
+    "Basc_PartWinCtrlPartSeatSts.Ntf_ObjSt": {
+      "fields": [
+        {
+          "name": "MotSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PduOperInfo.Ntf_PduOperPrmInfo": {
+      "fields": [
+        {
+          "name": "DcdcCnseActPwr",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgInpAcUL1",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgInpAcUL2",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgInpAcUL3",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgInpAcIL1",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgInpAcIL2",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgInpAcIL3",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgDcI",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcChrgDcU",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcMaxChrgOutpIAvl",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcMaxChrgOutpPwrAvl",
+          "type": "uint16"
+        },
+        {
+          "name": "ObcMaxChrgOutpUAvl",
+          "type": "uint16"
+        },
+        {
+          "name": "DcacCnseActPwr",
+          "type": "uint16"
+        },
+        {
+          "name": "DcacInpU",
+          "type": "uint16"
+        },
+        {
+          "name": "DcacOutpPwrAvlMax",
+          "type": "uint16"
+        },
+        {
+          "name": "DcdcT",
+          "type": "uint8"
+        },
+        {
+          "name": "ObcT",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacT",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacInpI",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacOutpI",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacOutpU",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "DcdcOutpCrrt",
+          "type": "uint16"
+        },
+        {
+          "name": "DcdcOutpU",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_PduOperInfo.Ntf_PduOperStsInfo": {
+      "fields": [
+        {
+          "name": "DcdcFltRnk",
+          "type": "uint8"
+        },
+        {
+          "name": "DcdcWarnStsGb",
+          "type": "uint8"
+        },
+        {
+          "name": "DcdcOverTGb",
+          "type": "uint8"
+        },
+        {
+          "name": "DcdcOperSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ObcAcChrgMod",
+          "type": "uint8"
+        },
+        {
+          "name": "ObcChrgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ObcFltRnk",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacFltRnk",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacOperSts",
+          "type": "uint8"
+        },
+        {
+          "name": "padding4",
+          "type": "uint8"
+        },
+        {
+          "name": "padding5",
+          "type": "uint8"
+        },
+        {
+          "name": "padding6",
+          "type": "uint8"
+        },
+        {
+          "name": "padding7",
+          "type": "uint8"
+        },
+        {
+          "name": "padding8",
+          "type": "uint8"
+        },
+        {
+          "name": "padding9",
+          "type": "uint8"
+        },
+        {
+          "name": "padding10",
+          "type": "uint8"
+        },
+        {
+          "name": "padding11",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "ObcCpWakeupFlg",
+          "type": "uint8"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_PhoneMap.Ntf_msgType": {
+      "fields": [
+        {
+          "name": "msgType",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PhysicsStDoor.Ntf_PhyStAll": {
+      "fields": [
+        {
+          "name": "ObjStTypeDoorAll",
+          "type": "uint8[4]"
+        }
+      ]
+    },
+    "Basc_PhysicsStFrtGate.Ntf_MotAPCSt": {
+      "fields": [
+        {
+          "name": "ObjStTypeAPCSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PhysicsStFrtGate.Ntf_MotCurPosVIT": {
+      "fields": [
+        {
+          "name": "ObjStTypeCurPosVIT",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PhysicsStFrtGate.Ntf_PhySt": {
+      "fields": [
+        {
+          "name": "ObjStTypeDoor",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PhysicsStSunShade.Ntf_PhySt": {
+      "fields": [
+        {
+          "name": "ObjStType",
+          "type": "uint8"
+        },
+        {
+          "name": "CurPosVIT",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PhysicsStWin.Ntf_PhyStWinAll": {
+      "fields": [
+        {
+          "name": "PhyStWinAll",
+          "type": "uint8[4]"
+        }
+      ]
+    },
+    "Basc_PhysicsStWin.Ntf_PosWinAll": {
+      "fields": [
+        {
+          "name": "ObjStTypeCurPosVITAll",
+          "type": "uint8[4]"
+        }
+      ]
+    },
+    "Basc_PrkgChrgSet.Ntf_PrkgChrgSetResp": {
+      "fields": [
+        {
+          "name": "VcuPrkgChrgAllwdResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPrkgChrgStsResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPrkgChrgLvlSetResp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPrkgChrgLvlGryResp",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PsgSeatInfo.Ntf_SeatInfo": {
+      "fields": [
+        {
+          "name": "PinchStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsHei",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsCus",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsPad",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStFR",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStHei",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStBr",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStCus",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_PsgSeatInfo.Ntf_SeatPosInfo": {
+      "fields": [
+        {
+          "name": "PosCmdReqFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqHei",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqBr",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqCus",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosCus",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsCus",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "NTCTemp",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PsgSeatInfo.Ntf_SeatSts": {
+      "fields": [
+        {
+          "name": "SeatAdjSwtFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtBr",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtCus",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtLegFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtZeroGravity",
+          "type": "uint8"
+        },
+        {
+          "name": "FRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "HeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BrInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "CusInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "LegFRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatVent",
+          "type": "uint8"
+        },
+        {
+          "name": "FRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "HeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "BrStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "CusStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LegFRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "PsgSeatSBR",
+          "type": "uint8"
+        },
+        {
+          "name": "RearLeSeatSBR",
+          "type": "uint8"
+        },
+        {
+          "name": "RearMidSeatSBR",
+          "type": "uint8"
+        },
+        {
+          "name": "RearRiSeatSBR",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_PtLampTextDispInfo.Ntf_PtLampTextDispInfo": {
+      "fields": [
+        {
+          "name": "BcuBattSocUnderLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuPwrBattErrLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattPlsHeagStsFb",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBookHeatStsRsp",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuTextDispReq",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuDcTextDispReq",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgStsLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgTextDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPlugConnectLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgLckInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgPlugTDetdDispReq",
+          "type": "uint8"
+        },
+        {
+          "name": "DcacStsLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDCACInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuIpuErrLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPwrSysErrLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehPwrLimLamp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuBuzWarnMod",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuShiftPErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuHVErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehStartInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuTrlrModTextDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "VIUChrgStsDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VIUSocDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuLowEngSupReqDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "Vcu12VChrgSysErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuHVPuPdFaildErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuEngStrtInhbOnlyEVErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDrvAbltyInsuffErrInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuTmsPtcLimTextInfo",
+          "type": "uint8"
+        },
+        {
+          "name": "BcuBattNoFuChargReq",
+          "type": "uint8"
+        },
+        {
+          "name": "VIUChrgNoCurr",
+          "type": "uint8"
+        },
+        {
+          "name": "VIUSocDisp2",
+          "type": "uint16"
+        },
+        {
+          "name": "ChrgCnctAbnl",
+          "type": "uint8"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_RCUndertakes.Ntf_RemoteState": {
+      "fields": [
+        {
+          "name": "NtfTake",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_RLSSts.Ntf_WiperRLSSts": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_RLSSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_RLSErrorSt",
+          "type": "uint8"
+        },
+        {
+          "name": "message_RainfallLevel",
+          "type": "uint8"
+        },
+        {
+          "name": "message_RLSComError",
+          "type": "uint8"
+        },
+        {
+          "name": "message_WiprSpd",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Basc_RadioTech.Evt_RadioTech": {
+      "fields": [
+        {
+          "name": "RadioTech",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_RdyProhibitionSts.Ntf_RdyProhibitionSts": {
+      "fields": [
+        {
+          "name": "VcuRdyProhibSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_RearSeatInfo.Ntf_SeatSts": {
+      "fields": [
+        {
+          "name": "LeSeatHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "LeSeatVent",
+          "type": "uint8"
+        },
+        {
+          "name": "RiSeatHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "RiSeatVent",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_RearWiperStsInfo.Ntf_WiperStsInfo": {
+      "fields": [
+        {
+          "name": "RWiperLogicSts",
+          "type": "uint8"
+        },
+        {
+          "name": "WashLogicSts",
+          "type": "uint8"
+        },
+        {
+          "name": "WiperPosSts",
+          "type": "uint8"
+        },
+        {
+          "name": "WashActualSts",
+          "type": "uint8"
+        },
+        {
+          "name": "WiperRunningSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_ReevOperInfo.Ntf_ReevOperPrmInfo": {
+      "fields": [
+        {
+          "name": "VcuVehTotFuCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuFulLimdDrvgDst",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuEvDrvResiMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuFuLeover",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuFuLeoverVld",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuFuelLevelPercent",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "VcuResiMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuFuResiColor",
+          "type": "uint8"
+        },
+        {
+          "name": "ViuFuResiMilgInvldDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuResiMilg2",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuEvDrvResiMilg2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved9",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved10",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved11",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved12",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_ReevOperInfo.Ntf_ReevOperStsInfo": {
+      "fields": [
+        {
+          "name": "VcuEngineOilPressureLowSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ViuEngStrtFailFbkSts",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPwrSplyRst",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved9",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved10",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved11",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved12",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_ResiMilgInfo.Ntf_ResiMilgInfo": {
+      "fields": [
+        {
+          "name": "VcuResiMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgResiMilgIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgResiMilgIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgResiMilgIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehResiMilgIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehResiMilgIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehResiMilgIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehIncrMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuUnreleasedMilgInLowT",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "VcuVehDecrMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "SuperEcoIncrMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuChrgLimEvResiMilg",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehIncrMilg2",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehDecrMilg2",
+          "type": "uint32"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_RmipuOperInfo.Ntf_RmipuOperPrmInfo": {
+      "fields": [
+        {
+          "name": "ReMotSpd",
+          "type": "uint16"
+        },
+        {
+          "name": "ReMotTq",
+          "type": "uint16"
+        },
+        {
+          "name": "RmipuPlsHeatTiRem",
+          "type": "uint16"
+        },
+        {
+          "name": "IpuUDc",
+          "type": "uint16"
+        },
+        {
+          "name": "IpuIDc",
+          "type": "uint16"
+        },
+        {
+          "name": "ReMotSpdVld",
+          "type": "uint8"
+        },
+        {
+          "name": "ReMotTqVld",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts",
+          "type": "uint8"
+        },
+        {
+          "name": "ReTMTStatr",
+          "type": "uint8"
+        },
+        {
+          "name": "TMRRMotTStatr",
+          "type": "uint8"
+        },
+        {
+          "name": "TMRLMotTStatr",
+          "type": "uint8"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_RmipuOperInfo.Ntf_RmipuOperStsInfo": {
+      "fields": [
+        {
+          "name": "ReMotTOverGb",
+          "type": "uint8"
+        },
+        {
+          "name": "ReIpuTOverGb",
+          "type": "uint8"
+        },
+        {
+          "name": "RmipuPlsHeatgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding4",
+          "type": "uint8"
+        },
+        {
+          "name": "padding5",
+          "type": "uint8"
+        },
+        {
+          "name": "padding6",
+          "type": "uint8"
+        },
+        {
+          "name": "padding7",
+          "type": "uint8"
+        },
+        {
+          "name": "padding8",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts2",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_SDMap.Ntf_LNavResidualDis": {
+      "fields": [
+        {
+          "name": "LNavResidualDis",
+          "type": "uint64"
+        }
+      ]
+    },
+    "Basc_SDMap.Ntf_NaviStatus": {
+      "fields": [
+        {
+          "name": "NaviStatus",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_SDMap2.Ntf_CurrentPosition": {
+      "fields": [
+        {
+          "name": "lat",
+          "type": "double"
+        },
+        {
+          "name": "lon",
+          "type": "double"
+        }
+      ]
+    },
+    "Basc_SDMap2.Ntf_RemainDistance": {
+      "fields": [
+        {
+          "name": "RemainDistance",
+          "type": "uint64"
+        }
+      ]
+    },
+    "Basc_SDMap2.Ntf_TotalDistance": {
+      "fields": [
+        {
+          "name": "TotalDistance",
+          "type": "uint64"
+        }
+      ]
+    },
+    "Basc_SafeGuardSts.Ntf_SafeGuardSts": {
+      "fields": [
+        {
+          "name": "SafeGuardOutpAFr",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpARr",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpALh",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpARh",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpBFr",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpBRr",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpBLh",
+          "type": "uint8"
+        },
+        {
+          "name": "SafeGuardOutpBRh",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_SecLeSeatInfo.Ntf_SeatPosInfo": {
+      "fields": [
+        {
+          "name": "PosCmdReqFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "FRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "BrStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "FootStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "Resrved6",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_SecLeSeatInfo.Ntf_SeatSts": {
+      "fields": [
+        {
+          "name": "SeatAdjSwtFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtBr",
+          "type": "uint8"
+        },
+        {
+          "name": "FRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BrInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatVent",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStFR",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStBr",
+          "type": "uint8"
+        },
+        {
+          "name": "BrSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "FootInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved1",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved2",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "Reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved6",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_SecRiSeatInfo.Ntf_SeatPosInfo": {
+      "fields": [
+        {
+          "name": "PosCmdReqFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosBr",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "FRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "BrStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovigStsFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "FootStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "Resrved6",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_SecRiSeatInfo.Ntf_SeatSts": {
+      "fields": [
+        {
+          "name": "SeatAdjSwtFR",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtBr",
+          "type": "uint8"
+        },
+        {
+          "name": "FRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "BrInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatVent",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsBr",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStFR",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStBr",
+          "type": "uint8"
+        },
+        {
+          "name": "BrSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "LegHeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStLegHei",
+          "type": "uint8"
+        },
+        {
+          "name": "SeatAdjSwtFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "FootInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "PinchStsFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "StallStFoot",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved1",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved2",
+          "type": "uint8"
+        },
+        {
+          "name": "Reserved3",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "Reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "Reserved6",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_SignalStrength.Evt_SignalStrength": {
+      "fields": [
+        {
+          "name": "SignalStrength",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_SocChrgTarSet.Ntf_SocChrgTarSet": {
+      "fields": [
+        {
+          "name": "SocChrgTarSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_SteerModSet.Ntf_SteerModSet": {
+      "fields": [
+        {
+          "name": "SteerModSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_SteerModSts.Ntf_SteerModSts": {
+      "fields": [
+        {
+          "name": "EpsSteerModFb",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_SteeringStsInfo.Ntf_SteeringSts": {
+      "fields": [
+        {
+          "name": "PosCmdReqFR",
+          "type": "uint8"
+        },
+        {
+          "name": "PosCmdReqHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisPosHei",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovingStsFR",
+          "type": "uint8"
+        },
+        {
+          "name": "AxisActiveMovingStsHei",
+          "type": "uint8"
+        },
+        {
+          "name": "FRInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "HeiInitializedSts",
+          "type": "uint8"
+        },
+        {
+          "name": "SteeringHeat",
+          "type": "uint8"
+        },
+        {
+          "name": "SteeringHeatCmd",
+          "type": "uint8"
+        },
+        {
+          "name": "FRStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "HeiStopStsReason",
+          "type": "uint8"
+        },
+        {
+          "name": "NTCTemp",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_SunShadeLearn.Ntf_LearnRlt": {
+      "fields": [
+        {
+          "name": "MotInitSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TPMSFaultInfo.Ntf_TireSnsrFaultInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_TireSnsrFaultFL",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireSnsrFaultFR",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireSnsrFaultRL",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireSnsrFaultRR",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TPMSInfo.Ntf_TireValInfo": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message_TirePFL",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TirePFR",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TirePRL",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TirePRR",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireTFL",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireTFR",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireTRL",
+          "type": "uint8"
+        },
+        {
+          "name": "message_TireTRR",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TailGateFltSts.Ntf_TailGateSysFltSt": {
+      "fields": [
+        {
+          "name": "TailGateBraceFltSt",
+          "type": "uint8"
+        },
+        {
+          "name": "TailGatePullLockFltSt",
+          "type": "uint8"
+        },
+        {
+          "name": "TailGateHallFltSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TailGateSts.Ntf_TailGateSysSt": {
+      "fields": [
+        {
+          "name": "ObjStTypePLGDoorSt",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TboxDataInfo.Ntf_TboxDataInfo": {
+      "fields": [
+        {
+          "name": "DataInfo",
+          "type": "string"
+        }
+      ]
+    },
+    "Basc_TboxMobileNetworkEnviData.Evt_NetworkEnviData": {
+      "fields": [
+        {
+          "name": "plmn",
+          "type": "string"
+        },
+        {
+          "name": "pci",
+          "type": "uint32"
+        },
+        {
+          "name": "rsrp",
+          "type": "uint32"
+        },
+        {
+          "name": "rsrq",
+          "type": "uint32"
+        },
+        {
+          "name": "rssi",
+          "type": "uint32"
+        },
+        {
+          "name": "sinr",
+          "type": "uint32"
+        },
+        {
+          "name": "pripingdelay",
+          "type": "uint32"
+        },
+        {
+          "name": "pubpingdelay",
+          "type": "uint32"
+        },
+        {
+          "name": "envilevel",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_TboxReqPreprsInfo.Ntf_TboxReqPreprsInfo": {
+      "fields": [
+        {
+          "name": "ViuAccrPedlPosnAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuBrkPedlTrvlDrvrAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuVehSpdAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuLatAccelAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuLongAccelAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuSteerAgRateAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuSasSteerAgAVg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuFuCnsAvg",
+          "type": "uint16"
+        },
+        {
+          "name": "ViuFuCnsCmlt",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_TireSlipSts.Ntf_TireSlipSts": {
+      "fields": [
+        {
+          "name": "TireSlipStsLF",
+          "type": "uint8"
+        },
+        {
+          "name": "TireSlipStsLR",
+          "type": "uint8"
+        },
+        {
+          "name": "TireSlipStsRF",
+          "type": "uint8"
+        },
+        {
+          "name": "TireSlipStsRR",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TxRechargSet.Ntf_RechargSet": {
+      "fields": [
+        {
+          "name": "TboxBokgChrgSts",
+          "type": "uint8"
+        },
+        {
+          "name": "TboxBokgChrgStopTiMin",
+          "type": "uint8"
+        },
+        {
+          "name": "TboxBokgChrgStopTitHr",
+          "type": "uint8"
+        },
+        {
+          "name": "TboxBokgChrgStrtTiHr",
+          "type": "uint8"
+        },
+        {
+          "name": "TboxBokgChrgStrtTiMin",
+          "type": "uint8"
+        },
+        {
+          "name": "TboxBokgChrgMode",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_TxRechargSet.Ntf_SrvOperInfo": {
+      "fields": [
+        {
+          "name": "Request_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "Session_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "TxServiceSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        }
+      ]
+    },
+    "Basc_VIUFLPwrPinData.Ntf_PwrPinFltSts": {
+      "fields": [
+        {
+          "name": "VIUPwrPortFltSt",
+          "type": "uint8[300]"
+        }
+      ]
+    },
+    "Basc_VIUFLPwrPinData.Ntf_PwrPinInfo": {
+      "fields": [
+        {
+          "name": "VIUPwrPortInfo",
+          "type": "uint8[600]"
+        }
+      ]
+    },
+    "Basc_VIUFLPwrPinData.Ntf_PwrPinSts": {
+      "fields": [
+        {
+          "name": "VIUPwrPortSts",
+          "type": "uint8[200]"
+        }
+      ]
+    },
+    "Basc_VIUFRPwrPinData.Ntf_PwrPinFltSts": {
+      "fields": [
+        {
+          "name": "VIUPwrPortFltSt",
+          "type": "uint8[300]"
+        }
+      ]
+    },
+    "Basc_VIUFRPwrPinData.Ntf_PwrPinInfo": {
+      "fields": [
+        {
+          "name": "VIUPwrPortInfo",
+          "type": "uint8[600]"
+        }
+      ]
+    },
+    "Basc_VIUFRPwrPinData.Ntf_PwrPinSts": {
+      "fields": [
+        {
+          "name": "VIUPwrPortSts",
+          "type": "uint8[200]"
+        }
+      ]
+    },
+    "Basc_VIUFRUvalue.Ntf_VIUFRUvalue": {
+      "fields": [
+        {
+          "name": "VIUxUvalue_main",
+          "type": "uint16"
+        },
+        {
+          "name": "VIUxUvalue_second",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_VMCStsInfo.Ntf_VMCBasSts": {
+      "fields": [
+        {
+          "name": "VMCRoadClassTriTimeToMap",
+          "type": "uint64"
+        },
+        {
+          "name": "VMCSpeRLgtLenToM",
+          "type": "uint32"
+        },
+        {
+          "name": "VMCRoadClassToMapFlg",
+          "type": "uint8"
+        },
+        {
+          "name": "VMCRoadClassToMap",
+          "type": "uint8"
+        },
+        {
+          "name": "LostComFltSts1",
+          "type": "uint8"
+        },
+        {
+          "name": "VMCPrioDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VMCECAStarLvl",
+          "type": "uint8"
+        },
+        {
+          "name": "VMCMagicCarpetMode",
+          "type": "uint8"
+        },
+        {
+          "name": "Padding2",
+          "type": "uint8"
+        },
+        {
+          "name": "Padding3",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_VMCStsInfo.Ntf_VMCStsInfo": {
+      "fields": [
+        {
+          "name": "VmcHeightPosnFL",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcHeightPosnFR",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcHeightPosnRL",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcHeightPosnRR",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcOutIDampFL",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcOutIDampFR",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcOutIDampRL",
+          "type": "uint16"
+        },
+        {
+          "name": "VmcOutIDampRR",
+          "type": "uint16"
+        },
+        {
+          "name": "VeHW_flg_CmprTemp",
+          "type": "uint8"
+        },
+        {
+          "name": "VMCFaultSts",
+          "type": "uint8"
+        },
+        {
+          "name": "AdjCtrlActive",
+          "type": "uint8"
+        },
+        {
+          "name": "Suspwarm",
+          "type": "uint8"
+        },
+        {
+          "name": "Unloadquitdisp",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "VMCActrDisLeftSec",
+          "type": "uint16"
+        },
+        {
+          "name": "VMCAzBodySelMax",
+          "type": "uint16"
+        },
+        {
+          "name": "VMCAzAxisSelMax",
+          "type": "uint16"
+        },
+        {
+          "name": "VMCPaveEleIndex",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "Reserved4",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_VcuOperInfo.Ntf_VcuOperPrmInfo": {
+      "fields": [
+        {
+          "name": "VcuDchaSocLimitVal",
+          "type": "uint16"
+        },
+        {
+          "name": "VehPwrInst",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuErrNr",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuErrAmnt",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDrvEgyInd",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved3",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_VcuOperInfo.Ntf_VcuOperStsInfo": {
+      "fields": [
+        {
+          "name": "VcuVehChrgStsGb",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgAutoUnlckSetStsFb",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuSysEgyFlow",
+          "type": "uint8"
+        },
+        {
+          "name": "VCUPlsHeatgAllwdFlg",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehChrgRest",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc1HiByte",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc1LoByte",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc1MidByte",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc1Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc2HiByte",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc2LoByte",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc2MidByte",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuDtc2Sts",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgLockSts",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPwrHldCtrl",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuRngExtnEgyFlwDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuBatEgyFlwDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuFrontMotEgyFlwDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuRearMotEgyFlwDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuPlugChrgEgyFlwDisp",
+          "type": "uint8"
+        },
+        {
+          "name": "VehStsGb",
+          "type": "uint8"
+        },
+        {
+          "name": "VCUVehEgyFlow",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuICEGMBATEgyFlw",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuTMEgyFlw",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuChrgDchaEgyFlw",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "reserved4",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved5",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved6",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved7",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved8",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_VehEgyCnseInfo.Ntf_EgyCnseSelectCfm": {
+      "fields": [
+        {
+          "name": "VcuVehEgyCnseSelectCfm",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_VehEgyCnseInfo.Ntf_VehEgyCnseInfo": {
+      "fields": [
+        {
+          "name": "VcuVehEgyCnseLongTime",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehEgyCnseInTripA",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehEgyCnseLongTimeAcce",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehAvrgEgyCnseLongTime",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgEgyCnseInTripA",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehEgyCnseIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehEgyCnseIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehEgyCnseIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgEgyCnseIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgEgyCnseIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrEgyCnsegIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgEgyCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgEgyCnseDrivingCyc",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehChrgAvrgEgyCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehEgyCnseDrivingCyc",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehChrgEgyCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[2]"
+        },
+        {
+          "name": "VcuVehTmsTotEgyCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehDchaTotEgyCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehResiTotEgyCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehTotDrvEgyCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehDrvTotEgyCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehEgyCnseIn100km",
+          "type": "uint16"
+        },
+        {
+          "name": "padding1",
+          "type": "uint8"
+        },
+        {
+          "name": "padding2",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_VehEgyCnseInfo.Ntf_VehEgyPercInfo": {
+      "fields": [
+        {
+          "name": "VcuVehEgyPercDrvCyc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehEgyPercLongTime",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehChrgEgyPerc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehEgyPercInTripA",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehTmsEgyPercDrvCyc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehTmsEgyPercLongTime",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehChrgTmsEgyPerc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehTmsEgyPercInTripA",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehDchaEgyPercDrvCyc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehDchaEgyPercLongTime",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehChrgDchaEgyPerc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehDchaEgyPercInTripA",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehResiEgyPercDrvCyc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehResiEgyPercLongTime",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehChrgResiEgyPerc",
+          "type": "uint8"
+        },
+        {
+          "name": "VcuVehResiEgyPercInTripA",
+          "type": "uint8"
+        },
+        {
+          "name": "reserved1",
+          "type": "uint32"
+        },
+        {
+          "name": "reserved2",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Basc_VehEgyCnseInfo.Ntf_VehFuelCnseInfo": {
+      "fields": [
+        {
+          "name": "VcuVehDrvFuCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehFuelCnseInTripA",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehFuelCnseLongTimeAcce",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehAvrgFuelCnseLongTime",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgFuelCnseInTripA",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehFuelCnseIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehFuelCnseIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehFuelCnseIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgFuelCnseIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgFuelCnseIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrFuelCnsegIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgFuelCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgFuelCnseDrivingCyc",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehPwrSplyAvrgFuelCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehFuelCnseDrivingCyc",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehPwrSplyFuelCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehTmsTotFuelCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehDchaTotFuelCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehResiTotFuelCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehTotDrvFuelCnse",
+          "type": "uint32"
+        },
+        {
+          "name": "VcuVehAvrgTotCnseDrivingCyc",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgTotCnseLongTime",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehPwrSplyAvrgTotCnse",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgTotCnseInTripA",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgTotCnseIn10km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgTotCnseIn25km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehAvrgTotCnseIn50km",
+          "type": "uint16"
+        },
+        {
+          "name": "VcuVehFuelCnseIn100km",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Basc_VehEleAirSuspModSet.Ntf_VehEleAirSuspModSet": {
+      "fields": [
+        {
+          "name": "VehEleSuspModSet",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_VehEleAirSuspModSts.Ntf_VehEleAirSuspModSts": {
+      "fields": [
+        {
+          "name": "VehEleSuspModSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Basc_VehRdy.Ntf_VehRdy": {
+      "fields": [
+        {
+          "name": "VcuRdySts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_DchaSocLimitSet.Ntf_DchaSocLimitSet": {
+      "fields": [
+        {
+          "name": "DchaSocLimitSet",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Cnr_Intelligentcool.Ntf_Intelligentcool": {
+      "fields": [
+        {
+          "name": "Intelligentcool",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_MirrElecHeat.Ntf_MirrHeatSetSt": {
+      "fields": [
+        {
+          "name": "SwtStCmd",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_NFCKeyMag.Ntf_NFCKeyList": {
+      "fields": [
+        {
+          "name": "vDlc",
+          "type": "uint16"
+        },
+        {
+          "name": "pData",
+          "type": "uint8[255]"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Cnr_NFCKeyMag.Ntf_NFCKeyStudyInfo": {
+      "fields": [
+        {
+          "name": "CardID",
+          "type": "uint8[16]"
+        },
+        {
+          "name": "NFCKeyStudySt",
+          "type": "uint8"
+        },
+        {
+          "name": "NFCKeyeNum",
+          "type": "uint8"
+        },
+        {
+          "name": "NFCKeyiNum",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_RearDefrostHeat.Ntf_RearDefrostSetSt": {
+      "fields": [
+        {
+          "name": "SwtStCmd",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_RemotePsCtl.Ntf_RemtPsValidInfo": {
+      "fields": [
+        {
+          "name": "RemtPsValidSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "RemtPsValidity",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Cnr_TPMSWarn.Ntf_TireBurstInfo": {
+      "fields": [
+        {
+          "name": "TireBurstWarnFL",
+          "type": "uint8"
+        },
+        {
+          "name": "TireBurstWarnFR",
+          "type": "uint8"
+        },
+        {
+          "name": "TireBurstWarnRL",
+          "type": "uint8"
+        },
+        {
+          "name": "TireBurstWarnRR",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_TPMSWarn.Ntf_TireWarnInfo": {
+      "fields": [
+        {
+          "name": "TirePLowWarnFL",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLowWarnFR",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLowWarnRL",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLowWarnRR",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLeakWarnFL",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLeakWarnFR",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLeakWarnRL",
+          "type": "uint8"
+        },
+        {
+          "name": "TirePLeakWarnRR",
+          "type": "uint8"
+        },
+        {
+          "name": "TPMSSysFailrWarn",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Cnr_WinAllCtrl.Ntf_OperationCode": {
+      "fields": [
+        {
+          "name": "Request_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "Session_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "VehField",
+          "type": "uint8"
+        },
+        {
+          "name": "SourceMod",
+          "type": "uint8"
+        },
+        {
+          "name": "RtnCode",
+          "type": "uint16"
+        },
+        {
+          "name": "Counter",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Diag_AppErrorCode.Ntf_AppErrorCode": {
+      "fields": [
+        {
+          "name": "DiagDataByCarAEC",
+          "type": "string"
+        }
+      ]
+    },
+    "Enh_BoxLiAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_CenAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_DiagPhmUpload.Ntf_RealtimeData": {
+      "fields": [
+        {
+          "name": "RealtimeData",
+          "type": "string"
+        }
+      ]
+    },
+    "Enh_DiagPhmUpload.Ntf_ThresholdTriggerData": {
+      "fields": [
+        {
+          "name": "ThresholdTriggerData",
+          "type": "string"
+        }
+      ]
+    },
+    "Enh_DomeLiAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_FLDoorAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_FRDoorAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_FootLiAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_HUDAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_LeftAPillarAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_LockFL.Ntf_MotRotateReason": {
+      "fields": [
+        {
+          "name": "MotCtrlRsn",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Enh_LockFR.Ntf_MotRotateReason": {
+      "fields": [
+        {
+          "name": "MotCtrlRsn",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Enh_LockRL.Ntf_MotRotateReason": {
+      "fields": [
+        {
+          "name": "MotCtrlRsn",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Enh_LockRR.Ntf_MotRotateReason": {
+      "fields": [
+        {
+          "name": "MotCtrlRsn",
+          "type": "uint16"
+        }
+      ]
+    },
+    "Enh_PerfumeAmbLiGuide.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_PowerShiftDrv.Ntf_PowerShiftSwtSt": {
+      "wrapper": "secure",
+      "fields": [
+        {
+          "name": "message",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[1]"
+        }
+      ]
+    },
+    "Enh_PowerShiftDrv.Ntf_PwrPinRstInfo": {
+      "fields": [
+        {
+          "name": "VIUPwrPortRstInfo",
+          "type": "uint8[200]"
+        }
+      ]
+    },
+    "Enh_RLDoorAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_RRDoorAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_RightAPillarAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Enh_SeatAmbLiLine.Ntf_LoglCtrlSt": {
+      "fields": [
+        {
+          "name": "Contr",
+          "type": "uint8"
+        },
+        {
+          "name": "ModeContr",
+          "type": "uint8"
+        },
+        {
+          "name": "ColourContr1",
+          "type": "uint16"
+        },
+        {
+          "name": "ColourContr2",
+          "type": "uint16"
+        },
+        {
+          "name": "DimLevel1",
+          "type": "uint8"
+        },
+        {
+          "name": "TimeContr1",
+          "type": "uint8"
+        },
+        {
+          "name": "AmbLiCounter",
+          "type": "uint8"
+        },
+        {
+          "name": "RegnDir",
+          "type": "uint8"
+        }
+      ]
+    },
+    "SDM_DeviceManagement.Ntf_DeviceStatus": {
+      "fields": [
+        {
+          "name": "stuid",
+          "type": "string"
+        },
+        {
+          "name": "deviceType",
+          "type": "string"
+        },
+        {
+          "name": "deviceName",
+          "type": "string"
+        },
+        {
+          "name": "status",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_2",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "errorInfo",
+          "type": "string"
+        },
+        {
+          "name": "paramInfo",
+          "type": "string"
+        },
+        {
+          "name": "typeStsInfo",
+          "type": "string"
+        }
+      ]
+    },
+    "SceProgram_ReportMsgCloud.Ntf_SceProRepMsgCellph": {
+      "fields": [
+        {
+          "name": "Message",
+          "type": "string"
+        }
+      ]
+    },
+    "Sys_ApproachDoorLockCtrl.Ntf_DoorLockSysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqLock",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_CanPwrCalcn.Ntf_CanPwrCalcn": {
+      "fields": [
+        {
+          "name": "HVBatPwrRecyclePwr",
+          "type": "uint32"
+        },
+        {
+          "name": "HVBatChrgPwr",
+          "type": "uint32"
+        },
+        {
+          "name": "MotDrvCns",
+          "type": "uint32"
+        },
+        {
+          "name": "MotRecyclePwr",
+          "type": "uint32"
+        },
+        {
+          "name": "DCACPwrCns",
+          "type": "uint32"
+        },
+        {
+          "name": "PTCPwrCns",
+          "type": "uint32"
+        },
+        {
+          "name": "RePTCPwrCns",
+          "type": "uint32"
+        },
+        {
+          "name": "ACPPwrCns",
+          "type": "uint32"
+        },
+        {
+          "name": "DCDCPwrCns",
+          "type": "uint32"
+        },
+        {
+          "name": "ItmsCoolFAN_Power",
+          "type": "uint32"
+        },
+        {
+          "name": "EPSPower",
+          "type": "uint32"
+        },
+        {
+          "name": "EgyCnseLongTime",
+          "type": "uint32"
+        },
+        {
+          "name": "ITMSReWindPower",
+          "type": "uint32"
+        },
+        {
+          "name": "Ser_ItmsCoolFAN_Power",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Sys_IntLoBattChrg.Ntf_IBSWUTreshold": {
+      "fields": [
+        {
+          "name": "SOCWUTreshold",
+          "type": "uint8"
+        },
+        {
+          "name": "DisChrgCurrWUTreshold",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Sys_IntLoBattChrg.Ntf_LoBattChrgInfo": {
+      "fields": [
+        {
+          "name": "LoChrgTimeCost",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgCnt",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgEndReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgstartReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgTriggerReason",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgAbnormalEndTotalCnt",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgAbnormalEndconstCnt",
+          "type": "uint8"
+        },
+        {
+          "name": "LoChrgfuncsts",
+          "type": "uint8"
+        },
+        {
+          "name": "WUTypeRequest",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "WUTimingSetting",
+          "type": "uint32"
+        },
+        {
+          "name": "WUADSetting",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        }
+      ]
+    },
+    "Sys_IntLoBattChrg.Ntf_WUTypeIntLo": {
+      "fields": [
+        {
+          "name": "WUTypeFb",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_3",
+          "type": "uint8[3]"
+        },
+        {
+          "name": "SleepingTime",
+          "type": "uint32"
+        },
+        {
+          "name": "SCRWUUvalueStandard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU1Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU2Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU3Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU4Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU5Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU6Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU7Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU8Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU9Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU10Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU11Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "sleptBattU12Standard",
+          "type": "uint16"
+        },
+        {
+          "name": "WUTotalCnt",
+          "type": "uint16"
+        },
+        {
+          "name": "LowUWUCnt",
+          "type": "uint16"
+        },
+        {
+          "name": "CANWUCnt",
+          "type": "uint16"
+        },
+        {
+          "name": "TimerWUCnt",
+          "type": "uint16"
+        },
+        {
+          "name": "OthersWUCnt",
+          "type": "uint16"
+        },
+        {
+          "name": "LowUTriggerCnt",
+          "type": "uint16"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[2]"
+        }
+      ]
+    },
+    "Sys_IntLoBattChrg.Ntf_monitorFRUvalue": {
+      "fields": [
+        {
+          "name": "monitorFRUvalue",
+          "type": "uint8[100]"
+        }
+      ]
+    },
+    "Sys_KeyManageHandle.Ntf_KeyData": {
+      "fields": [
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyAuthSt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_4",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "KeyZone",
+          "type": "uint16"
+        },
+        {
+          "name": "approachZone",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_5",
+          "type": "uint8[1]"
+        },
+        {
+          "name": "RKECmd",
+          "type": "uint32"
+        },
+        {
+          "name": "KPRE",
+          "type": "uint8[4]"
+        },
+        {
+          "name": "CurrentTime",
+          "type": "uint32"
+        },
+        {
+          "name": "StartTime",
+          "type": "uint32"
+        },
+        {
+          "name": "EndTime",
+          "type": "uint32"
+        },
+        {
+          "name": "KeyBattSt",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyErrSt",
+          "type": "uint8"
+        },
+        {
+          "name": "CardID",
+          "type": "uint8[16]"
+        },
+        {
+          "name": "UserID",
+          "type": "uint8[40]"
+        },
+        {
+          "name": "ProtType",
+          "type": "uint8"
+        },
+        {
+          "name": "SType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyOpCmd",
+          "type": "uint8"
+        },
+        {
+          "name": "RKEcmdCnt",
+          "type": "uint8"
+        },
+        {
+          "name": "padding_6",
+          "type": "uint8[2]"
+        }
+      ]
+    },
+    "Sys_KeyManageHandle.Ntf_PepsKeyValidSts": {
+      "fields": [
+        {
+          "name": "PepsKeyValidSts",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_LoChrgfun.Ntf_LoChrgfuncsts": {
+      "fields": [
+        {
+          "name": "LoUMode",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Sys_LockCarMod.Ntf_DropOutRea": {
+      "fields": [
+        {
+          "name": "DropOutRea",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Sys_LockCarMod.Ntf_LockCarMod": {
+      "fields": [
+        {
+          "name": "LockCarmod",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Sys_PEDoorLockCtrl.Ntf_DoorLockSysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqLock",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_PSFindKey.Ntf_PSFindKeySysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqPSPwr",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_PowGearMgt.Ntf_PowMgtSts": {
+      "fields": [
+        {
+          "name": "PowMgtSts",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Sys_RKEDoorLockCtrl.Ntf_DoorLockSysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqLock",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_RKEDoorLockCtrl.Ntf_OperationCode": {
+      "fields": [
+        {
+          "name": "Request_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "Session_ID",
+          "type": "uint32"
+        },
+        {
+          "name": "VehField",
+          "type": "uint8"
+        },
+        {
+          "name": "SourceMod",
+          "type": "uint8"
+        },
+        {
+          "name": "RtnCode",
+          "type": "uint16"
+        },
+        {
+          "name": "Counter",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Sys_RKESeekCarCtrl.Ntf_SeekCarSysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqSeek",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_RKETrunkUnLockCtrl.Ntf_TrunkSysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqTrunk",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_RKEWinCtrl.Ntf_WinSysKeyDrv": {
+      "fields": [
+        {
+          "name": "KeyReqWin",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyIndex",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyType",
+          "type": "uint8"
+        },
+        {
+          "name": "KeyID",
+          "type": "uint8[16]"
+        }
+      ]
+    },
+    "Sys_TiOutPowerSaving.Ntf_TiOutWarn": {
+      "fields": [
+        {
+          "name": "TiOutWarn",
+          "type": "uint8"
+        }
+      ]
+    },
+    "Sys_TotalMilg.Ntf_ReevTotalMilg": {
+      "fields": [
+        {
+          "name": "FuTotalMilg",
+          "type": "uint32"
+        },
+        {
+          "name": "EvTotalMilg",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Sys_VIUFLPwrCalcn.Ntf_VIUFLPwrCalcn": {
+      "fields": [
+        {
+          "name": "Pin1Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin2Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin3Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin4Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin5Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin6Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin7Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin8Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin9Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin10Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin11Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin12Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin13Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin14Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin15Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin16Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin17Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin18Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin19Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin20Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin21Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin22Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin23Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin24Pwr",
+          "type": "uint32"
+        }
+      ]
+    },
+    "Sys_VIUFRPwrCalcn.Ntf_VIUFRPwrCalcn": {
+      "fields": [
+        {
+          "name": "Pin25Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin26Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin27Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin28Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin29Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin30Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin31Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin32Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin33Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin34Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin35Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin36Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin37Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin38Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin39Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin40Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin41Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin42Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin43Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin44Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin45Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin46Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin47Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin48Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin49Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin50Pwr",
+          "type": "uint32"
+        },
+        {
+          "name": "Pin51Pwr",
+          "type": "uint32"
+        }
+      ]
+    }
+  }
+}
