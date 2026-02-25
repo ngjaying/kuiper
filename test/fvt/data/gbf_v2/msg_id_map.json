@@ -1,0 +1,15 @@
+{
+    "version": "v1",
+    "entries": [
+        {
+            "msg_id": 12345,
+            "type": 2,
+            "key": "Basc_EPSBasInfo_Proxy.Ntf_EPSBasInfo"
+        },
+        {
+            "msg_id": 9999,
+            "type": 2,
+            "key": "Steer_WheelAngleSensor.Ntf_WheelAngle"
+        }
+    ]
+}

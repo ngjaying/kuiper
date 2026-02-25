@@ -1,0 +1,60 @@
+{
+    "name": "unified_v1",
+    "version": "1.0",
+    "structure": {
+        "type": "struct",
+        "fields": [
+            {
+                "name": "packet_ts",
+                "type": "u64be"
+            },
+            {
+                "name": "type_id",
+                "type": "u8"
+            },
+            {
+                "name": "total_len",
+                "type": "u32be"
+            },
+            {
+                "name": "payloads",
+                "type": "sequence",
+                "length_ref": "total_len",
+                "item": {
+                    "type": "struct",
+                    "fields": [
+                        {
+                            "name": "msg_id",
+                            "type": "u16be"
+                        },
+                        {
+                            "name": "len",
+                            "type": "u16be"
+                        },
+                        {
+                            "name": "data",
+                            "type": "bytes",
+                            "length_ref": "len",
+                            "format_config_ref": {
+                                "map": "PayloadConfig",
+                                "key": "type_id"
+                            },
+                            "format_arg_ref": "msg_id"
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "types": {
+        "PayloadConfig": {
+            "2": {
+                "format": "abi",
+                "schema_id": "unified_v1.abi.json",
+                "ext_props": {
+                    "mapping_path": "/home/ngjaying/repo/mande/ekbuild/test/fvt/data/gbf_v2/msg_id_map.json"
+                }
+            }
+        }
+    }
+}

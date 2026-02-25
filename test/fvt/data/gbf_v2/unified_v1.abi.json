@@ -1,0 +1,49 @@
+{
+    "endian": "little",
+    "structs": {
+        "Basc_EPSBasInfo_Proxy.Ntf_EPSBasInfo": {
+            "fields": [
+                {
+                    "name": "TgtMotorMotorTorq",
+                    "type": "uint16"
+                },
+                {
+                    "name": "MeasuredTorsionBarTorque",
+                    "type": "uint16"
+                },
+                {
+                    "name": "reserved0",
+                    "type": "uint8[12]"
+                },
+                {
+                    "name": "LostComFltSts1",
+                    "type": "uint8"
+                },
+                {
+                    "name": "reserved1",
+                    "type": "uint8[3]"
+                },
+                {
+                    "name": "Reserved1",
+                    "type": "uint32"
+                }
+            ]
+        },
+        "Steer_WheelAngleSensor.Ntf_WheelAngle": {
+            "fields": [
+                {
+                    "name": "SteerWheelAngle",
+                    "type": "int16"
+                },
+                {
+                    "name": "SteerWheelAngleSpeed",
+                    "type": "int16"
+                },
+                {
+                    "name": "reserved",
+                    "type": "uint8[4]"
+                }
+            ]
+        }
+    }
+}

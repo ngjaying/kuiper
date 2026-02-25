@@ -27,8 +27,10 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/cast"
 
 	"github.com/emqx/ekuiper_can/converter/avro"
+	converterAbi "github.com/emqx/ekuiper_can/converter/abi"
 	converterCan "github.com/emqx/ekuiper_can/converter/can"
 	"github.com/emqx/ekuiper_can/converter/canjson"
+	convgbf "github.com/emqx/ekuiper_can/converter/gbf"
 	convidl "github.com/emqx/ekuiper_can/converter/idl"
 	"github.com/emqx/ekuiper_can/converter/jsonColStr"
 	"github.com/emqx/ekuiper_can/converter/ocf"
@@ -40,7 +42,9 @@ import (
 	"github.com/emqx/ekuiper_can/io/file_hook"
 	"github.com/emqx/ekuiper_can/io/nano"
 	"github.com/emqx/ekuiper_can/io/query"
+	abiSchema "github.com/emqx/ekuiper_can/schema/abi"
 	"github.com/emqx/ekuiper_can/schema/dbc"
+	schemaGbf "github.com/emqx/ekuiper_can/schema/gbf"
 	spiSchema "github.com/emqx/ekuiper_can/schema/spi"
 
 	"github.com/lf-edge/ekuiper/v2/extensions/impl/video"
@@ -62,6 +66,29 @@ func init() {
 	modules.RegisterSource("video", video.GetSource)
 	// From Others
 	modules.RegisterConverter("gbf", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+		return convgbf.NewGbfConverter(ctx, idlPath, schema, props)
+	})
+	modules.RegisterMerger("gbf", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
+		c, err := convgbf.NewGbfConverter(ctx, idlPath, logicalSchema, props)
+		if err != nil {
+			return nil, err
+		}
+		return c.(modules.Merger), err
+	})
+	modules.RegisterSchemaType("gbf", &schemaGbf.GbfType{}, ".gbf.json")
+	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
+	modules.RegisterConverterSchemas("gbf", "gbf")
+	modules.RegisterConverterSchemas("idl", "idl")
+
+	// ABI format (C struct binary decoding)
+	modules.RegisterConverter("abi", func(ctx api.StreamContext, schemaPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
+		return converterAbi.NewABIConverter(ctx, schemaPath, logicalSchema, props)
+	})
+	modules.RegisterSchemaType("abi", &abiSchema.AbiType{}, ".json")
+	modules.RegisterConverterSchemas("abi", "abi")
+
+	// deprecate spi, to be removed. Now point to legacy spi implementation
+	modules.RegisterConverter("spi", func(ctx api.StreamContext, idlPath string, schema map[string]*ast.JsonStreamField, props map[string]any) (message.Converter, error) {
 		sp := &spiProp{}
 		err := cast.MapToStruct(props, sp)
 		if err != nil {
@@ -69,7 +96,7 @@ func init() {
 		}
 		return spi.NewSpi(ctx, idlPath, schema, sp.Subtype, sp.IsLittleEndian, props)
 	})
-	modules.RegisterMerger("gbf", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
+	modules.RegisterMerger("spi", func(ctx api.StreamContext, idlPath string, logicalSchema map[string]*ast.JsonStreamField, props map[string]any) (modules.Merger, error) {
 		sp := &spiProp{}
 		err := cast.MapToStruct(props, sp)
 		if err != nil {
@@ -81,14 +108,6 @@ func init() {
 		}
 		return f.(modules.Merger), err
 	})
-	modules.RegisterSchemaType("gbf", &spiSchema.IdlType{}, ".idl")
-	modules.RegisterSchemaType("idl", &idl.IdlType{}, ".idl")
-	modules.RegisterConverterSchemas("gbf", "gbf")
-	modules.RegisterConverterSchemas("idl", "idl")
-
-	// deprecate spi, to be removed. Now point to gbf
-	modules.RegisterConverter("spi", modules.Converters["gbf"])
-	modules.RegisterMerger("spi", modules.Mergers["gbf"])
 	modules.RegisterSchemaType("spi", &spiSchema.IdlType{}, ".idl")
 	modules.RegisterConverterSchemas("spi", "spi")
 

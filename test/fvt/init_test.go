@@ -18,12 +18,16 @@ import (
 	"fmt"
 	"io/fs"
 	"log"
+	"net/http"
 	"os"
 	"path/filepath"
 	"strings"
 	"time"
 
+	_ "github.com/emqx/ekuiper_build/modules"
+	"github.com/lf-edge/ekuiper/v2/cmd"
 	"github.com/lf-edge/ekuiper/v2/fvt"
+	"github.com/lf-edge/ekuiper/v2/pkg/timex"
 )
 
 const (
@@ -73,5 +77,38 @@ func init() {
 	client, err = fvt.NewSdk(URL)
 	if err != nil {
 		log.Fatal(err)
+	}
+
+	timex.IsTesting = false
+	timex.InitClock()
+	// Create dirs that build_prepare creates, in case they're missing
+	os.MkdirAll(filepath.Join(EKPWD, "data"), 0755)
+	os.MkdirAll(filepath.Join(EKPWD, "log"), 0755)
+	os.MkdirAll(filepath.Join(EKPWD, "plugins", "sources"), 0755)
+	os.MkdirAll(filepath.Join(EKPWD, "plugins", "sinks"), 0755)
+	os.MkdirAll(filepath.Join(EKPWD, "plugins", "functions"), 0755)
+	os.MkdirAll(filepath.Join(EKPWD, "etc", "services"), 0755)
+	// Pre-create schema directories for every registered schema type so that
+	// This avoids the need to copy all config files to CWD and works regardless of
+	// whether EKPWD is a subdirectory of CWD or not.
+	os.Setenv("KuiperBaseKey", EKPWD)
+	// Start eKuiper in-process.
+	// Clear os.Args so eKuiper's logger doesn't see -test.* flags which would set
+	// IsTesting=true and redirect all paths to "service/test" (panic if missing).
+	os.Args = []string{"kuiperd"}
+	cmd.Version = "fvt"
+	go cmd.Main()
+	count := 10
+	for count > 0 {
+		time.Sleep(ConstantInterval)
+		resp, err := client.Get("ping")
+		if err == nil && resp.StatusCode == http.StatusOK {
+			fmt.Println("service ready")
+			break
+		}
+		count--
+	}
+	if count == 0 {
+		fmt.Println("service not ready after 10 tries")
 	}
 }

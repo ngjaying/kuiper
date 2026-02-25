@@ -939,8 +939,8 @@ github.com/emqx/arxml-converter v0.1.1-0.20251205070047-e29e33b01f45 h1:BRIDuwLb
 github.com/emqx/arxml-converter v0.1.1-0.20251205070047-e29e33b01f45/go.mod h1:/bDQPlMWuZMJ8068oZ6HL+jE3NBXVMZ2ybSV0UX5++8=
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021 h1:wghOfqkrrwt3r0nWHhj1xJXKCsw049Fw4EuUU2H+9MQ=
 github.com/emqx/can v1.1.2-0.20250715025730-fefa6a1df021/go.mod h1:UKDsSpm3OalMIuuxa5wvt8xg/QEAkNrZh4S2RNbfDFA=
-github.com/emqx/ekuiper_can v1.4.1-0.20260202105401-05dcf9c679e7 h1:ML86V/mbqWoc3WoOt23pwWrsGKkWrVj2N0bcgUQ/0uo=
-github.com/emqx/ekuiper_can v1.4.1-0.20260202105401-05dcf9c679e7/go.mod h1:tpgBj0iuTGR3SiuEsH9Ajuhinwjtgr8w2xuGB+FOZMA=
+github.com/emqx/ekuiper_can v1.4.1-0.20260225034559-99a956937293 h1:+uXVBwJFgN4kF9tCTuPVjxF1R8dexpJL7/NtM3UfBVc=
+github.com/emqx/ekuiper_can v1.4.1-0.20260225034559-99a956937293/go.mod h1:tpgBj0iuTGR3SiuEsH9Ajuhinwjtgr8w2xuGB+FOZMA=
 github.com/emqx/idl-parser v0.1.2 h1:dJbHMn5WlIpoNXh/TNNUNQRjW3NG98IZwCnhXnwM9Zg=
 github.com/emqx/idl-parser v0.1.2/go.mod h1:MjXtURK32mdCE4VhlTjmPSoFPo5Hc30+fWoGJ+l4Z94=
 github.com/envoyproxy/go-control-plane v0.9.0/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
