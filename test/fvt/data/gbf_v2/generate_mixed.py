@@ -34,7 +34,7 @@ drive_payload = bytes.fromhex("6413880000000000")
 # GPS (423=0x1A7)
 gps_payload = bytes.fromhex("32C8000000000000")
 
-ts = 1600000000
+ts = 1700000000000
 
 packets = []
 # Packet 1: ABI Mixed (EPS)

@@ -10,11 +10,13 @@
             },
             {
                 "name": "type_id",
-                "type": "u8"
+                "type": "u8",
+                "hide": true
             },
             {
                 "name": "total_len",
-                "type": "u32be"
+                "type": "u32be",
+                "hide": true
             },
             {
                 "name": "payloads",
