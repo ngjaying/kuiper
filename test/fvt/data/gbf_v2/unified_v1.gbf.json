@@ -5,7 +5,7 @@
         "type": "struct",
         "fields": [
             {
-                "name": "packet_ts",
+                "name": "ts",
                 "type": "u64be"
             },
             {

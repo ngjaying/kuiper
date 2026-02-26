@@ -1,0 +1,20 @@
+flag provided but not defined: -test.testlogfile
+Usage of ek:
+  -data string
+    	data indicates the path of data dir
+  -etc string
+    	etc indicates the path of etc dir
+  -loadFileType string
+    	loadFileType indicates the how to load path
+  -log string
+    	log indicates the path of log dir
+  -plugins string
+    	plugins indicates the path of plugins dir
+Current PWD: /home/ngjaying/repo/mande/ekbuild
+Current EKPWD: /home/ngjaying/repo/mande/ekbuild/_build/kuiper-v2.4.0-beta.3-1-gae229348-linux-amd64
+mqtt dynamic config channel connected
+Register prometheus metrics to http://localhost:9081/metrics
+Serving kuiper (version - fvt) on port 20498, and restful api on http://127.0.0.1:9081.
+service ready
+PASS
+ok  	github.com/emqx/ekuiper_build/test/fvt	0.914s

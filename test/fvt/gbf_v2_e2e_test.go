@@ -198,7 +198,7 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		s.Require().NoError(err)
 		s.T().Logf("P0 result: %s", resultsCopy[0])
 		expected0 := map[string]interface{}{
-			"packet_ts":                1700000000000.0,
+			"ts":                       1700000000000.0,
 			"LostComFltSts1":           0.0,
 			"MeasuredTorsionBarTorque": 7889.0,
 			"Reserved1":                0.0,
@@ -214,7 +214,7 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		s.Require().NoError(err)
 		s.T().Logf("P1 result: %s", resultsCopy[1])
 		expected1 := map[string]interface{}{
-			"packet_ts":          1700000000001.0,
+			"ts":                 1700000000001.0,
 			"DRIVE$Acceleration": -1.0,
 			"DRIVE$Angle":        100.0,
 			"DRIVE$Speed":        12.5,
@@ -232,7 +232,7 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		s.Require().NoError(err)
 		s.T().Logf("P2 result: %s", resultsCopy[2])
 		expected2 := map[string]interface{}{
-			"packet_ts":            1700000000002.0,
+			"ts":                   1700000000002.0,
 			"SteerWheelAngle":      -1234.0,
 			"SteerWheelAngleSpeed": 5678.0,
 			"len":                  8.0,
@@ -246,7 +246,7 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		s.Require().NoError(err)
 		s.T().Logf("P3 result: %s", resultsCopy[3])
 		expected3 := map[string]interface{}{
-			"packet_ts":      1700000000003.0,
+			"ts":             1700000000003.0,
 			"GPS$Altitude":   -1000.0,
 			"GPS$Latitude":   -25.0,
 			"GPS$Longtitude": -180.0,

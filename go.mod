@@ -4,7 +4,7 @@ go 1.25.4
 
 require (
 	github.com/eclipse/paho.mqtt.golang v1.5.1
-	github.com/emqx/ekuiper_can v1.4.1-0.20260226022846-a87c1c3271f2
+	github.com/emqx/ekuiper_can v1.4.1-0.20260226033447-aeb6d8de2acd
 	github.com/lf-edge/ekuiper/contract/v2 v2.3.1
 	github.com/lf-edge/ekuiper/v2 v2.4.0-beta.3
 	github.com/stretchr/testify v1.11.1
@@ -393,7 +393,6 @@ require (
 
 replace github.com/segmentio/kafka-go => github.com/yisaer/kafka-go v0.0.0-20250314054731-4abde56ff0ac
 
-//replace github.com/emqx/ekuiper_can => ../ekuiper_can
 
 //
 //replace github.com/lf-edge/ekuiper/contract/v2 => ../github.com/lfedge/ekuiper/contract
