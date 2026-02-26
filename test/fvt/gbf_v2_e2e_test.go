@@ -35,11 +35,11 @@ func (s *GBFV2TestSuite) TearDownSuite() {
 }
 
 func (s *GBFV2TestSuite) SetupTest() {
-	// Clean up any existing schemas or streams created from tests
 	client.DeleteStream("gbftest")
 	client.DeleteRule("rule_gbf_e2e")
 	client.Delete("schemas/gbf/unified_v1")
 	client.Delete("schemas/abi/test_abi")
+	client.Delete("schemas/dbc/test_dbc")
 }
 
 func (s *GBFV2TestSuite) TearDownTest() {
@@ -47,6 +47,7 @@ func (s *GBFV2TestSuite) TearDownTest() {
 	client.DeleteRule("rule_gbf_e2e")
 	client.Delete("schemas/gbf/unified_v1")
 	client.Delete("schemas/abi/test_abi")
+	client.Delete("schemas/dbc/test_dbc")
 }
 
 func (s *GBFV2TestSuite) TestGBFV2() {
@@ -65,12 +66,20 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		_, err = client.Post("schemas/abi", `{"name":"test_abi","content":`+string(abiContentStr)+`}`)
 		require.NoError(s.T(), err)
 
+		// 2. Register DBC underlying schema
+		dbcContent, err := os.ReadFile("data/gbf_v2/demo.dbc")
+		require.NoError(s.T(), err)
+		dbcContentStr, _ := json.Marshal(string(dbcContent))
+		_, err = client.Post("schemas/dbc", `{"name":"test_dbc","content":`+string(dbcContentStr)+`}`)
+		require.NoError(s.T(), err)
+
 		var gbfMap map[string]interface{}
 		err = json.Unmarshal(gbfContent, &gbfMap)
 		require.NoError(s.T(), err)
 
 		abiSchemaPath := "/tmp/unified_v1.abi.json"
 		abiMappingPath := "/tmp/msg_id_map.json"
+		dbcSchemaPath := "/tmp/demo.dbc"
 
 		err = os.WriteFile(abiSchemaPath, abiContent, 0644)
 		require.NoError(s.T(), err)
@@ -80,12 +89,21 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		err = os.WriteFile(abiMappingPath, abiMapContent, 0644)
 		require.NoError(s.T(), err)
 
+		err = os.WriteFile(dbcSchemaPath, dbcContent, 0644)
+		require.NoError(s.T(), err)
+
 		types := gbfMap["types"].(map[string]interface{})
 		payloadConfig := types["PayloadConfig"].(map[string]interface{})
+
+		// Update ABI Config
 		config2 := payloadConfig["2"].(map[string]interface{})
 		config2["schema_id"] = abiSchemaPath
-		extProps := config2["ext_props"].(map[string]interface{})
-		extProps["mapping_path"] = abiMappingPath
+		extProps2 := config2["ext_props"].(map[string]interface{})
+		extProps2["mapping_path"] = abiMappingPath
+
+		// Update DBC Config
+		config1 := payloadConfig["1"].(map[string]interface{})
+		config1["schema_id"] = dbcSchemaPath
 
 		gbfContentModified, _ := json.Marshal(gbfMap)
 		gbfContentStr, _ := json.Marshal(string(gbfContentModified))
@@ -118,7 +136,7 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		s.Require().NoError(err)
 		if resp.StatusCode != 201 {
 			body, _ := io.ReadAll(resp.Body)
-			s.T().Logf("Failed to create rule %s", string(body))
+			s.T().Fatalf("Failed to create rule: %s", string(body))
 		}
 		s.Require().Equal(201, resp.StatusCode)
 
@@ -162,7 +180,7 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 		s.Require().NoError(err)
 		s.Require().Equal("running", metrics["status"])
 
-		// Expecting 4 records: 3x EPS (msg_id 12345) + 1x Steer (msg_id 9999)
+		// Expecting 4 output events (one for each GBF packet)
 		s.Require().Equal(4.0, metrics["source_gbftest_0_records_in_total"])
 		s.Require().Equal(4.0, metrics["sink_mqtt_0_0_records_out_total"])
 
@@ -174,31 +192,64 @@ func (s *GBFV2TestSuite) TestGBFV2() {
 
 		s.Require().Equal(4, len(resultsCopy))
 
-		// result[0] → row 1: EPS msg_id=12345, TgtMotorMotorTorq=20683, MeasuredTorsionBarTorque=7889
-		var epsResult map[string]interface{}
-		err = json.Unmarshal([]byte(resultsCopy[0]), &epsResult)
+		// Packet 0 → ABI: EPS msg_id=12345
+		var res0 map[string]interface{}
+		err = json.Unmarshal([]byte(resultsCopy[0]), &res0)
 		s.Require().NoError(err)
-		s.T().Logf("EPS result: %s", resultsCopy[0])
-		expectedEPS := map[string]interface{}{
-			"TgtMotorMotorTorq":        float64(20683), // 0x50cb
-			"MeasuredTorsionBarTorque": float64(7889),  // 0x1ed1
-			"LostComFltSts1":           float64(0),
-			"Reserved1":                float64(0),
+		s.T().Logf("P0 result: %s", resultsCopy[0])
+		expected0 := map[string]interface{}{
+			"LostComFltSts1":           0.0,
+			"MeasuredTorsionBarTorque": 7889.0,
+			"Reserved1":                0.0,
+			"TgtMotorMotorTorq":        20683.0,
+			"len":                      24.0,
+			"msg_id":                   12345.0,
 		}
-		s.Require().Equal(expectedEPS, epsResult)
+		s.Require().Equal(expected0, res0)
 
-		// result[3] → row 4: Steer msg_id=9999, SteerWheelAngle=-1234, SteerWheelAngleSpeed=5678
-		var steerResult map[string]interface{}
-		err = json.Unmarshal([]byte(resultsCopy[3]), &steerResult)
+		// Packet 1 → DBC: DRIVE (485) + GPS (423) -> Flattened/Merged
+		var res1 map[string]interface{}
+		err = json.Unmarshal([]byte(resultsCopy[1]), &res1)
 		s.Require().NoError(err)
-		s.T().Logf("Steer result: %s", resultsCopy[3])
-		expectedSteer := map[string]interface{}{
-			"SteerWheelAngle":      float64(-1234),
-			"SteerWheelAngleSpeed": float64(5678),
+		s.T().Logf("P1 result: %s", resultsCopy[1])
+		expected1 := map[string]interface{}{
+			"DRIVE$Acceleration": -1.0,
+			"DRIVE$Angle":        100.0,
+			"DRIVE$Speed":        12.5,
+			"GPS$Altitude":       -1000.0,
+			"GPS$Latitude":       -25.0,
+			"GPS$Longtitude":     -180.0,
+			"len":                8.0,
+			"msg_id":             423.0,
 		}
-		for k, v := range expectedSteer {
-			s.Require().Equal(v, steerResult[k], "field %s", k)
+		s.Require().Equal(expected1, res1)
+
+		// Packet 2 → ABI: Steer msg_id=9999
+		var res2 map[string]interface{}
+		err = json.Unmarshal([]byte(resultsCopy[2]), &res2)
+		s.Require().NoError(err)
+		s.T().Logf("P2 result: %s", resultsCopy[2])
+		expected2 := map[string]interface{}{
+			"SteerWheelAngle":      -1234.0,
+			"SteerWheelAngleSpeed": 5678.0,
+			"len":                  8.0,
+			"msg_id":               9999.0,
 		}
+		s.Require().Equal(expected2, res2)
+
+		// Packet 3 → DBC: GPS (423)
+		var res3 map[string]interface{}
+		err = json.Unmarshal([]byte(resultsCopy[3]), &res3)
+		s.Require().NoError(err)
+		s.T().Logf("P3 result: %s", resultsCopy[3])
+		expected3 := map[string]interface{}{
+			"GPS$Altitude":   -1000.0,
+			"GPS$Latitude":   -25.0,
+			"GPS$Longtitude": -180.0,
+			"len":            8.0,
+			"msg_id":         423.0,
+		}
+		s.Require().Equal(expected3, res3)
 	})
 }
 

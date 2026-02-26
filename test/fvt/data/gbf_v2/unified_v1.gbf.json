@@ -48,6 +48,14 @@
     },
     "types": {
         "PayloadConfig": {
+            "1": {
+                "format": "dbc",
+                "schema_id": "demo.dbc",
+                "ext_props": {
+                    "flat": true,
+                    "is_long_name": true
+                }
+            },
             "2": {
                 "format": "abi",
                 "schema_id": "unified_v1.abi.json",
