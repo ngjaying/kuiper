@@ -84,6 +84,7 @@ func (m *MockSource) Subscribe(ctx api.StreamContext, ingest api.TupleIngest, in
 		}
 	}
 	log.Debugf("mock source sends out all data")
+	time.Sleep(50 * time.Millisecond)
 	m.eof(ctx, "")
 	return nil
 }

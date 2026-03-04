@@ -601,13 +601,13 @@ func TestWindow(t *testing.T) {
 			M: map[string]interface{}{
 				"op_2_window_0_exceptions_total":  int64(0),
 				"op_2_window_0_records_in_total":  int64(5),
-				"op_2_window_0_records_out_total": int64(3),
+				"op_2_window_0_records_out_total": int64(4),
 
-				"op_6_join_aligner_0_records_in_total":  int64(6),
-				"op_6_join_aligner_0_records_out_total": int64(3),
+				"op_6_join_aligner_0_records_in_total":  int64(7),
+				"op_6_join_aligner_0_records_out_total": int64(4),
 
 				"op_7_join_0_exceptions_total":  int64(0),
-				"op_7_join_0_records_in_total":  int64(3),
+				"op_7_join_0_records_in_total":  int64(4),
 				"op_7_join_0_records_out_total": int64(1),
 
 				"sink_memory_0_0_exceptions_total":  int64(0),

@@ -1064,7 +1064,7 @@ func (suite *RestTestSuite) TestWaitStopRule() {
 	}
 	time.Sleep(100 * time.Millisecond)
 
-	now = time.Now()
+	now := time.Now()
 	// stop rule
 	req, _ = http.NewRequest(http.MethodPost, "http://localhost:8080/rules/rule221/stop", bytes.NewBufferString("any"))
 	w = httptest.NewRecorder()
