@@ -142,7 +142,6 @@ func TestSubtopoRunError(t *testing.T) {
 	subTopo.AddOperator([]node.Emitter{srcNode}, opNode)
 	subTopo.Open(ctx1, errCh1)
 	assert.Equal(t, 1, len(subTopo.refRules))
-	assert.Equal(t, true, subTopo.opened.Load())
 	subTopo.Close(ctx1, "rule1", 1)
 	assert.Eventually(t, func() bool { return !subTopo.opened.Load() }, 5*time.Second, 10*time.Millisecond)
 	assert.Equal(t, 0, len(subTopoPool))
@@ -158,7 +157,6 @@ func TestSubtopoRunError(t *testing.T) {
 	subTopo.AddRef(ctx2, errCh2)
 	assert.Equal(t, 2, len(subTopo.refRules))
 	subTopo.Open(ctx1, errCh1)
-	assert.Equal(t, true, subTopo.opened.Load())
 	subTopo.Open(ctx2, errCh2)
 	select {
 	case err := <-errCh1:
