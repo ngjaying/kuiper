@@ -118,6 +118,12 @@ func (p *RuleProcessor) ExecReplaceRuleState(name string, triggered bool) error 
 	if err != nil {
 		return fmt.Errorf("Unmarshal rule %s error : %s.", name, err)
 	}
+
+	if currentTriggered, ok := ruleMap["triggered"].(bool); ok && currentTriggered == triggered {
+		log.Infof("Rule %s is already in state triggered=%v, no need to replace.", name, triggered)
+		return nil
+	}
+
 	ruleMap["triggered"] = triggered
 	ruleJson, err := json.Marshal(ruleMap)
 	if err != nil {
