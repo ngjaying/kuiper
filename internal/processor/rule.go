@@ -19,6 +19,8 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"hash/crc32"
+	"strings"
 
 	"github.com/lf-edge/ekuiper/v2/internal/conf"
 	"github.com/lf-edge/ekuiper/v2/internal/conf/logger"
@@ -66,7 +68,7 @@ func (p *RuleProcessor) ExecCreateWithValidation(name, ruleJson string) (*def.Ru
 	}
 
 	if !rule.Temp {
-		err = p.db.Set(rule.Id, ruleJson)
+		err = p.db.Set(rule.Id, generateCRC(ruleJson))
 		if err != nil {
 			return nil, err
 		}
@@ -81,7 +83,7 @@ func (p *RuleProcessor) ExecCreate(name, ruleJson string) error {
 		return err
 	}
 	if !rule.Temp {
-		err := p.db.Setnx(name, ruleJson)
+		err := p.db.Setnx(name, generateCRC(ruleJson))
 		if err != nil {
 			return err
 		}
@@ -96,7 +98,7 @@ func (p *RuleProcessor) ExecUpsert(id, ruleJson string) error {
 		return err
 	}
 	if !rule.Temp {
-		err = p.db.Set(id, ruleJson)
+		err = p.db.Set(id, generateCRC(ruleJson))
 		if err != nil {
 			return err
 		}
@@ -130,7 +132,7 @@ func (p *RuleProcessor) ExecReplaceRuleState(name string, triggered bool) error 
 	}
 
 	if !isTemp {
-		err = p.db.Set(name, string(ruleJson))
+		err = p.db.Set(name, generateCRC(string(ruleJson)))
 		if err != nil {
 			return err
 		}
@@ -145,6 +147,10 @@ func (p *RuleProcessor) GetRuleJson(id string) (string, error) {
 	if !f {
 		return "", errorx.NewWithCode(errorx.NOT_FOUND, fmt.Sprintf("Rule %s is not found.", id))
 	}
+	s1, err := validateAndStripCRC(s1)
+	if err != nil {
+		return "", errorx.NewWithCode(errorx.GENERAL_ERR, fmt.Sprintf("Rule %s is corrupted: %v", id, err))
+	}
 	return s1, nil
 }
 
@@ -153,6 +159,10 @@ func (p *RuleProcessor) GetRuleById(id string) (*def.Rule, error) {
 	f, _ := p.db.Get(id, &s1)
 	if !f {
 		return nil, errorx.NewWithCode(errorx.NOT_FOUND, fmt.Sprintf("Rule %s is not found.", id))
+	}
+	s1, err := validateAndStripCRC(s1)
+	if err != nil {
+		return nil, errorx.NewWithCode(errorx.GENERAL_ERR, fmt.Sprintf("Rule %s is corrupted: %v", id, err))
 	}
 	return p.GetRuleByJsonValidated(id, s1)
 }
@@ -253,9 +263,34 @@ func clone(opt def.RuleOption) *def.RuleOption {
 	}
 }
 
+func generateCRC(data string) string {
+	return fmt.Sprintf("!CRC32:%08x!%s", crc32.ChecksumIEEE([]byte(data)), data)
+}
+
+func validateAndStripCRC(data string) (string, error) {
+	if !strings.HasPrefix(data, "!CRC32:") {
+		return data, nil
+	}
+	if len(data) < 16 || data[15] != '!' {
+		return "", fmt.Errorf("invalid CRC prefix format")
+	}
+	expectedCRC := data[7:15]
+	actualData := data[16:]
+	actualCRC := fmt.Sprintf("%08x", crc32.ChecksumIEEE([]byte(actualData)))
+	if expectedCRC != actualCRC {
+		return "", fmt.Errorf("CRC mismatch (expected %s, got %s)", expectedCRC, actualCRC)
+	}
+	return actualData, nil
+}
+
 func (p *RuleProcessor) ExecExists(name string) bool {
 	var s1 string
 	f, _ := p.db.Get(name, &s1)
+	if f {
+		if _, err := validateAndStripCRC(s1); err != nil {
+			return false
+		}
+	}
 	return f
 }
 
@@ -264,6 +299,10 @@ func (p *RuleProcessor) ExecDesc(name string) (string, error) {
 	f, _ := p.db.Get(name, &s1)
 	if !f {
 		return "", fmt.Errorf("Rule %s is not found.", name)
+	}
+	s1, err := validateAndStripCRC(s1)
+	if err != nil {
+		return "", fmt.Errorf("Rule %s is corrupted: %v", name, err)
 	}
 	dst := &bytes.Buffer{}
 	if err := json.Indent(dst, cast.StringToBytes(s1), "", "  "); err != nil {
@@ -278,7 +317,19 @@ func (p *RuleProcessor) GetAllRules() ([]string, error) {
 }
 
 func (p *RuleProcessor) GetAllRulesJson() (map[string]string, error) {
-	return p.db.All()
+	all, err := p.db.All()
+	if err != nil {
+		return nil, err
+	}
+	res := make(map[string]string)
+	for k, v := range all {
+		stripped, err := validateAndStripCRC(v)
+		if err != nil {
+			return nil, fmt.Errorf("Rule %s is corrupted: %v", k, err)
+		}
+		res[k] = stripped
+	}
+	return res, nil
 }
 
 func (p *RuleProcessor) ExecDrop(name string) error {
