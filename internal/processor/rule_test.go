@@ -16,6 +16,7 @@ package processor
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 	"time"
 
@@ -404,4 +405,60 @@ func TestValidateRuleID(t *testing.T) {
 	for _, tc := range testcases {
 		require.Equal(t, tc.err, validateRuleID(tc.id))
 	}
+}
+
+func TestCRCValidation(t *testing.T) {
+	// 1. Test basic generation and validation
+	original := `{"id":"test1", "sql":"SELECT * FROM demo"}`
+	crcStr := generateCRC(original)
+
+	require.True(t, strings.HasPrefix(crcStr, "!CRC32:"))
+
+	// 2. Test valid stripping
+	stripped, err := validateAndStripCRC(crcStr)
+	require.NoError(t, err)
+	require.Equal(t, original, stripped)
+
+	// 3. Test corrupted data (simulating bit-flip SELECT -> AELECT)
+	corrupted := strings.Replace(crcStr, "SELECT", "AELECT", 1)
+	_, err = validateAndStripCRC(corrupted)
+	require.Error(t, err)
+	require.Contains(t, err.Error(), "CRC mismatch")
+
+	// 4. Test corrupted CRC prefix format
+	_, err = validateAndStripCRC("!CRC32:12345!data")
+	require.Error(t, err)
+	require.Contains(t, err.Error(), "invalid CRC prefix format")
+
+	// 5. Test backward compatibility (no prefix)
+	noPrefix, err := validateAndStripCRC(original)
+	require.NoError(t, err)
+	require.Equal(t, original, noPrefix)
+
+	// 6. Test integration with RuleProcessor
+	p := NewRuleProcessor()
+	defer p.db.Clean()
+	defer p.ExecDrop("crc_rule")
+
+	err = p.ExecCreate("crc_rule", `{"id":"crc_rule", "sql":"SELECT * FROM demo", "actions":[{"log":{}}]}`)
+	require.NoError(t, err)
+
+	// Fetch rule to ensure it works normally
+	r, err := p.GetRuleById("crc_rule")
+	require.NoError(t, err)
+	require.Equal(t, "crc_rule", r.Id)
+
+	// Maliciously corrupt the database entry directly to simulate hardware bit-flip
+	var stored string
+	ok, _ := p.db.Get("crc_rule", &stored)
+	require.True(t, ok)
+
+	corruptedDB := strings.Replace(stored, "SELECT", "AELECT", 1)
+	err = p.db.Set("crc_rule", corruptedDB)
+	require.NoError(t, err)
+
+	// Fetch again, should fail with General Error (interception)
+	_, err = p.GetRuleById("crc_rule")
+	require.Error(t, err)
+	require.Contains(t, err.Error(), "Rule crc_rule is corrupted")
 }
