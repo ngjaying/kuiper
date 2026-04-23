@@ -20,7 +20,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
-	"path"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -35,12 +34,13 @@ import (
 	"github.com/lf-edge/ekuiper/v2/internal/plugin"
 	"github.com/lf-edge/ekuiper/v2/pkg/cast"
 	"github.com/lf-edge/ekuiper/v2/pkg/kv"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 	"github.com/lf-edge/ekuiper/v2/pkg/validate"
 )
 
 var (
 	once      sync.Once
-	mutex     sync.Mutex
+	mutex     syncx.Mutex
 	singleton *Manager           // Do not call this directly, use GetServiceManager
 	_         binder.FuncFactory = singleton
 )
@@ -403,7 +403,7 @@ func (m *Manager) Delete(name string) error {
 		return err
 	}
 	_ = m.serviceInstallKV.Delete(name)
-	path := path.Join(m.etcDir, name+".json")
+	path := filepath.Join(m.etcDir, name+".json")
 	err = os.Remove(path)
 	if err != nil {
 		kconf.Log.Errorf("remove service json fails: %v", err)

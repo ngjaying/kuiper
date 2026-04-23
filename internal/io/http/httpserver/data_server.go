@@ -31,10 +31,11 @@ import (
 	topoContext "github.com/lf-edge/ekuiper/v2/internal/topo/context"
 	"github.com/lf-edge/ekuiper/v2/pkg/cast"
 	"github.com/lf-edge/ekuiper/v2/pkg/model"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 type GlobalServerManager struct {
-	sync.RWMutex
+	syncx.RWMutex
 	instanceID        int
 	endpoint          map[string]string
 	server            *http.Server
@@ -42,9 +43,13 @@ type GlobalServerManager struct {
 	routes            map[string]http.HandlerFunc
 	upgrader          websocket.Upgrader
 	websocketEndpoint map[string]*websocketEndpointContext
+	sseEndpoint       map[string]*sseEndpointContext
 }
 
-var manager *GlobalServerManager
+var (
+	manager     *GlobalServerManager
+	managerLock syncx.RWMutex
+)
 
 func InitGlobalServerManager(ip string, port int, tlsConf *model.TlsConf) {
 	r := mux.NewRouter()
@@ -65,6 +70,7 @@ func InitGlobalServerManager(ip string, port int, tlsConf *model.TlsConf) {
 			return true
 		},
 	}
+	managerLock.Lock()
 	manager = &GlobalServerManager{
 		websocketEndpoint: map[string]*websocketEndpointContext{},
 		endpoint:          map[string]string{},
@@ -72,6 +78,7 @@ func InitGlobalServerManager(ip string, port int, tlsConf *model.TlsConf) {
 		router:            r,
 		routes:            map[string]http.HandlerFunc{},
 		upgrader:          upgrader,
+		sseEndpoint:       map[string]*sseEndpointContext{},
 	}
 	go func(m *GlobalServerManager) {
 		if tlsConf == nil {
@@ -80,20 +87,39 @@ func InitGlobalServerManager(ip string, port int, tlsConf *model.TlsConf) {
 			s.ListenAndServeTLS(conf.Config.Source.HttpServerTls.Certfile, conf.Config.Source.HttpServerTls.Keyfile)
 		}
 	}(manager)
+	managerLock.Unlock()
 	time.Sleep(500 * time.Millisecond)
 }
 
 func ShutDown() {
-	manager.Shutdown()
+	managerLock.RLock()
+	if manager != nil {
+		manager.Shutdown()
+	}
+	managerLock.RUnlock()
+	managerLock.Lock()
 	manager = nil
+	managerLock.Unlock()
 }
 
 func RegisterEndpoint(endpoint string, method string) (string, error) {
-	return manager.RegisterEndpoint(endpoint, method)
+	managerLock.RLock()
+	m := manager
+	managerLock.RUnlock()
+	if m == nil {
+		return "", fmt.Errorf("http server is not running")
+	}
+	return m.RegisterEndpoint(endpoint, method)
 }
 
 func UnregisterEndpoint(endpoint, method string) {
-	manager.UnregisterEndpoint(endpoint, method)
+	managerLock.RLock()
+	m := manager
+	managerLock.RUnlock()
+	if m == nil {
+		return
+	}
+	m.UnregisterEndpoint(endpoint, method)
 }
 
 const (

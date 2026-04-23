@@ -16,11 +16,11 @@ package pubsub
 
 import (
 	"regexp"
-	"sync"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 
 	"github.com/lf-edge/ekuiper/v2/internal/conf"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 const IdProperty = "topic"
@@ -39,7 +39,7 @@ type subChan struct {
 var (
 	pubTopics = make(map[string]*pubConsumers)
 	subExps   = make(map[string]*subChan)
-	mu        = sync.RWMutex{}
+	mu        = syncx.RWMutex{}
 )
 
 func CreatePub(topic string) {
@@ -128,13 +128,13 @@ func ProduceError(ctx api.StreamContext, topic string, err error) {
 }
 
 func doProduce(ctx api.StreamContext, topic string, data any) {
+	mu.RLock()
+	defer mu.RUnlock()
 	c, exists := pubTopics[topic]
 	if !exists {
 		return
 	}
 	logger := ctx.GetLogger()
-	mu.RLock()
-	defer mu.RUnlock()
 	// broadcast to all consumers
 	for name, out := range c.consumers {
 		select {

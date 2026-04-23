@@ -19,19 +19,19 @@ import (
 	"fmt"
 	"os"
 	"path"
-	"sync"
 
 	// introduce sqlite
 	_ "modernc.org/sqlite"
 
 	"github.com/lf-edge/ekuiper/v2/internal/conf/logger"
 	"github.com/lf-edge/ekuiper/v2/internal/pkg/store/definition"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 type Database struct {
 	db   *sql.DB
 	Path string
-	mu   sync.Mutex
+	mu   syncx.Mutex
 }
 
 func NewSqliteDatabase(c definition.Config, name string) (definition.Database, error) {
@@ -48,7 +48,7 @@ func NewSqliteDatabase(c definition.Config, name string) (definition.Database, e
 	return &Database{
 		db:   nil,
 		Path: dbPath,
-		mu:   sync.Mutex{},
+		mu:   syncx.Mutex{},
 	}, nil
 }
 
@@ -65,7 +65,7 @@ func (d *Database) Connect() error {
 }
 
 func connectionString(dpath string) string {
-	return fmt.Sprintf("file:%s?cache=shared&_journal=WAL&sync=2", dpath)
+	return fmt.Sprintf("file:%s?cache=shared&_journal=WAL&sync=2&_busy_timeout=5000", dpath)
 }
 
 func (d *Database) Disconnect() error {

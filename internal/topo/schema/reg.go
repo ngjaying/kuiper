@@ -15,13 +15,12 @@
 package schema
 
 import (
-	"sync"
-
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 type SchemaStore struct {
-	sync.RWMutex
+	syncx.RWMutex
 	// rule -> datasource -> schema
 	schemaMap map[string]map[string]map[string]*ast.JsonStreamField
 	// rule -> datasource -> schema
@@ -108,8 +107,8 @@ func GetStream(name string) SchemaContainer {
 
 func GetStreamSchema(name string) (map[string]*ast.JsonStreamField, error) {
 	GlobalSchemaStore.RLock()
-	defer GlobalSchemaStore.RUnlock()
 	c, ok := GlobalSchemaStore.streamMap[name]
+	GlobalSchemaStore.RUnlock()
 	if !ok {
 		return nil, nil
 	}
@@ -118,8 +117,8 @@ func GetStreamSchema(name string) (map[string]*ast.JsonStreamField, error) {
 
 func GetStreamSchemaIndex(streamName string) map[string]int {
 	GlobalSchemaStore.RLock()
-	defer GlobalSchemaStore.RUnlock()
 	c, ok := GlobalSchemaStore.streamMap[streamName]
+	GlobalSchemaStore.RUnlock()
 	if !ok {
 		return nil
 	}

@@ -88,7 +88,7 @@ func TestWindowState(t *testing.T) {
 		time.Sleep(10 * time.Millisecond)
 		input <- &xsql.Tuple{Message: map[string]any{"a": int64(1)}}
 		time.Sleep(10 * time.Millisecond)
-		op.WindowExec.PutState(ctx)
+		require.NoError(t, op.PutState4Test(ctx))
 
 		op2, err := node.NewWindowIncAggOp("1", &node.WindowConfig{
 			Type:     incPlan.WType,
@@ -98,7 +98,7 @@ func TestWindowState(t *testing.T) {
 		require.NotNil(t, op2)
 		op2.Exec(ctx, errCh)
 		time.Sleep(10 * time.Millisecond)
-		require.NoError(t, op2.WindowExec.RestoreFromState(ctx))
+		require.NoError(t, op2.RestoreFromState4Test(ctx))
 		cancel()
 		op.Close()
 		op2.Close()
@@ -259,9 +259,9 @@ func TestIncAggAlignTumblingWindow(t *testing.T) {
 	}()
 	op.Exec(ctx, errCh)
 	time.Sleep(10 * time.Millisecond)
-	to, ok := op.WindowExec.(*node.TumblingWindowIncAggOp)
-	require.True(t, ok)
-	require.NotNil(t, to.FirstTimer)
+	require.Eventually(t, func() bool {
+		return op.FirstTimerCreated4Test()
+	}, time.Second, 10*time.Millisecond)
 }
 
 func TestIncAggTumblingWindow(t *testing.T) {
@@ -619,9 +619,9 @@ func TestIncAggAlignHoppingWindow(t *testing.T) {
 	}()
 	op.Exec(ctx, errCh)
 	time.Sleep(10 * time.Millisecond)
-	ho, ok := op.WindowExec.(*node.HoppingWindowIncAggOp)
-	require.True(t, ok)
-	require.NotNil(t, ho.FirstTimer)
+	require.Eventually(t, func() bool {
+		return op.FirstTimerCreated4Test()
+	}, time.Second, 10*time.Millisecond)
 }
 
 func extractIncWindowPlan(cur planner.LogicalPlan) *planner.IncWindowPlan {

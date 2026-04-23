@@ -33,17 +33,20 @@ import (
 	"github.com/lf-edge/ekuiper/v2/internal/xsql"
 	"github.com/lf-edge/ekuiper/v2/pkg/errorx"
 	"github.com/lf-edge/ekuiper/v2/pkg/infra"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 type defaultNode struct {
 	name        string
 	concurrency int
 	sendError   bool
+	metricMu    syncx.RWMutex
 	statManager metric.StatManager
 	ctx         api.StreamContext
 	ctrlCh      chan<- error
+	mu          syncx.Mutex
 	qos         def.Qos
-	outputMu    sync.RWMutex
+	outputMu    syncx.RWMutex
 	outputs     map[string]chan any
 	opsWg       *sync.WaitGroup
 	// tracing state
@@ -98,6 +101,8 @@ func (o *defaultNode) SetQos(qos def.Qos) {
 }
 
 func (o *defaultNode) GetMetrics() []any {
+	o.metricMu.RLock()
+	defer o.metricMu.RUnlock()
 	if o.statManager != nil {
 		return o.statManager.GetMetrics()
 	}
@@ -105,6 +110,8 @@ func (o *defaultNode) GetMetrics() []any {
 }
 
 func (o *defaultNode) RemoveMetrics(ruleId string) {
+	o.metricMu.RLock()
+	defer o.metricMu.RUnlock()
 	if o.statManager != nil {
 		o.statManager.Clean(ruleId)
 	}
@@ -143,12 +150,16 @@ func (o *defaultNode) doBroadcast(val any) {
 				valCopy = vt.Clone()
 			case xsql.Row:
 				valCopy = vt.Clone()
+			case *xsql.RawTuple:
+				valCopy = vt.Clone()
 			case *checkpoint.BufferOrEvent:
 				vd := vt.Data
 				switch vdt := vt.Data.(type) {
 				case xsql.Collection:
 					vd = vdt.Clone()
 				case xsql.Row:
+					vd = vdt.Clone()
+				case *xsql.RawTuple:
 					vd = vdt.Clone()
 				}
 				valCopy = &checkpoint.BufferOrEvent{
@@ -229,17 +240,24 @@ func (o *defaultSinkNode) SetBarrierHandler(bh checkpoint.BarrierHandler) {
 }
 
 func (o *defaultNode) prepareExec(ctx api.StreamContext, errCh chan<- error, opType string) {
+	o.mu.Lock()
+	defer o.mu.Unlock()
 	ctx.GetLogger().Infof("%s started", o.name)
+	o.metricMu.Lock()
 	o.statManager = metric.NewStatManager(ctx, opType)
+	o.metricMu.Unlock()
 	o.ctx = ctx
+	o.ctrlCh = errCh
+
+	// If the context is already cancelled, do not join the wait group
+	if ctx.Err() != nil {
+		return
+	}
 	wg := ctx.Value(context.RuleWaitGroupKey)
 	if wg != nil {
 		o.opsWg = wg.(*sync.WaitGroup)
-	}
-	if o.opsWg != nil {
 		o.opsWg.Add(1)
 	}
-	o.ctrlCh = errCh
 }
 
 func (o *defaultNode) finishExec() {
@@ -247,11 +265,22 @@ func (o *defaultNode) finishExec() {
 }
 
 func (o *defaultNode) Close() {
+	o.mu.Lock()
+	defer o.mu.Unlock()
 	if o.opsWg != nil {
 		o.ctx.GetLogger().Infof("node %s is closing", o.name)
 		o.opsWg.Done()
 	} else {
-		o.ctx.GetLogger().Infof("node %s is missing close wg", o.name)
+		// o.ctx might be nil if not started or already closed?
+		// But in prepareExec o.ctx is set.
+		// If Close is called before prepareExec, o.ctx is nil.
+		// If prepareExec sets o.ctx and o.opsWg is nil?
+		// The original code used o.ctx.GetLogger().
+		// If o.ctx is nil, this would panic.
+		// Assuming prepareExec sets o.ctx.
+		if o.ctx != nil {
+			o.ctx.GetLogger().Infof("node %s is missing close wg", o.name)
+		}
 	}
 }
 

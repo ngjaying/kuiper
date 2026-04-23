@@ -19,7 +19,6 @@ import (
 	"net/http"
 	"os"
 	"sort"
-	"sync"
 	"testing"
 	"time"
 
@@ -31,6 +30,7 @@ import (
 
 	"github.com/lf-edge/ekuiper/v2/internal/io/memory/pubsub"
 	"github.com/lf-edge/ekuiper/v2/internal/server"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 type RuleTestSuite struct {
@@ -163,7 +163,7 @@ func (s *RuleTestSuite) TestUpsert() {
 	server := mqtt.New(&mqtt.Options{InlineClient: true})
 	defer server.Close()
 	result := make(map[string]string)
-	lock := sync.Mutex{}
+	lock := syncx.Mutex{}
 	s.Run("start broker and subscribe for result", func() {
 		// Allow all connections.
 		_ = server.AddHook(new(auth.AllowHook), nil)
@@ -172,7 +172,7 @@ func (s *RuleTestSuite) TestUpsert() {
 		err := server.AddListener(tcp)
 		s.Require().NoError(err)
 		go func() {
-			err = server.Serve()
+			err := server.Serve()
 			fmt.Println(err)
 		}()
 		fmt.Println(tcp.Address())
@@ -270,6 +270,8 @@ func (s *RuleTestSuite) TestUpsert() {
 	})
 	s.Run("compare result", func() {
 		expected := map[string]string{"sim/new1": "{\"b\":2}", "sim/new2": "{\"a\":1}", "sim/old1": "{\"a\":1}", "sim/old2": "{\"b\":2}"}
+		lock.Lock()
+		defer lock.Unlock()
 		s.Require().Equal(expected, result)
 	})
 }

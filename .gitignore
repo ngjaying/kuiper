@@ -42,3 +42,6 @@ corss_build_for_rpm.tar
 .vscode/
 tools/lint/bin/
 go.work.sum
+pycache
+fix_cve.md
+ekuiper240b5.csv

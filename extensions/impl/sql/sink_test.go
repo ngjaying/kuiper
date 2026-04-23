@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+//go:build mysql_integration_test
+
 package sql
 
 import (
@@ -205,6 +207,12 @@ func TestSQLSinkConfigKV(t *testing.T) {
 	}, config.Fields)
 	require.NoError(t, err)
 	require.Equal(t, []string{"'value'"}, values)
+
+	values, err = config.getValuesByKeys(ctx, map[string]interface{}{
+		"a": "O'Reilly",
+	}, config.Fields)
+	require.NoError(t, err)
+	require.Equal(t, []string{"'O''Reilly'"}, values)
 
 	config = &sqlSinkConfig{
 		Fields: []string{"a"},

@@ -21,7 +21,6 @@ import (
 	"path/filepath"
 	"sort"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/lf-edge/ekuiper/v2/internal/conf"
@@ -36,6 +35,7 @@ import (
 	"github.com/lf-edge/ekuiper/v2/pkg/errorx"
 	"github.com/lf-edge/ekuiper/v2/pkg/infra"
 	"github.com/lf-edge/ekuiper/v2/pkg/replace"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 // Rule storage includes kv and in memory registry
@@ -45,7 +45,7 @@ import (
 var registry *RuleRegistry
 
 type RuleRegistry struct {
-	sync.RWMutex
+	syncx.RWMutex
 	internal map[string]*rule.State
 }
 
@@ -77,12 +77,18 @@ func (rr *RuleRegistry) keys() (keys []string) {
 	return
 }
 
-// register and save to db
+// save registers rule to in-memory registry and persists to DB atomically.
+// It fails if the rule already exists in DB.
 func (rr *RuleRegistry) save(key string, ruleJson string, value *rule.State) error {
 	rr.Lock()
 	defer rr.Unlock()
+	// Persist to DB first - ExecCreate fails if already exists
+	if err := ruleProcessor.ExecCreate(key, ruleJson); err != nil {
+		return err
+	}
+	// Update registry only after successful DB write
 	rr.internal[key] = value
-	return ruleProcessor.ExecCreate(key, ruleJson)
+	return nil
 }
 
 // only register. It is called when recover from db
@@ -90,12 +96,6 @@ func (rr *RuleRegistry) register(key string, value *rule.State) {
 	rr.Lock()
 	defer rr.Unlock()
 	rr.internal[key] = value
-}
-
-func (rr *RuleRegistry) upsert(id string, ruleJson string) error {
-	rr.Lock()
-	defer rr.Unlock()
-	return ruleProcessor.ExecUpsert(id, ruleJson)
 }
 
 func (rr *RuleRegistry) updateTrigger(id string, trigger bool) error {
@@ -180,15 +180,21 @@ func (rr *RuleRegistry) RecoverRule(r *def.Rule) string {
 }
 
 // UpsertRule validates the new rule, then update the db, then restart the rule
+// The entire operation is protected by a lock to ensure atomic version checking.
 func (rr *RuleRegistry) UpsertRule(ruleId, ruleJson string) error {
 	ruleJson = replace.ReplaceRuleJson(ruleJson, conf.IsTesting)
-	// Validate the rule json
+	// Validate the rule json (can be done outside lock - no state change)
 	r, err := ruleProcessor.GetRuleByJson(ruleId, ruleJson)
 	if err != nil {
 		return fmt.Errorf("Invalid rule json: %v", err)
 	}
+
+	// Hold lock for entire operation to ensure atomic version check
+	rr.Lock()
+	defer rr.Unlock()
+
 	// do upsert.
-	rs, isUpdate := registry.load(ruleId)
+	rs, isUpdate := rr.internal[ruleId]
 	if !isUpdate { // if not exist, create it
 		rs = rule.NewState(r, func(id string, b bool) {
 			err = rr.updateTrigger(id, b)
@@ -197,8 +203,10 @@ func (rr *RuleRegistry) UpsertRule(ruleId, ruleJson string) error {
 			}
 		})
 	} else {
-		if !processor.CanReplace(rs.Rule.Version, r.Version) { // old version is newer
-			return fmt.Errorf("rule %s already exists with version (%s), new version (%s) is lower", ruleId, rs.Rule.Version, r.Version)
+		// Version check is now atomic with the rest of the operation
+		rule := rs.GetRule()
+		if !processor.CanReplace(rule.Version, r.Version) {
+			return fmt.Errorf("rule %s already exists with version (%s), new version (%s) is lower", ruleId, rule.Version, r.Version)
 		}
 	}
 	err = rs.ValidateAndRun(r)
@@ -206,11 +214,14 @@ func (rr *RuleRegistry) UpsertRule(ruleId, ruleJson string) error {
 		return err
 	}
 	if !r.Temp {
-		if isUpdate {
-			err = rr.upsert(r.Id, ruleJson)
-		} else {
-			err = rr.save(r.Id, ruleJson, rs)
+		// Persist directly - we already hold the lock
+		err = ruleProcessor.ExecUpsert(r.Id, ruleJson)
+		if err == nil {
+			rr.internal[r.Id] = rs
 		}
+	} else if !isUpdate {
+		// Temp rule, just register in memory
+		rr.internal[r.Id] = rs
 	}
 	if err != nil {
 		// rollback clean up
@@ -262,10 +273,11 @@ func (rr *RuleRegistry) RestartRule(name string) error {
 			conf.Log.Warnf("restart rule update db status error: %s", err.Error())
 		}
 		rs.Stop()
-		rs.Rule, err = ruleProcessor.GetRuleById(name)
+		r, err := ruleProcessor.GetRuleById(name)
 		if err != nil {
 			return err
 		}
+		rs.SetRule(r)
 		return rs.Start()
 	} else {
 		return errorx.NewWithCode(errorx.NOT_FOUND, fmt.Sprintf("Rule %s is not found in registry, please check if it is created", name))
@@ -536,7 +548,7 @@ func getAllRulesWithState() ([]ruleWrapper, error) {
 		rs, ok := registry.load(id)
 		if ok {
 			s := rs.GetState()
-			rules = append(rules, ruleWrapper{rule: rs.Rule, state: s, startTime: rs.GetStartTimestamp()})
+			rules = append(rules, ruleWrapper{rule: rs.GetRule(), state: s, startTime: rs.GetStartTimestamp()})
 		}
 	}
 	return rules, nil

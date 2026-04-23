@@ -19,7 +19,6 @@ import (
 	"errors"
 	"fmt"
 	"strings"
-	"sync"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
@@ -30,6 +29,7 @@ import (
 	topoContext "github.com/lf-edge/ekuiper/v2/internal/topo/context"
 	"github.com/lf-edge/ekuiper/v2/pkg/errorx"
 	"github.com/lf-edge/ekuiper/v2/pkg/modules"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 // Connection pool manages all connections in the system. There are two kinds of connections:
@@ -39,7 +39,7 @@ import (
 // be fetched when rules start. If no rule has accessed it, it will be closed and dropped.
 
 type Manager struct {
-	sync.RWMutex
+	syncx.RWMutex
 	// key is selId(explicitly specified or anonymous)
 	connectionPool map[string]*Meta
 }
@@ -369,7 +369,7 @@ func detachConnection(ctx api.StreamContext, conId string) error {
 func createConnection(connCtx api.StreamContext, meta *Meta) (modules.Connection, error) {
 	var conn modules.Connection
 	var err error
-	connRegister, ok := modules.ConnectionRegister[strings.ToLower(meta.Typ)]
+	connRegister, ok := modules.GetConnectionProvider(strings.ToLower(meta.Typ))
 	if !ok {
 		return nil, fmt.Errorf("unknown connection type")
 	}

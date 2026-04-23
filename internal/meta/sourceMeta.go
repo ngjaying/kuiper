@@ -17,9 +17,8 @@ package meta
 import (
 	"fmt"
 	"os"
-	"path"
+	"path/filepath"
 	"strings"
-	"sync"
 
 	"github.com/lf-edge/ekuiper/v2/internal/binder/io"
 	"github.com/lf-edge/ekuiper/v2/internal/conf"
@@ -27,6 +26,7 @@ import (
 	"github.com/lf-edge/ekuiper/v2/internal/plugin"
 	"github.com/lf-edge/ekuiper/v2/pkg/ast"
 	"github.com/lf-edge/ekuiper/v2/pkg/errorx"
+	"github.com/lf-edge/ekuiper/v2/pkg/syncx"
 )
 
 type (
@@ -73,7 +73,7 @@ func newUiSource(fi *fileSource, isScan bool, isLookup bool) (*uiSource, error) 
 }
 
 var (
-	gSourcemetaLock = sync.RWMutex{}
+	gSourcemetaLock = syncx.RWMutex{}
 	gSourcemetadata = make(map[string]*uiSource)
 )
 
@@ -91,7 +91,7 @@ func UninstallSource(name string) {
 }
 
 func ReadSourceMetaFile(filePath string, isScan bool, isLookup bool) error {
-	fileName := path.Base(filePath)
+	fileName := filepath.Base(filePath)
 	if fileName == "mqtt_source.json" {
 		fileName = "mqtt.json"
 	}
@@ -123,13 +123,13 @@ func ReadSourceMetaDir(scanChecker InstallChecker, lookupChecker InstallChecker)
 		return err
 	}
 
-	dir := path.Join(confDir, "sources")
+	dir := filepath.Join(confDir, "sources")
 	dirEntries, err := os.ReadDir(dir)
 	if nil != err {
 		return err
 	}
 
-	if err = ReadSourceMetaFile(path.Join(confDir, "mqtt_source.json"), true, false); nil != err {
+	if err = ReadSourceMetaFile(filepath.Join(confDir, "mqtt_source.json"), true, false); nil != err {
 		return err
 	}
 
@@ -140,7 +140,7 @@ func ReadSourceMetaDir(scanChecker InstallChecker, lookupChecker InstallChecker)
 			isScan := scanChecker(name)
 			isLookup := lookupChecker(name)
 			if isScan || isLookup {
-				filePath := path.Join(dir, fileName)
+				filePath := filepath.Join(dir, fileName)
 				if err = ReadSourceMetaFile(filePath, isScan, isLookup); nil != err {
 					return err
 				}

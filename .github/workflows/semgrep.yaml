@@ -1,0 +1,22 @@
+name: Semgrep
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request: 
+    branches: [ "master", "main" ]
+
+# Explicitly scope GITHUB_TOKEN permissions (principle of least privilege).
+permissions:
+  contents: read
+
+jobs:
+  semgrep:
+    name: Scan
+    runs-on: ubuntu-latest
+    container:
+      image: returntocorp/semgrep
+    if: (github.actor != 'dependabot[bot]')
+    steps:
+      - uses: actions/checkout@v3
+      - run: semgrep scan --config=.semgrep --error
