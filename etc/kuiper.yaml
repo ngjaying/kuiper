@@ -31,16 +31,20 @@ basic:
   # Maximum log file count
   rotateCount: 3
   # CLI ip
-  ip: 0.0.0.0
+  ip: 127.0.0.1
   # CLI port
   port: 20498
   # REST service ip
-  restIp: 0.0.0.0
+  restIp: 127.0.0.1
   # REST service port
   restPort: 9081
   # The global time zone from the IANA time zone database, or Local if not set.
   timezone: Local
-  # true|false, when true, will check the RSA jwt token for rest api
+  # true|false, when true, will check the RSA JWT token for REST API.
+  #
+  # For local development, authentication can remain disabled.
+  # For production deployments, especially when REST API is exposed
+  # beyond localhost, authentication should be enabled.
   authentication: false
   #  restTls:
   #    certfile: /var/https-server.crt
@@ -79,7 +83,11 @@ basic:
   enableRestAuditLog: false
   # If it is enabled, the rule functions can access the private network.
   enablePrivateNet: false
-  allowExternalFileAccess: true
+  # Allow rule functions to access files outside the eKuiper upload directory.
+  #
+  # For security reasons, this is disabled by default.
+  # Enable only when trusted external file paths are required.
+  allowExternalFileAccess: false
 
 # The default options for all rules. Each rule can override this setting by defining its own option
 rule:
@@ -114,7 +122,7 @@ sink:
 source:
   ## Configurations for the global http data server for httppush source
   # HTTP data service ip
-  httpServerIp: 0.0.0.0
+  httpServerIp: 127.0.0.1
   # HTTP data service port
   httpServerPort: 10081
   # httpServerTls:
