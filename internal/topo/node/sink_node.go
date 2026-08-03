@@ -89,6 +89,7 @@ func (s *SinkNode) Exec(ctx api.StreamContext, errCh chan<- error) {
 			err := s.sink.Connect(ctx, s.connectionStatusChange)
 			if err != nil {
 				infra.DrainError(ctx, err, errCh)
+				return err
 			}
 			defer func() {
 				s.sink.Close(ctx)
