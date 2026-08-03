@@ -23,6 +23,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"sync/atomic"
 	"time"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
@@ -56,6 +57,12 @@ type ClientConf struct {
 	parsedBody          string
 	parsedRefreshHeader map[string]string
 	parsedRefreshBody   string
+	oauthSnapshot       atomic.Value // *oauthRuntimeState
+}
+
+type oauthRuntimeState struct {
+	tokens  map[string]string
+	headers map[string]string
 }
 
 type AccessTokenConf struct {
@@ -319,6 +326,21 @@ func (cc *ClientConf) updateToken(ctx api.StreamContext, tk map[string]interface
 			return fmt.Errorf("fail to parse body with refresh token request: %v", err)
 		}
 		cc.parsedRefreshBody = pb
+	}
+	tokens := make(map[string]string, len(tk))
+	for k, v := range tk {
+		tokens[k] = fmt.Sprint(v)
+	}
+	cc.oauthSnapshot.Store(&oauthRuntimeState{
+		tokens:  tokens,
+		headers: cc.parsedHeaders,
+	})
+	return nil
+}
+
+func (cc *ClientConf) oauthRuntimeState() *oauthRuntimeState {
+	if state := cc.oauthSnapshot.Load(); state != nil {
+		return state.(*oauthRuntimeState)
 	}
 	return nil
 }

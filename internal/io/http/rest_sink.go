@@ -17,6 +17,7 @@ package http
 import (
 	"errors"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
@@ -27,9 +28,29 @@ import (
 
 type RestSink struct {
 	*ClientConf
-	noHeaderTemplate   bool
 	noFormdataTemplate bool
+	headerTemplates    map[string]restHeaderTemplate
+	hasHeaderTemplates bool
+	hasDynamicHeaders  bool
 }
+
+type restHeaderTemplate struct {
+	value             string
+	dynamic           bool
+	tokenReplacements []tokenReplacement
+}
+
+type tokenReplacement struct {
+	target string
+	field  string
+}
+
+var (
+	oauthTemplatePattern  = regexp.MustCompile(`{{\s*\.(access_token|refresh_token|token_type|id_token|expires_in)\s*}}`)
+	simpleTemplatePattern = regexp.MustCompile(`{{\s*\.([[:word:]]+)\s*}}`)
+)
+
+const oauthTemplateMarkerPrefix = "__ekuiper_oauth_"
 
 var bodyTypeFormat = map[string]string{
 	"json": "json",
@@ -48,7 +69,84 @@ func (r *RestSink) Provision(ctx api.StreamContext, configs map[string]any) erro
 	if rf, ok := bodyTypeFormat[r.ClientConf.config.BodyType]; ok && r.ClientConf.config.Format != rf {
 		return fmt.Errorf("format must be %s if bodyType is %s", rf, r.ClientConf.config.BodyType)
 	}
+	r.headerTemplates = make(map[string]restHeaderTemplate, len(r.config.Headers))
+	for k, v := range r.config.Headers {
+		if r.accessConf != nil {
+			r.headerTemplates[k] = newOAuthHeaderTemplate(v)
+		} else {
+			h := restHeaderTemplate{value: v, dynamic: strings.Contains(v, "{{")}
+			r.headerTemplates[k] = h
+		}
+		if h := r.headerTemplates[k]; h.dynamic || len(h.tokenReplacements) > 0 {
+			r.hasHeaderTemplates = true
+			if h.dynamic {
+				r.hasDynamicHeaders = true
+			}
+		}
+	}
 	return nil
+}
+
+// Consume separates OAuth response fields from templates that are evaluated
+// against rule output by the common sink transform operator.
+func (r *RestSink) Consume(props map[string]any) {
+	deletePropFold(props, "oauth")
+	if r.accessConf != nil {
+		deletePropFold(props, "body")
+		for key, value := range props {
+			if strings.EqualFold(key, "headers") {
+				switch headers := value.(type) {
+				case map[string]any:
+					maskedHeaders := make(map[string]any, len(headers))
+					for k := range headers {
+						maskedHeaders[k] = r.headerTemplates[k].value
+					}
+					props[key] = maskedHeaders
+				case map[string]string:
+					maskedHeaders := make(map[string]string, len(headers))
+					for k := range headers {
+						maskedHeaders[k] = r.headerTemplates[k].value
+					}
+					props[key] = maskedHeaders
+				}
+			}
+		}
+	}
+}
+
+func maskOAuthTemplates(value string) string {
+	return oauthTemplatePattern.ReplaceAllString(value, oauthTemplateMarkerPrefix+"${1}__")
+}
+
+func newOAuthHeaderTemplate(value string) restHeaderTemplate {
+	masked := maskOAuthTemplates(value)
+	h := restHeaderTemplate{value: masked, dynamic: strings.Contains(masked, "{{")}
+	for _, match := range simpleTemplatePattern.FindAllStringSubmatch(value, -1) {
+		target := match[0]
+		field := match[1]
+		if oauthTemplatePattern.MatchString(target) {
+			target = oauthTemplateMarkerPrefix + field + "__"
+		}
+		h.tokenReplacements = append(h.tokenReplacements, tokenReplacement{target: target, field: field})
+	}
+	return h
+}
+
+func resolveOAuthTemplates(value string, tokens map[string]string, replacements []tokenReplacement) string {
+	for _, replacement := range replacements {
+		if token, ok := tokens[replacement.field]; ok {
+			value = strings.ReplaceAll(value, replacement.target, token)
+		}
+	}
+	return value
+}
+
+func deletePropFold(props map[string]any, name string) {
+	for key := range props {
+		if strings.EqualFold(key, name) {
+			delete(props, key)
+		}
+	}
 }
 
 func (r *RestSink) Close(ctx api.StreamContext) error {
@@ -69,27 +167,11 @@ func (r *RestSink) Collect(ctx api.StreamContext, item api.RawTuple) error {
 	bodyType := r.config.BodyType
 	method := r.config.Method
 	u := r.config.Url
-	// if auth is set, the auth is handled by the client connect
-	headers := r.config.Headers
-	if r.accessConf != nil {
-		headers = r.parsedHeaders
-	}
+	headers := r.prepareHeaders(item)
 	formData := r.config.FormData
 
-	if dp, ok := item.(api.HasDynamicProps); ok {
-		if !r.noHeaderTemplate {
-			r.noHeaderTemplate = true
-			headers = make(map[string]string, len(r.parsedHeaders))
-			for k, v := range r.parsedHeaders {
-				nv, ok := dp.DynamicProps(v)
-				if ok {
-					r.noHeaderTemplate = false
-					headers[k] = nv
-				} else {
-					headers[k] = v
-				}
-			}
-		}
+	dp, hasDynamicProps := item.(api.HasDynamicProps)
+	if hasDynamicProps {
 		nb, ok := dp.DynamicProps(bodyType)
 		if ok {
 			bodyType = nb
@@ -176,6 +258,52 @@ func (r *RestSink) Collect(ctx api.StreamContext, item api.RawTuple) error {
 		}
 	}
 	return nil
+}
+
+func (r *RestSink) prepareHeaders(item api.RawTuple) map[string]string {
+	if !r.hasHeaderTemplates {
+		if r.config.Compression != "" {
+			return cloneHeaders(r.config.Headers)
+		}
+		return r.config.Headers
+	}
+	oauthState := r.oauthRuntimeState()
+	if r.accessConf != nil && !r.hasDynamicHeaders && oauthState != nil && r.config.Compression == "" {
+		return oauthState.headers
+	}
+	headers := make(map[string]string, len(r.headerTemplates))
+	dp, hasDynamicProps := item.(api.HasDynamicProps)
+	for k, headerTemplate := range r.headerTemplates {
+		if !headerTemplate.dynamic && oauthState != nil {
+			if resolved, ok := oauthState.headers[k]; ok {
+				headers[k] = resolved
+				continue
+			}
+		}
+		value := headerTemplate.value
+		if headerTemplate.dynamic && hasDynamicProps {
+			if dynamicValue, ok := dp.DynamicProps(headerTemplate.value); ok {
+				value = dynamicValue
+			}
+		}
+		if len(headerTemplate.tokenReplacements) > 0 {
+			var tokens map[string]string
+			if oauthState != nil {
+				tokens = oauthState.tokens
+			}
+			value = resolveOAuthTemplates(value, tokens, headerTemplate.tokenReplacements)
+		}
+		headers[k] = value
+	}
+	return headers
+}
+
+func cloneHeaders(headers map[string]string) map[string]string {
+	result := make(map[string]string, len(headers))
+	for k, v := range headers {
+		result[k] = v
+	}
+	return result
 }
 
 func GetSink() api.Sink {

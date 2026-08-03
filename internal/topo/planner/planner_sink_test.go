@@ -412,6 +412,51 @@ func TestFindTemplates(t *testing.T) {
 	}
 }
 
+func TestRestOAuthAndRuleOutputHeaderTemplates(t *testing.T) {
+	tp, err := topo.NewWithNameAndOptions("test", defaultOption)
+	require.NoError(t, err)
+
+	props := map[string]any{
+		"url":    "http://localhost/data",
+		"method": "POST",
+		"headers": map[string]any{
+			"Authorization": "Bearer {{.access_token}}",
+			"X-Row":         `{{index . 0 "row_value"}}`,
+			"X-Combined":    `{{index . 0 "row_value"}}/{{.access_token}}`,
+		},
+		"oAuth": map[string]any{
+			"access": map[string]any{
+				"url":    "http://localhost/token",
+				"expire": "3600",
+			},
+			"refresh": map[string]any{
+				"url":  "http://localhost/refresh",
+				"body": `{"refresh_token":"{{.refresh_token}}"}`,
+			},
+		},
+	}
+	comp, err := SinkToComp(tp, "rest", "rest_0", props, &def.Rule{Options: defaultOption}, 1, nil)
+	require.NoError(t, err)
+
+	transformOp, ok := comp.Nodes()[0].(*node.TransformOp)
+	require.True(t, ok)
+	result := transformOp.Worker(tp.GetContext(), &xsql.Tuple{Message: map[string]any{
+		"row_value": "row-value",
+		"number":    42,
+	}})
+	require.Len(t, result, 1)
+	_, isError := result[0].(error)
+	require.False(t, isError, "OAuth templates must be evaluated from the token response, not rule output: %v", result[0])
+	dynamicProps, ok := result[0].(api.HasDynamicProps)
+	require.True(t, ok)
+	rowValue, ok := dynamicProps.DynamicProps(`{{index . 0 "row_value"}}`)
+	require.True(t, ok)
+	require.Equal(t, "row-value", rowValue)
+	combined, ok := dynamicProps.DynamicProps(`{{index . 0 "row_value"}}/__ekuiper_oauth_access_token__`)
+	require.True(t, ok)
+	require.Equal(t, "row-value/__ekuiper_oauth_access_token__", combined)
+}
+
 func TestSinkSchema(t *testing.T) {
 	tc := []struct {
 		name string

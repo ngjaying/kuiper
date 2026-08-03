@@ -473,6 +473,10 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 				w.WriteHeader(http.StatusUnauthorized)
 				return
 			}
+			if r.Header.Get("X-Row") != "row-value" || r.Header.Get("X-Combined") != "row-value/mock_access_token" {
+				w.WriteHeader(http.StatusBadRequest)
+				return
+			}
 			w.WriteHeader(http.StatusOK)
 			w.Write([]byte(`{"status":"ok"}`))
 			return
@@ -490,6 +494,8 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 		"method": "POST",
 		"headers": map[string]interface{}{
 			"Authorization": "Bearer {{.access_token}}",
+			"X-Row":         "{{.row_value}}",
+			"X-Combined":    "{{.row_value}}/{{.access_token}}",
 		},
 		"oauth": map[string]interface{}{
 			"access": map[string]interface{}{
@@ -515,10 +521,65 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 	// 4. Collect (Send Data verifying token)
 	data := &xsql.RawTuple{
 		Rawdata: []byte(`{"data":123}`),
+		Props: map[string]string{
+			s.headerTemplates["X-Row"].value:      "row-value",
+			s.headerTemplates["X-Combined"].value: "row-value/__ekuiper_oauth_access_token__",
+		},
 	}
 	err = s.Collect(ctx, data)
 	require.NoError(t, err)
 
 	err = s.Close(ctx)
 	require.NoError(t, err)
+}
+
+func TestRestSinkStaticHeadersFastPath(t *testing.T) {
+	ctx := mockContext.NewMockContext("staticHeaders", "op")
+	s := &RestSink{}
+	require.NoError(t, s.Provision(ctx, map[string]interface{}{
+		"url": "http://localhost/data",
+		"headers": map[string]interface{}{
+			"Content-Type": "application/json",
+			"X-Static":     "constant",
+		},
+	}))
+	require.False(t, s.hasHeaderTemplates)
+
+	data := &xsql.RawTuple{Rawdata: []byte(`{"value":1}`)}
+	require.Zero(t, testing.AllocsPerRun(1000, func() {
+		_ = s.prepareHeaders(data)
+	}))
+	require.Equal(t, s.config.Headers, s.prepareHeaders(data))
+}
+
+func TestRestSinkOAuthHeadersFastPath(t *testing.T) {
+	ctx := mockContext.NewMockContext("oauthHeaders", "op")
+	s := &RestSink{}
+	require.NoError(t, s.Provision(ctx, map[string]interface{}{
+		"url": "http://localhost/data",
+		"headers": map[string]interface{}{
+			"Authorization": "Bearer {{.access_token}}",
+			"Content-Type":  "application/json",
+		},
+		"oauth": map[string]interface{}{
+			"access": map[string]interface{}{
+				"url":    "http://localhost/token",
+				"expire": "3600",
+			},
+		},
+	}))
+	require.False(t, s.hasDynamicHeaders)
+	require.NoError(t, s.updateToken(ctx, map[string]interface{}{"access_token": "token-one"}))
+
+	data := &xsql.RawTuple{Rawdata: []byte(`{"value":1}`)}
+	require.Zero(t, testing.AllocsPerRun(1000, func() {
+		_ = s.prepareHeaders(data)
+	}))
+	first := s.prepareHeaders(data)
+	require.Equal(t, "Bearer token-one", first["Authorization"])
+
+	require.NoError(t, s.updateToken(ctx, map[string]interface{}{"access_token": "token-two"}))
+	second := s.prepareHeaders(data)
+	require.Equal(t, "Bearer token-one", first["Authorization"])
+	require.Equal(t, "Bearer token-two", second["Authorization"])
 }
