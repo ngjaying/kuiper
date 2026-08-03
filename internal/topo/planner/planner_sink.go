@@ -165,7 +165,10 @@ func SinkToComp(tp *topo.Topo, sinkType string, sinkName string, props map[strin
 func findTemplateProps(props map[string]any) []string {
 	var result []string
 	re := regexp.MustCompile(`{{(.*?)}}`)
-	for _, p := range props {
+	for k, p := range props {
+		if k == "oauth" {
+			continue
+		}
 		switch pt := p.(type) {
 		case string:
 			if re.Match([]byte(pt)) {

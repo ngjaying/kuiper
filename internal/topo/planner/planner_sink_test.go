@@ -401,6 +401,23 @@ func TestFindTemplates(t *testing.T) {
 				"mypath/{{.path}}", "{{.ntopic}}", "{{.topic}}",
 			},
 		},
+		{
+			name: "skip oauth",
+			props: map[string]any{
+				"dataTemplate": "{{.data}}",
+				"oauth": map[string]any{
+					"access": map[string]any{
+						"url": "http://auth/token",
+						"headers": map[string]any{
+							"Authorization": "Bearer {{.access_token}}",
+						},
+					},
+				},
+			},
+			result: []string{
+				"{{.data}}",
+			},
+		},
 	}
 
 	for _, tt := range cases {
