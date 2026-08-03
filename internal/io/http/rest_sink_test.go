@@ -583,3 +583,37 @@ func TestRestSinkOAuthHeadersFastPath(t *testing.T) {
 	require.Equal(t, "Bearer token-one", first["Authorization"])
 	require.Equal(t, "Bearer token-two", second["Authorization"])
 }
+
+func TestRestSinkStaticHeadersFromFirstCollect(t *testing.T) {
+	var requestCount int
+	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		requestCount++
+		if r.Header.Get("Authorization") != "Bearer fixed-token" {
+			w.WriteHeader(http.StatusUnauthorized)
+			return
+		}
+		w.WriteHeader(http.StatusOK)
+	}))
+	defer ts.Close()
+
+	ctx := mockContext.NewMockContext("staticAuth", "op")
+	s := &RestSink{}
+	require.NoError(t, s.Provision(ctx, map[string]interface{}{
+		"url":    ts.URL,
+		"method": "POST",
+		"headers": map[string]interface{}{
+			"Authorization": "Bearer fixed-token",
+			"Content-Type":  "application/json",
+		},
+		"oauth": map[string]interface{}{
+			"access":  map[string]interface{}{},
+			"refresh": map[string]interface{}{},
+		},
+	}))
+	require.NoError(t, s.Connect(ctx, func(string, string) {}))
+
+	data := &xsql.RawTuple{Rawdata: []byte(`{"value":1}`)}
+	require.NoError(t, s.Collect(ctx, data), "the first request must retain static headers")
+	require.NoError(t, s.Collect(ctx, data), "subsequent requests must retain static headers")
+	require.Equal(t, 2, requestCount)
+}
