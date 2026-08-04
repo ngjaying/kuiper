@@ -23,12 +23,12 @@ import (
 	"io"
 	"net/http"
 	"strings"
-	"sync"
 	"sync/atomic"
 	"time"
 
 	"github.com/lf-edge/ekuiper/contract/v2/api"
 	"github.com/sirupsen/logrus"
+	"golang.org/x/sync/singleflight"
 
 	"github.com/lf-edge/ekuiper/v2/internal/compressor"
 	"github.com/lf-edge/ekuiper/v2/internal/conf"
@@ -55,7 +55,7 @@ type ClientConf struct {
 
 	tokenHeaderTemplates map[string]string
 	requiredTokenFields  map[string]struct{}
-	tokenRefreshMu       sync.Mutex
+	tokenRefreshGroup    singleflight.Group
 	oauthSnapshot        atomic.Value // *oauthRuntimeState
 }
 
@@ -255,23 +255,24 @@ func (cc *ClientConf) tokenRefreshDue(state *oauthRuntimeState) bool {
 }
 
 func (cc *ClientConf) refreshToken(ctx api.StreamContext) {
-	cc.tokenRefreshMu.Lock()
-	defer cc.tokenRefreshMu.Unlock()
-	// Another concurrent request may have refreshed the token while this request
-	// was waiting for the lock.
-	if !cc.tokenRefreshDue(cc.oauthRuntimeState()) {
-		return
-	}
-	ctx.GetLogger().Debugf("Refreshing token for HTTP client")
-	if cc.refreshConf != nil {
-		if err := cc.refresh(ctx); err != nil {
-			ctx.GetLogger().Warnf("Refresh HTTP client token error: %v", err)
+	_, _, _ = cc.tokenRefreshGroup.Do("oauth", func() (any, error) {
+		// Another concurrent request may have refreshed the token before this
+		// shared attempt started.
+		if !cc.tokenRefreshDue(cc.oauthRuntimeState()) {
+			return nil, nil
 		}
-	} else {
-		if err := cc.auth(ctx); err != nil {
-			ctx.GetLogger().Warnf("Authorize HTTP client token error: %v", err)
+		ctx.GetLogger().Debugf("Refreshing token for HTTP client")
+		if cc.refreshConf != nil {
+			if err := cc.refresh(ctx); err != nil {
+				ctx.GetLogger().Warnf("Refresh HTTP client token error: %v", err)
+			}
+		} else {
+			if err := cc.auth(ctx); err != nil {
+				ctx.GetLogger().Warnf("Authorize HTTP client token error: %v", err)
+			}
 		}
-	}
+		return nil, nil
+	})
 }
 
 // initialize the oAuth access token

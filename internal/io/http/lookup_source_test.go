@@ -126,3 +126,94 @@ func TestLookupOAuthConcurrentRefresh(t *testing.T) {
 	require.NotNil(t, state)
 	require.Equal(t, "Bearer token-2", state.headers["Authorization"])
 }
+
+func TestLookupOAuthConcurrentRefreshFailure(t *testing.T) {
+	const workers = 16
+	var tokenRequests atomic.Int32
+	var dataRequests atomic.Int32
+	allDataRequests := make(chan struct{})
+	refreshStarted := make(chan struct{})
+	releaseRefresh := make(chan struct{})
+	var allDataOnce sync.Once
+	var refreshOnce sync.Once
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/token":
+			if tokenRequests.Add(1) == 1 {
+				w.Header().Set("Content-Type", "application/json")
+				if err := json.NewEncoder(w).Encode(map[string]any{
+					"access_token": "initial-token",
+					"expires_in":   2,
+				}); err != nil {
+					http.Error(w, err.Error(), http.StatusInternalServerError)
+				}
+				return
+			}
+			refreshOnce.Do(func() { close(refreshStarted) })
+			<-releaseRefresh
+			http.Error(w, "token service unavailable", http.StatusServiceUnavailable)
+		case "/data":
+			if dataRequests.Add(1) == workers {
+				allDataOnce.Do(func() { close(allDataRequests) })
+			}
+			<-allDataRequests
+			w.Header().Set("Content-Type", "application/json")
+			if err := json.NewEncoder(w).Encode(map[string]any{"code": 200}); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+
+	timex.Set(1000)
+	ctx := mockContext.NewMockContext("lookupOAuthFailure", "op")
+	hls := &HttpLookupSource{}
+	require.NoError(t, hls.Provision(ctx, map[string]any{
+		"url":        server.URL,
+		"datasource": "/data",
+		"method":     "get",
+		"headers": map[string]any{
+			"Authorization": "Bearer {{.access_token}}",
+		},
+		"oauth": map[string]any{
+			"access": map[string]any{
+				"url":    server.URL + "/token",
+				"expire": "2",
+			},
+		},
+	}))
+	require.NoError(t, hls.Connect(ctx, func(status string, message string) {}))
+	timex.Add(2 * time.Second)
+
+	errs := make(chan error, workers)
+	var wg sync.WaitGroup
+	wg.Add(workers)
+	for range workers {
+		go func() {
+			defer wg.Done()
+			_, err := hls.Lookup(ctx, []string{"code"}, []string{"code"}, []any{float64(200)})
+			errs <- err
+		}()
+	}
+	select {
+	case <-refreshStarted:
+	case <-time.After(5 * time.Second):
+		t.Fatal("timed out waiting for the shared refresh attempt")
+	}
+	// Give all requests released by the data endpoint time to join the same
+	// in-flight refresh before completing it with an error.
+	time.Sleep(100 * time.Millisecond)
+	close(releaseRefresh)
+	wg.Wait()
+	close(errs)
+	for err := range errs {
+		require.NoError(t, err)
+	}
+
+	require.Equal(t, int32(2), tokenRequests.Load(), "a failed concurrent refresh must make only one token request")
+	state := hls.oauthRuntimeState()
+	require.NotNil(t, state)
+	require.Equal(t, "Bearer initial-token", state.headers["Authorization"], "a failed refresh must retain the previous token state")
+}
