@@ -43,7 +43,7 @@ REST 服务通常需要特定的数据格式。 这可以由公共目标属性 `
 
 使用 OAuth 风格鉴权的示例:
 
-OAuth Header 模板仅支持简单占位符 `{{.access_token}}`、`{{.refresh_token}}`、`{{.token_type}}`、`{{.id_token}}` 和 `{{.expires_in}}`，字段名必须与 token 接口返回的 JSON 字段完全一致。单个 Header 不能同时包含 OAuth 占位符和规则输出模板，但不同 Header 可以分别使用 OAuth 和规则输出模板。
+OAuth Header 模板仅支持简单占位符 `{{.access_token}}`、`{{.refresh_token}}`、`{{.token_type}}`、`{{.id_token}}` 和 `{{.expires_in}}`，字段名必须与 token 接口返回的 JSON 字段完全一致。其他占位符，例如 `{{.message}}`、`{{.scope}}` 和 `{{.custom_token}}`，只会根据规则输出求值，不能读取 token 响应字段。因此，token 接口必须返回 Header 配置所使用的受支持字段名。单个 Header 不能同时包含 OAuth 占位符和规则输出模板，但不同 Header 可以分别使用 OAuth 和规则输出模板。
 
 ```json
 {
