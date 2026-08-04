@@ -413,7 +413,7 @@ func TestRestSinkAuth(t *testing.T) {
 				"method":    "get",
 				"debugResp": true,
 				"headers": map[string]interface{}{
-					"token": "{{.message}}",
+					"token": "{{.access_token}}",
 				},
 				"oauth": tt.authSetting,
 			}))
@@ -473,7 +473,7 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 				w.WriteHeader(http.StatusUnauthorized)
 				return
 			}
-			if r.Header.Get("X-Row") != "row-value" || r.Header.Get("X-Combined") != "row-value/mock_access_token" {
+			if r.Header.Get("X-Row") != "row-value" {
 				w.WriteHeader(http.StatusBadRequest)
 				return
 			}
@@ -494,8 +494,7 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 		"method": "POST",
 		"headers": map[string]interface{}{
 			"Authorization": "Bearer {{.access_token}}",
-			"X-Row":         "{{.row_value}}",
-			"X-Combined":    "{{.row_value}}/{{.access_token}}",
+			"X-Row":         `{{index . 0 "row_value"}}`,
 		},
 		"oauth": map[string]interface{}{
 			"access": map[string]interface{}{
@@ -522,8 +521,7 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 	data := &xsql.RawTuple{
 		Rawdata: []byte(`{"data":123}`),
 		Props: map[string]string{
-			s.headerTemplates["X-Row"].value:      "row-value",
-			s.headerTemplates["X-Combined"].value: "row-value/__ekuiper_oauth_access_token__",
+			s.headerTemplates["X-Row"].value: "row-value",
 		},
 	}
 	err = s.Collect(ctx, data)
@@ -531,6 +529,51 @@ func TestRestSinkOAuthClientCredentials(t *testing.T) {
 
 	err = s.Close(ctx)
 	require.NoError(t, err)
+}
+
+func TestRestSinkRejectsMixedOAuthAndSQLHeader(t *testing.T) {
+	ctx := mockContext.NewMockContext("mixedOAuthHeader", "op")
+	s := &RestSink{}
+	err := s.Provision(ctx, map[string]interface{}{
+		"url": "http://localhost/data",
+		"headers": map[string]interface{}{
+			"X-Combined": `{{index . 0 "row_value"}}/{{.access_token}}`,
+		},
+		"oauth": map[string]interface{}{
+			"access": map[string]interface{}{"url": "http://localhost/token", "expire": "3600"},
+		},
+	})
+	require.EqualError(t, err, `header "X-Combined" cannot mix OAuth and SQL templates`)
+}
+
+func TestRestSinkRejectsUnsupportedOAuthTemplateSyntax(t *testing.T) {
+	ctx := mockContext.NewMockContext("unsupportedOAuthHeader", "op")
+	s := &RestSink{}
+	err := s.Provision(ctx, map[string]interface{}{
+		"url": "http://localhost/data",
+		"headers": map[string]interface{}{
+			"Authorization": `Bearer {{printf "%s" .access_token}}`,
+		},
+		"oauth": map[string]interface{}{
+			"access": map[string]interface{}{"url": "http://localhost/token", "expire": "3600"},
+		},
+	})
+	require.ErrorContains(t, err, "only simple placeholders such as {{.access_token}} are supported")
+}
+
+func TestRestSinkRejectsMissingOAuthResponseField(t *testing.T) {
+	ctx := mockContext.NewMockContext("missingOAuthField", "op")
+	s := &RestSink{}
+	require.NoError(t, s.Provision(ctx, map[string]interface{}{
+		"url": "http://localhost/data",
+		"headers": map[string]interface{}{
+			"Authorization": "Bearer {{.access_token}}",
+		},
+		"oauth": map[string]interface{}{
+			"access": map[string]interface{}{"url": "http://localhost/token", "expire": "3600"},
+		},
+	}))
+	require.EqualError(t, s.updateToken(ctx, map[string]interface{}{"accesstoken": "token"}), `OAuth response does not contain required field "access_token"`)
 }
 
 func TestRestSinkStaticHeadersFastPath(t *testing.T) {

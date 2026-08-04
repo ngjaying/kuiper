@@ -35,19 +35,22 @@ type RestSink struct {
 }
 
 type restHeaderTemplate struct {
-	value             string
-	dynamic           bool
-	tokenReplacements []tokenReplacement
+	value        string
+	plannerValue string
+	kind         restHeaderKind
 }
 
-type tokenReplacement struct {
-	target string
-	field  string
-}
+type restHeaderKind uint8
+
+const (
+	restHeaderStatic restHeaderKind = iota
+	restHeaderOAuth
+	restHeaderSQL
+)
 
 var (
-	oauthTemplatePattern  = regexp.MustCompile(`{{\s*\.(access_token|refresh_token|token_type|id_token|expires_in)\s*}}`)
-	simpleTemplatePattern = regexp.MustCompile(`{{\s*\.([[:word:]]+)\s*}}`)
+	oauthTemplatePattern       = regexp.MustCompile(`{{\s*\.(access_token|refresh_token|token_type|id_token|expires_in)\s*}}`)
+	oauthFieldReferencePattern = regexp.MustCompile(`{{[^{}]*\b(access_token|refresh_token|token_type|id_token|expires_in)\b[^{}]*}}`)
 )
 
 const oauthTemplateMarkerPrefix = "__ekuiper_oauth_"
@@ -70,16 +73,34 @@ func (r *RestSink) Provision(ctx api.StreamContext, configs map[string]any) erro
 		return fmt.Errorf("format must be %s if bodyType is %s", rf, r.ClientConf.config.BodyType)
 	}
 	r.headerTemplates = make(map[string]restHeaderTemplate, len(r.config.Headers))
+	if r.accessConf != nil {
+		r.tokenHeaderTemplates = make(map[string]string, len(r.config.Headers))
+		r.requiredTokenFields = make(map[string]struct{})
+	}
 	for k, v := range r.config.Headers {
 		if r.accessConf != nil {
-			r.headerTemplates[k] = newOAuthHeaderTemplate(v)
+			h, fields, err := newOAuthHeaderTemplate(k, v)
+			if err != nil {
+				return err
+			}
+			r.headerTemplates[k] = h
+			if h.kind != restHeaderSQL {
+				r.tokenHeaderTemplates[k] = v
+			}
+			for _, field := range fields {
+				r.requiredTokenFields[field] = struct{}{}
+			}
 		} else {
-			h := restHeaderTemplate{value: v, dynamic: strings.Contains(v, "{{")}
+			kind := restHeaderStatic
+			if strings.Contains(v, "{{") {
+				kind = restHeaderSQL
+			}
+			h := restHeaderTemplate{value: v, plannerValue: v, kind: kind}
 			r.headerTemplates[k] = h
 		}
-		if h := r.headerTemplates[k]; h.dynamic || len(h.tokenReplacements) > 0 {
+		if h := r.headerTemplates[k]; h.kind != restHeaderStatic {
 			r.hasHeaderTemplates = true
-			if h.dynamic {
+			if h.kind == restHeaderSQL {
 				r.hasDynamicHeaders = true
 			}
 		}
@@ -99,13 +120,13 @@ func (r *RestSink) Consume(props map[string]any) {
 				case map[string]any:
 					maskedHeaders := make(map[string]any, len(headers))
 					for k := range headers {
-						maskedHeaders[k] = r.headerTemplates[k].value
+						maskedHeaders[k] = r.headerTemplates[k].plannerValue
 					}
 					props[key] = maskedHeaders
 				case map[string]string:
 					maskedHeaders := make(map[string]string, len(headers))
 					for k := range headers {
-						maskedHeaders[k] = r.headerTemplates[k].value
+						maskedHeaders[k] = r.headerTemplates[k].plannerValue
 					}
 					props[key] = maskedHeaders
 				}
@@ -114,31 +135,29 @@ func (r *RestSink) Consume(props map[string]any) {
 	}
 }
 
-func maskOAuthTemplates(value string) string {
-	return oauthTemplatePattern.ReplaceAllString(value, oauthTemplateMarkerPrefix+"${1}__")
-}
-
-func newOAuthHeaderTemplate(value string) restHeaderTemplate {
-	masked := maskOAuthTemplates(value)
-	h := restHeaderTemplate{value: masked, dynamic: strings.Contains(masked, "{{")}
-	for _, match := range simpleTemplatePattern.FindAllStringSubmatch(value, -1) {
-		target := match[0]
-		field := match[1]
-		if oauthTemplatePattern.MatchString(target) {
-			target = oauthTemplateMarkerPrefix + field + "__"
-		}
-		h.tokenReplacements = append(h.tokenReplacements, tokenReplacement{target: target, field: field})
+func newOAuthHeaderTemplate(name, value string) (restHeaderTemplate, []string, error) {
+	matches := oauthTemplatePattern.FindAllStringSubmatch(value, -1)
+	withoutOAuth := oauthTemplatePattern.ReplaceAllString(value, "")
+	if oauthFieldReferencePattern.MatchString(withoutOAuth) {
+		return restHeaderTemplate{}, nil, fmt.Errorf("header %q uses an unsupported OAuth template; only simple placeholders such as {{.access_token}} are supported", name)
 	}
-	return h
-}
-
-func resolveOAuthTemplates(value string, tokens map[string]string, replacements []tokenReplacement) string {
-	for _, replacement := range replacements {
-		if token, ok := tokens[replacement.field]; ok {
-			value = strings.ReplaceAll(value, replacement.target, token)
-		}
+	hasOAuth := len(matches) > 0
+	hasSQL := strings.Contains(withoutOAuth, "{{")
+	if hasOAuth && hasSQL {
+		return restHeaderTemplate{}, nil, fmt.Errorf("header %q cannot mix OAuth and SQL templates", name)
 	}
-	return value
+	h := restHeaderTemplate{value: value, plannerValue: value, kind: restHeaderStatic}
+	fields := make([]string, 0, len(matches))
+	if hasOAuth {
+		h.kind = restHeaderOAuth
+		h.plannerValue = oauthTemplateMarkerPrefix + name
+		for _, match := range matches {
+			fields = append(fields, match[1])
+		}
+	} else if hasSQL {
+		h.kind = restHeaderSQL
+	}
+	return h, fields, nil
 }
 
 func deletePropFold(props map[string]any, name string) {
@@ -274,24 +293,17 @@ func (r *RestSink) prepareHeaders(item api.RawTuple) map[string]string {
 	headers := make(map[string]string, len(r.headerTemplates))
 	dp, hasDynamicProps := item.(api.HasDynamicProps)
 	for k, headerTemplate := range r.headerTemplates {
-		if !headerTemplate.dynamic && oauthState != nil {
+		if headerTemplate.kind != restHeaderSQL && oauthState != nil {
 			if resolved, ok := oauthState.headers[k]; ok {
 				headers[k] = resolved
 				continue
 			}
 		}
 		value := headerTemplate.value
-		if headerTemplate.dynamic && hasDynamicProps {
+		if headerTemplate.kind == restHeaderSQL && hasDynamicProps {
 			if dynamicValue, ok := dp.DynamicProps(headerTemplate.value); ok {
 				value = dynamicValue
 			}
-		}
-		if len(headerTemplate.tokenReplacements) > 0 {
-			var tokens map[string]string
-			if oauthState != nil {
-				tokens = oauthState.tokens
-			}
-			value = resolveOAuthTemplates(value, tokens, headerTemplate.tokenReplacements)
 		}
 		headers[k] = value
 	}

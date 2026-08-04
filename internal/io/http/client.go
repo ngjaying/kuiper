@@ -52,16 +52,17 @@ type ClientConf struct {
 	accessConf  *AccessTokenConf
 	refreshConf *RefreshTokenConf
 
-	tokenLastUpdateAt   time.Time
-	parsedHeaders       map[string]string
-	parsedBody          string
-	parsedRefreshHeader map[string]string
-	parsedRefreshBody   string
-	oauthSnapshot       atomic.Value // *oauthRuntimeState
+	tokenLastUpdateAt    time.Time
+	parsedHeaders        map[string]string
+	parsedBody           string
+	parsedRefreshHeader  map[string]string
+	parsedRefreshBody    string
+	tokenHeaderTemplates map[string]string
+	requiredTokenFields  map[string]struct{}
+	oauthSnapshot        atomic.Value // *oauthRuntimeState
 }
 
 type oauthRuntimeState struct {
-	tokens  map[string]string
 	headers map[string]string
 }
 
@@ -304,7 +305,16 @@ func (cc *ClientConf) updateToken(ctx api.StreamContext, tk map[string]interface
 	cc.tokenLastUpdateAt = timex.GetNow()
 	var err error
 	ctx.GetLogger().Infof("Got access token %v", replace.HidePassword(tk))
-	cc.parsedHeaders, err = cc.parseHeaders(ctx, tk)
+	for field := range cc.requiredTokenFields {
+		if _, ok := tk[field]; !ok {
+			return fmt.Errorf("OAuth response does not contain required field %q", field)
+		}
+	}
+	headerTemplates := cc.config.Headers
+	if cc.tokenHeaderTemplates != nil {
+		headerTemplates = cc.tokenHeaderTemplates
+	}
+	cc.parsedHeaders, err = parseHeaders(ctx, headerTemplates, tk)
 	if err != nil {
 		return fmt.Errorf("fail to parse header with access token: %v", err)
 	}
@@ -327,12 +337,7 @@ func (cc *ClientConf) updateToken(ctx api.StreamContext, tk map[string]interface
 		}
 		cc.parsedRefreshBody = pb
 	}
-	tokens := make(map[string]string, len(tk))
-	for k, v := range tk {
-		tokens[k] = fmt.Sprint(v)
-	}
 	cc.oauthSnapshot.Store(&oauthRuntimeState{
-		tokens:  tokens,
 		headers: cc.parsedHeaders,
 	})
 	return nil

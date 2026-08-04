@@ -813,7 +813,6 @@ func (s *RuleTestSuite) TestRestSinkOAuthAndRowHeaderTemplates() {
 	type receivedRequest struct {
 		authorization string
 		rowHeader     string
-		combined      string
 	}
 	received := make(chan receivedRequest, 1)
 	ts := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -828,7 +827,6 @@ func (s *RuleTestSuite) TestRestSinkOAuthAndRowHeaderTemplates() {
 			request := receivedRequest{
 				authorization: r.Header.Get("Authorization"),
 				rowHeader:     r.Header.Get("X-Row"),
-				combined:      r.Header.Get("X-Combined"),
 			}
 			select {
 			case received <- request:
@@ -871,14 +869,12 @@ func (s *RuleTestSuite) TestRestSinkOAuthAndRowHeaderTemplates() {
 		"actions": []map[string]any{
 			{
 				"rest": map[string]any{
-					"url":        ts.URL + "/target",
-					"method":     http.MethodPost,
-					"sendSingle": true,
+					"url":    ts.URL + "/target",
+					"method": http.MethodPost,
 					"headers": map[string]string{
 						"Authorization": "Bearer {{.access_token}}",
 						"Content-Type":  "application/json",
-						"X-Row":         "{{.row_value}}",
-						"X-Combined":    "{{.row_value}}/{{.access_token}}",
+						"X-Row":         `{{index . 0 "row_value"}}`,
 					},
 					"oauth": map[string]any{
 						"access": map[string]any{
@@ -902,7 +898,6 @@ func (s *RuleTestSuite) TestRestSinkOAuthAndRowHeaderTemplates() {
 	case request := <-received:
 		s.Require().Equal("Bearer e2e-token", request.authorization)
 		s.Require().Equal("row-value", request.rowHeader)
-		s.Require().Equal("row-value/e2e-token", request.combined)
 	case <-time.After(10 * time.Second):
 		s.Fail("timed out waiting for the first REST request")
 	}

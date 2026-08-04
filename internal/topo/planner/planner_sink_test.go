@@ -422,7 +422,6 @@ func TestRestOAuthAndRuleOutputHeaderTemplates(t *testing.T) {
 		"headers": map[string]any{
 			"Authorization": "Bearer {{.access_token}}",
 			"X-Row":         `{{index . 0 "row_value"}}`,
-			"X-Combined":    `{{index . 0 "row_value"}}/{{.access_token}}`,
 		},
 		"oAuth": map[string]any{
 			"access": map[string]any{
@@ -452,9 +451,6 @@ func TestRestOAuthAndRuleOutputHeaderTemplates(t *testing.T) {
 	rowValue, ok := dynamicProps.DynamicProps(`{{index . 0 "row_value"}}`)
 	require.True(t, ok)
 	require.Equal(t, "row-value", rowValue)
-	combined, ok := dynamicProps.DynamicProps(`{{index . 0 "row_value"}}/__ekuiper_oauth_access_token__`)
-	require.True(t, ok)
-	require.Equal(t, "row-value/__ekuiper_oauth_access_token__", combined)
 }
 
 func TestSinkSchema(t *testing.T) {
