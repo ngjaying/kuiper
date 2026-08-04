@@ -15,11 +15,19 @@
 package http
 
 import (
+	"encoding/json"
+	"fmt"
+	"net/http"
+	"net/http/httptest"
+	"sync"
+	"sync/atomic"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 
 	mockContext "github.com/lf-edge/ekuiper/v2/pkg/mock/context"
+	"github.com/lf-edge/ekuiper/v2/pkg/timex"
 )
 
 func TestLookup(t *testing.T) {
@@ -45,4 +53,76 @@ func TestLookup(t *testing.T) {
 		},
 	}, got)
 	require.NoError(t, hls.Close(ctx))
+}
+
+func TestLookupOAuthConcurrentRefresh(t *testing.T) {
+	var tokenRequests atomic.Int32
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		switch r.URL.Path {
+		case "/token":
+			token := fmt.Sprintf("token-%d", tokenRequests.Add(1))
+			w.Header().Set("Content-Type", "application/json")
+			if err := json.NewEncoder(w).Encode(map[string]any{
+				"access_token": token,
+				"expires_in":   2,
+			}); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		case "/data":
+			if r.Header.Get("Authorization") == "" {
+				http.Error(w, "missing authorization", http.StatusUnauthorized)
+				return
+			}
+			w.Header().Set("Content-Type", "application/json")
+			if err := json.NewEncoder(w).Encode(map[string]any{"code": 200}); err != nil {
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+			}
+		default:
+			http.NotFound(w, r)
+		}
+	}))
+	defer server.Close()
+
+	timex.Set(1000)
+	ctx := mockContext.NewMockContext("lookupOAuth", "op")
+	hls := &HttpLookupSource{}
+	require.NoError(t, hls.Provision(ctx, map[string]any{
+		"url":        server.URL,
+		"datasource": "/data",
+		"method":     "get",
+		"headers": map[string]any{
+			"Authorization": "Bearer {{.access_token}}",
+		},
+		"oauth": map[string]any{
+			"access": map[string]any{
+				"url":    server.URL + "/token",
+				"expire": "2",
+			},
+		},
+	}))
+	require.NoError(t, hls.Connect(ctx, func(status string, message string) {}))
+	require.Equal(t, int32(1), tokenRequests.Load())
+
+	timex.Add(2 * time.Second)
+	const workers = 16
+	errs := make(chan error, workers)
+	var wg sync.WaitGroup
+	wg.Add(workers)
+	for range workers {
+		go func() {
+			defer wg.Done()
+			_, err := hls.Lookup(ctx, []string{"code"}, []string{"code"}, []any{float64(200)})
+			errs <- err
+		}()
+	}
+	wg.Wait()
+	close(errs)
+	for err := range errs {
+		require.NoError(t, err)
+	}
+
+	require.Equal(t, int32(2), tokenRequests.Load(), "concurrent lookups must share one token refresh")
+	state := hls.oauthRuntimeState()
+	require.NotNil(t, state)
+	require.Equal(t, "Bearer token-2", state.headers["Authorization"])
 }

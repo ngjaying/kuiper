@@ -23,6 +23,7 @@ import (
 	"io"
 	"net/http"
 	"strings"
+	"sync"
 	"sync/atomic"
 	"time"
 
@@ -52,18 +53,18 @@ type ClientConf struct {
 	accessConf  *AccessTokenConf
 	refreshConf *RefreshTokenConf
 
-	tokenLastUpdateAt    time.Time
-	parsedHeaders        map[string]string
-	parsedBody           string
-	parsedRefreshHeader  map[string]string
-	parsedRefreshBody    string
 	tokenHeaderTemplates map[string]string
 	requiredTokenFields  map[string]struct{}
+	tokenRefreshMu       sync.Mutex
 	oauthSnapshot        atomic.Value // *oauthRuntimeState
 }
 
 type oauthRuntimeState struct {
-	headers map[string]string
+	headers        map[string]string
+	body           string
+	refreshHeaders map[string]string
+	refreshBody    string
+	updatedAt      time.Time
 }
 
 type AccessTokenConf struct {
@@ -242,20 +243,35 @@ func (cc *ClientConf) Conn(ctx api.StreamContext) error {
 func (cc *ClientConf) Send(ctx api.StreamContext, bodyType string, method string, u string, headers map[string]string, formData map[string]string, formFieldName string, v any) (*http.Response, error) {
 	resp, err := httpx.SendWithFormData(ctx.GetLogger(), cc.client, bodyType, method, u, headers, formData, formFieldName, v)
 	// Check token refresh after send
-	if cc.accessConf != nil && cc.accessConf.ExpireInSecond > 0 &&
-		int(timex.GetNow().Sub(cc.tokenLastUpdateAt).Abs().Seconds())*2 > cc.accessConf.ExpireInSecond {
-		ctx.GetLogger().Debugf("Refreshing token for REST sink")
-		if cc.refreshConf != nil {
-			if err := cc.refresh(ctx); err != nil {
-				ctx.GetLogger().Warnf("Refresh REST sink token error: %v", err)
-			}
-		} else {
-			if err := cc.auth(ctx); err != nil {
-				ctx.GetLogger().Warnf("Authorize REST sink token error: %v", err)
-			}
-		}
+	if cc.tokenRefreshDue(cc.oauthRuntimeState()) {
+		cc.refreshToken(ctx)
 	}
 	return resp, err
+}
+
+func (cc *ClientConf) tokenRefreshDue(state *oauthRuntimeState) bool {
+	return cc.accessConf != nil && cc.accessConf.ExpireInSecond > 0 && state != nil &&
+		int(timex.GetNow().Sub(state.updatedAt).Abs().Seconds())*2 > cc.accessConf.ExpireInSecond
+}
+
+func (cc *ClientConf) refreshToken(ctx api.StreamContext) {
+	cc.tokenRefreshMu.Lock()
+	defer cc.tokenRefreshMu.Unlock()
+	// Another concurrent request may have refreshed the token while this request
+	// was waiting for the lock.
+	if !cc.tokenRefreshDue(cc.oauthRuntimeState()) {
+		return
+	}
+	ctx.GetLogger().Debugf("Refreshing token for HTTP client")
+	if cc.refreshConf != nil {
+		if err := cc.refresh(ctx); err != nil {
+			ctx.GetLogger().Warnf("Refresh HTTP client token error: %v", err)
+		}
+	} else {
+		if err := cc.auth(ctx); err != nil {
+			ctx.GetLogger().Warnf("Authorize HTTP client token error: %v", err)
+		}
+	}
 }
 
 // initialize the oAuth access token
@@ -286,7 +302,11 @@ func parseHeaders(ctx api.StreamContext, oHeaders map[string]string, data map[st
 
 func (cc *ClientConf) refresh(ctx api.StreamContext) error {
 	if cc.refreshConf != nil {
-		resp, err := httpx.Send(conf.Log, cc.client, "json", http.MethodPost, cc.refreshConf.Url, cc.parsedRefreshHeader, cc.parsedRefreshBody)
+		state := cc.oauthRuntimeState()
+		if state == nil {
+			return fmt.Errorf("OAuth token is not initialized")
+		}
+		resp, err := httpx.Send(conf.Log, cc.client, "json", http.MethodPost, cc.refreshConf.Url, state.refreshHeaders, state.refreshBody)
 		if err != nil {
 			return fmt.Errorf("fail to get refresh token: %v", err)
 		}
@@ -302,7 +322,6 @@ func (cc *ClientConf) refresh(ctx api.StreamContext) error {
 }
 
 func (cc *ClientConf) updateToken(ctx api.StreamContext, tk map[string]interface{}) error {
-	cc.tokenLastUpdateAt = timex.GetNow()
 	var err error
 	ctx.GetLogger().Infof("Got access token %v", replace.HidePassword(tk))
 	for field := range cc.requiredTokenFields {
@@ -314,14 +333,16 @@ func (cc *ClientConf) updateToken(ctx api.StreamContext, tk map[string]interface
 	if cc.tokenHeaderTemplates != nil {
 		headerTemplates = cc.tokenHeaderTemplates
 	}
-	cc.parsedHeaders, err = parseHeaders(ctx, headerTemplates, tk)
+	parsedHeaders, err := parseHeaders(ctx, headerTemplates, tk)
 	if err != nil {
 		return fmt.Errorf("fail to parse header with access token: %v", err)
 	}
-	cc.parsedBody, err = ctx.ParseTemplate(cc.config.Body, tk)
+	parsedBody, err := ctx.ParseTemplate(cc.config.Body, tk)
 	if err != nil {
 		return fmt.Errorf("fail to parse body with access token: %v", err)
 	}
+	var parsedRefreshHeaders map[string]string
+	var parsedRefreshBody string
 	if cc.refreshConf != nil {
 		headers := make(map[string]string, len(cc.refreshConf.Headers))
 		for k, v := range cc.refreshConf.Headers {
@@ -330,15 +351,19 @@ func (cc *ClientConf) updateToken(ctx api.StreamContext, tk map[string]interface
 				return fmt.Errorf("fail to parse the header for refresh token request %s: %v", k, err)
 			}
 		}
-		cc.parsedRefreshHeader = headers
+		parsedRefreshHeaders = headers
 		pb, err := ctx.ParseTemplate(cc.refreshConf.Body, tk)
 		if err != nil {
 			return fmt.Errorf("fail to parse body with refresh token request: %v", err)
 		}
-		cc.parsedRefreshBody = pb
+		parsedRefreshBody = pb
 	}
 	cc.oauthSnapshot.Store(&oauthRuntimeState{
-		headers: cc.parsedHeaders,
+		headers:        parsedHeaders,
+		body:           parsedBody,
+		refreshHeaders: parsedRefreshHeaders,
+		refreshBody:    parsedRefreshBody,
+		updatedAt:      timex.GetNow(),
 	})
 	return nil
 }
