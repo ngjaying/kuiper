@@ -70,6 +70,23 @@ func TestAccumulateAggCond(t *testing.T) {
 				int64(0), int64(1), int64(2), int64(3), int64(0),
 			},
 		},
+		{
+			name: "acc_collect",
+			testargs: [][]interface{}{
+				{int64(1), false, false},
+				{int64(1), true, false},
+				{int64(2), false, false},
+				{int64(3), false, true},
+				{int64(4), false, false},
+			},
+			results: []interface{}{
+				[]interface{}{},
+				[]interface{}{int64(1)},
+				[]interface{}{int64(1), int64(2)},
+				[]interface{}{int64(1), int64(2), int64(3)},
+				[]interface{}{},
+			},
+		},
 	}
 	for _, test := range tests {
 		f, ok := builtins[test.name]
@@ -182,6 +199,23 @@ func TestAccumulateAgg(t *testing.T) {
 				float64(5),
 			},
 		},
+		{
+			name: "acc_collect",
+			testargs: []interface{}{
+				int64(1),
+				int64(2),
+				nil,
+				"hello",
+				float64(3.14),
+			},
+			results: []interface{}{
+				[]interface{}{int64(1)},
+				[]interface{}{int64(1), int64(2)},
+				[]interface{}{int64(1), int64(2)},
+				[]interface{}{int64(1), int64(2), "hello"},
+				[]interface{}{int64(1), int64(2), "hello", float64(3.14)},
+			},
+		},
 	}
 	for _, test := range tests {
 		f, ok := builtins[test.name]
@@ -220,6 +254,10 @@ func TestAccumulateAgg(t *testing.T) {
 			"acc_count",
 			int64(0),
 		},
+		{
+			"acc_collect",
+			[]interface{}{},
+		},
 	}
 	for _, test := range tests2 {
 		f, ok := builtins[test.name]
@@ -232,4 +270,50 @@ func TestAccumulateAgg(t *testing.T) {
 		require.True(t, b)
 		require.Equal(t, test.result, result)
 	}
+}
+
+func TestAccCollectFuncDirect(t *testing.T) {
+	contextLogger := conf.Log.WithField("rule", "testExec")
+	ctx := kctx.WithValue(kctx.Background(), kctx.LoggerKey, contextLogger)
+	tempStore, _ := state.CreateStore("mockRule0", def.AtMostOnce)
+	fctx := kctx.NewDefaultFuncContext(ctx.WithMeta("mockRule0", "test", tempStore), 2)
+
+	cf := accCollectFunc{}
+
+	// Test accReset
+	t.Run("accReset", func(t *testing.T) {
+		s := &accStatus{Value: int64(42)}
+		cf.accReset(s)
+		require.Equal(t, []interface{}{}, s.Value)
+	})
+
+	// Test accFuncExec with nil Value (defense-in-depth guard)
+	t.Run("accFuncExec_nilValue", func(t *testing.T) {
+		s := &accStatus{Value: nil}
+		cf.accFuncExec(fctx, int64(1), true, "k1", s, true)
+		require.Equal(t, []interface{}{int64(1)}, s.Value)
+		require.Nil(t, s.Err)
+	})
+
+	// Test accFuncExec with nil value arg (should skip)
+	t.Run("accFuncExec_nilArg", func(t *testing.T) {
+		s := &accStatus{Value: []interface{}{int64(1)}}
+		cf.accFuncExec(fctx, nil, true, "k2", s, true)
+		require.Equal(t, []interface{}{int64(1)}, s.Value)
+	})
+
+	// Test accFuncExec with validData=false and skipStatusSave=true
+	t.Run("accFuncExec_invalidData_skipSave", func(t *testing.T) {
+		s := &accStatus{Value: []interface{}{int64(1)}}
+		cf.accFuncExec(fctx, int64(2), false, "k3", s, true)
+		require.Equal(t, []interface{}{int64(1)}, s.Value)
+	})
+
+	// Test accFuncExec with skipStatusSave=false (PutState path)
+	t.Run("accFuncExec_withSave", func(t *testing.T) {
+		s := &accStatus{Value: []interface{}{int64(1)}}
+		cf.accFuncExec(fctx, int64(2), true, "k4", s, false)
+		require.Equal(t, []interface{}{int64(1), int64(2)}, s.Value)
+		require.Nil(t, s.Err)
+	})
 }
