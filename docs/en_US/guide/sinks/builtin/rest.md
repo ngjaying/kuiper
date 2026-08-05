@@ -44,7 +44,7 @@ will be sent individually.
 
 Example to use oAuth style authentication:
 
-OAuth header templates support only the simple placeholders `{{.access_token}}`, `{{.refresh_token}}`, `{{.token_type}}`, `{{.id_token}}`, and `{{.expires_in}}`. The names must exactly match the JSON fields returned by the token endpoint. Other placeholders, such as `{{.message}}`, `{{.scope}}`, and `{{.custom_token}}`, are evaluated only against the rule output and cannot read fields from the token response. Token endpoints must therefore return the supported field names used by the configured headers. A single header cannot mix an OAuth placeholder with a rule-output template, but different headers may use OAuth and rule-output templates separately.
+OAuth header templates support only the simple placeholders <code v-pre>{{.access_token}}</code>, <code v-pre>{{.refresh_token}}</code>, <code v-pre>{{.token_type}}</code>, <code v-pre>{{.id_token}}</code>, and <code v-pre>{{.expires_in}}</code>. The names must exactly match the JSON fields returned by the token endpoint. Other placeholders, such as <code v-pre>{{.message}}</code>, <code v-pre>{{.scope}}</code>, and <code v-pre>{{.custom_token}}</code>, are evaluated only against the rule output and cannot read fields from the token response. Token endpoints must therefore return the supported field names used by the configured headers. A single header cannot mix an OAuth placeholder with a rule-output template, but different headers may use OAuth and rule-output templates separately.
 
 ```json
 {
