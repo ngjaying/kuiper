@@ -23,6 +23,7 @@ import (
 	"mime/multipart"
 	"net"
 	"net/http"
+	"net/netip"
 	"net/url"
 	"os"
 	"path/filepath"
@@ -245,8 +246,17 @@ func GetSSRFDialContext(timeout time.Duration) func(ctx context.Context, network
 				if err != nil {
 					return err
 				}
-				ip := net.ParseIP(host)
-				if ip != nil && (ip.IsLoopback() || ip.IsPrivate() || ip.IsUnspecified() || ip.IsMulticast() || ip.IsLinkLocalUnicast() || ip.IsLinkLocalMulticast()) {
+				// net.ParseIP rejects IPv6 addresses carrying a zone identifier
+				// (e.g. "fe80::1%eth0"), which would then fall through as nil
+				// and bypass the internal-network check. Use netip.ParseAddr,
+				// which accepts zones, strip the zone for validation, and fail
+				// closed on any host that cannot be parsed as an IP.
+				na, err := netip.ParseAddr(host)
+				if err != nil {
+					return fmt.Errorf("invalid dial address %q: %w", host, err)
+				}
+				ip := net.IP(na.WithZone("").AsSlice())
+				if isInternalIP(ip) {
 					return fmt.Errorf("ip %s is in internal network", ip.String())
 				}
 				return nil

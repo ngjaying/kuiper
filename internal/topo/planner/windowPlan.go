@@ -90,8 +90,12 @@ func (p *WindowPlan) BuildExplainInfo() {
 }
 
 func (p *WindowPlan) PushDownPredicate(condition ast.Expr) (ast.Expr, LogicalPlan) {
-	// not time window depends on the event, so should not filter any
-	if p.wtype == ast.COUNT_WINDOW || p.wtype == ast.SLIDING_WINDOW {
+	// not time window depends on the event, so should not filter any.
+	// state window also needs to see every row to detect state transitions
+	// (begin/emit), so the WHERE filter must run after the window rather than
+	// before it; otherwise rows that trigger a state change could be filtered
+	// out and the window would never open/close.
+	if p.wtype == ast.COUNT_WINDOW || p.wtype == ast.SLIDING_WINDOW || p.wtype == ast.STATE_WINDOW {
 		return condition, p
 	} else if p.isEventTime {
 		// TODO event time filter, need event window op support

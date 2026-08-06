@@ -119,6 +119,44 @@ func TestGetSSRFDialContext(t *testing.T) {
 		}
 	})
 
+	t.Run("Block IPv6 transition addresses that wrap an internal IPv4", func(t *testing.T) {
+		// Regression test for GHSA-4q5r-r938-8xr2: the SSRF guard must decode
+		// IPv6 transition mechanisms and block the embedded private IPv4.
+		conf.Config.Basic.EnablePrivateNet = false
+		dialer := GetSSRFDialContext(time.Second)
+
+		cases := []string{
+			// NAT64 (RFC 6052) /96 wrapping 169.254.169.254
+			"[64:ff9b::a9fe:a9fe]:80",
+			// RFC 8215 local-use NAT64 /48: real embedded IPv4 is 169.254.169.254
+			// (bytes 6-7/9-10) while low 32 bits read as 8.8.8.8.
+			"[64:ff9b:1:a9fe:a9:fe00:808:808]:80",
+			// 6to4 (RFC 3056) wrapping 127.0.0.1
+			"[2002:7f00:1::]:80",
+			// Teredo (RFC 4380) wrapping 169.254.169.254
+			"[2001:0:4136:e378:8000:63bf:5601:5601]:80",
+			// IPv4-compatible (RFC 4291) wrapping 10.0.0.1
+			"[::10.0.0.1]:80",
+			// CGNAT (RFC 6598)
+			"100.64.0.1:80",
+			// IPv6 scoped addresses with a zone identifier. net.ParseIP rejects
+			// the zone and returns nil, which used to bypass the check.
+			"[fe80::1%eth0]:80",
+			"[::1%lo]:80",
+			"[64:ff9b::a9fe:a9fe%eth0]:80",
+		}
+		for _, addr := range cases {
+			conn, err := dialer(context.Background(), "tcp", addr)
+			assert.Error(t, err, addr)
+			if err != nil {
+				assert.Contains(t, err.Error(), "in internal network", addr)
+			}
+			if conn != nil {
+				conn.Close()
+			}
+		}
+	})
+
 	t.Run("Allow private IP when enabled", func(t *testing.T) {
 		conf.Config.Basic.EnablePrivateNet = true
 		dialer := GetSSRFDialContext(time.Second)
