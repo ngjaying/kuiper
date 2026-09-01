@@ -80,6 +80,8 @@ var analyticFuncs = map[string]struct{}{
 	"acc_avg":     {},
 	"acc_count":   {},
 	"acc_collect": {},
+	"acc_max_by":  {},
+	"acc_map_agg": {},
 }
 
 var windowFuncs = map[string]struct{}{

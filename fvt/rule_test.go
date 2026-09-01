@@ -154,6 +154,95 @@ func (s *RuleTestSuite) TestRuleDisableBufferFullDiscard() {
 	s.assertRecvMemTuple(subCh, data)
 }
 
+// TestAccMaxByMapAggChargeCycle verifies a two-rule vehicle charge-cycle flow.
+// Rule 1 calculates the cumulative maximum temperature and its timestamp per SOC.
+// Rule 2 receives Rule 1's output through a memory stream and emits the complete
+// SOC map only when upload_flag is set.
+func (s *RuleTestSuite) TestAccMaxByMapAggChargeCycle() {
+	const (
+		inputStream    = "accMapVehicleInput"
+		statStream     = "accMapVehicleStat"
+		statTopic      = "acc_map_vehicle_stat"
+		resultTopic    = "acc_map_vehicle_result"
+		ruleUpstream   = "accMapVehicleUpstream"
+		ruleDownstream = "accMapVehicleDownstream"
+	)
+	client.DeleteRule(ruleUpstream)
+	client.DeleteRule(ruleDownstream)
+	client.DeleteStream(inputStream)
+	client.DeleteStream(statStream)
+	defer client.DeleteRule(ruleUpstream)
+	defer client.DeleteRule(ruleDownstream)
+	defer client.DeleteStream(inputStream)
+	defer client.DeleteStream(statStream)
+
+	subCh := pubsub.CreateSub(resultTopic, nil, resultTopic, 10)
+	defer pubsub.CloseSourceConsumerChannel(resultTopic, resultTopic)
+
+	data := []map[string]any{
+		{"soc": 18, "temp": 28, "ts": 1788000000000},
+		{"soc": 18, "temp": 29, "ts": 1788000030000},
+		{"soc": 18, "temp": 30, "ts": 1788000060000},
+		{"soc": 19, "temp": 31, "ts": 1788000090000},
+		{"soc": 19, "temp": 32, "ts": 1788000120000},
+		{"soc": 20, "temp": 31, "ts": 1788000150000},
+		{"soc": 20, "temp": 32, "ts": 1788000180000},
+		{"soc": 20, "temp": 33, "ts": 1788000210000},
+		{"soc": 21, "temp": 34, "ts": 1788000240000},
+		{"soc": 21, "temp": 35, "ts": 1788000270000},
+		{"soc": 21, "temp": 35, "ts": 1788000300000},
+		{"soc": 22, "temp": 34, "ts": 1788000330000},
+		{"soc": 22, "temp": 33, "ts": 1788000690000, "upload_flag": 1},
+	}
+	resp, err := client.CreateConf("sources/simulator/confKeys/accMapVehicle", map[string]any{
+		"data": data, "interval": "10ms", "loop": false,
+	})
+	s.Require().NoError(err)
+	s.Require().Equal(http.StatusOK, resp.StatusCode)
+
+	for _, sql := range []string{
+		fmt.Sprintf(`{"sql":"CREATE STREAM %s (soc BIGINT, temp BIGINT, ts BIGINT, upload_flag BIGINT) WITH (TYPE=\"simulator\", FORMAT=\"json\", CONF_KEY=\"accMapVehicle\")"}`, inputStream),
+		fmt.Sprintf(`{"sql":"CREATE STREAM %s () WITH (TYPE=\"memory\", DATASOURCE=\"%s\", FORMAT=\"json\")"}`, statStream, statTopic),
+	} {
+		resp, err = client.CreateStream(sql)
+		s.Require().NoError(err)
+		if resp.StatusCode != http.StatusCreated {
+			body, readErr := GetResponseText(resp)
+			s.Require().NoError(readErr)
+			s.T().Logf("create stream response: %s", body)
+		}
+		s.Require().Equal(http.StatusCreated, resp.StatusCode)
+	}
+
+	// Start the downstream rule first so no intermediate memory messages are lost.
+	rule := fmt.Sprintf(`{
+  "id": "%s",
+  "sql": "SELECT acc_map_agg(soc, object_construct('max_temp', max_temp, 'max_temp_ts', max_temp_ts)) AS data FROM %s WHERE upload_flag = 1",
+  "actions": [{"memory": {"topic": "%s"}}]
+}`, ruleDownstream, statStream, resultTopic)
+	resp, err = client.CreateRule(rule)
+	s.Require().NoError(err)
+	s.Require().Equal(http.StatusCreated, resp.StatusCode)
+
+	rule = fmt.Sprintf(`{
+  "id": "%s",
+  "sql": "SELECT soc, acc_max(temp) OVER (PARTITION BY soc) AS max_temp, acc_max_by(ts, temp) OVER (PARTITION BY soc) AS max_temp_ts, upload_flag FROM %s",
+  "actions": [{"memory": {"topic": "%s"}}]
+}`, ruleUpstream, inputStream, statTopic)
+	resp, err = client.CreateRule(rule)
+	s.Require().NoError(err)
+	s.Require().Equal(http.StatusCreated, resp.StatusCode)
+
+	expected := map[string]any{"data": []map[string]any{
+		{"key": "18", "value": map[string]any{"max_temp": float64(30), "max_temp_ts": float64(1788000060000)}},
+		{"key": "19", "value": map[string]any{"max_temp": float64(32), "max_temp_ts": float64(1788000120000)}},
+		{"key": "20", "value": map[string]any{"max_temp": float64(33), "max_temp_ts": float64(1788000210000)}},
+		{"key": "21", "value": map[string]any{"max_temp": float64(35), "max_temp_ts": float64(1788000300000)}},
+		{"key": "22", "value": map[string]any{"max_temp": float64(34), "max_temp_ts": float64(1788000330000)}},
+	}}
+	s.assertRecvMemTuple(subCh, []map[string]any{expected})
+}
+
 func (s *RuleTestSuite) assertRecvMemTuple(subCh chan any, expect []map[string]any) {
 	for _, e := range expect {
 		d := <-subCh
