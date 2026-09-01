@@ -413,6 +413,48 @@ acc_collect(a)
 
 The results are: [1] [1,2] [1,2,3]
 
+### ACC_MAX_BY
+
+```text
+acc_max_by(value, compare_value)
+```
+
+The `acc_max_by` function cumulatively compares `compare_value` and returns the `value` associated with its greatest value. If `compare_value` is equal, the `value` from the latest event is used. It returns `nil` when there is no valid `compare_value`.
+
+Example: get the collection timestamp associated with the cumulative maximum temperature.
+
+```text
+acc_max_by(ts, temp) over (partition by soc)
+```
+
+### ACC_MAP_AGG
+
+```text
+acc_map_agg(key, value)
+```
+
+The `acc_map_agg` function cumulatively builds a key-value array. The `key` is converted to a string. If a key is repeated, its value is updated with the latest value, while the first-seen key order is preserved.
+
+Each returned item is an object containing `key` and `value` fields.
+
+Example:
+
+```text
+acc_map_agg(soc, object_construct(
+    'max_temp', max_temp,
+    'max_temp_ts', max_temp_ts
+))
+```
+
+Example result:
+
+```json
+[
+  {"key": "18", "value": {"max_temp": 30, "max_temp_ts": 1788000060000}},
+  {"key": "19", "value": {"max_temp": 31, "max_temp_ts": 1788000090000}}
+]
+```
+
 ### ACC function with conditions
 
 ACC function can define the starting point and reset point of cumulative calculation by accepting additional expression parameters. The specific usage is as follows

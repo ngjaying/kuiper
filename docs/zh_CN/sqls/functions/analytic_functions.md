@@ -397,6 +397,48 @@ acc_collect(a)
 
 结果为分别为: [1] [1,2] [1,2,3]
 
+### ACC_MAX_BY
+
+```text
+acc_max_by(value, compare_value)
+```
+
+`acc_max_by` 累计比较 `compare_value`，返回其最大值对应的 `value`。当 `compare_value` 相等时，使用最新一条数据对应的 `value`。当没有有效的 `compare_value` 时，返回 `nil`。
+
+示例：获取累计最高温度对应的采集时间。
+
+```text
+acc_max_by(ts, temp) over (partition by soc)
+```
+
+### ACC_MAP_AGG
+
+```text
+acc_map_agg(key, value)
+```
+
+`acc_map_agg` 将输入累计组织为 key-value 数组。`key` 会转换为字符串；当 key 重复时，使用最新的 value 覆盖原 value，并保持 key 首次出现时的顺序。
+
+返回结果中的每一项均为包含 `key` 和 `value` 字段的对象。
+
+示例：
+
+```text
+acc_map_agg(soc, object_construct(
+    'max_temp', max_temp,
+    'max_temp_ts', max_temp_ts
+))
+```
+
+返回结果示例：
+
+```json
+[
+  {"key": "18", "value": {"max_temp": 30, "max_temp_ts": 1788000060000}},
+  {"key": "19", "value": {"max_temp": 31, "max_temp_ts": 1788000090000}}
+]
+```
+
 ### 带有条件的 ACC 函数
 
 ACC 函数可以通过额外接受表达式参数的方式来定义累计计算的开始点和重置点，具体用法如下
