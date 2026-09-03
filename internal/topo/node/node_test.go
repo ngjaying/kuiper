@@ -61,7 +61,6 @@ func TestMultipleOutputsBroadcast(t *testing.T) {
 		{
 			name: "row broadcast",
 			data: &xsql.Tuple{
-				Ctx:       nil,
 				Emitter:   "test",
 				Message:   map[string]any{"a": 20},
 				Timestamp: time.UnixMilli(123456789),
@@ -72,7 +71,6 @@ func TestMultipleOutputsBroadcast(t *testing.T) {
 			data: &xsql.WindowTuples{
 				Content: []xsql.Row{
 					&xsql.Tuple{
-						Ctx:       nil,
 						Emitter:   "test",
 						Message:   map[string]any{"a": 30},
 						Timestamp: time.UnixMilli(123456789),
