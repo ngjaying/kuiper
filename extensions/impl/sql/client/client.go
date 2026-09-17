@@ -81,16 +81,18 @@ func (s *SQLConnection) Dial(ctx api.StreamContext) error {
 	return s.dial(ctx)
 }
 
-func (s *SQLConnection) Reconnect() error {
+func (s *SQLConnection) Reconnect(ctx api.StreamContext) error {
 	s.Lock()
 	defer s.Unlock()
 	if s.db != nil {
-		if err := s.db.Ping(); err == nil {
+		if err := s.db.PingContext(ctx); err == nil {
 			return nil
+		} else if ctx.Err() != nil {
+			return ctx.Err()
 		}
 		_ = s.db.Close()
 	}
-	if err := s.dial(nil); err != nil {
+	if err := s.dial(ctx); err != nil {
 		return fmt.Errorf("reconnect sql err:%v", err)
 	}
 	return nil
